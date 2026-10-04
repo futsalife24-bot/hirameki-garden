@@ -6,7 +6,7 @@
 <title>ひらめきの庭 オープニング試作</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;900&family=Unbounded:wght@400;700&family=Dela+Gothic+One&family=Yusei+Magic&family=Mochiy+Pop+One&family=DotGothic16&family=Shippori+Mincho+B1:wght@800&family=Yuji+Syuku&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;900&family=Unbounded:wght@400;700&family=Reggae+One&family=Hachi+Maru+Pop&family=Kaisei+Decol:wght@700&family=Potta+One&family=Train+One&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
 <style>
 /* 「ひらめきの庭」全体のオープニング試作。
    「ひ・ら・め・き・の」を一文字ずつ別のパズルで組み上げ、最後にすべてのピースが「庭」にまとまる。
@@ -91,12 +91,12 @@ const proj=([px,py,pz])=>{const k=camD()/(pz+camD());return [cx+px*k,cy+py*k]};
 const T=512,CHARS=[...'ひらめきの庭'];
 // 一文字ずつ書体を変える（すべてGoogle Fonts、SIL Open Font License 1.1）
 const FONTS=[
-  {family:'Dela Gothic One',weight:400,label:'DELA GOTHIC ONE'},
-  {family:'Yusei Magic',weight:400,label:'YUSEI MAGIC'},
-  {family:'Mochiy Pop One',weight:400,label:'MOCHIY POP ONE'},
-  {family:'DotGothic16',weight:400,label:'DOTGOTHIC16'},
-  {family:'Shippori Mincho B1',weight:800,label:'SHIPPORI MINCHO B1'},
-  {family:'Yuji Syuku',weight:400,label:'YUJI SYUKU'},
+  {family:'Reggae One',weight:400,label:'REGGAE ONE'},
+  {family:'Hachi Maru Pop',weight:400,label:'HACHI MARU POP'},
+  {family:'Kaisei Decol',weight:700,label:'KAISEI DECOL'},
+  {family:'Potta One',weight:400,label:'POTTA ONE'},
+  {family:'Train One',weight:400,label:'TRAIN ONE'},
+  {family:'Zen Antique Soft',weight:400,label:'ZEN ANTIQUE SOFT'},
 ];
 const mk=()=>{const c=document.createElement('canvas');c.width=c.height=T;return c};
 let glyph=[];
@@ -114,77 +114,106 @@ let INK={};
 
 // ── 盤面の描画（テクスチャ） ──
 const tex=mk(),sil=mk(),mask=mk();
+let glyphTint={};
+function tinted(k,col){const key=k+col;if(glyphTint[key])return glyphTint[key];const c=mk(),g=c.getContext('2d');g.drawImage(glyph[k],0,0);g.globalCompositeOperation='source-in';g.fillStyle=col;g.fillRect(0,0,T,T);return glyphTint[key]=c}
 function rr(g,px,py,w,h,r){g.beginPath();g.roundRect(px,py,w,h,r)}
-function board(g,col){g.clearRect(0,0,T,T);rr(g,6,6,T-12,T-12,40);const bg=g.createLinearGradient(0,0,T,T);bg.addColorStop(0,'#262a3c');bg.addColorStop(1,'#14161f');g.fillStyle=bg;g.fill();g.strokeStyle=col+'66';g.lineWidth=4;g.stroke()}
-// 文字の一部を貼ったタイル
-function tile(g,k,n,i,j,dx,dy,size,rotA,bg,gap,alpha=1){
-  const s=T/n;g.save();g.globalAlpha=alpha;g.translate(dx+size/2,dy+size/2);g.rotate(rotA);
-  if(bg){rr(g,-size/2+gap,-size/2+gap,size-gap*2,size-gap*2,size*.16);g.fillStyle=bg;g.fill()}
-  g.beginPath();g.rect(-size/2+gap,-size/2+gap,size-gap*2,size-gap*2);g.clip();
-  g.drawImage(glyph[k],i*s,j*s,s,s,-size/2,-size/2,size,size);g.restore();
-}
 const M=56,A=T-M*2; // 盤の内側
-// 1 つなぐ → ひ：一筆の線が点を結び、通った所から文字が現れる
-const HI=[[.12,.27],[.38,.23],[.22,.46],[.2,.66],[.3,.83],[.48,.86],[.62,.7],[.66,.46],[.66,.22],[.72,.5],[.84,.7],[.93,.6]];
+
+// 1 塗る → ひ：お絵かきロジック。白い方眼紙を、数字を手がかりに一行ずつ塗る
+function runs(line){const r=[];let c=0;for(const v of line){if(v)c++;else if(c){r.push(c);c=0}}if(c)r.push(c);return r.length?r:[0]}
 function pzHi(g,a,lift){
-  board(g,C.blue);const n=8;g.fillStyle='#f4f1ea40';for(let i=0;i<n;i++)for(let j=0;j<n;j++){g.beginPath();g.arc(M+i*A/(n-1),M+j*A/(n-1),4,0,7);g.fill()}
-  const pts=HI.map(([u,v])=>[u*T,v*T]);let total=0;const L=[];for(let q=1;q<pts.length;q++){L.push(Math.hypot(pts[q][0]-pts[q-1][0],pts[q][1]-pts[q-1][1]));total+=L[q-1]}
-  const e=inOut(a);let rem=total*e;const path=[pts[0]];let head=pts[0];
-  for(let q=1;q<pts.length&&rem>0;q++){const f=Math.min(1,rem/L[q-1]);head=[lerp(pts[q-1][0],pts[q][0],f),lerp(pts[q-1][1],pts[q][1],f)];path.push(head);rem-=L[q-1]}
-  if(!lift){
-    const m=mask.getContext('2d');m.clearRect(0,0,T,T);m.globalCompositeOperation='source-over';m.lineCap='round';m.lineJoin='round';m.strokeStyle='#fff';m.lineWidth=T*.2;m.beginPath();path.forEach((p,q)=>q?m.lineTo(...p):m.moveTo(...p));m.stroke();
-    m.globalCompositeOperation='source-in';m.drawImage(glyph[0],0,0);m.globalCompositeOperation='source-over';
-    g.drawImage(mask,0,0);g.globalAlpha=seg(a,.85,1);g.drawImage(glyph[0],0,0);g.globalAlpha=1;
-  }
-  const lineA=1-seg(a,.9,1);
-  if(lineA>0){g.globalAlpha=lineA;const gr=g.createLinearGradient(0,T,T,0);gr.addColorStop(0,C.blue);gr.addColorStop(1,'#9fb4ff');g.strokeStyle=gr;g.lineWidth=10;g.lineCap='round';g.lineJoin='round';g.beginPath();path.forEach((p,q)=>q?g.lineTo(...p):g.moveTo(...p));g.stroke();g.fillStyle='#fff';g.beginPath();g.arc(...head,11,0,7);g.fill();g.globalAlpha=1}
+  g.clearRect(0,0,T,T);rr(g,6,6,T-12,T-12,18);const bg=g.createLinearGradient(0,0,0,T);bg.addColorStop(0,'#f7f3ea');bg.addColorStop(1,'#e6e0d2');g.fillStyle=bg;g.fill();
+  const n=12,CL=78,gx=M+CL-30,gy=M+CL-30,G=T-gx-40,cs=G/n,on=NONO;
+  g.strokeStyle='#1b234022';g.lineWidth=1;for(let i=0;i<=n;i++){g.lineWidth=i%4?1:2;g.beginPath();g.moveTo(gx+i*cs,gy);g.lineTo(gx+i*cs,gy+G);g.moveTo(gx,gy+i*cs);g.lineTo(gx+G,gy+i*cs);g.stroke()}
+  const row=Math.floor(a*1.12*n),close=seg(a,.86,1);
+  g.font='600 15px Unbounded, sans-serif';g.textBaseline='middle';
+  for(let j=0;j<n;j++){g.fillStyle=j===row?C.blue:'#1b234088';g.textAlign='right';g.fillText(runs(on[j]).join('  '),gx-8,gy+(j+.5)*cs)}
+  for(let i=0;i<n;i++){g.fillStyle='#1b234088';g.textAlign='center';runs(on.map(r=>r[i])).reverse().forEach((v,q)=>g.fillText(v,gx+(i+.5)*cs,gy-12-q*17))}
+  if(lift)return;
+  for(let j=0;j<n;j++)for(let i=0;i<n;i++){if(!on[j][i])continue;const v=seg(a*1.12*n,j+i/n*.8,j+i/n*.8+.6);if(!v)continue;
+    g.globalAlpha=(1-close);g.fillStyle='#1b2340';const p=cs*.08+(1-v)*cs*.3;g.fillRect(gx+i*cs+p,gy+j*cs+p,cs-2*p,cs-2*p);g.globalAlpha=1}
+  if(close>0){g.globalAlpha=close;g.drawImage(tinted(0,'#1b2340'),gx,gy,G,G);g.globalAlpha=1}
 }
-// 2 組む → ら：墨のマスがブロックとして落ちてくる
+// 2 合わせる → ら：リング錠。輪を一つずつ回して、文字の模様をそろえる
+const RINGS=[[0,.12],[.12,.2],[.2,.28],[.28,.36],[.36,.46]],RING0=[2.2,-2.7,1.6,-1.9,2.9];
 function pzRa(g,a,lift){
-  board(g,C.coral);const n=6,s=A/n,cells=INK['1_6'];
-  g.strokeStyle='#ffffff10';g.lineWidth=2;for(let i=0;i<=n;i++){g.beginPath();g.moveTo(M+i*s,M);g.lineTo(M+i*s,M+A);g.moveTo(M,M+i*s);g.lineTo(M+A,M+i*s);g.stroke()}
-  if(lift)return;const close=seg(a,.85,1);
-  cells.forEach(([i,j],q)=>{const d=((n-1-j)*.09+i*.025),v=seg(a,d,d+.32);if(!v)return;const e=outBack(v);
-    tile(g,1,n,i,j,M+i*s,M+(j-(1-e)*(j+2.5))*s,s,0,`rgba(255,93,79,${.9*(1-close)})`,6*(1-close))});
-}
-// 3 はめる → め：ジグソーのピースが飛んできてはまる
-const KN=(()=>{const r=rng(5),h=[],v=[];for(let q=0;q<9;q++){h.push(r()<.5?1:-1);v.push(r()<.5?1:-1)}return {h,v}})();
-function jigPath(g,px,py,s,top,right,bottom,left){
-  const k=s*.17,edge=(x0,y0,x1,y1,d)=>{if(!d){g.lineTo(x1,y1);return}const mx=(x0+x1)/2,my=(y0+y1)/2,ux=(x1-x0)/s,uy=(y1-y0)/s,nx=uy*d,ny=-ux*d;
-    g.lineTo(mx-ux*k*.8,my-uy*k*.8);g.bezierCurveTo(mx-ux*k*1.4+nx*k*1.5,my-uy*k*1.4+ny*k*1.5,mx+ux*k*1.4+nx*k*1.5,my+uy*k*1.4+ny*k*1.5,mx+ux*k*.8,my+uy*k*.8);g.lineTo(x1,y1)};
-  g.beginPath();g.moveTo(px,py);edge(px,py,px+s,py,top);edge(px+s,py,px+s,py+s,right);edge(px+s,py+s,px,py+s,bottom);edge(px,py+s,px,py,left);g.closePath();
-}
-function pzMe(g,a,lift){
-  board(g,C.sand);const n=3,s=A/n,close=seg(a,.85,1);if(lift)return;const r=rng(9);
-  for(let j=0;j<n;j++)for(let i=0;i<n;i++){
-    const q=j*n+i,d=q*.06,v=seg(a,d,d+.38),fx=(r()-.5)*T*.9,fy=(r()-.5)*T*.9,fr=(r()-.5)*2.4;if(!v)continue;const e=outExpo(v);
-    const right=i<n-1?KN.h[q]:0,left=i>0?-KN.h[q-1]:0,bottom=j<n-1?KN.v[q]:0,top=j>0?-KN.v[q-n]:0;
-    const px=M+i*s,py=M+j*s;g.save();g.translate(px+s/2+fx*(1-e),py+s/2+fy*(1-e));g.rotate(fr*(1-e));g.translate(-px-s/2,-py-s/2);
-    jigPath(g,px,py,s,top,right,bottom,left);g.fillStyle=`rgba(60,52,30,${.95*(1-close)})`;g.fill();g.save();g.clip();g.drawImage(glyph[2],0,0);g.restore();
-    g.strokeStyle=`rgba(242,193,78,${.9*(1-close)})`;g.lineWidth=3;g.stroke();g.restore();
+  g.clearRect(0,0,T,T);const c=T/2;
+  g.beginPath();g.arc(c,c,T*.47,0,7);g.fillStyle='#24121a';g.fill();g.lineWidth=5;g.strokeStyle='#ff5d4f88';g.stroke();
+  for(let r=RINGS.length-1;r>=0;r--){const [r0,r1]=RINGS[r],e=outBack(seg(a,(RINGS.length-1-r)*.15,(RINGS.length-1-r)*.15+.32)),ang=RING0[r]*(1-e);
+    g.save();g.beginPath();g.arc(c,c,r1*T,0,Math.PI*2);if(r0){g.moveTo(c+r0*T,c);g.arc(c,c,r0*T,0,Math.PI*2,true)}g.clip('evenodd');
+    g.fillStyle=r%2?'#ff5d4f22':'#ff5d4f12';g.fillRect(0,0,T,T);
+    g.translate(c,c);g.rotate(ang);g.translate(-c,-c);
+    if(!lift)g.drawImage(glyph[1],T*.07,T*.07,T*.86,T*.86);
+    // 目印の刻み
+    g.fillStyle=C.coral;g.beginPath();g.arc(c,c-(r0+r1)/2*T,4,0,7);g.fill();
+    g.restore();
+    g.beginPath();g.arc(c,c,r1*T,0,7);g.lineWidth=2;g.strokeStyle='#ff5d4f55';g.stroke();
   }
+  g.fillStyle='#fff';g.beginPath();g.moveTo(c-9,T*.02);g.lineTo(c+9,T*.02);g.lineTo(c,T*.05);g.fill();
 }
-// 4 動かす → き：スライドパズルを解く
-const SLIDE=(()=>{let b=[0,1,2,3,4,5,6,7,8],blank=[2,2];const moves=[[0,-1],[-1,0],[0,1],[-1,0],[0,-1],[1,0]];const hist=[];
-  for(const [dx,dy] of moves){const nb=[blank[0]+dx,blank[1]+dy],bi=blank[1]*3+blank[0],ni=nb[1]*3+nb[0];[b[bi],b[ni]]=[b[ni],b[bi]];hist.push({tile:b[bi],from:nb,to:blank});blank=nb}
-  return {start:b.slice(),sol:hist.reverse().map(h=>({tile:h.tile,from:h.to,to:h.from}))}})();
+// 3 映す → め：影絵。手前の立体を回すと、壁に落ちる影が文字になる
+function pzMe(g,a,lift){
+  g.clearRect(0,0,T,T);rr(g,6,6,T-12,T-12,24);const bg=g.createRadialGradient(T*.55,T*.45,T*.05,T/2,T/2,T*.75);bg.addColorStop(0,'#f6e7bf');bg.addColorStop(1,'#bfa56a');g.fillStyle=bg;g.fill();
+  if(lift)return;const al=inOut(seg(a,0,.8)),blur=(1-al)*18;
+  g.save();g.translate(T/2,T/2);g.rotate((1-al)*.9);g.transform(1,0,(1-al)*.6,1,0,0);g.scale(lerp(.3,1,al),lerp(.8,1,al));
+  const sh=tinted(2,'#2a2110');for(let q=0;q<6;q++){const o=blur*(q/5-.5);g.globalAlpha=(.85/(blur>1?3:1))*(q?1:1);g.drawImage(sh,-T*.42+o,-T*.42-o*.6,T*.84,T*.84)}
+  g.restore();g.globalAlpha=1;
+}
+// 4 満たす → き：ビー玉が次々に落ちて、文字の形を満たす
+const outBounce=v=>{const n=7.5625,d=2.75;if(v<1/d)return n*v*v;if(v<2/d)return n*(v-=1.5/d)*v+.75;if(v<2.5/d)return n*(v-=2.25/d)*v+.9375;return n*(v-=2.625/d)*v+.984375};
 function pzKi(g,a,lift){
-  board(g,C.violet);const n=3,s=A/n,close=seg(a,.88,1);if(lift)return;
-  const pos={};SLIDE.start.forEach((tv,q)=>{if(tv!==8)pos[tv]=[q%3,Math.floor(q/3)]});
-  SLIDE.sol.forEach((m,q)=>{const v=inOut(seg(a,q*.13,q*.13+.12));pos[m.tile]=[lerp(m.from[0],m.to[0],v),lerp(m.from[1],m.to[1],v)]});
-  for(let tv=0;tv<8;tv++){const [i,j]=pos[tv];tile(g,3,n,tv%3,Math.floor(tv/3),M+i*s,M+j*s,s,0,`rgba(160,132,255,${.55*(1-close)})`,7*(1-close))}
-  const last=seg(a,.8,.92);if(last>0)tile(g,3,n,2,2,M+2*s,M+2*s,s,0,`rgba(160,132,255,${.55*(1-close)})`,7*(1-close),last);
+  g.clearRect(0,0,T,T);rr(g,6,6,T-12,T-12,40);const bg=g.createLinearGradient(0,0,T,T);bg.addColorStop(0,'#251d3f');bg.addColorStop(1,'#120e20');g.fillStyle=bg;g.fill();g.strokeStyle='#a084ff66';g.lineWidth=4;g.stroke();
+  if(lift)return;const close=seg(a,.86,1);
+  g.globalAlpha=.1*(1-close);g.drawImage(glyph[3],0,0);g.globalAlpha=1;
+  for(const b of BALLS){const v=seg(a,b.d,b.d+.2);if(!v)continue;const y=lerp(-30,b.y,outBounce(v)),r=b.r*(1-close*.9);
+    g.beginPath();g.arc(b.x+b.dx*(1-v),y,r,0,7);g.fillStyle=b.col;g.fill();g.beginPath();g.arc(b.x+b.dx*(1-v)-r*.35,y-r*.35,r*.3,0,7);g.fillStyle='#ffffffaa';g.fill()}
+  if(close>0){g.globalAlpha=close;g.drawImage(glyph[3],0,0);g.globalAlpha=1}
 }
-// 5 回す → の：向きのずれたタイルを回してそろえる
+// 5 ひらく → の：四隅を折りたたんだ紙を、一枚ずつ開く
 function pzNo(g,a,lift){
-  board(g,C.lime);const n=4,s=A/n,close=seg(a,.88,1);if(lift)return;const r=rng(21);
-  for(let j=0;j<n;j++)for(let i=0;i<n;i++){const q=j*n+i,turns=1+Math.floor(r()*3),d=q*.045,v=outBack(seg(a,d,d+.3));
-    tile(g,4,n,i,j,M+i*s,M+j*s,s,turns*Math.PI/2*(1-v),`rgba(201,242,107,${.22*(1-close)})`,6*(1-close));
-    if(close<1){g.save();g.globalAlpha=1-close;g.strokeStyle='#c9f26b55';g.lineWidth=2;rr(g,M+i*s+6,M+j*s+6,s-12,s-12,s*.16);g.stroke();g.restore()}}
+  g.clearRect(0,0,T,T);const P0=M,P=A,mid=P0+P/2,close=seg(a,.86,1);
+  const front=(gg)=>{const gr=gg.createLinearGradient(P0,P0,P0+P,P0+P);gr.addColorStop(0,'#d8f78a');gr.addColorStop(1,'#a9d34a');gg.fillStyle=gr;gg.fillRect(P0,P0,P,P);if(!lift)gg.drawImage(tinted(4,'#24330d'),P0+P*.06,P0+P*.06,P*.88,P*.88)};
+  g.globalAlpha=1-close*(lift?0:1);
+  // 中央のひし形（常に表）
+  g.save();g.beginPath();g.moveTo(mid,P0);g.lineTo(P0+P,mid);g.lineTo(mid,P0+P);g.lineTo(P0,mid);g.closePath();g.clip();front(g);g.restore();
+  const flaps=[[[P0,P0],[mid,P0],[P0,mid]],[[P0+P,P0],[P0+P,mid],[mid,P0]],[[P0+P,P0+P],[mid,P0+P],[P0+P,mid]],[[P0,P0+P],[P0,mid],[mid,P0+P]]];
+  const order=flaps.map((f,q)=>{const e=inOut(seg(a,q*.18,q*.18+.3));return {f,c:Math.cos(Math.PI*(1-e))}}).sort((p,q)=>q.c-p.c);
+  for(const {f:[corner,p1,p2],c} of order){
+    let nx=-(p2[1]-p1[1]),ny=p2[0]-p1[0];const l=Math.hypot(nx,ny);nx/=l;ny/=l;if((corner[0]-p1[0])*nx+(corner[1]-p1[1])*ny<0){nx=-nx;ny=-ny}
+    const k=1-c,d=p1[0]*nx+p1[1]*ny;
+    g.save();g.transform(1-k*nx*nx,-k*nx*ny,-k*nx*ny,1-k*ny*ny,k*d*nx,k*d*ny);
+    g.beginPath();g.moveTo(...corner);g.lineTo(...p1);g.lineTo(...p2);g.closePath();g.clip();
+    if(c>=0)front(g);else{g.fillStyle='#eef9c8';g.fillRect(P0,P0,P,P)}
+    g.fillStyle=`rgba(20,30,5,${.3*(1-Math.abs(c))})`;g.fillRect(P0,P0,P,P);g.restore();
+  }
+  g.strokeStyle='#24330d33';g.lineWidth=1.5;g.beginPath();g.moveTo(mid,P0);g.lineTo(P0+P,mid);g.lineTo(mid,P0+P);g.lineTo(P0,mid);g.closePath();g.stroke();
+  g.globalAlpha=1;if(close>0&&!lift){g.globalAlpha=close;g.drawImage(glyph[4],P0+P*.06,P0+P*.06,P*.88,P*.88);g.globalAlpha=1}
 }
 const PUZZLES=[pzHi,pzRa,pzMe,pzKi,pzNo];
-const SCENE=[{col:C.blue,bg:'#101633',w:'つなぐ',en:'CONNECT'},{col:C.coral,bg:'#2a1012',w:'組む',en:'STACK'},{col:C.sand,bg:'#241f10',w:'はめる',en:'FIT'},{col:C.violet,bg:'#1a1430',w:'動かす',en:'SLIDE'},{col:C.lime,bg:'#141f10',w:'回す',en:'TURN'}];
+const SCENE=[{col:C.blue,bg:'#101633',w:'塗る',en:'FILL'},{col:C.coral,bg:'#2a1012',w:'合わせる',en:'ALIGN'},{col:C.sand,bg:'#241f10',w:'映す',en:'CAST'},{col:C.violet,bg:'#1a1430',w:'満たす',en:'POUR'},{col:C.lime,bg:'#141f10',w:'ひらく',en:'UNFOLD'}];
 const S0=k=>.6+k*1.25,GARDEN=6.85,PING=7.92;
+let NONO=[],BALLS=[];
+function puzzleData(){
+  const cells=inkCells(0,12);NONO=[...Array(12)].map(()=>Array(12).fill(0));cells.forEach(([i,j])=>NONO[j][i]=1);
+  const d=glyph[3].getContext('2d').getImageData(0,0,T,T).data,r=rng(17),pts=[],sp=T*.042;
+  for(let y=sp/2;y<T;y+=sp)for(let xx=sp/2;xx<T;xx+=sp){const jx=xx+(r()-.5)*sp*.5,jy=y+(r()-.5)*sp*.5;if(d[(Math.floor(jy)*T+Math.floor(jx))*4+3]>140)pts.push([jx,jy])}
+  pts.sort((p,q)=>q[1]-p[1]);const cols=['#a084ff','#c9b8ff','#f4f1ea','#7d63e8'];
+  BALLS=pts.map(([px,py],q)=>({x:px,y:py,r:sp*.55,d:q/pts.length*.68,dx:(r()-.5)*60,col:cols[q%4]}));
+}
+
+// 影絵の立体（小さな立方体の集まり）
+const FACES=[[[1,0,0],[1,2,6,5]],[[-1,0,0],[0,4,7,3]],[[0,1,0],[3,7,6,2]],[[0,-1,0],[0,1,5,4]],[[0,0,1],[4,5,6,7]],[[0,0,-1],[0,3,2,1]]];
+const VERTS=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]];
+const LIGHT=(()=>{const v=[-.4,-.65,-.7],l=Math.hypot(...v);return v.map(n=>n/l)})();
+const CLUSTER=[[0,0,0],[1,0,0],[0,1,0],[0,-1,0],[-1,0,1],[0,0,-1],[1,1,1],[-1,-1,0]];
+function drawCluster(pos,ang,h,alpha){
+  const list=[];for(const cc of CLUSTER){const place=v=>{const r=rot(v,ang);return [r[0]+pos[0],r[1]+pos[1],r[2]+pos[2]]};const ctr=cc.map(v=>v*h*2.05);
+    const vs=VERTS.map(v=>place([ctr[0]+v[0]*h,ctr[1]+v[1]*h,ctr[2]+v[2]*h])),faces=[];
+    for(const [nn,idx] of FACES){const nr=rot(nn,ang),fc=idx.reduce((s,q)=>[s[0]+vs[q][0]/4,s[1]+vs[q][1]/4,s[2]+vs[q][2]/4],[0,0,0]);if(nr[0]*fc[0]+nr[1]*fc[1]+nr[2]*(fc[2]+camD())>=0)continue;
+      const lit=.4+.6*Math.max(0,nr[0]*LIGHT[0]+nr[1]*LIGHT[1]+nr[2]*LIGHT[2]);faces.push({pts:idx.map(q=>proj(vs[q])),fill:`rgba(${[242,193,78].map(v=>Math.round(v*lit)).join(',')},${alpha})`})}
+    list.push({z:place(ctr)[2],faces})}
+  list.sort((p,q)=>q.z-p.z);for(const f of list.flatMap(c=>c.faces)){x.beginPath();f.pts.forEach(([u,v],q)=>q?x.lineTo(u,v):x.moveTo(u,v));x.closePath();x.fillStyle=f.fill;x.fill();x.strokeStyle=`rgba(255,240,200,${.25*alpha})`;x.lineWidth=1;x.stroke()}
+}
 
 // 盤を厚みつきの板として3Dで描く
 function drawSlab(pos,ang,s,alpha){
@@ -215,7 +244,9 @@ const beatEls=SCENE.map((sc,k)=>[sc.col,`0${k+1}`,`${sc.w} → ${CHARS[k]}`,sc.e
 
 // 「庭」のタイル：五つのパズルの色が集まってくる
 let NIWA=[];
-function niwaTiles(){const r=rng(33),cols=[C.blue,C.coral,C.sand,C.violet,C.lime];NIWA=INK['5_6'].map(([i,j],q)=>({i,j,from:q%5,ang:r()*Math.PI*2,rad:.5+r()*.5,spin:(r()-.5)*6,d:r()*.3,col:cols[q%5]}))}
+function niwaTiles(){const r=rng(33),cols=[C.blue,C.coral,C.sand,C.violet,C.lime];NIWA=INK['5_6'].flatMap(([i,j],q)=>[0,1].map(h=>({i,j,h,diag:(i+j)%2,from:(q*2+h)%5,ang:r()*Math.PI*2,rad:.5+r()*.5,spin:(r()-.5)*7,d:r()*.32,col:cols[(q*2+h)%5]})))}
+// 三角のかけら：マスを対角線で二つに割る
+function triPath(cs,tl){const a=-cs/2,b=cs/2;x.beginPath();const P=tl.diag?(tl.h?[[a,a],[b,a],[a,b]]:[[b,a],[b,b],[a,b]]):(tl.h?[[a,a],[b,a],[b,b]]:[[a,a],[b,b],[a,b]]);P.forEach(([u,v],q)=>q?x.lineTo(u,v):x.moveTo(u,v));x.closePath()}
 
 const sparks=(r=>Array.from({length:44},(_,i)=>({dir:r()*Math.PI*2,fly:.35+.45*r(),size:.6+r()*.9,col:[C.blue,C.coral,C.sand,C.violet,C.lime][i%5]})))(rng(7));
 
@@ -241,7 +272,9 @@ function render(t){
 
   // パズルの盤
   for(let k=0;k<5;k++){const u=t-S0(k);if(u<0||u>1.3)continue;
-    PUZZLES[k](tex.getContext('2d'),seg(u,.28,1.0),u>1.0);const p=boardPose(k,t);drawSlab(p.pos,p.ang,p.s,p.alpha)}
+    PUZZLES[k](tex.getContext('2d'),seg(u,.28,1.0),u>1.0);const p=boardPose(k,t);if(k===2)p.pos[0]+=S*.09;drawSlab(p.pos,p.ang,p.s,p.alpha);
+    // 影絵の立体：回りながら、正面を向いた瞬間に影が文字になる
+    if(k===2){const al=inOut(seg(seg(u,.28,1.0),0,.8));drawCluster([p.pos[0]-p.s*1.55,p.pos[1]-p.s*.1,p.pos[2]-S*.18],[lerp(1.3,.25,al)+u*.2,lerp(2.8,.45,al),lerp(.9,.1,al)],p.s*.085,p.alpha*(1-seg(u,1.0,1.2)))}}
 
   // 完成した文字が盤から抜け出して、下の列へ並ぶ
   for(let k=0;k<5;k++){const u=t-S0(k);if(u<1.0)continue;
@@ -263,8 +296,8 @@ function render(t){
         const px=lerp(cx+(tl.from-2)*L()*.62+Math.cos(tl.ang)*S*.15,hx,v),py=lerp(waitY()+Math.sin(tl.ang)*S*.1,hy,v);
         x.save();x.translate(px+cs/2,py+cs/2);x.rotate(tl.spin*(1-v));x.scale(lerp(.3,1,v),lerp(.3,1,v));
         const gap=cs*.08*(1-close);
-        x.beginPath();x.roundRect(-cs/2+gap,-cs/2+gap,cs-gap*2,cs-gap*2,cs*.16);x.fillStyle=tl.col;x.globalAlpha=.85*(1-close);x.fill();x.globalAlpha=1;
-        x.beginPath();x.rect(-cs/2+gap,-cs/2+gap,cs-gap*2,cs-gap*2);x.clip();x.drawImage(glyph[5],tl.i*T/n,tl.j*T/n,T/n,T/n,-cs/2,-cs/2,cs,cs);x.restore();
+        x.scale(1-gap/cs*2,1-gap/cs*2);triPath(cs,tl);x.fillStyle=tl.col;x.globalAlpha=.85*(1-close);x.fill();x.globalAlpha=1;
+        triPath(cs,tl);x.clip();x.drawImage(glyph[5],tl.i*T/n,tl.j*T/n,T/n,T/n,-cs/2,-cs/2,cs,cs);x.restore();
       }
       x.restore();
     }else drawGlyph(5,logoX(5),logoY(),logoSize(5),1-seg(t,9.05,9.35));
@@ -334,12 +367,13 @@ function scoreAudio(base){
   const root=[69,72,74,76,79];
   for(let k=0;k<5;k++){const s0=S0(k);
     whoosh(at(s0-.05),.4,600,5000,.09);thump(at(s0),.32);
-    // ピースが収まる音
-    if(k===0)for(let q=0;q<6;q++)click(at(s0+.3+q*.11),.05,3200);
-    if(k===1)INK['1_6'].forEach(([i,j])=>{const d=((5-j)*.09+i*.025);click(at(s0+.28+(d+.25)*.72),.045,1800)});
-    if(k===2)for(let q=0;q<9;q++)click(at(s0+.28+(q*.06+.3)*.72),.07,2200);
-    if(k===3)for(let q=0;q<6;q++)click(at(s0+.28+(q*.13+.1)*.72),.07,1500);
-    if(k===4)for(let q=0;q<16;q++)click(at(s0+.28+(q*.045+.2)*.72),.04,2800);
+    // パズルごとに違う手ざわりの音（時刻は盤上の進み具合 a に合わせる）
+    const A=v=>at(s0+.28+v*.72);
+    if(k===0)for(let j=0;j<12;j++)if(NONO[j].some(Boolean))click(A((j+.3)/(1.12*12)),.05,3400);           // 鉛筆で塗る
+    if(k===1)for(let r=0;r<5;r++){const d=r*.15;for(let q=0;q<3;q++)click(A(d+q*.06),.035,1400);thump(A(d+.25),.12)}  // 輪が回って止まる
+    if(k===2){whoosh(A(0),.55,200,900,.08,'lowpass');pluck(A(.8),91,.05,1.4);pluck(A(.82),98,.03,1.2)}       // 影が合う
+    if(k===3)BALLS.forEach((b,q)=>{if(q%5===0){const o=osc('sine',2600+(q*137)%1600,A(b.d+.14),.06),g=AC.createGain();env(g,A(b.d+.14),.002,.03,.05);o.connect(g);out(g,1,.2)}}); // ビー玉
+    if(k===4)for(let q=0;q<4;q++)whoosh(A(q*.18+.05),.24,900,3200,.07,'bandpass');                         // 紙をひらく
     // 文字ができた瞬間
     pluck(at(s0+.98),root[k],.14,1.1);pluck(at(s0+.98),root[k]+7,.06,.8);
     whoosh(at(s0+1.0),.4,1500,400,.05);
@@ -372,7 +406,7 @@ function play(){
   loop();
 }
 function seek(t){cancelAnimationFrame(raf);fixed=t;render(t)}
-function prepare(){makeGlyphs();INK={'1_6':inkCells(1,6),'5_6':inkCells(5,6)};niwaTiles()}
+function prepare(){makeGlyphs();glyphTint={};INK={'5_6':inkCells(5,6)};puzzleData();niwaTiles()}
 addEventListener('resize',()=>{resize();render(now())});resize();prepare();
 $('skip').onclick=()=>{stopAudio();seek(DURATION+.6);$('replay').focus()};
 $('replay').onclick=()=>{play();$('skip').focus()};
