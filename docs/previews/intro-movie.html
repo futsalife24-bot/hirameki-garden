@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;900&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* 「ひらめきの庭」全体のオープニング試作。テーマは「ひらめき」の瞬間。特定のゲームの世界観には寄せない。約8.6秒。 */
+/* 「ひらめきの庭」全体のオープニング試作。テーマは「ひらめき」の瞬間。立体のかけらが組み上がる。特定のゲームの世界観には寄せない。約9.2秒。 */
 :root{--bg:#0b0b10;--cream:#f4f1ea;--dim:#f4f1ea80;--blue:#4a6dff;--coral:#ff5d4f;--lime:#c9f26b;--violet:#a084ff;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;color:var(--cream);font-family:'Zen Kaku Gothic New',system-ui,sans-serif}
@@ -61,13 +61,14 @@ body.done .ui button{color:#2a2a30;border-color:#2a2a3055;background:transparent
 <div class="ui"><button id="skip" type="button">スキップ ›</button><button id="replay" type="button">もう一度見る ↺</button></div>
 
 <script>
-const DURATION=8.6;
+const DURATION=9.2;
 const cv=document.getElementById('c'),x=cv.getContext('2d');
 const $=id=>document.getElementById(id);
 const h1=document.querySelector('.logo h1');
 [...'ひらめきの庭'].forEach(ch=>{const m=document.createElement('span');m.className='m';m.innerHTML=`<span>${ch}</span>`;h1.appendChild(m)});
 const letters=[...h1.querySelectorAll('.m>span')];
 const COLORS=['#4a6dff','#ff5d4f','#c9f26b','#a084ff'];
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
 
 let W=0,H=0,S=0,cx=0,cy=0;
 function resize(){const r=devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*r;cv.height=H*r;x.setTransform(r,0,0,r,0,0);S=Math.min(W,H);cx=W/2;cy=H/2-S*.02}
@@ -80,15 +81,32 @@ const outBack=v=>{const c=1.9;return 1+(c+1)*Math.pow(v-1,3)+c*Math.pow(v-1,2)};
 const inOut=v=>v<.5?4*v*v*v:1-Math.pow(-2*v+2,3)/2;
 const inoutVis=(t,a,b,f=.3)=>Math.min(seg(t,a,a+f),1-seg(t,b-f,b));
 const lerp=(a,b,k)=>a+(b-a)*k;
+// 立方体は90度ごとに同じ見た目なので、最短の向きへそろえる
+const quarter=d=>d-Math.PI/2*Math.round(d/(Math.PI/2));
 
-// 思考のかけら。固定の乱数で毎回同じ動きになる。
+// 3D：Z→Y→Xの順に回し、透視投影する
+function rot([px,py,pz],[ax,ay,az]){
+  let c=Math.cos(az),s=Math.sin(az);[px,py]=[px*c-py*s,px*s+py*c];
+  c=Math.cos(ay);s=Math.sin(ay);[px,pz]=[px*c+pz*s,-px*s+pz*c];
+  c=Math.cos(ax);s=Math.sin(ax);[py,pz]=[py*c-pz*s,py*s+pz*c];
+  return [px,py,pz];
+}
+const proj=([px,py,pz])=>{const D=S*1.5,k=D/(pz+D);return [cx+px*k,cy+py*k]};
+const LIGHT=(()=>{const v=[-.4,-.65,-.7],l=Math.hypot(...v);return v.map(n=>n/l)})();
+const FACES=[[[1,0,0],[1,2,6,5]],[[-1,0,0],[0,4,7,3]],[[0,1,0],[3,7,6,2]],[[0,-1,0],[0,1,5,4]],[[0,0,1],[4,5,6,7]],[[0,0,-1],[0,3,2,1]]];
+const VERTS=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]];
+
+// かけら：27個の小さな立方体。固定の乱数で毎回同じ動きになる。
 let seed=20261004;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
-const COUNT=96,OUTLINE=64;
-const bits=Array.from({length:COUNT},(_,i)=>({
-  r:.1+.3*rnd(),w:(.35+.55*rnd())*(rnd()<.5?-1:1),ph:rnd()*Math.PI*2,
-  k1:1+rnd()*2.2,k2:1+rnd()*2.2,p1:rnd()*7,p2:rnd()*7,amp:.03+.05*rnd(),
-  born:rnd()*1.1,size:.6+rnd()*.9,dir:rnd()*Math.PI*2,fly:.35+.4*rnd(),col:COLORS[i%4]
+const CORE=13,ACCENT=[1,3,8,9,17,20,22,25,24,6];
+const cubes=Array.from({length:27},(_,i)=>({
+  g:[i%3-1,Math.floor(i/3)%3-1,Math.floor(i/9)-1],
+  r:.12+.24*rnd(),y:(rnd()-.5)*.6,w:(.3+.5*rnd())*(rnd()<.5?-1:1),ph:rnd()*Math.PI*2,k:1+rnd()*2,p:rnd()*7,
+  a0:[rnd()*6,rnd()*6,rnd()*6],spin:[(rnd()-.5)*2.4,(rnd()-.5)*2.4,(rnd()-.5)*2.4],
+  born:rnd()*1.1,col:i===CORE?'#fff6dc':(ACCENT.includes(i)?COLORS[ACCENT.indexOf(i)%4]:'#f1ede4'),
 }));
+const sparks=Array.from({length:36},(_,i)=>({dir:rnd()*Math.PI*2,fly:.35+.4*rnd(),size:.6+rnd()*.9,col:COLORS[i%4]}));
+const dust=Array.from({length:60},()=>({x:rnd(),y:rnd(),z:.3+rnd()*.7,v:(rnd()-.5)*.02}));
 
 // 「ふと」で時間がほとんど止まる
 function tau(t){
@@ -96,98 +114,115 @@ function tau(t){
   if(t<3.7){const d=t-3.3;return 3.3+d-2.4*d*d/2}
   return 3.508+.04*(t-3.7);
 }
-function wander(b,T){
-  const tight=seg(T,1.6,3.5),r=S*b.r*(1-.4*tight),th=b.ph+b.w*T+b.w*.9*Math.pow(Math.max(0,T-1.6),2);
-  return [cx+Math.cos(th)*r+S*b.amp*Math.sin(b.k1*T+b.p1),cy+Math.sin(th)*r*.82+S*b.amp*Math.cos(b.k2*T+b.p2)];
+function drift(c,T){
+  const tight=seg(T,1.6,3.5),r=S*c.r*(1-.35*tight),th=c.ph+c.w*T+c.w*.8*Math.pow(Math.max(0,T-1.6),2);
+  return {pos:[Math.cos(th)*r,S*c.y*(1-.4*tight)+S*.035*Math.sin(c.k*T+c.p),Math.sin(th)*r*.9],ang:c.a0.map((a,j)=>a+c.spin[j]*T)};
 }
+const PING=4.2;
+const groupAng=t=>[.55,Math.PI/4-.35+(t-PING)*.45,0];
+
+function drawCubes(t){
+  const T=tau(t),snap=outExpo(seg(t,PING,PING+.45)),hush=seg(t,3.3,3.7)*(1-seg(t,PING,PING+.05));
+  const burst=outExpo(seg(t,5.55,6.05)),gone=seg(t,5.6,5.9);
+  if(gone>=1)return;
+  const e=S*.03,G=groupAng(t),polys=[];
+  cubes.forEach((c,i)=>{
+    const vis=seg(t,c.born,c.born+.6);if(!vis)return;
+    let {pos,ang}=drift(c,T);
+    if(i===CORE){const m=inOut(seg(t,3.35,4.1));pos=pos.map(v=>v*(1-m))}
+    if(t>=PING){
+      const at=c.g.map(v=>v*e*2.12*(1+1.8*burst)),tgt=rot(at,G),from=drift(c,tau(PING));
+      if(i===CORE)from.pos=[0,0,0];
+      pos=from.pos.map((v,j)=>lerp(v,tgt[j],snap));
+      ang=from.ang.map((a,j)=>G[j]+quarter(a-G[j])*(1-snap)+(c.spin[j]*burst*.6));
+    }
+    const scale=e*(i===CORE?.9:1);
+    const vs=VERTS.map(v=>{const r=rot(v.map(n=>n*scale),ang);return [r[0]+pos[0],r[1]+pos[1],r[2]+pos[2]]});
+    const base=hex(c.col),depthDim=1-.35*clamp((pos[2]/S+.3)/.6);
+    const alpha=vis*(1-gone)*(t<PING?(i===CORE?1:1-.6*hush):1);
+    const faces=[];
+    for(const [n,idx] of FACES){
+      const nr=rot(n,ang),fc=idx.reduce((a,k)=>[a[0]+vs[k][0]/4,a[1]+vs[k][1]/4,a[2]+vs[k][2]/4],[0,0,0]);
+      if(nr[0]*fc[0]+nr[1]*fc[1]+nr[2]*(fc[2]+S*1.5)>=0)continue;
+      const lit=i===CORE?1:(.38+.62*Math.max(0,nr[0]*LIGHT[0]+nr[1]*LIGHT[1]+nr[2]*LIGHT[2]))*depthDim;
+      faces.push({pts:idx.map(k=>proj(vs[k])),fill:`rgba(${base.map(v=>Math.round(v*lit)).join(',')},${alpha})`,a:alpha,core:i===CORE});
+    }
+    polys.push({z:pos[2],faces});
+  });
+  // 立方体ごとに奥から描く（凸なので面の順序は気にしなくてよい）
+  polys.sort((p,q)=>q.z-p.z);
+  x.lineJoin='round';
+  for(const p of polys.flatMap(c=>c.faces)){
+    x.beginPath();p.pts.forEach(([a,b],k)=>k?x.lineTo(a,b):x.moveTo(a,b));x.closePath();
+    if(p.core){x.shadowColor='#ffe9a6';x.shadowBlur=S*.05}
+    x.fillStyle=p.fill;x.fill();x.shadowBlur=0;
+    x.strokeStyle=`rgba(255,255,255,${.16*p.a})`;x.lineWidth=1;x.stroke();
+  }
+}
+
 // ひらめきの印：四つの光の尖り（アステロイド）
 const R=()=>S*.17;
-function spark(i){const th=i/OUTLINE*Math.PI*2,c=Math.cos(th),s=Math.sin(th);return [cx+R()*c*c*c,cy+R()*s*s*s]}
 function sparkPath(px,py,r){x.beginPath();for(let k=0;k<=96;k++){const th=k/96*Math.PI*2,c=Math.cos(th),s=Math.sin(th),X=px+r*c*c*c,Y=py+r*s*s*s;k?x.lineTo(X,Y):x.moveTo(X,Y)}x.closePath()}
 
-const PING=4.2;
 function render(t){
-  x.globalAlpha=1;x.shadowBlur=0;
-  const bg=x.createRadialGradient(cx,cy,0,cx,cy,Math.hypot(W,H)/2);bg.addColorStop(0,'#14141c');bg.addColorStop(1,'#0b0b10');x.fillStyle=bg;x.fillRect(0,0,W,H);
+  x.globalAlpha=1;x.shadowBlur=0;x.lineCap='round';
+  const bg=x.createRadialGradient(cx,cy,0,cx,cy,Math.hypot(W,H)/2);bg.addColorStop(0,'#16161f');bg.addColorStop(1,'#0b0b10');x.fillStyle=bg;x.fillRect(0,0,W,H);
 
-  const T=tau(t),hush=seg(t,3.3,3.7)*(1-seg(t,PING,PING+.05));
-  const snap=outExpo(seg(t,PING,PING+.45)),gather=1-seg(t,4.75,5.2);
-  x.lineCap='round';
+  // 漂う塵
+  const da=seg(t,.2,1.2)*(1-seg(t,PING,PING+.3))*(1-.6*seg(t,3.3,3.7));
+  if(da>0){const T=tau(t);x.fillStyle='#c8cef0';for(const d of dust){x.globalAlpha=da*.35*d.z;x.beginPath();x.arc(((d.x+d.v*T)%1+1)%1*W,((d.y-d.v*.5*T)%1+1)%1*H,S*.0022*d.z,0,7);x.fill()}x.globalAlpha=1}
 
-  // 1〜2. 迷い：軌跡を引きながら漂う
-  if(t<PING+.6){
-    for(let i=1;i<COUNT;i++){
-      const b=bits[i],vis=seg(t,b.born,b.born+.6);if(!vis)continue;
-      const burst=i>=OUTLINE;
-      if(t<PING){
-        const a=vis*(.85-.55*hush);
-        x.strokeStyle=`rgba(150,160,220,${.22*a})`;x.lineWidth=S*.0018*b.size;x.beginPath();
-        for(let k=0;k<=12;k++){const [px,py]=wander(b,Math.max(0,T-.55*k/12));k?x.lineTo(px,py):x.moveTo(px,py)}
-        x.stroke();
-        const [px,py]=wander(b,T);x.fillStyle=`rgba(200,206,240,${a})`;x.beginPath();x.arc(px,py,S*.0035*b.size,0,7);x.fill();
-      }else if(!burst){
-        // 3. 一瞬で整列して光の形になる
-        const [sx,sy]=wander(b,tau(PING)),[tx,ty]=spark(i);
-        const px=lerp(sx,tx,snap),py=lerp(sy,ty,snap);
-        x.globalAlpha=gather;x.fillStyle='#f4f1ea';x.shadowColor=b.col;x.shadowBlur=S*.02;x.beginPath();x.arc(px,py,S*.004*(1+.6*(1-snap)),0,7);x.fill();x.shadowBlur=0;x.globalAlpha=1;
-      }
-    }
-  }
-  // 火花：中心から四色で散る
-  const fl=seg(t,PING,PING+.9);
-  if(fl>0&&fl<1)for(let i=OUTLINE;i<COUNT;i++){
-    const b=bits[i],d=S*(.04+b.fly*outExpo(fl)),px=cx+Math.cos(b.dir)*d,py=cy+Math.sin(b.dir)*d,d0=S*(.04+b.fly*outExpo(Math.max(0,fl-.08)));
-    x.strokeStyle=b.col;x.globalAlpha=1-fl;x.lineWidth=S*.005*b.size;x.beginPath();x.moveTo(cx+Math.cos(b.dir)*d0,cy+Math.sin(b.dir)*d0);x.lineTo(px,py);x.stroke();x.globalAlpha=1;
-  }
+  // ふと：芯の光
+  const m=inOut(seg(t,3.35,4.1))*(1-seg(t,PING,PING+.3));
+  if(m>0){const g=x.createRadialGradient(cx,cy,0,cx,cy,S*.22);g.addColorStop(0,`rgba(255,240,200,${.35*m})`);g.addColorStop(1,'rgba(255,240,200,0)');x.fillStyle=g;x.fillRect(0,0,W,H)}
 
-  // 2. ふと：ひとつのかけらが中心へ寄り、灯る
-  if(t>=bits[0].born&&t<PING+.1){
-    const b=bits[0],[wx,wy]=wander(b,T),m=inOut(seg(t,3.35,4.1)),px=lerp(wx,cx,m),py=lerp(wy,cy,m);
-    const glow=S*(.004+.012*m)*(1+.12*Math.sin(t*18)*m);
-    const g=x.createRadialGradient(px,py,0,px,py,S*.12*m+1);g.addColorStop(0,`rgba(244,241,234,${.4*m})`);g.addColorStop(1,'rgba(244,241,234,0)');x.fillStyle=g;x.fillRect(px-S*.13,py-S*.13,S*.26,S*.26);
-    x.fillStyle='#f4f1ea';x.beginPath();x.arc(px,py,glow,0,7);x.fill();
-  }
+  drawCubes(t);
 
-  // 3. ピン：衝撃の輪と光線
+  // ピン：衝撃の輪と光線と火花
   const sw=seg(t,PING,PING+.85);
   if(sw>0&&sw<1){
-    x.strokeStyle=`rgba(244,241,234,${.7*(1-sw)})`;x.lineWidth=S*.01*(1-sw)+1;x.beginPath();x.arc(cx,cy,S*(.03+.75*outExpo(sw)),0,7);x.stroke();
+    x.strokeStyle=`rgba(244,241,234,${.7*(1-sw)})`;x.lineWidth=S*.01*(1-sw)+1;x.beginPath();x.arc(cx,cy,S*(.05+.75*outExpo(sw)),0,7);x.stroke();
     const rl=seg(t,PING,PING+.7);x.lineWidth=S*.004;
-    for(let k=0;k<8;k++){const a=k/8*Math.PI*2+Math.PI/8,r0=S*(.06+.5*outExpo(rl)),r1=r0+S*.18*(1-rl);x.strokeStyle=COLORS[k%4];x.globalAlpha=1-rl;x.beginPath();x.moveTo(cx+Math.cos(a)*r0,cy+Math.sin(a)*r0);x.lineTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);x.stroke()}
+    for(let k=0;k<8;k++){const a=k/8*Math.PI*2+Math.PI/8,r0=S*(.12+.5*outExpo(rl)),r1=r0+S*.18*(1-rl);x.strokeStyle=COLORS[k%4];x.globalAlpha=1-rl;x.beginPath();x.moveTo(cx+Math.cos(a)*r0,cy+Math.sin(a)*r0);x.lineTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);x.stroke()}
+    x.globalAlpha=1;
+  }
+  // 二度目の光：立方体がほどけ、芯から印が生まれる
+  for(const [t0,dur] of [[PING,.9],[5.6,.8]]){
+    const fl=seg(t,t0,t0+dur);if(!(fl>0&&fl<1))continue;
+    for(const b of sparks){const d=S*(.08+b.fly*outExpo(fl)),d0=S*(.08+b.fly*outExpo(Math.max(0,fl-.08)));x.strokeStyle=b.col;x.globalAlpha=1-fl;x.lineWidth=S*.005*b.size;x.beginPath();x.moveTo(cx+Math.cos(b.dir)*d0,cy+Math.sin(b.dir)*d0);x.lineTo(cx+Math.cos(b.dir)*d,cy+Math.sin(b.dir)*d);x.stroke()}
     x.globalAlpha=1;
   }
 
-  // 4. 光の印 → 5. ロゴの上へ
-  const fill=seg(t,4.5,5.0);
+  // 光の印 → ロゴの上へ
+  const fill=seg(t,5.65,6.05);
   if(fill>0){
-    const mv=inOut(seg(t,5.5,6.15)),sc=1-.55*mv,oy=-S*.2*mv,fade=1-seg(t,7.7,8.05);
-    const pulse=1+.04*Math.sin((t-4.5)*5)*(1-mv),rot=-.35*(1-inOut(seg(t,4.5,6.2)));
-    x.save();x.translate(cx,cy+oy);x.rotate(rot);x.scale(sc*pulse,sc*pulse);x.globalAlpha=fade*fill;
+    const mv=inOut(seg(t,6.1,6.75)),sc=1-.55*mv,oy=-S*.2*mv,fade=1-seg(t,8.3,8.65);
+    const pulse=1+.04*Math.sin((t-5.65)*5)*(1-mv),rot2=-.35*(1-inOut(seg(t,5.65,7.0)));
+    x.save();x.translate(cx,cy+oy);x.rotate(rot2);x.scale(sc*pulse,sc*pulse);x.globalAlpha=fade*fill;
     const g=x.createRadialGradient(0,0,0,0,0,R()*1.6);g.addColorStop(0,'rgba(244,241,234,.28)');g.addColorStop(1,'rgba(244,241,234,0)');x.fillStyle=g;x.fillRect(-R()*1.6,-R()*1.6,R()*3.2,R()*3.2);
-    sparkPath(0,0,R()*(.85+.15*outBack(fill)));
+    sparkPath(0,0,R()*(.2+.8*outBack(fill)));
     const lg=x.createLinearGradient(-R(),-R(),R(),R());lg.addColorStop(0,'#ffffff');lg.addColorStop(1,'#efe9da');x.fillStyle=lg;x.fill();
-    // 小さな相棒の光
-    const s2=outBack(seg(t,5.05,5.45));if(s2>0){sparkPath(R()*.78,-R()*.72,R()*.3*s2);x.fillStyle='#c9f26b';x.fill()}
+    const s2=outBack(seg(t,6.15,6.55));if(s2>0){sparkPath(R()*.78,-R()*.72,R()*.3*s2);x.fillStyle='#c9f26b';x.fill()}
     x.restore();x.globalAlpha=1;
   }
-  const flash=(1-seg(t,PING,PING+.35))*(t>=PING?.45:0);if(flash>0){x.fillStyle=`rgba(255,255,255,${flash})`;x.fillRect(0,0,W,H)}
+  for(const [t0,amt] of [[PING,.45],[5.6,.3]]){const f=(1-seg(t,t0,t0+.35))*(t>=t0?amt:0);if(f>0){x.fillStyle=`rgba(255,255,255,${f})`;x.fillRect(0,0,W,H)}}
 
   // 文字
   const fr=seg(t,.3,1.2);
-  $('frame').style.opacity=1-seg(t,7.6,8.0);document.querySelectorAll('.frame i').forEach(i=>i.style.transform=`scaleX(${outExpo(fr)})`);
+  $('frame').style.opacity=1-seg(t,8.2,8.6);document.querySelectorAll('.frame i').forEach(i=>i.style.transform=`scaleX(${outExpo(fr)})`);
   document.querySelectorAll('.cap').forEach(c=>c.style.opacity=seg(t,.6,1.2));
   const sec=Math.min(t,DURATION);$('tc').textContent=`00:${String(Math.floor(sec)).padStart(2,'0')}:${String(Math.floor(sec%1*24)).padStart(2,'0')}`;
   $('idx').textContent=`0${t<1?0:t<3.35?1:t<PING?2:3} / 03`;
-  [[1.0,3.25,.3],[3.35,4.2,.2],[4.3,5.5,.25]].forEach(([a,b,f],k)=>{const el=$('b'+(k+1)),v=inoutVis(t,a,b,f),out=seg(t,b-f,b);el.style.opacity=v;el.style.transform=`translateY(${(1-seg(t,a,a+.35))*18-out*14}px)`;el.style.filter=`blur(${(1-v)*5}px)`});
-  letters.forEach((l,i)=>{l.style.transform=`translateY(${(1-outExpo(seg(t,5.75+i*.07,6.4+i*.07)))*110}%)`});
-  const logo=$('logo');logo.style.opacity=1-seg(t,7.75,8.05);
-  logo.querySelector('.en').style.opacity=seg(t,6.35,6.9);logo.querySelector('.en').style.letterSpacing=`${.6+.4*(1-outExpo(seg(t,6.35,7.2)))}em`;
-  logo.querySelector('.bar').style.transform=`scaleX(${inOut(seg(t,6.5,7.2))})`;
-  logo.querySelector('.tag').style.opacity=seg(t,6.9,7.4);
+  [[1.0,3.25,.3],[3.35,4.2,.2],[4.3,5.9,.25]].forEach(([a,b,f],k)=>{const el=$('b'+(k+1)),v=inoutVis(t,a,b,f),out=seg(t,b-f,b);el.style.opacity=v;el.style.transform=`translateY(${(1-seg(t,a,a+.35))*18-out*14}px)`;el.style.filter=`blur(${(1-v)*5}px)`});
+  letters.forEach((l,i)=>{l.style.transform=`translateY(${(1-outExpo(seg(t,6.35+i*.07,7.0+i*.07)))*110}%)`});
+  const logo=$('logo');logo.style.opacity=1-seg(t,8.35,8.65);
+  logo.querySelector('.en').style.opacity=seg(t,6.95,7.5);logo.querySelector('.en').style.letterSpacing=`${.6+.4*(1-outExpo(seg(t,6.95,7.8)))}em`;
+  logo.querySelector('.bar').style.transform=`scaleX(${inOut(seg(t,7.1,7.8))})`;
+  logo.querySelector('.tag').style.opacity=seg(t,7.5,8.0);
 
-  // 6. 光の印から白が広がり、タイトル画面へ渡す
-  const ir=inOut(seg(t,7.85,8.6)),iy=cy-S*.2;$('iris').style.clipPath=`circle(${ir*Math.hypot(W/2,Math.max(iy,H-iy))+(ir>0?2:0)}px at 50% ${iy}px)`;
-  $('end').style.opacity=seg(t,8.6,9.1);
+  // 印から白が広がり、タイトル画面へ渡す
+  const ir=inOut(seg(t,8.45,9.2)),iy=cy-S*.2;$('iris').style.clipPath=`circle(${ir*Math.hypot(W/2,Math.max(iy,H-iy))+(ir>0?2:0)}px at 50% ${iy}px)`;
+  $('end').style.opacity=seg(t,9.2,9.7);
   document.body.classList.toggle('done',t>=DURATION);
 }
 
@@ -202,7 +237,7 @@ $('replay').onclick=()=>{play();$('skip').focus()};
 const q=new URLSearchParams(location.search).get('t');
 render(0);
 if(q!==null)seek(parseFloat(q));
-else if(matchMedia('(prefers-reduced-motion: reduce)').matches)seek(7.4);
+else if(matchMedia('(prefers-reduced-motion: reduce)').matches)seek(8.0);
 else Promise.race([document.fonts?document.fonts.ready:Promise.resolve(),new Promise(r=>setTimeout(r,1500))]).then(play);
 </script>
 </body>
