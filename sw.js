@@ -1,8 +1,10 @@
 // 更新を配信するときは VERSION の数字を上げてください
-const VERSION = 'kintsugi-v1';
+const VERSION = 'hirameki-v2';
 const SHELL = [
   './',
   './index.html',
+  './garden.css',
+  './ceramic.js',
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',

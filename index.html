@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>金継ぎ</title>
+<title>ひらめきの庭 — 日々に、ひとつの余白を。</title>
 <meta name="description" content="割れた器を金の線でつなぎ直す、時間制限なしのパズル。">
-<meta name="theme-color" content="#D7DAD3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1D2733" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#eee9df" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#eee9df" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="金継ぎ">
+<meta name="apple-mobile-web-app-title" content="ひらめきの庭">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#D7DAD3; --bg-2:#C3C8C0; --ink:#232B33; --muted:#56626A;
@@ -45,7 +45,7 @@ body{
   background-color:var(--bg);
   background-image:radial-gradient(120% 80% at 50% 0%,transparent 40%,var(--bg-2));
   background-attachment:fixed;
-  font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  font-family:"Zen Old Mincho","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
   font-size:15px;line-height:1.7;
   -webkit-tap-highlight-color:transparent;
 }
@@ -65,7 +65,7 @@ body::before{
 }
 header{width:min(100%,580px);display:grid;grid-template-columns:1fr auto;align-items:end;gap:4px 12px}
 h1{
-  font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  font-family:"Kaisei Tokumin","Hiragino Mincho ProN","Yu Mincho",serif;
   font-weight:800;font-size:2.5rem;line-height:1;margin:0;letter-spacing:.1em;
   background:linear-gradient(100deg,#8A6420 0%,#D9B04F 35%,#F4DE95 50%,#B8892C 70%,#7E5A1C 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
@@ -78,9 +78,9 @@ h1{
 }
 .icon-btn[hidden]{display:none}
 .icon-btn:focus-visible,button.ctl:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-.level{grid-column:1/-1;display:flex;align-items:baseline;gap:.8rem;margin-top:.6rem;font-family:"Shippori Mincho",serif}
+.level{grid-column:1/-1;display:flex;align-items:baseline;gap:.8rem;margin-top:.6rem;font-family:"Kaisei Tokumin",serif}
 .level b{font-size:1.4rem;font-weight:500;letter-spacing:.04em}
-.level span{color:var(--muted);font-size:.88rem;font-family:"Zen Kaku Gothic New",sans-serif}
+.level span{color:var(--muted);font-size:.88rem;font-family:"Zen Old Mincho",sans-serif}
 
 main{width:100%;display:flex;flex-direction:column;align-items:center;gap:16px}
 
@@ -195,7 +195,7 @@ main{width:100%;display:flex;flex-direction:column;align-items:center;gap:16px}
 
 /* 操作バー */
 .bar{width:min(100%,580px);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.moves{margin-right:auto;font-family:"Shippori Mincho",serif;font-size:1rem;color:var(--muted)}
+.moves{margin-right:auto;font-family:"Kaisei Tokumin",serif;font-size:1rem;color:var(--muted)}
 .moves strong{color:var(--ink);font-size:1.6rem;font-weight:500;margin-left:.4rem;font-variant-numeric:tabular-nums}
 button.ctl{
   font:inherit;font-size:.9rem;color:var(--btn-ink);background:var(--btn);
@@ -218,13 +218,13 @@ button.primary{
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .stamp{
   flex:none;width:58px;height:58px;border-radius:10px;display:grid;place-items:center;
-  background:#B23D27;color:#F7E6DA;font-family:"Shippori Mincho",serif;font-weight:800;font-size:2rem;
+  background:#B23D27;color:#F7E6DA;font-family:"Kaisei Tokumin",serif;font-weight:800;font-size:2rem;
   box-shadow:inset 0 0 0 3px #B23D27,inset 0 0 0 5px #F3D9C8;transform:rotate(-6deg);
 }
 .done.show .stamp{animation:stamp .5s cubic-bezier(.2,1.4,.4,1) .15s both}
 @keyframes stamp{0%{transform:rotate(-6deg) scale(1.9);opacity:0}60%{opacity:1}100%{transform:rotate(-6deg) scale(1)}}
 .done-text{margin-right:auto}
-.done-title{margin:0;font-family:"Shippori Mincho",serif;font-size:1.25rem;font-weight:700}
+.done-title{margin:0;font-family:"Kaisei Tokumin",serif;font-size:1.25rem;font-weight:700}
 .done-note{margin:0;color:var(--muted);font-size:.86rem}
 
 .help{width:min(100%,580px);color:var(--muted);font-size:.84rem;margin:0;line-height:1.85}
@@ -242,8 +242,9 @@ button.primary{
   .board.mended .tile,.board.mended .seam,.tray.mended .sheen::after,.done.show,.done.show .stamp{animation:none}
 }
 </style>
+<link rel="stylesheet" href="./garden.css">
 </head>
-<body>
+<body data-world="kintsugi">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="gold" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100" y2="100">
@@ -257,9 +258,19 @@ button.primary{
   </defs>
 </svg>
 
-<div class="wrap">
+<section id="garden" class="garden" aria-labelledby="garden-title">
+  <nav class="garden-nav" aria-label="庭の案内"><span class="garden-mark" aria-hidden="true">✳</span><span>心をほどく、小さな遊び場。</span><a href="#collection">遊びを選ぶ <span aria-hidden="true">↘</span></a></nav>
+  <div class="garden-intro"><p class="eyebrow">日々に、ひとつの余白を。</p><h1 id="garden-title" tabindex="-1">ひらめきの<span>庭</span></h1><p class="garden-copy">手を動かす。ふと、つながる。<br>答えを急がないパズルを、ここに。</p><div class="garden-stem" aria-hidden="true"></div></div>
+  <article class="game-card" id="collection" aria-labelledby="collection-title" aria-roledescription="ゲームのスライド">
+    <div class="game-art"><canvas id="ceramic-art" width="900" height="760" role="img" aria-label="青磁の器に細い金の継ぎ目が走る、金継ぎの作品"></canvas><span class="art-caption">欠けたところに、美しさを。</span></div>
+    <div class="game-story"><p class="eyebrow"><span class="catalog-number">一</span> 庭の遊び帖</p><h2 id="collection-title">金継ぎ</h2><p class="game-subtitle">ひびをつなぐ、器のパズル。</p><p class="story-copy">ばらばらの欠片を、くるり。<br>朱の印から金の線がめぐり、<br>ひとつの器に還っていく。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="play-game" class="play-game" href="#kintsugi"><span id="play-label">器をつなぐ</span><span aria-hidden="true">↗</span></a><p id="resume-note" class="resume-note"></p></div>
+  </article>
+  <footer class="garden-footer"><span>ひらめきの庭</span><span>気の向くままに、ひとつずつ。</span></footer>
+</section>
+<div class="wrap" id="game" hidden>
+  <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 一</span></nav>
   <header>
-    <h1>金継ぎ</h1>
+    <p class="eyebrow">器を、もう一度。</p><h1 id="game-title" tabindex="-1">金継ぎ</h1>
     <div class="tools">
       <button class="icon-btn" id="install" type="button" hidden>ホームに追加</button>
       <button class="icon-btn" id="sound" type="button" aria-pressed="true">音あり</button>
@@ -293,6 +304,7 @@ button.primary{
 </div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
+<script src="./ceramic.js"></script>
 <script>
 (function(){
   const KEY='kintsugi-save-v1', SOUND_KEY='kintsugi-sound', BEST_KEY='kintsugi-best';
@@ -318,16 +330,16 @@ button.primary{
   /* ---------- 陶器の質感（青磁＋貫入）をCanvasで生成 ---------- */
   const TEX=[];
   function makeGlaze(seed){
-    const S=256, c=document.createElement('canvas'); c.width=c.height=S;
+    const S=384, c=document.createElement('canvas'); c.width=c.height=S;
     const x=c.getContext&&c.getContext('2d'); if(!x) return null;
     const R=rng(seed);
     let g=x.createLinearGradient(0,0,S,S);
-    g.addColorStop(0,'#D2E2D6'); g.addColorStop(.5,'#A9C4B5'); g.addColorStop(1,'#83A190');
+    g.addColorStop(0,'#CDD9CA'); g.addColorStop(.45,'#91B3A5'); g.addColorStop(1,'#527F77');
     x.fillStyle=g; x.fillRect(0,0,S,S);
-    for(let i=0;i<8;i++){
+    for(let i=0;i<24;i++){
       const cx=R()*S,cy=R()*S,r=40+R()*100,light=R()<.5;
       const rg=x.createRadialGradient(cx,cy,0,cx,cy,r);
-      rg.addColorStop(0,light?'rgba(232,244,236,.38)':'rgba(64,100,84,.24)');
+      rg.addColorStop(0,light?'rgba(232,244,236,.18)':'rgba(64,100,84,.12)');
       rg.addColorStop(1,'rgba(0,0,0,0)');
       x.fillStyle=rg; x.fillRect(0,0,S,S);
     }
@@ -336,17 +348,17 @@ button.primary{
       for(let i=0;i<d.length;i+=4){const n=(R()-.5)*12;d[i]+=n;d[i+1]+=n;d[i+2]+=n}
       x.putImageData(img,0,0);
     }catch(e){}
-    for(let i=0;i<110;i++){
-      x.beginPath(); x.arc(R()*S,R()*S,.3+R()*1.4,0,Math.PI*2);
+    for(let i=0;i<900;i++){
+      x.beginPath(); x.arc(R()*S,R()*S,.2+R()*.85,0,Math.PI*2);
       x.fillStyle=R()<.8?`rgba(58,54,40,${.12+R()*.35})`:`rgba(255,255,250,${.2+R()*.3})`; x.fill();
     }
     x.lineCap='round'; x.lineJoin='round';
-    for(let k=0;k<11;k++){
+    for(let k=0;k<32;k++){
       let px=R()*S,py=R()*S,a=R()*Math.PI*2; const pts=[[px,py]];
       const steps=5+((R()*16)|0);
       for(let s=0;s<steps;s++){a+=(R()-.5)*1.2;const L=5+R()*13;px+=Math.cos(a)*L;py+=Math.sin(a)*L;pts.push([px,py])}
       const draw=(dx,dy,col,w)=>{x.beginPath();pts.forEach((p,j)=>j?x.lineTo(p[0]+dx,p[1]+dy):x.moveTo(p[0]+dx,p[1]+dy));x.strokeStyle=col;x.lineWidth=w;x.stroke()};
-      draw(0,0,`rgba(48,70,60,${.25+R()*.2})`,.6+R()*.5);
+      draw(0,0,`rgba(48,70,60,${.07+R()*.09})`,.3+R()*.25);
       draw(.8,.8,'rgba(255,255,255,.2)',.6);
     }
     g=x.createLinearGradient(0,0,S*.7,S*.7);
@@ -382,7 +394,7 @@ button.primary{
     bl?p.push([bl[1],100],[0,100-bl[0]]):p.push([0,100]);
     p.push([j(),50]);
     const fmt=(k)=>'polygon('+p.map(q=>`${(50+(q[0]-50)*k).toFixed(2)}% ${(50+(q[1]-50)*k).toFixed(2)}%`).join(',')+')';
-    return {outer:fmt(1),inner:fmt(.955)};
+    return {outer:fmt(1),inner:fmt(.94)};
   }
   function armPath(R,d,reverse){
     const [ex,ey]=EDGE[d], px=-(ey-50)/50, py=(ex-50)/50, pts=[[50,50]];
@@ -510,7 +522,7 @@ button.primary{
     });
     if(dirs.length===1&&!isSrc){
       crack+=`<circle class="crack-dot" cx="50" cy="50" r="4.5"/>`;
-      gold+=`<circle class="a pool" data-d="${dirs[0]}" cx="50" cy="50" r="10.5"/><circle class="a pool-glint" data-d="${dirs[0]}" cx="46.5" cy="46.5" r="2.8"/>`;
+      gold+=`<circle class="a pool" data-d="${dirs[0]}" cx="50" cy="50" r="5.2"/><circle class="a pool-glint" data-d="${dirs[0]}" cx="48.5" cy="48.5" r="1.2"/>`;
     }else if(dirs.length>=2){
       gold+=`<circle class="joint" cx="50" cy="50" r="4.6"/>`;
     }
@@ -532,6 +544,7 @@ button.primary{
       const glaze=document.createElement('div');glaze.className='glaze';glaze.style.clipPath=look.poly.inner;
       if(TEX[look.tex])glaze.style.backgroundImage=`url(${TEX[look.tex]})`;
       shard.appendChild(glaze);
+      const reflection=document.createElement('div');reflection.className='glaze-reflection';reflection.style.clipPath=look.poly.inner;shard.appendChild(reflection);
       shard.insertAdjacentHTML('beforeend',tileSVG(i));
       b.appendChild(shard);
       const lm=document.createElement('span');lm.className='lockmark';b.appendChild(lm);
@@ -656,8 +669,18 @@ button.primary{
     window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{})});
   }
 
+  function showPage(focus){
+    const playing=location.hash==='#kintsugi';
+    $('garden').hidden=playing;$('game').hidden=!playing;
+    document.title=playing?'金継ぎ — ひらめきの庭':'ひらめきの庭 — 日々に、ひとつの余白を。';
+    if(S){$('play-label').textContent=S.moves||S.level>1?'つづきの器へ':'器をつなぐ';$('resume-note').textContent=S.moves||S.level>1?`第${S.level}の器・${S.moves}手から`:'';}
+    if(focus&&location.hash!=='#collection'){window.scrollTo(0,0);$(playing?'game-title':'garden-title').focus({preventScroll:true});}
+  }
+  window.addEventListener('hashchange',()=>showPage(true));
   const saved=load();
   startLevel(saved&&saved.level?saved.level:1,saved);
+  showPage(false);
+  drawCeramic(TEX[3]);
 })();
 </script>
 </body>
