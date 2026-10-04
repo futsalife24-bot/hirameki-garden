@@ -6,7 +6,7 @@
 <title>ひらめきの庭 オープニング試作</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;900&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;900&family=Unbounded:wght@400;700&family=Dela+Gothic+One&family=Yusei+Magic&family=Mochiy+Pop+One&family=DotGothic16&family=Shippori+Mincho+B1:wght@800&family=Yuji+Syuku&display=swap" rel="stylesheet">
 <style>
 /* 「ひらめきの庭」全体のオープニング試作。
    「ひ・ら・め・き・の」を一文字ずつ別のパズルで組み上げ、最後にすべてのピースが「庭」にまとまる。
@@ -89,9 +89,24 @@ const proj=([px,py,pz])=>{const k=camD()/(pz+camD());return [cx+px*k,cy+py*k]};
 
 // ── 文字の型 ──
 const T=512,CHARS=[...'ひらめきの庭'];
+// 一文字ずつ書体を変える（すべてGoogle Fonts、SIL Open Font License 1.1）
+const FONTS=[
+  {family:'Dela Gothic One',weight:400,label:'DELA GOTHIC ONE'},
+  {family:'Yusei Magic',weight:400,label:'YUSEI MAGIC'},
+  {family:'Mochiy Pop One',weight:400,label:'MOCHIY POP ONE'},
+  {family:'DotGothic16',weight:400,label:'DOTGOTHIC16'},
+  {family:'Shippori Mincho B1',weight:800,label:'SHIPPORI MINCHO B1'},
+  {family:'Yuji Syuku',weight:400,label:'YUJI SYUKU'},
+];
 const mk=()=>{const c=document.createElement('canvas');c.width=c.height=T;return c};
 let glyph=[];
-function makeGlyphs(){glyph=CHARS.map(ch=>{const c=mk(),g=c.getContext('2d');g.fillStyle=C.cream;g.font=`900 ${T*.8}px "Zen Kaku Gothic New", "Hiragino Sans", sans-serif`;g.textAlign='center';g.textBaseline='middle';g.fillText(ch,T/2,T/2+T*.03);return c})}
+// 書体ごとに字面の大きさと位置が違うので、実際の外形を測って中央にそろえる
+function makeGlyphs(){glyph=CHARS.map((ch,k)=>{const c=mk(),g=c.getContext('2d'),f=FONTS[k];
+  const font=sz=>`${f.weight} ${sz}px "${f.family}", "Zen Kaku Gothic New", sans-serif`;
+  g.font=font(T*.8);const m=g.measureText(ch),w=m.actualBoundingBoxLeft+m.actualBoundingBoxRight,h=m.actualBoundingBoxAscent+m.actualBoundingBoxDescent;
+  const k2=Math.min(T*.76/w,T*.76/h);g.font=font(T*.8*k2);const m2=g.measureText(ch);
+  g.fillStyle=C.cream;g.textAlign='left';g.textBaseline='alphabetic';
+  g.fillText(ch,T/2-(m2.actualBoundingBoxRight-m2.actualBoundingBoxLeft)/2,T/2+(m2.actualBoundingBoxAscent-m2.actualBoundingBoxDescent)/2);return c})}
 // 文字の墨がかかるマスを調べる
 function inkCells(k,n){const d=glyph[k].getContext('2d').getImageData(0,0,T,T).data,s=T/n,out=[];
   for(let j=0;j<n;j++)for(let i=0;i<n;i++){let a=0,c=0;for(let y=j*s;y<(j+1)*s;y+=4)for(let xx=i*s;xx<(i+1)*s;xx+=4){a+=d[(Math.floor(y)*T+Math.floor(xx))*4+3];c++}if(a/c/255>.05)out.push([i,j])}return out}
@@ -194,7 +209,7 @@ const L=()=>Math.min(S*.15,W*.135),logoX=i=>cx+(i-2.5)*L(),logoY=()=>cy-S*.04;
 const waitY=()=>cy-S*.34;
 
 const BEATS=SCENE.map((_,k)=>[S0(k)+.12,S0(k)+1.2,.15]).concat([[GARDEN+.05,PING-.1,.2]]);
-const beatEls=SCENE.map((sc,k)=>[sc.col,`0${k+1}`,`${sc.w} → ${CHARS[k]}`,sc.en]).concat([[C.cream,'06','まとめて、庭。','GARDEN']]).map(([c,n,w,en])=>{const p=document.createElement('p');p.className='beat';p.style.setProperty('--c',c);p.innerHTML=`<b>${n}</b><span>${w}</span><em>${en}</em>`;$('beats').appendChild(p);return p});
+const beatEls=SCENE.map((sc,k)=>[sc.col,`0${k+1}`,`${sc.w} → ${CHARS[k]}`,sc.en]).concat([[C.cream,'06','まとめて、庭。','GARDEN']]).map((r,k)=>[r[0],r[1],r[2],`${r[3]} / ${FONTS[k].label}`]).map(([c,n,w,en])=>{const p=document.createElement('p');p.className='beat';p.style.setProperty('--c',c);p.innerHTML=`<b>${n}</b><span>${w}</span><em>${en}</em>`;$('beats').appendChild(p);return p});
 
 // 「庭」のタイル：五つのパズルの色が集まってくる
 let NIWA=[];
@@ -367,7 +382,10 @@ $('play-sound').onclick=()=>begin(true);
 $('play-mute').onclick=()=>begin(false);
 const q=new URLSearchParams(location.search).get('t');
 render(0);
-const ready=Promise.race([document.fonts?document.fonts.load('900 64px "Zen Kaku Gothic New"','ひらめきの庭').then(()=>document.fonts.ready):Promise.resolve(),new Promise(r=>setTimeout(r,1800))]).then(()=>{prepare();render(now())});
+// 書体がそろったら文字の型を作り直す（待ちきれずに始めた場合も、届いた時点で差し替わる）
+const fontsLoaded=document.fonts?Promise.all(FONTS.map((f,k)=>document.fonts.load(`${f.weight} 64px "${f.family}"`,CHARS[k]))).then(()=>document.fonts.ready):Promise.resolve();
+fontsLoaded.then(()=>{prepare();render(now())});
+const ready=Promise.race([fontsLoaded,new Promise(r=>setTimeout(r,3000))]).then(()=>{prepare();render(now())});
 if(q!==null){$('start').hidden=true;ready.then(()=>seek(parseFloat(q)))}
 else if(matchMedia('(prefers-reduced-motion: reduce)').matches){$('start').hidden=true;ready.then(()=>seek(8.9))}
 else ready.then(()=>$('play-sound').focus());
