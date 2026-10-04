@@ -34,3 +34,53 @@ h1,h2{font-family:'Kaisei Tokumin',serif;font-weight:400;background:none;color:v
 @media(min-width:880px){.wrap{grid-template-columns:240px 1fr;gap:36px 70px}.wrap header{position:static;justify-self:stretch}.wrap h1{writing-mode:vertical-rl;font-size:68px;margin:10px 0 30px auto}.wrap .eyebrow{font-size:11px}.wrap main{padding-top:18px}.tray{width:min(100%,590px)}}
 @media(max-width:700px){.garden{padding:0 24px}.garden-nav{height:74px;font-size:10px;gap:10px}.garden-nav a span{margin-left:6px}.garden-intro{padding:44px 0 28px}.garden-intro .eyebrow{font-size:10px;margin-bottom:18px}.garden-intro h1{font-size:43px;letter-spacing:.08em}.garden-copy{font-size:12px;margin-top:20px}.garden-stem{height:22px;margin-top:19px}.game-card{grid-template-columns:1fr;gap:26px;padding:26px 0}.game-art{max-width:430px;width:100%;justify-self:center;aspect-ratio:1.3}.game-story{padding:0 8px}.game-story h2{font-size:44px;margin:12px 0}.game-story .eyebrow{margin-bottom:12px}.game-subtitle{margin:6px 0 14px}.story-copy{font-size:13px}.game-facts{margin-top:20px}.garden-footer{font-size:10px;letter-spacing:0;flex-wrap:wrap}.wrap{padding:0 18px 30px;gap:18px}.game-nav{min-height:64px;font-size:10px}.wrap header{padding-top:4px}.wrap h1{font-size:40px}.wrap header>.eyebrow{grid-column:1/-1;margin:0 0 8px;font-size:10px}.wrap .lead{font-size:12px;margin-top:12px}.wrap .level{padding-top:12px;margin-top:12px}.wrap .level b{font-size:19px}.wrap .level span{font-size:12px}.wrap .tools{align-self:center}.icon-btn{padding:5px 9px;font-size:11px}.tray{padding:12px}.board-wrap{padding:6px}.bar{gap:8px}.done{gap:10px;padding:12px}.done-title{font-size:17px}.stamp{width:40px;height:40px;font-size:25px}.done-note{font-size:11px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+/* 庭は一画面に収める。器の絵が残りの高さに合わせて伸び縮みし、文字と「器をつなぐ」は常に見える。
+   極端に背の低い画面（横向きのスマホなど）だけ、従来どおりスクロールにする。 */
+.garden{height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;overflow:hidden}
+.garden-nav{height:72px}
+.garden-intro{padding:26px 0 18px}
+.garden-intro .eyebrow{margin-bottom:12px}
+.garden-intro h1{font-size:clamp(40px,5vw,64px);line-height:1.25}
+.garden-copy{margin-top:12px;line-height:1.9}
+.garden-stem{display:none}
+.game-card{min-height:0;padding:22px 0;gap:56px;grid-template-rows:minmax(0,1fr)}
+.game-art{aspect-ratio:auto;height:100%;min-height:0}
+.game-story{align-self:center}
+.game-story h2{font-size:clamp(40px,4.4vw,56px);margin:4px 0}
+.game-subtitle{margin:6px 0 14px}
+.story-copy{margin:0}
+.game-facts{margin:16px 0 14px}
+.garden-footer{padding:16px 0 20px}
+/* オープニングの後に見出しへ移すフォーカスは読み上げ用。枠は出さない */
+#garden-title:focus{outline:none}
+@media(max-width:700px){
+  .garden-nav{height:54px}
+  .garden-intro{padding:14px 0 8px}
+  .garden-intro .eyebrow{margin-bottom:6px}
+  .garden-intro h1{font-size:clamp(30px,9.5vw,40px)}
+  .garden-copy{margin-top:6px;line-height:1.8}
+  .game-card{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;gap:14px;padding:10px 0 14px}
+  .game-art{max-width:none;aspect-ratio:auto;justify-self:stretch}
+  .art-caption{bottom:10px}
+  .game-story{padding:0 4px}
+  .game-story .eyebrow{margin-bottom:2px}
+  .catalog-number{font-size:13px;padding:3px 8px;margin-right:8px}
+  .game-story h2{font-size:34px;margin:0}
+  .game-subtitle{font-size:13px;margin:2px 0 8px}
+  .story-copy{display:none}
+  .game-facts{margin:0 0 10px}
+  .play-game{min-height:52px}
+  .resume-note{margin-top:6px}
+  .garden-footer{display:none}
+}
+/* 縦長のタブレットは、器の絵が細長くならないよう縦に積む */
+@media(min-width:701px) and (max-width:1100px) and (orientation:portrait){
+  .game-card{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;gap:22px}
+  .game-story{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;align-items:end;padding:0}
+  .game-story>.eyebrow,.game-story>h2,.game-story>.game-subtitle{grid-column:1}
+  .story-copy{grid-column:2;grid-row:1/4;align-self:center}
+  .game-facts,.play-game,.resume-note{grid-column:1/-1}
+}
+@media(max-height:760px) and (min-width:701px){.story-copy{display:none}.garden-copy{display:none}}
+@media(max-height:640px) and (max-width:700px){.garden-copy{display:none}.art-caption{display:none}}
+@media(max-height:520px){.garden{height:auto;overflow:visible;display:block}.game-art{height:auto;aspect-ratio:1.3}.story-copy,.garden-copy{display:block}}

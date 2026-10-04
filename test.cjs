@@ -21,8 +21,11 @@ const http=require('node:http');
   const url=`http://127.0.0.1:${server.address().port}/`;
   await page.goto(url);await page.locator('#play-game').waitFor();
   assert(await page.locator('#game').isHidden());
+  // 庭は一画面に収まり、スクロールしなくても遊び始めのボタンまで見える
+  const fitsOneScreen=()=>page.evaluate(()=>{const b=document.getElementById('play-game').getBoundingClientRect();return document.documentElement.scrollHeight<=innerHeight+1&&b.bottom<=innerHeight&&b.top>=0});
+  assert.equal(await fitsOneScreen(),true);
   await page.locator('.garden-nav a').click();
-  await page.waitForFunction(()=>location.hash==='#collection'&&window.scrollY>0);
+  await page.waitForFunction(()=>location.hash==='#collection');assert.equal(await page.evaluate(()=>scrollY),0);
   await page.locator('#play-game').click();assert.equal(await page.locator('.tile').count(),16);
   const state=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('kintsugi-save-v1')));
   const before=await state();
@@ -43,6 +46,7 @@ const http=require('node:http');
    await page.setViewportSize({width,height:900});
    for(const hash of ['#garden','#kintsugi']){
     await page.goto(url+hash);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`${width} ${hash}`);
+    if(hash==='#garden')assert.equal(await fitsOneScreen(),true,`one screen ${width}`);
    }
   }
   // 最大盤面も小さい画面に収まる。
