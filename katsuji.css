@@ -1,0 +1,74 @@
+/* 活字の世界：古い活版印刷所。インクの黒い作業台、生成りの紙の版、鉛の活字、朱の校正印。
+   庭（タイトル画面）も、活字を選んでいる間はこの世界観になる。
+   端末のダークモード用の指定より必ず優先させるため、:root を重ねて指定する。 */
+:root:root[data-world="katsuji"]{--bg:#161412;--bg-2:#0b0a09;--ink:#f3ead8;--muted:#d4c8b2;--rule:rgba(243,234,216,.2);--focus:#e2604a;--btn:#2a2622;--btn-ink:#f3ead8;--vermilion:#d4483a;--paper:#f3ead8;--lead:#b9b5ad;color-scheme:dark}
+html[data-world="katsuji"] body{background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 44px),radial-gradient(110% 80% at 50% 0%,#2a2521 0%,var(--bg) 55%,var(--bg-2) 100%) fixed,var(--bg);font-family:'Shippori Antique B1','Hiragino Mincho ProN','Yu Mincho',serif;color:var(--ink)}
+html[data-world="katsuji"] body::before{opacity:0!important}
+
+/* 庭のタイトル */
+html[data-world="katsuji"] h1,html[data-world="katsuji"] h2{font-family:'Shippori Antique B1',serif;font-weight:400;color:var(--paper)}
+html[data-world="katsuji"] .garden-intro h1{letter-spacing:.18em}
+html[data-world="katsuji"] .garden-intro h1 span{color:var(--vermilion)}
+html[data-world="katsuji"] .garden-mark{color:var(--vermilion)}
+html[data-world="katsuji"] .eyebrow,html[data-world="katsuji"] .story-copy,html[data-world="katsuji"] .game-facts,html[data-world="katsuji"] .resume-note{color:var(--muted)}
+html[data-world="katsuji"] .game-art{background:#141210;border:1px solid rgba(243,234,216,.22);border-radius:4px}
+html[data-world="katsuji"] .art-caption{color:#e9dcc2;letter-spacing:.22em}
+html[data-world="katsuji"] .catalog-number{border-color:var(--vermilion);color:#ff8a78}
+html[data-world="katsuji"] .play-game{background:var(--paper);color:#161412;border:0;border-radius:2px;box-shadow:4px 4px 0 var(--vermilion)}
+html[data-world="katsuji"] .play-game:hover{background:#fff7e6}
+html[data-world="katsuji"] .slide-dot[aria-current="true"]{color:#ff8a78}
+
+/* 活字のゲーム画面 */
+#kj-title:focus{outline:none}
+.kj-tools{display:flex;gap:8px}
+.kj-level b{font-size:21px;font-weight:400;letter-spacing:.18em;color:var(--paper)}
+.kj-level span{font-size:12px;color:var(--muted);letter-spacing:.08em}
+.kj-main{grid-template-rows:minmax(0,1fr) auto auto!important}
+.kj-board{--pad:clamp(8px,2vw,14px);box-sizing:border-box;width:min(100cqw,calc((100cqh - 2 * var(--pad)) * var(--ar,1) + 2 * var(--pad)));padding:var(--pad);background:#2a2622;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(243,234,216,.14),0 24px 40px -24px #000}
+#kj-grid{display:grid;gap:2px;width:100%;grid-auto-rows:auto}
+.kj-block{background:transparent}
+.kj-cell{position:relative;aspect-ratio:1;container-type:inline-size;border:0;padding:0;margin:0;font:inherit;background:var(--paper);color:#1b1714;border-radius:2px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(27,23,20,.35);display:grid;place-items:center;transition:background .2s}
+.kj-cell span{font-size:62cqw;line-height:1;font-weight:700;font-family:'Shippori Antique B1',serif}
+.kj-cell.given{background:#e3d8c2}
+.kj-cell.given span{color:#5a4f44}
+.kj-cell.sel{background:#ffe7c9;box-shadow:inset 0 0 0 2px var(--vermilion)}
+.kj-cell.guide:not(.sel){box-shadow:inset 0 0 0 2px #e9b24d;animation:kj-guide 1.3s ease-in-out infinite}
+.kj-cell.mark::after{content:"";position:absolute;inset:9%;border:1.5px solid var(--vermilion);border-radius:1px;pointer-events:none}
+.kj-cell.mark i{position:absolute;left:4%;top:1%;font-style:normal;font-size:24cqw;line-height:1;color:var(--vermilion);font-family:'Zen Kaku Gothic New',sans-serif}
+.kj-cell:focus-visible{outline:2px solid var(--focus);outline-offset:1px;z-index:2}
+.kj-cell.filled span{animation:kj-press .25s ease}
+#kj-grid.solved .kj-cell.mark{background:#ffd9cf}
+#kj-grid.solved .kj-cell.mark span{color:#a3271b}
+@keyframes kj-press{from{transform:scale(1.25);opacity:.4}to{transform:none;opacity:1}}
+@keyframes kj-guide{0%,100%{box-shadow:inset 0 0 0 2px rgba(233,178,77,.35)}50%{box-shadow:inset 0 0 0 2px #e9b24d}}
+/* 活字の一覧（鉛の駒） */
+.kj-tray{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-height:30dvh;overflow:auto;padding:2px}
+.kj-chip{font:inherit;font-family:'Shippori Antique B1',serif;font-size:15px;letter-spacing:.06em;min-height:36px;padding:4px 10px;border-radius:3px;cursor:pointer;color:#1d1a17;border:0;background:linear-gradient(180deg,#d8d4cd,#a7a39b);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 2px 0 #5c5953;transition:opacity .2s,transform .15s}
+.kj-chip.fit{background:linear-gradient(180deg,#fff2d9,#e6c98f);box-shadow:inset 0 1px 0 #fff,0 2px 0 #8a6a33}
+.kj-chip.dim{opacity:.45}
+.kj-chip.used{opacity:.32;text-decoration:line-through;text-decoration-color:var(--vermilion);text-decoration-thickness:2px}
+.kj-chip.guide{outline:2px solid #e9b24d;outline-offset:2px}
+.kj-chip:disabled{cursor:default}
+.kj-chip:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.kj-chip.no{animation:kj-no .35s ease}
+@keyframes kj-no{20%,60%{transform:translateX(-4px)}40%,80%{transform:translateX(4px)}}
+.kj-toast{position:fixed;left:50%;bottom:max(90px,calc(env(safe-area-inset-bottom) + 90px));transform:translate(-50%,10px);background:var(--paper);color:#1b1714;padding:8px 14px;border-radius:3px;font-size:13px;box-shadow:3px 3px 0 var(--vermilion);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:20;max-width:90vw}
+.kj-toast.show{opacity:1;transform:translate(-50%,0)}
+.kj-bar{display:flex;align-items:center;gap:14px}
+.kj-stat{font-size:13px;color:var(--muted);letter-spacing:.06em}
+.kj-stat strong{font-size:22px;font-weight:400;color:var(--ink);margin-left:6px;font-variant-numeric:tabular-nums}
+.kj-stat+.kj-stat{margin-right:auto}
+.kj-btn{font:inherit;font-size:13px;letter-spacing:.06em;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:3px;min-height:44px;padding:8px 14px;cursor:pointer}
+.kj-btn:disabled{opacity:.4;cursor:default}
+.kj-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.kj-btn.primary{background:var(--paper);color:#161412;border:0;box-shadow:3px 3px 0 var(--vermilion)}
+.kj-done{display:none;align-items:center;gap:12px;padding:10px 14px;border:1px solid rgba(243,234,216,.3);border-radius:4px;background:#221e1b}
+.kj-done.show{display:flex;animation:kj-rise .5s ease}
+.kj-done>div:nth-child(2){flex:1;min-width:0}
+.kj-seal{width:42px;height:42px;flex:none;display:grid;place-items:center;border-radius:50%;background:var(--vermilion);color:var(--paper);font-weight:700;transform:rotate(-8deg)}
+.kj-done-title{margin:0;font-size:15px;color:var(--paper);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kj-done-note b{color:#ff8a78;font-weight:700;letter-spacing:.14em;font-size:16px}
+.kj-done-note{margin:2px 0 0;font-size:13px;color:var(--muted)}
+@keyframes kj-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+html[data-world="katsuji"] .coach{border-color:rgba(212,72,58,.5);background:rgba(212,72,58,.1)}
+@media(max-width:700px){.kj-chip{font-size:13px;min-height:32px;padding:3px 8px}.kj-tray{gap:5px;max-height:26dvh}.kj-bar{gap:10px}.kj-stat{font-size:12px}.kj-stat strong{font-size:19px}}

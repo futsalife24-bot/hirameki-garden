@@ -49,5 +49,3 @@ html[data-world="kagee"] .slide-dot[aria-current="true"]{color:#f2c46b}
 @keyframes kg-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 html[data-world="kagee"] .coach{border-color:rgba(217,164,65,.45);background:rgba(125,28,39,.35)}
 @media(max-width:700px){.kg-bar{gap:12px}.kg-stat{font-size:12px}.kg-stat strong{font-size:20px;margin-left:6px}}
-/* この書体は縦書きに向かないため、PCでも横書きのまま */
-@media(min-width:900px){html[data-world="kagee"] .game-head h1{writing-mode:horizontal-tb!important;font-size:46px!important;letter-spacing:.16em;margin:0 0 4px!important}}

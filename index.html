@@ -14,13 +14,13 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <script>
 // 表示の前に世界観を決める（ゲーム画面ならそのゲーム、庭なら前回選んだ遊び）
-(function(){var h=location.hash,w='kintsugi';try{w=h==='#hoshizu'?'hoshizu':h==='#kagee'?'kagee':h==='#kintsugi'?'kintsugi':(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(w!=='hoshizu'&&w!=='kagee')w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
+(function(){var h=location.hash,w='kintsugi';try{w=h==='#hoshizu'?'hoshizu':h==='#kagee'?'kagee':h==='#katsuji'?'katsuji':h==='#kintsugi'?'kintsugi':(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(['hoshizu','kagee','katsuji'].indexOf(w)<0)w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
 </script>
 <link rel="icon" href="./icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&family=Kaisei+Decol:wght@400;500;700&family=Rampart+One&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&family=Kaisei+Decol:wght@400;500;700&family=Rampart+One&family=Shippori+Antique+B1&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#D7DAD3; --bg-2:#C3C8C0; --ink:#232B33; --muted:#56626A;
@@ -249,6 +249,7 @@ button.primary{
 <link rel="stylesheet" href="./garden.css">
 <link rel="stylesheet" href="./hoshizu.css">
 <link rel="stylesheet" href="./kagee.css">
+<link rel="stylesheet" href="./katsuji.css">
 <link rel="stylesheet" href="./opening.css">
 </head>
 <body data-world="kintsugi">
@@ -283,12 +284,17 @@ button.primary{
     <div class="game-art"><canvas id="kg-art" width="900" height="760" role="img" aria-label="劇場の幕のあいだのスクリーンに、うさぎの影が映り、手前に積み木の人形が置かれている"></canvas><span class="art-caption">回せば、影が語りだす。</span></div>
     <div class="game-story"><p class="eyebrow"><span class="catalog-number">三</span> 庭の遊び帖</p><h2 id="kg-collection-title">影絵</h2><p class="game-subtitle">立体を回す、影のパズル。</p><p class="story-copy">積み木の人形を、くるりと回す。<br>幕に落ちる影が、点線に重なったとき、<br>思いがけない形が現れる。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="kg-play" class="play-game" href="#kagee"><span id="kg-play-label">影をつくる</span><span aria-hidden="true">↗</span></a><p id="kg-resume-note" class="resume-note"></p></div>
   </article>
+  <article class="game-card" data-world="katsuji" aria-labelledby="kj-collection-title" aria-roledescription="スライド" hidden>
+    <div class="game-art"><canvas id="kj-art" width="900" height="760" role="img" aria-label="活版印刷の作業台に、言葉の活字が組まれた紙の版と、鉛の活字が並んでいる"></canvas><span class="art-caption">はめれば、言葉が刷り上がる。</span></div>
+    <div class="game-story"><p class="eyebrow"><span class="catalog-number">四</span> 庭の遊び帖</p><h2 id="kj-collection-title">活字</h2><p class="game-subtitle">言葉をはめ込む、版のパズル。</p><p class="story-copy">ヒントはない。あるのは活字の一覧だけ。<br>交わる文字を手がかりに、版を組む。<br>刷り上がると、合言葉が現れる。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="kj-play" class="play-game" href="#katsuji"><span id="kj-play-label">活字を組む</span><span aria-hidden="true">↗</span></a><p id="kj-resume-note" class="resume-note"></p></div>
+  </article>
   </div>
   <div class="slide-ctl" aria-label="遊びの切り替え" role="group">
     <button class="slide-arrow" id="slide-prev" type="button" aria-label="前の遊び">‹</button>
     <button class="slide-dot" data-world="kintsugi" type="button"><span aria-hidden="true">一</span> 金継ぎ</button>
     <button class="slide-dot" data-world="hoshizu" type="button"><span aria-hidden="true">二</span> 星図</button>
     <button class="slide-dot" data-world="kagee" type="button"><span aria-hidden="true">三</span> 影絵</button>
+    <button class="slide-dot" data-world="katsuji" type="button"><span aria-hidden="true">四</span> 活字</button>
     <button class="slide-arrow" id="slide-next" type="button" aria-label="次の遊び">›</button>
     <p class="visually-hidden" id="slide-status" aria-live="polite"></p>
   </div>
@@ -416,11 +422,53 @@ button.primary{
     <button class="kg-btn primary" type="button" data-close>閉じる</button>
   </dialog>
 </div>
+<div class="kj game-screen" id="katsuji" hidden>
+  <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 四</span></nav>
+  <header class="kj-head game-head">
+    <h1 id="kj-title" tabindex="-1">活字</h1>
+    <div class="kj-tools"><button class="kj-btn" type="button" data-help="kj-help" aria-haspopup="dialog">遊び方</button><button class="kj-btn" id="kj-sound" type="button" aria-pressed="true">音あり</button></div>
+    <div class="kj-level"><b id="kj-lv">第一版</b><span id="kj-size"></span></div>
+    <p class="coach" id="kj-coach" aria-live="polite" hidden></p>
+  </header>
+  <main class="kj-main">
+    <div class="stage"><div class="kj-board" id="kj-board"><div id="kj-grid" role="group" aria-label="版の盤面"></div></div></div>
+    <div class="kj-tray" id="kj-tray" role="group" aria-label="活字の一覧"></div>
+    <p class="visually-hidden" id="kj-live" aria-live="polite"></p>
+    <div class="foot">
+    <div class="kj-bar">
+      <div class="kj-stat">残り<strong id="kj-left">0</strong></div>
+      <div class="kj-stat">手数<strong id="kj-moves">0</strong></div>
+      <button class="kj-btn" id="kj-undo" type="button">一手戻す</button>
+      <button class="kj-btn" id="kj-reset" type="button">最初から</button>
+    </div>
+    <div class="kj-done" id="kj-done" aria-live="polite">
+      <div class="kj-seal" aria-hidden="true">了</div>
+      <div><p class="kj-done-title">刷り上がり</p><p class="kj-done-note">合言葉 <b id="kj-done-pw"></b><span id="kj-done-note"></span></p></div>
+      <button class="kj-btn primary" id="kj-next" type="button">次の版へ</button>
+    </div>
+    </div>
+  </main>
+  <div class="kj-toast" id="kj-toast" aria-hidden="true"></div>
+  <dialog class="howto" id="kj-help" aria-labelledby="kj-help-title">
+    <h2 id="kj-help-title">活字の遊び方</h2>
+    <ul>
+      <li>ヒントのないクロスワードです。下に並ぶ言葉の活字を、版のマスにすべてはめ込みます。</li>
+      <li>マスをタップすると、その並びが選ばれます。同じマスをもう一度押すと、縦と横が切り替わります。</li>
+      <li>並びと同じ文字数の活字をタップすると、はまります。交わるマスの文字が食い違うものは入りません。</li>
+      <li>はめた活字をもう一度押すと外せます。</li>
+      <li>すべての並びが埋まると刷り上がり。朱の二重マスの文字を①から順に読むと、合言葉になります。</li>
+      <li>キーボードでは、矢印でマスを移り、Enterで並びを選びます。</li>
+    </ul>
+    <button class="kj-btn primary" type="button" data-close>閉じる</button>
+  </dialog>
+</div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
 <script src="./hoshizu-levels.js"></script>
 <script src="./hoshizu.js"></script>
 <script src="./kagee.js"></script>
+<script src="./katsuji-levels.js"></script>
+<script src="./katsuji.js"></script>
 <script src="./garden.js"></script>
 <script src="./ceramic.js"></script>
 <script>
@@ -806,15 +854,16 @@ button.primary{
   }
 
   function showPage(focus){
-    const playing=location.hash==='#kintsugi',stars=location.hash==='#hoshizu',shadow=location.hash==='#kagee';
-    $('garden').hidden=playing||stars||shadow;$('game').hidden=!playing;$('hoshizu').hidden=!stars;$('kagee').hidden=!shadow;
-    if(window.Garden)Garden.setWorld(playing?'kintsugi':stars?'hoshizu':shadow?'kagee':Garden.selected());
+    const playing=location.hash==='#kintsugi',stars=location.hash==='#hoshizu',shadow=location.hash==='#kagee',type=location.hash==='#katsuji';
+    $('garden').hidden=playing||stars||shadow||type;$('game').hidden=!playing;$('hoshizu').hidden=!stars;$('kagee').hidden=!shadow;$('katsuji').hidden=!type;
+    if(window.Garden)Garden.setWorld(playing?'kintsugi':stars?'hoshizu':shadow?'kagee':type?'katsuji':Garden.selected());
     if(shadow&&window.Kagee)Kagee.resize();
-    document.title=playing?'金継ぎ — ひらめきの庭':stars?'星図 — ひらめきの庭':shadow?'影絵 — ひらめきの庭':'ひらめきの庭 — 日々に、ひとつの余白を。';
+    document.title=playing?'金継ぎ — ひらめきの庭':stars?'星図 — ひらめきの庭':shadow?'影絵 — ひらめきの庭':type?'活字 — ひらめきの庭':'ひらめきの庭 — 日々に、ひとつの余白を。';
     if(S){$('play-label').textContent=S.moves||S.level>1?'つづきの器へ':'器をつなぐ';$('resume-note').textContent=S.moves||S.level>1?`第${S.level}の器・${S.moves}手から`:'';}
     if(window.Hoshizu){const l=Hoshizu.label();$('hz-play-label').textContent=l.play;$('hz-resume-note').textContent=l.note}
+    if(window.Katsuji){const l=Katsuji.label();$('kj-play-label').textContent=l.play;$('kj-resume-note').textContent=l.note}
     if(window.Kagee){const l=Kagee.label();$('kg-play-label').textContent=l.play;$('kg-resume-note').textContent=l.note}
-    if(focus&&location.hash!=='#collection'){window.scrollTo(0,0);$(playing?'game-title':stars?'hz-title':shadow?'kg-title':'garden-title').focus({preventScroll:true});}
+    if(focus&&location.hash!=='#collection'){window.scrollTo(0,0);$(playing?'game-title':stars?'hz-title':shadow?'kg-title':type?'kj-title':'garden-title').focus({preventScroll:true});}
   }
   window.addEventListener('hashchange',()=>showPage(true));
   const saved=load();
