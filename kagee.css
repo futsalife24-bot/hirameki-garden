@@ -1,0 +1,53 @@
+/* 影絵の世界：古い劇場の影絵芝居。臙脂のビロードの幕、暖かいスポットライト、生成りのスクリーン、真鍮の縁。
+   庭（タイトル画面）も、影絵を選んでいる間はこの世界観になる。
+   端末のダークモード用の指定より必ず優先させるため、:root を重ねて指定する。 */
+:root:root[data-world="kagee"]{--bg:#22080d;--bg-2:#0e0306;--ink:#fbf1e2;--muted:#e6cfb6;--rule:rgba(240,200,160,.22);--focus:#f2c46b;--btn:#3d1119;--btn-ink:#fbf1e2;--brass:#d9a441;--velvet:#7d1c27;color-scheme:dark}
+html[data-world="kagee"] body{background:radial-gradient(70% 55% at 50% 0%,#6a1c26 0%,rgba(106,28,38,0) 70%) fixed,radial-gradient(120% 90% at 50% 40%,#2c0b11 0%,var(--bg) 60%,var(--bg-2) 100%) fixed,var(--bg);font-family:'Zen Kaku Gothic New','Hiragino Sans','Yu Gothic',sans-serif;color:var(--ink)}
+/* 両端に垂れる幕 */
+html[data-world="kagee"] body::before{opacity:1!important;mix-blend-mode:normal!important;z-index:0;
+  background:repeating-linear-gradient(90deg,rgba(0,0,0,.32) 0 5px,rgba(0,0,0,0) 5px 14px,rgba(255,170,170,.06) 14px 16px,rgba(0,0,0,0) 16px 22px),linear-gradient(180deg,#80202c,#4a0d16 60%,#2c060c);
+  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 3.2vw,transparent 6vw,transparent calc(100% - 6vw),#000 calc(100% - 3.2vw));mask-image:linear-gradient(90deg,#000 0,#000 3.2vw,transparent 6vw,transparent calc(100% - 6vw),#000 calc(100% - 3.2vw))}
+@media(max-width:700px){html[data-world="kagee"] body::before{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 6px,transparent 12px,transparent calc(100% - 12px),#000 calc(100% - 6px));mask-image:linear-gradient(90deg,#000 0,#000 6px,transparent 12px,transparent calc(100% - 12px),#000 calc(100% - 6px))}}
+
+/* 庭のタイトル */
+html[data-world="kagee"] h1,html[data-world="kagee"] h2{font-family:'Rampart One','Zen Kaku Gothic New',sans-serif;font-weight:400;color:#fbf1e2}
+html[data-world="kagee"] .garden-intro h1{letter-spacing:.14em;text-shadow:0 0 28px rgba(255,190,120,.35)}
+html[data-world="kagee"] .garden-intro h1 span{color:#f2c46b}
+html[data-world="kagee"] .garden-mark{color:var(--brass)}
+html[data-world="kagee"] .eyebrow,html[data-world="kagee"] .story-copy,html[data-world="kagee"] .game-facts,html[data-world="kagee"] .resume-note{color:var(--muted)}
+html[data-world="kagee"] .game-art{background:#1d070b;border:1px solid rgba(217,164,65,.45);border-radius:10px}
+html[data-world="kagee"] .art-caption{color:#f0d9b5;letter-spacing:.2em}
+html[data-world="kagee"] .catalog-number{border-color:rgba(217,164,65,.6);color:#f2c46b}
+html[data-world="kagee"] .play-game{background:linear-gradient(180deg,#8f2533,#6a1621);color:#fff3e0;border:1px solid var(--brass);box-shadow:0 10px 26px -12px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,220,200,.25)}
+html[data-world="kagee"] .play-game:hover{background:linear-gradient(180deg,#a02b3a,#7a1a27)}
+html[data-world="kagee"] .slide-dot[aria-current="true"]{color:#f2c46b}
+
+/* 影絵のゲーム画面 */
+#kg-title{text-shadow:0 0 22px rgba(255,190,120,.35)}
+#kg-title:focus{outline:none}
+.kg-tools{display:flex;gap:8px}
+.kg-level b{font-size:21px;font-weight:700;letter-spacing:.16em;color:#fbf1e2}
+.kg-level span{font-size:12px;color:var(--muted);letter-spacing:.08em}
+#kg-canvas{display:block;width:100%;height:100%;touch-action:none;outline:none;cursor:grab;border-radius:12px}
+#kg-canvas:active{cursor:grabbing}
+#kg-canvas:focus-visible{box-shadow:0 0 0 2px var(--focus)}
+.kg-stage{width:100%;height:100%;place-items:stretch}
+.kg-bar{display:flex;align-items:center;gap:18px}
+.kg-stat{font-size:13px;color:var(--muted);letter-spacing:.08em}
+.kg-stat strong{font-size:24px;font-weight:700;color:var(--ink);margin-left:8px;font-variant-numeric:tabular-nums}
+.kg-stat+.kg-stat{margin-right:auto}
+.kg-btn{font:inherit;font-size:13px;letter-spacing:.06em;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;min-height:44px;padding:8px 16px;cursor:pointer}
+.kg-btn:disabled{opacity:.4;cursor:default}
+.kg-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.kg-btn.primary{border-color:var(--brass);color:#fff3e0;background:linear-gradient(180deg,#8f2533,#6a1621)}
+.kg-done{display:none;align-items:center;gap:12px;padding:10px 14px;border:1px solid rgba(217,164,65,.55);border-radius:12px;background:rgba(125,28,39,.35)}
+.kg-done.show{display:flex;animation:kg-rise .6s ease}
+.kg-done>div:nth-child(2){flex:1;min-width:0}
+.kg-seal{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:50%;background:#7d1c27;border:1px solid var(--brass);color:#f6dca6;font-weight:700}
+.kg-done-title{margin:0;font-size:15px;letter-spacing:.06em;color:#fbf1e2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kg-done-note{margin:2px 0 0;font-size:13px;color:var(--muted)}
+@keyframes kg-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+html[data-world="kagee"] .coach{border-color:rgba(217,164,65,.45);background:rgba(125,28,39,.35)}
+@media(max-width:700px){.kg-bar{gap:12px}.kg-stat{font-size:12px}.kg-stat strong{font-size:20px;margin-left:6px}}
+/* この書体は縦書きに向かないため、PCでも横書きのまま */
+@media(min-width:900px){html[data-world="kagee"] .game-head h1{writing-mode:horizontal-tb!important;font-size:46px!important;letter-spacing:.16em;margin:0 0 4px!important}}

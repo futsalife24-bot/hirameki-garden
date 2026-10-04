@@ -1,6 +1,6 @@
 # ひらめきの庭
 
-世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」と「星図」です。
+世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」「星図」「影絵」です。
 
 - 公開先：https://futsalife24-bot.github.io/hirameki-garden/
 - GitHub：https://github.com/futsalife24-bot/hirameki-garden
@@ -8,15 +8,15 @@
 
 ## タイトル画面の方針
 
-タイトル画面も選択中のゲームの世界観を表します。下のスライド切り替え（‹ 一 金継ぎ ／ 二 星図 ›、横スワイプ、左右キー）で
+タイトル画面も選択中のゲームの世界観を表します。下のスライド切り替え（‹ 一 金継ぎ ／ 二 星図 ／ 三 影絵 ›、横スワイプ、左右キー）で
 遊びを選ぶと、背景・書体・配色・絵が世界観ごと切り替わります。選んだ遊びは端末に覚え、次に開いたときもその世界観から始まります。
-金継ぎは生成りの和紙・青磁の器・墨色・金の継ぎ目、星図は夜空・真鍮の星図盤・灯る星の「ひらめきの庭」です。
+金継ぎは生成りの和紙・青磁の器・墨色・金の継ぎ目、星図は夜空・真鍮の星図盤・灯る星、影絵は臙脂の幕と影絵芝居の舞台の「ひらめきの庭」です。
 庭（タイトル後のホーム画面）はスクロールせずに一画面で見渡せます。器の絵が残りの高さに合わせて伸び縮みし、
 「器をつなぐ」ボタンは常に画面内に収まります。背の低い画面では説明文を省き、横向きのスマホなど極端に低い画面だけスクロールします。
 和風は金継ぎ固有であり、ほかのゲームに強制しません。
 
-`#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ、`#hoshizu` が星図。
-`<html data-world>` と `<body data-world>`（`kintsugi` / `hoshizu`）が現在の世界観を表します。
+`#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ、`#hoshizu` が星図、`#kagee` が影絵。
+`<html data-world>` と `<body data-world>`（`kintsugi` / `hoshizu` / `kagee`）が現在の世界観を表します。
 
 ## オープニング
 
@@ -54,6 +54,13 @@
 5×5から9×10まで全30夜。時間制限なし。進み具合と自己ベストは端末内に保存（`hoshizu-save-v1`・`hoshizu-best`、金継ぎとは別）。
 問題は `tools/hoshizu-gen.cjs` で作り、答えがひとつに決まる面だけを `hoshizu-levels.js` に収録しています（`node tools/hoshizu-gen.cjs` で再生成）。
 
+## 影絵
+
+積み木でできた人形を立体的に回し、幕に落ちる影を点線の形に重ねるパズル。ドラッグ（またはフォーカス中に矢印キー）で回します。
+重なり（影と点線の面積の一致度）が90%を超えると幕が上がり、影の正体（きのこ、うさぎ、さかな…）が現れます。
+人形は影の形の各マスに奥行きのばらばらな積み木を積んで作るため、真正面から光を当てた向きで必ず答えになります。
+全20幕。第一幕は左右、第二幕は上下の回転だけで解け、手ほどきの矢印が出ます。進み具合と自己ベスト（回した数）は端末内に保存（`kagee-save-v1`・`kagee-best`）。
+
 ## 書体
 
 Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド明朝」（Zen Old Mincho）。
@@ -67,6 +74,11 @@ Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド�
 星図の世界では「解星デコール」（Kaisei Decol、SIL Open Font License 1.1）を使います。
 
 - https://github.com/google/fonts/blob/main/ofl/kaiseidecol/OFL.txt
+
+影絵の世界では「ランパート ワン」（Rampart One）と「Zen角ゴシック New」（Zen Kaku Gothic New）を使います。いずれも SIL Open Font License 1.1。
+
+- https://github.com/google/fonts/blob/main/ofl/rampartone/OFL.txt
+- https://github.com/google/fonts/blob/main/ofl/zenkakugothicnew/OFL.txt
 
 オープニングでは、一文字ずつ違う書体を使います。いずれもGoogle Fonts、SIL Open Font License 1.1。
 使う文字だけを取り寄せる（`text=` 指定）ため、通信量はわずかです。届かない場合は代わりの書体で流れます。
@@ -113,6 +125,7 @@ HTML・CSS・JavaScriptを更新するときは `sw.js` のVERSIONを上げま�
 - `garden.js`：庭のスライドと世界観の切り替え、星図の背景の星空と遊び帖の絵
 - `hoshizu.js`・`hoshizu.css`・`hoshizu-levels.js`：星図のゲーム・世界観・問題データ
 - `tools/hoshizu-gen.cjs`：星図の問題を作り、答えがひとつか確かめる道具
+- `kagee.js`・`kagee.css`：影絵のゲーム・世界観・遊び帖の絵
 - `manifest.webmanifest`・`sw.js`：ホーム画面追加とオフライン対応
 - `icons/`：初回公開時の器アイコンを継続使用
-- `test.cjs`：操作・保存互換・画面幅・オフライン・オープニング・星図の検証
+- `test.cjs`：操作・保存互換・画面幅・オフライン・オープニング・星図・影絵の検証

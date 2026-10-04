@@ -2,8 +2,8 @@
    選んだ遊びは端末に覚え、次に開いたときもその世界観のタイトル画面から始める。
    <html data-world> と <body data-world> が現在の世界観。 */
 (function(){
-  const WORLDS=['kintsugi','hoshizu'],WKEY='hirameki-world';
-  const THEME={kintsugi:'#eee9df',hoshizu:'#0b1026'};
+  const WORLDS=['kintsugi','hoshizu','kagee'],WKEY='hirameki-world';
+  const THEME={kintsugi:'#eee9df',hoshizu:'#0b1026',kagee:'#22080d'};
   const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $=id=>document.getElementById(id);

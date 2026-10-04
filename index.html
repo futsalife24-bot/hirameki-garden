@@ -14,13 +14,13 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <script>
 // 表示の前に世界観を決める（ゲーム画面ならそのゲーム、庭なら前回選んだ遊び）
-(function(){var h=location.hash,w='kintsugi';try{w=h==='#hoshizu'?'hoshizu':h==='#kintsugi'?'kintsugi':(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(w!=='hoshizu')w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
+(function(){var h=location.hash,w='kintsugi';try{w=h==='#hoshizu'?'hoshizu':h==='#kagee'?'kagee':h==='#kintsugi'?'kintsugi':(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(w!=='hoshizu'&&w!=='kagee')w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
 </script>
 <link rel="icon" href="./icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&family=Kaisei+Decol:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&family=Kaisei+Decol:wght@400;500;700&family=Rampart+One&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#D7DAD3; --bg-2:#C3C8C0; --ink:#232B33; --muted:#56626A;
@@ -248,6 +248,7 @@ button.primary{
 </style>
 <link rel="stylesheet" href="./garden.css">
 <link rel="stylesheet" href="./hoshizu.css">
+<link rel="stylesheet" href="./kagee.css">
 <link rel="stylesheet" href="./opening.css">
 </head>
 <body data-world="kintsugi">
@@ -278,11 +279,16 @@ button.primary{
     <div class="game-art"><canvas id="hz-art" width="900" height="760" role="img" aria-label="真鍮の星図盤の上で、星が光の線で結ばれている"></canvas><span class="art-caption">結べば、星座になる。</span></div>
     <div class="game-story"><p class="eyebrow"><span class="catalog-number">二</span> 庭の遊び帖</p><h2 id="hz-collection-title">星図</h2><p class="game-subtitle">星を結ぶ、夜のパズル。</p><p class="story-copy">数字の数だけ、光の線を。<br>交わらず、ひとつながりに。<br>夜空に、星座を描いていく。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="hz-play" class="play-game" href="#hoshizu"><span id="hz-play-label">星を結ぶ</span><span aria-hidden="true">↗</span></a><p id="hz-resume-note" class="resume-note"></p></div>
   </article>
+  <article class="game-card" data-world="kagee" aria-labelledby="kg-collection-title" aria-roledescription="スライド" hidden>
+    <div class="game-art"><canvas id="kg-art" width="900" height="760" role="img" aria-label="劇場の幕のあいだのスクリーンに、うさぎの影が映り、手前に積み木の人形が置かれている"></canvas><span class="art-caption">回せば、影が語りだす。</span></div>
+    <div class="game-story"><p class="eyebrow"><span class="catalog-number">三</span> 庭の遊び帖</p><h2 id="kg-collection-title">影絵</h2><p class="game-subtitle">立体を回す、影のパズル。</p><p class="story-copy">積み木の人形を、くるりと回す。<br>幕に落ちる影が、点線に重なったとき、<br>思いがけない形が現れる。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="kg-play" class="play-game" href="#kagee"><span id="kg-play-label">影をつくる</span><span aria-hidden="true">↗</span></a><p id="kg-resume-note" class="resume-note"></p></div>
+  </article>
   </div>
   <div class="slide-ctl" aria-label="遊びの切り替え" role="group">
     <button class="slide-arrow" id="slide-prev" type="button" aria-label="前の遊び">‹</button>
     <button class="slide-dot" data-world="kintsugi" type="button"><span aria-hidden="true">一</span> 金継ぎ</button>
     <button class="slide-dot" data-world="hoshizu" type="button"><span aria-hidden="true">二</span> 星図</button>
+    <button class="slide-dot" data-world="kagee" type="button"><span aria-hidden="true">三</span> 影絵</button>
     <button class="slide-arrow" id="slide-next" type="button" aria-label="次の遊び">›</button>
     <p class="visually-hidden" id="slide-status" aria-live="polite"></p>
   </div>
@@ -374,10 +380,47 @@ button.primary{
     <button class="hz-btn primary" type="button" data-close>閉じる</button>
   </dialog>
 </div>
+<div class="kg game-screen" id="kagee" hidden>
+  <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 三</span></nav>
+  <header class="kg-head game-head">
+    <h1 id="kg-title" tabindex="-1">影絵</h1>
+    <div class="kg-tools"><button class="kg-btn" type="button" data-help="kg-help" aria-haspopup="dialog">遊び方</button><button class="kg-btn" id="kg-sound" type="button" aria-pressed="true">音あり</button></div>
+    <div class="kg-level"><b id="kg-lv">第一幕</b><span id="kg-size"></span></div>
+    <p class="coach" id="kg-coach" aria-live="polite" hidden></p>
+  </header>
+  <main class="kg-main">
+    <div class="stage kg-stage"><canvas id="kg-canvas" tabindex="0" role="application" aria-label="影絵の舞台。ドラッグ、または矢印キーで人形を回し、幕の影を点線の形に重ねます。" aria-describedby="kg-live"></canvas></div>
+    <p class="visually-hidden" id="kg-live" aria-live="polite"></p>
+    <div class="foot">
+    <div class="kg-bar">
+      <div class="kg-stat">重なり<strong id="kg-match">0%</strong></div>
+      <div class="kg-stat">回した数<strong id="kg-moves">0</strong></div>
+      <button class="kg-btn" id="kg-reset" type="button">最初から</button>
+    </div>
+    <div class="kg-done" id="kg-done" aria-live="polite">
+      <div class="kg-seal" aria-hidden="true">幕</div>
+      <div><p class="kg-done-title">幕が上がりました</p><p class="kg-done-note" id="kg-done-note"></p></div>
+      <button class="kg-btn primary" id="kg-next" type="button">次の幕へ</button>
+    </div>
+    </div>
+  </main>
+  <dialog class="howto" id="kg-help" aria-labelledby="kg-help-title">
+    <h2 id="kg-help-title">影絵の遊び方</h2>
+    <ul>
+      <li>積み木でできた人形を、ドラッグして立体的に回します。</li>
+      <li>人形の影が幕に映ります。影を、幕に描かれた点線の形に重ねましょう。</li>
+      <li>重なりが90%を超えると幕が上がり、影の正体が現れます。</li>
+      <li>人形は斜めから見ています。見た目ではなく、影を見て回すのがこつです。</li>
+      <li>キーボードでは、舞台を選んで矢印キーで回します。</li>
+    </ul>
+    <button class="kg-btn primary" type="button" data-close>閉じる</button>
+  </dialog>
+</div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
 <script src="./hoshizu-levels.js"></script>
 <script src="./hoshizu.js"></script>
+<script src="./kagee.js"></script>
 <script src="./garden.js"></script>
 <script src="./ceramic.js"></script>
 <script>
@@ -763,13 +806,15 @@ button.primary{
   }
 
   function showPage(focus){
-    const playing=location.hash==='#kintsugi',stars=location.hash==='#hoshizu';
-    $('garden').hidden=playing||stars;$('game').hidden=!playing;$('hoshizu').hidden=!stars;
-    if(window.Garden)Garden.setWorld(playing?'kintsugi':stars?'hoshizu':Garden.selected());
-    document.title=playing?'金継ぎ — ひらめきの庭':stars?'星図 — ひらめきの庭':'ひらめきの庭 — 日々に、ひとつの余白を。';
+    const playing=location.hash==='#kintsugi',stars=location.hash==='#hoshizu',shadow=location.hash==='#kagee';
+    $('garden').hidden=playing||stars||shadow;$('game').hidden=!playing;$('hoshizu').hidden=!stars;$('kagee').hidden=!shadow;
+    if(window.Garden)Garden.setWorld(playing?'kintsugi':stars?'hoshizu':shadow?'kagee':Garden.selected());
+    if(shadow&&window.Kagee)Kagee.resize();
+    document.title=playing?'金継ぎ — ひらめきの庭':stars?'星図 — ひらめきの庭':shadow?'影絵 — ひらめきの庭':'ひらめきの庭 — 日々に、ひとつの余白を。';
     if(S){$('play-label').textContent=S.moves||S.level>1?'つづきの器へ':'器をつなぐ';$('resume-note').textContent=S.moves||S.level>1?`第${S.level}の器・${S.moves}手から`:'';}
     if(window.Hoshizu){const l=Hoshizu.label();$('hz-play-label').textContent=l.play;$('hz-resume-note').textContent=l.note}
-    if(focus&&location.hash!=='#collection'){window.scrollTo(0,0);$(playing?'game-title':stars?'hz-title':'garden-title').focus({preventScroll:true});}
+    if(window.Kagee){const l=Kagee.label();$('kg-play-label').textContent=l.play;$('kg-resume-note').textContent=l.note}
+    if(focus&&location.hash!=='#collection'){window.scrollTo(0,0);$(playing?'game-title':stars?'hz-title':shadow?'kg-title':'garden-title').focus({preventScroll:true});}
   }
   window.addEventListener('hashchange',()=>showPage(true));
   const saved=load();
