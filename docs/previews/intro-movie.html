@@ -205,7 +205,9 @@ function boardPose(k,t){
 // 文字の置き場所（縦長の画面では盤と庭を大きく）
 const boardS=()=>S*(W<H?.3:.22),niwaZ=()=>S*(W<H?.62:.5);
 const chipY=()=>cy+Math.min(S*.4,H*.5-96),chipX=i=>cx+(i-2.5)*S*.085,chipSize=()=>S*.072;
-const L=()=>Math.min(S*.15,W*.135),logoX=i=>cx+(i-2.5)*L(),logoY=()=>cy-S*.04;
+// ロゴでは「庭」だけ一回り大きく。その分だけ右へ寄せ、列全体を少し左へずらして中央を保つ
+const L=()=>Math.min(S*.15,W*.13),NIWA_K=1.32;
+const logoX=i=>cx+(i-2.5)*L()-L()*.1+(i===5?L()*.2:0),logoY=()=>cy-S*.04,logoSize=i=>L()*.95*(i===5?NIWA_K:1);
 const waitY=()=>cy-S*.34;
 
 const BEATS=SCENE.map((_,k)=>[S0(k)+.12,S0(k)+1.2,.15]).concat([[GARDEN+.05,PING-.1,.2]]);
@@ -246,7 +248,7 @@ function render(t){
     const fly=inOut(seg(u,1.0,1.4)),toWait=inOut(seg(t,GARDEN,GARDEN+.45)),toLogo=inOut(seg(t,PING,PING+.55));
     const bs=boardS()*2,sx=lerp(cx,chipX(k),fly),sy=lerp(cy,chipY(),fly)-Math.sin(fly*Math.PI)*S*.08,ss=lerp(bs*.98,chipSize(),fly);
     let px=lerp(sx,chipX(k)*0+cx+(k-2)*L()*.62,toWait),py=lerp(sy,waitY(),toWait),ps=lerp(ss,L()*.55,toWait);
-    px=lerp(px,logoX(k),toLogo);py=lerp(py,logoY(),toLogo);ps=lerp(ps,L()*.95,toLogo);
+    px=lerp(px,logoX(k),toLogo);py=lerp(py,logoY(),toLogo);ps=lerp(ps,logoSize(k),toLogo);
     const pop=1+.12*Math.sin(seg(u,1.35,1.55)*Math.PI);drawGlyph(k,px,py,ps*pop,1-seg(t,9.05,9.35));
   }
 
@@ -254,7 +256,7 @@ function render(t){
   if(t>=GARDEN){
     const Z=niwaZ(),n=6,cs=Z/n,ox=cx-Z/2,oy=cy+S*.02-Z/2,close=seg(t,7.6,7.8),toLogo=inOut(seg(t,PING,PING+.55));
     if(toLogo<1){
-      x.save();const lx=logoX(5),ly=logoY(),k2=lerp(1,L()*.95/Z,toLogo);x.translate(lerp(cx,lx,toLogo),lerp(cy+S*.02,ly,toLogo));x.scale(k2,k2);x.translate(-cx,-(cy+S*.02));
+      x.save();const lx=logoX(5),ly=logoY(),k2=lerp(1,logoSize(5)/Z,toLogo);x.translate(lerp(cx,lx,toLogo),lerp(cy+S*.02,ly,toLogo));x.scale(k2,k2);x.translate(-cx,-(cy+S*.02));
       for(const tl of NIWA){
         const v=outExpo(seg(t,GARDEN+.15+tl.d,GARDEN+.75+tl.d));if(!v)continue;
         const fx=chipX(tl.from)-cx,fy=(waitY()-cy),sx=cx+lerp(fx+Math.cos(tl.ang)*S*tl.rad*.6,0,0),hx=ox+tl.i*cs,hy=oy+tl.j*cs;
@@ -265,7 +267,7 @@ function render(t){
         x.beginPath();x.rect(-cs/2+gap,-cs/2+gap,cs-gap*2,cs-gap*2);x.clip();x.drawImage(glyph[5],tl.i*T/n,tl.j*T/n,T/n,T/n,-cs/2,-cs/2,cs,cs);x.restore();
       }
       x.restore();
-    }else drawGlyph(5,logoX(5),logoY(),L()*.95,1-seg(t,9.05,9.35));
+    }else drawGlyph(5,logoX(5),logoY(),logoSize(5),1-seg(t,9.05,9.35));
     // 芯の光
     const glow=seg(t,7.55,7.9)*(1-seg(t,PING,PING+.3));if(glow>0){const g=x.createRadialGradient(cx,cy,0,cx,cy,S*.45);g.addColorStop(0,`rgba(255,244,214,${.35*glow})`);g.addColorStop(1,'rgba(255,244,214,0)');x.fillStyle=g;x.fillRect(0,0,W,H)}
   }
@@ -282,7 +284,7 @@ function render(t){
   const sec=Math.min(t,DURATION);$('tc').textContent=`00:${String(Math.floor(sec)).padStart(2,'0')}:${String(Math.floor(sec%1*24)).padStart(2,'0')}`;
   let curB=0;BEATS.forEach(([a],k)=>{if(t>=a)curB=k+1});$('idx').textContent=`0${curB} / 06`;
   BEATS.forEach(([a,b,f],k)=>{const el=beatEls[k],v=inoutVis(t,a,b,f),out=seg(t,b-f,b);el.style.opacity=v;el.style.transform=`translateX(${(1-seg(t,a,a+.3))*-24+out*16}px)`;el.style.filter=`blur(${(1-v)*5}px)`});
-  const sub=$('sub');sub.style.top=`${logoY()+L()*.62}px`;sub.style.opacity=1-seg(t,9.05,9.35);
+  const sub=$('sub');sub.style.top=`${logoY()+L()*.7}px`;sub.style.opacity=1-seg(t,9.05,9.35);
   sub.querySelector('.en').style.opacity=seg(t,8.35,8.85);sub.querySelector('.en').style.letterSpacing=`${.6+.4*(1-outExpo(seg(t,8.35,9.0)))}em`;
   sub.querySelector('.bar').style.transform=`scaleX(${inOut(seg(t,8.45,9.0))})`;sub.querySelector('.tag').style.opacity=seg(t,8.6,9.0);
 
