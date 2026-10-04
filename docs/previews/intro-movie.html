@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;900&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* 「ひらめきの庭」全体のオープニング試作。特定のゲームの世界観には寄せない。約8.6秒。 */
+/* 「ひらめきの庭」全体のオープニング試作。テーマは「ひらめき」の瞬間。特定のゲームの世界観には寄せない。約8.6秒。 */
 :root{--bg:#0b0b10;--cream:#f4f1ea;--dim:#f4f1ea80;--blue:#4a6dff;--coral:#ff5d4f;--lime:#c9f26b;--violet:#a084ff;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;color:var(--cream);font-family:'Zen Kaku Gothic New',system-ui,sans-serif}
@@ -42,12 +42,12 @@ body.done .ui button{color:#2a2a30;border-color:#2a2a3055;background:transparent
 <body>
 <canvas id="c" aria-hidden="true"></canvas>
 <div class="layer frame" id="frame" aria-hidden="true"><i></i><i></i>
-  <span class="cap tl">HIRAMEKI GARDEN</span><span class="cap tr">OPENING — PUZZLE COLLECTION</span>
+  <span class="cap tl">HIRAMEKI GARDEN</span><span class="cap tr">OPENING — THE MOMENT OF HIRAMEKI</span>
   <span class="cap bl" id="tc">00:00:00</span><span class="cap br" id="idx">00 / 03</span>
 </div>
 <div class="layer" aria-hidden="true">
-  <p class="beat" id="b1" style="--c:var(--blue)"><b>01</b><span>つなぐ。</span></p>
-  <p class="beat" id="b2" style="--c:var(--coral)"><b>02</b><span>組みかえる。</span></p>
+  <p class="beat" id="b1" style="--c:var(--violet)"><b>01</b><span>迷って、</span></p>
+  <p class="beat" id="b2" style="--c:var(--cream)"><b>02</b><span>ふと、</span></p>
   <p class="beat" id="b3" style="--c:var(--lime)"><b>03</b><span>ひらめく。</span></p>
 </div>
 <div class="layer logo" id="logo">
@@ -67,11 +67,10 @@ const $=id=>document.getElementById(id);
 const h1=document.querySelector('.logo h1');
 [...'ひらめきの庭'].forEach(ch=>{const m=document.createElement('span');m.className='m';m.innerHTML=`<span>${ch}</span>`;h1.appendChild(m)});
 const letters=[...h1.querySelectorAll('.m>span')];
-const C={cream:'#f4f1ea',blue:'#4a6dff',coral:'#ff5d4f',lime:'#c9f26b',violet:'#a084ff'};
+const COLORS=['#4a6dff','#ff5d4f','#c9f26b','#a084ff'];
 
 let W=0,H=0,S=0,cx=0,cy=0;
 function resize(){const r=devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*r;cv.height=H*r;x.setTransform(r,0,0,r,0,0);S=Math.min(W,H);cx=W/2;cy=H/2-S*.02}
-addEventListener('resize',()=>{resize();render(now())});resize();
 
 // 補間
 const clamp=v=>Math.max(0,Math.min(1,v));
@@ -79,113 +78,115 @@ const seg=(t,a,b)=>clamp((t-a)/(b-a));
 const outExpo=v=>v>=1?1:1-Math.pow(2,-10*v);
 const outBack=v=>{const c=1.9;return 1+(c+1)*Math.pow(v-1,3)+c*Math.pow(v-1,2)};
 const inOut=v=>v<.5?4*v*v*v:1-Math.pow(-2*v+2,3)/2;
-const inCubic=v=>v*v*v;
-// 前後に出入りする要素の可視度
 const inoutVis=(t,a,b,f=.3)=>Math.min(seg(t,a,a+f),1-seg(t,b-f,b));
+const lerp=(a,b,k)=>a+(b-a)*k;
 
-// 盤面：7×7の点、6×6のマス
-const N=7;
-const path=[[0,6],[0,3],[2,3],[2,1],[0,1],[0,0],[3,0],[3,2],[5,2],[5,0],[6,0],[6,4],[4,4],[4,6],[6,6]];
-const pieces=[
-  {cells:[[1,1],[1,2],[1,3],[2,3]],color:C.coral,t0:2.62,from:[-3,0],rot:-90},
-  {cells:[[4,0],[5,0],[4,1],[5,1]],color:C.blue,t0:2.82,from:[0,-3],rot:90},
-  {cells:[[3,2],[3,3],[4,3],[3,4]],color:C.lime,t0:3.02,from:[3,0],rot:90},
-  {cells:[[1,5],[2,5],[3,5],[4,5]],color:C.violet,t0:3.22,from:[0,3],rot:-90},
-];
-function rr(px,py,w,h,r){x.beginPath();x.roundRect(px,py,w,h,r)}
+// 思考のかけら。固定の乱数で毎回同じ動きになる。
+let seed=20261004;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const COUNT=96,OUTLINE=64;
+const bits=Array.from({length:COUNT},(_,i)=>({
+  r:.1+.3*rnd(),w:(.35+.55*rnd())*(rnd()<.5?-1:1),ph:rnd()*Math.PI*2,
+  k1:1+rnd()*2.2,k2:1+rnd()*2.2,p1:rnd()*7,p2:rnd()*7,amp:.03+.05*rnd(),
+  born:rnd()*1.1,size:.6+rnd()*.9,dir:rnd()*Math.PI*2,fly:.35+.4*rnd(),col:COLORS[i%4]
+}));
 
+// 「ふと」で時間がほとんど止まる
+function tau(t){
+  if(t<3.3)return t;
+  if(t<3.7){const d=t-3.3;return 3.3+d-2.4*d*d/2}
+  return 3.508+.04*(t-3.7);
+}
+function wander(b,T){
+  const tight=seg(T,1.6,3.5),r=S*b.r*(1-.4*tight),th=b.ph+b.w*T+b.w*.9*Math.pow(Math.max(0,T-1.6),2);
+  return [cx+Math.cos(th)*r+S*b.amp*Math.sin(b.k1*T+b.p1),cy+Math.sin(th)*r*.82+S*b.amp*Math.cos(b.k2*T+b.p2)];
+}
+// ひらめきの印：四つの光の尖り（アステロイド）
+const R=()=>S*.17;
+function spark(i){const th=i/OUTLINE*Math.PI*2,c=Math.cos(th),s=Math.sin(th);return [cx+R()*c*c*c,cy+R()*s*s*s]}
+function sparkPath(px,py,r){x.beginPath();for(let k=0;k<=96;k++){const th=k/96*Math.PI*2,c=Math.cos(th),s=Math.sin(th),X=px+r*c*c*c,Y=py+r*s*s*s;k?x.lineTo(X,Y):x.moveTo(X,Y)}x.closePath()}
+
+const PING=4.2;
 function render(t){
-  x.globalAlpha=1;x.fillStyle='#0b0b10';x.fillRect(0,0,W,H);
-  const G=S*.5,step=G/(N-1),ox=cx-G/2,oy=cy-G/2;
-  const P=(i,j)=>[ox+i*step,oy+j*step];
+  x.globalAlpha=1;x.shadowBlur=0;
+  const bg=x.createRadialGradient(cx,cy,0,cx,cy,Math.hypot(W,H)/2);bg.addColorStop(0,'#14141c');bg.addColorStop(1,'#0b0b10');x.fillStyle=bg;x.fillRect(0,0,W,H);
 
-  // 背景の細い方眼
-  const ga=.05*seg(t,1,1.8)*(1-seg(t,7.6,8.2));
-  if(ga>0){x.strokeStyle=`rgba(244,241,234,${ga})`;x.lineWidth=1;const g=step/2;x.beginPath();for(let a=cx%g;a<W;a+=g){x.moveTo(a,0);x.lineTo(a,H)}for(let b=cy%g;b<H;b+=g){x.moveTo(0,b);x.lineTo(W,b)}x.stroke()}
+  const T=tau(t),hush=seg(t,3.3,3.7)*(1-seg(t,PING,PING+.05));
+  const snap=outExpo(seg(t,PING,PING+.45)),gather=1-seg(t,4.75,5.2);
+  x.lineCap='round';
 
-  // 1. 光の点と十字
-  const sp=seg(t,0,.55),spOut=1-seg(t,1.05,1.45);
-  if(spOut>0&&t>0){
-    const r=S*(.004+.006*outBack(sp))*(1+.15*Math.sin(t*14));
-    const glow=x.createRadialGradient(cx,cy,0,cx,cy,S*.16*sp+1);glow.addColorStop(0,`rgba(244,241,234,${.35*spOut})`);glow.addColorStop(1,'rgba(244,241,234,0)');
-    x.fillStyle=glow;x.fillRect(0,0,W,H);
-    x.globalAlpha=spOut;x.fillStyle=C.cream;x.beginPath();x.arc(cx,cy,r,0,7);x.fill();
-    const q=outExpo(seg(t,.35,1.15));x.globalAlpha=.4*spOut;x.fillRect(cx-W/2*q,cy-.5,W*q,1);x.fillRect(cx-.5,cy-H/2*q,1,H*q);x.globalAlpha=1;
+  // 1〜2. 迷い：軌跡を引きながら漂う
+  if(t<PING+.6){
+    for(let i=1;i<COUNT;i++){
+      const b=bits[i],vis=seg(t,b.born,b.born+.6);if(!vis)continue;
+      const burst=i>=OUTLINE;
+      if(t<PING){
+        const a=vis*(.85-.55*hush);
+        x.strokeStyle=`rgba(150,160,220,${.22*a})`;x.lineWidth=S*.0018*b.size;x.beginPath();
+        for(let k=0;k<=12;k++){const [px,py]=wander(b,Math.max(0,T-.55*k/12));k?x.lineTo(px,py):x.moveTo(px,py)}
+        x.stroke();
+        const [px,py]=wander(b,T);x.fillStyle=`rgba(200,206,240,${a})`;x.beginPath();x.arc(px,py,S*.0035*b.size,0,7);x.fill();
+      }else if(!burst){
+        // 3. 一瞬で整列して光の形になる
+        const [sx,sy]=wander(b,tau(PING)),[tx,ty]=spark(i);
+        const px=lerp(sx,tx,snap),py=lerp(sy,ty,snap);
+        x.globalAlpha=gather;x.fillStyle='#f4f1ea';x.shadowColor=b.col;x.shadowBlur=S*.02;x.beginPath();x.arc(px,py,S*.004*(1+.6*(1-snap)),0,7);x.fill();x.shadowBlur=0;x.globalAlpha=1;
+      }
+    }
+  }
+  // 火花：中心から四色で散る
+  const fl=seg(t,PING,PING+.9);
+  if(fl>0&&fl<1)for(let i=OUTLINE;i<COUNT;i++){
+    const b=bits[i],d=S*(.04+b.fly*outExpo(fl)),px=cx+Math.cos(b.dir)*d,py=cy+Math.sin(b.dir)*d,d0=S*(.04+b.fly*outExpo(Math.max(0,fl-.08)));
+    x.strokeStyle=b.col;x.globalAlpha=1-fl;x.lineWidth=S*.005*b.size;x.beginPath();x.moveTo(cx+Math.cos(b.dir)*d0,cy+Math.sin(b.dir)*d0);x.lineTo(px,py);x.stroke();x.globalAlpha=1;
   }
 
-  // 4. 収束：盤面全体が中心へ吸い込まれる
-  const conv=inCubic(seg(t,4.1,4.75));
-  const boardA=1-seg(t,4.5,4.75);
-  if(boardA>0&&t>=1){
-    x.save();x.translate(cx,cy);x.rotate(conv*Math.PI/4);x.scale(1-conv*.92,1-conv*.92);x.translate(-cx,-cy);x.globalAlpha=boardA;
+  // 2. ふと：ひとつのかけらが中心へ寄り、灯る
+  if(t>=bits[0].born&&t<PING+.1){
+    const b=bits[0],[wx,wy]=wander(b,T),m=inOut(seg(t,3.35,4.1)),px=lerp(wx,cx,m),py=lerp(wy,cy,m);
+    const glow=S*(.004+.012*m)*(1+.12*Math.sin(t*18)*m);
+    const g=x.createRadialGradient(px,py,0,px,py,S*.12*m+1);g.addColorStop(0,`rgba(244,241,234,${.4*m})`);g.addColorStop(1,'rgba(244,241,234,0)');x.fillStyle=g;x.fillRect(px-S*.13,py-S*.13,S*.26,S*.26);
+    x.fillStyle='#f4f1ea';x.beginPath();x.arc(px,py,glow,0,7);x.fill();
+  }
 
-    // 2. 点の出現（中心から外へ）
-    const maxD=Math.hypot(3,3);
-    for(let i=0;i<N;i++)for(let j=0;j<N;j++){
-      const d=Math.hypot(i-3,j-3)/maxD,v=seg(t,1+d*.45,1.35+d*.45);if(!v)continue;
-      const [px,py]=P(i,j);x.fillStyle=C.cream;x.globalAlpha=boardA*.75;x.beginPath();x.arc(px,py,S*.0055*outBack(v),0,7);x.fill();
-    }
-    x.globalAlpha=boardA;
+  // 3. ピン：衝撃の輪と光線
+  const sw=seg(t,PING,PING+.85);
+  if(sw>0&&sw<1){
+    x.strokeStyle=`rgba(244,241,234,${.7*(1-sw)})`;x.lineWidth=S*.01*(1-sw)+1;x.beginPath();x.arc(cx,cy,S*(.03+.75*outExpo(sw)),0,7);x.stroke();
+    const rl=seg(t,PING,PING+.7);x.lineWidth=S*.004;
+    for(let k=0;k<8;k++){const a=k/8*Math.PI*2+Math.PI/8,r0=S*(.06+.5*outExpo(rl)),r1=r0+S*.18*(1-rl);x.strokeStyle=COLORS[k%4];x.globalAlpha=1-rl;x.beginPath();x.moveTo(cx+Math.cos(a)*r0,cy+Math.sin(a)*r0);x.lineTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);x.stroke()}
+    x.globalAlpha=1;
+  }
 
-    // 2. 一筆の線が点をつなぐ
-    const lp=inOut(seg(t,1.45,2.6)),la=1-.7*seg(t,2.9,3.5);
-    if(lp>0){
-      const pts=path.map(([i,j])=>P(i,j));let total=0;const L=[];for(let k=1;k<pts.length;k++){const l=Math.hypot(pts[k][0]-pts[k-1][0],pts[k][1]-pts[k-1][1]);L.push(l);total+=l}
-      let rem=total*lp;const grad=x.createLinearGradient(ox,oy+G,ox+G,oy);grad.addColorStop(0,C.blue);grad.addColorStop(1,C.lime);
-      x.strokeStyle=grad;x.lineWidth=S*.011;x.lineCap='round';x.lineJoin='round';x.globalAlpha=boardA*la;x.beginPath();x.moveTo(...pts[0]);let head=pts[0];
-      for(let k=1;k<pts.length&&rem>0;k++){const f=Math.min(1,rem/L[k-1]);head=[pts[k-1][0]+(pts[k][0]-pts[k-1][0])*f,pts[k-1][1]+(pts[k][1]-pts[k-1][1])*f];x.lineTo(...head);rem-=L[k-1]}
-      x.stroke();
-      if(lp<1){x.fillStyle=C.lime;x.shadowColor=C.lime;x.shadowBlur=S*.03;x.beginPath();x.arc(...head,S*.012,0,7);x.fill();x.shadowBlur=0}
-      x.globalAlpha=boardA;
-    }
-
-    // 3. ブロックが滑りこみ、回って収まる
-    const flash=inoutVis(t,3.72,4.02,.12),gap=step*.09;
-    for(const pc of pieces){
-      const v=seg(t,pc.t0,pc.t0+.55);if(!v)continue;const e=outExpo(v);
-      const mc=pc.cells.reduce((a,[i,j])=>[a[0]+i+.5,a[1]+j+.5],[0,0]).map(n=>n/pc.cells.length);
-      const [mx,my]=P(mc[0],mc[1]);
-      x.save();x.translate(mx+pc.from[0]*step*(1-e),my+pc.from[1]*step*(1-e));x.rotate(pc.rot*(1-e)*Math.PI/180);x.translate(-mx,-my);
-      x.globalAlpha=boardA*Math.min(1,v*3);
-      for(const [i,j] of pc.cells){const [px,py]=P(i,j);rr(px+gap,py+gap,step-gap*2,step-gap*2,step*.2);x.fillStyle=pc.color;x.fill();if(flash){x.fillStyle=`rgba(255,255,255,${flash*.85})`;x.fill()}}
-      x.restore();
-    }
+  // 4. 光の印 → 5. ロゴの上へ
+  const fill=seg(t,4.5,5.0);
+  if(fill>0){
+    const mv=inOut(seg(t,5.5,6.15)),sc=1-.55*mv,oy=-S*.2*mv,fade=1-seg(t,7.7,8.05);
+    const pulse=1+.04*Math.sin((t-4.5)*5)*(1-mv),rot=-.35*(1-inOut(seg(t,4.5,6.2)));
+    x.save();x.translate(cx,cy+oy);x.rotate(rot);x.scale(sc*pulse,sc*pulse);x.globalAlpha=fade*fill;
+    const g=x.createRadialGradient(0,0,0,0,0,R()*1.6);g.addColorStop(0,'rgba(244,241,234,.28)');g.addColorStop(1,'rgba(244,241,234,0)');x.fillStyle=g;x.fillRect(-R()*1.6,-R()*1.6,R()*3.2,R()*3.2);
+    sparkPath(0,0,R()*(.85+.15*outBack(fill)));
+    const lg=x.createLinearGradient(-R(),-R(),R(),R());lg.addColorStop(0,'#ffffff');lg.addColorStop(1,'#efe9da');x.fillStyle=lg;x.fill();
+    // 小さな相棒の光
+    const s2=outBack(seg(t,5.05,5.45));if(s2>0){sparkPath(R()*.78,-R()*.72,R()*.3*s2);x.fillStyle='#c9f26b';x.fill()}
     x.restore();x.globalAlpha=1;
   }
+  const flash=(1-seg(t,PING,PING+.35))*(t>=PING?.45:0);if(flash>0){x.fillStyle=`rgba(255,255,255,${flash})`;x.fillRect(0,0,W,H)}
 
-  // 4. 芽が伸び、ひらめきの光が弾ける → 5. ロゴの上へ移る
-  const grow=seg(t,4.55,5.25);
-  if(grow>0){
-    const mv=inOut(seg(t,5.45,6.15)),sc=1-.5*mv,ty=-S*.2*mv,fade=1-seg(t,7.7,8.1);
-    x.save();x.translate(cx,cy+ty);x.scale(sc,sc);x.globalAlpha=fade;
-    const u=S*.11,stem=outExpo(grow);
-    x.strokeStyle=C.cream;x.lineWidth=S*.012;x.lineCap='round';x.beginPath();x.moveTo(0,u*.9);x.lineTo(0,u*.9-u*1.3*stem);x.stroke();
-    const leaf=(dir,col,v)=>{if(v<=0)return;const k=outBack(v);x.save();x.translate(0,-u*.05);x.scale(dir*k,k);x.beginPath();x.moveTo(0,0);x.bezierCurveTo(u*.2,-u*.65,u*.95,-u*.7,u*1.05,-u*.55);x.bezierCurveTo(u*.85,-u*.05,u*.3,u*.08,0,0);x.fillStyle=col;x.fill();x.restore()};
-    leaf(-1,C.blue,seg(t,4.8,5.2));leaf(1,C.lime,seg(t,4.9,5.3));
-    // 光のしずく
-    const bulb=outBack(seg(t,4.95,5.2));x.fillStyle=C.cream;x.beginPath();x.arc(0,-u*.62,S*.018*bulb,0,7);x.fill();
-    // 放射
-    const br=seg(t,5.0,5.7);
-    if(br>0&&br<1){const cols=[C.blue,C.coral,C.lime,C.violet];x.lineWidth=S*.008;for(let k=0;k<12;k++){const a=k/12*Math.PI*2-Math.PI/2,r0=u*(.45+.9*outExpo(br)),r1=r0+u*.35*(1-br);x.strokeStyle=cols[k%4];x.globalAlpha=fade*(1-br);x.beginPath();x.moveTo(Math.cos(a)*r0,-u*.62+Math.sin(a)*r0);x.lineTo(Math.cos(a)*r1,-u*.62+Math.sin(a)*r1);x.stroke()}}
-    x.restore();x.globalAlpha=1;
-  }
-  const fl=inoutVis(t,4.98,5.4,.04)*.22;if(fl>0){x.fillStyle=`rgba(255,255,255,${fl})`;x.fillRect(0,0,W,H)}
-
-  // 文字のレイヤー
-  const fr=seg(t,.3,1.2),frOut=1-seg(t,7.6,8.0);
-  $('frame').style.opacity=frOut;document.querySelectorAll('.frame i').forEach(i=>i.style.transform=`scaleX(${outExpo(fr)})`);
+  // 文字
+  const fr=seg(t,.3,1.2);
+  $('frame').style.opacity=1-seg(t,7.6,8.0);document.querySelectorAll('.frame i').forEach(i=>i.style.transform=`scaleX(${outExpo(fr)})`);
   document.querySelectorAll('.cap').forEach(c=>c.style.opacity=seg(t,.6,1.2));
   const sec=Math.min(t,DURATION);$('tc').textContent=`00:${String(Math.floor(sec)).padStart(2,'0')}:${String(Math.floor(sec%1*24)).padStart(2,'0')}`;
-  $('idx').textContent=`0${t<1.2?0:t<2.6?1:t<4.4?2:3} / 03`;
-  [[1.2,2.6],[2.6,4.1],[4.4,5.5]].forEach(([a,b],k)=>{const el=$('b'+(k+1)),v=inoutVis(t,a,b,.25),out=seg(t,b-.25,b);el.style.opacity=v;el.style.transform=`translateY(${(1-seg(t,a,a+.35))*18-out*14}px)`;el.style.filter=`blur(${(1-v)*5}px)`});
+  $('idx').textContent=`0${t<1?0:t<3.35?1:t<PING?2:3} / 03`;
+  [[1.0,3.25,.3],[3.35,4.2,.2],[4.3,5.5,.25]].forEach(([a,b,f],k)=>{const el=$('b'+(k+1)),v=inoutVis(t,a,b,f),out=seg(t,b-f,b);el.style.opacity=v;el.style.transform=`translateY(${(1-seg(t,a,a+.35))*18-out*14}px)`;el.style.filter=`blur(${(1-v)*5}px)`});
   letters.forEach((l,i)=>{l.style.transform=`translateY(${(1-outExpo(seg(t,5.75+i*.07,6.4+i*.07)))*110}%)`});
   const logo=$('logo');logo.style.opacity=1-seg(t,7.75,8.05);
   logo.querySelector('.en').style.opacity=seg(t,6.35,6.9);logo.querySelector('.en').style.letterSpacing=`${.6+.4*(1-outExpo(seg(t,6.35,7.2)))}em`;
   logo.querySelector('.bar').style.transform=`scaleX(${inOut(seg(t,6.5,7.2))})`;
   logo.querySelector('.tag').style.opacity=seg(t,6.9,7.4);
 
-  // 6. 光が広がり、タイトル画面へ渡す
-  const ir=inOut(seg(t,7.85,8.6)),iy=cy-S*.2-S*.11*.62*.5;$('iris').style.clipPath=`circle(${ir*Math.hypot(W/2,Math.max(iy,H-iy))+(ir>0?2:0)}px at 50% ${iy}px)`;
+  // 6. 光の印から白が広がり、タイトル画面へ渡す
+  const ir=inOut(seg(t,7.85,8.6)),iy=cy-S*.2;$('iris').style.clipPath=`circle(${ir*Math.hypot(W/2,Math.max(iy,H-iy))+(ir>0?2:0)}px at 50% ${iy}px)`;
   $('end').style.opacity=seg(t,8.6,9.1);
   document.body.classList.toggle('done',t>=DURATION);
 }
@@ -195,6 +196,7 @@ const now=()=>fixed??(performance.now()-start)/1000;
 function loop(){const t=now();render(t);if(fixed===null&&t<DURATION+.6)raf=requestAnimationFrame(loop)}
 function play(){cancelAnimationFrame(raf);fixed=null;start=performance.now();loop()}
 function seek(t){cancelAnimationFrame(raf);fixed=t;render(t)}
+addEventListener('resize',()=>{resize();render(now())});resize();
 $('skip').onclick=()=>{seek(DURATION+.6);$('replay').focus()};
 $('replay').onclick=()=>{play();$('skip').focus()};
 const q=new URLSearchParams(location.search).get('t');
