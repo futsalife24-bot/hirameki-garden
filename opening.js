@@ -24,7 +24,6 @@ root.innerHTML=`<canvas id="op-canvas" aria-hidden="true"></canvas>
   <span class="op-cap op-tl">HIRAMEKI GARDEN</span><span class="op-cap op-tr">TITLE SEQUENCE — FIVE PUZZLES, ONE GARDEN</span>
   <span class="op-cap op-bl" id="op-tc">00:00:00</span><span class="op-cap op-br" id="op-idx">00 / 06</span>
 </div>
-<div class="op-layer" id="op-beats" aria-hidden="true"></div>
 <div class="op-sub" id="op-sub" aria-hidden="true"><p class="op-en">HIRAMEKI GARDEN</p><div class="op-bar"></div><p class="op-tag">ひらめきを、集める庭。</p></div>
 <div class="op-iris" id="op-iris"></div>
 <div class="op-start" id="op-start"><p>HIRAMEKI GARDEN</p><button id="op-play-sound" class="op-primary" type="button">▶ 音ありではじめる</button><button id="op-play-mute" type="button">音なしではじめる</button><button id="op-start-skip" class="op-quiet" type="button">オープニングをスキップ</button></div>
@@ -35,7 +34,8 @@ document.documentElement.classList.add('op-lock');
 const pageBg=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
 if(pageBg)root.style.setProperty('--op-end',pageBg);
 
-const DURATION=10;
+// ロゴ「ひらめきの庭」を見せておく長さ。白い光への切り替えはこの分だけ後ろへずれる
+const HOLD=1.35,DURATION=10+HOLD;
 const $=id=>document.getElementById('op-'+id);
 const cv=$('canvas'),x=cv.getContext('2d');
 const C={blue:'#4a6dff',coral:'#ff5d4f',sand:'#f2c14e',violet:'#a084ff',lime:'#c9f26b',cream:'#f4f1ea'};
@@ -216,7 +216,6 @@ const logoX=i=>cx+(i-2.5)*L()-L()*.1+(i===5?L()*.2:0),logoY=()=>cy-S*.04,logoSiz
 const waitY=()=>cy-S*.34;
 
 const BEATS=SCENE.map((_,k)=>[S0(k)+.12,S0(k)+1.2,.15]).concat([[GARDEN+.05,PING-.1,.2]]);
-const beatEls=SCENE.map((sc,k)=>[sc.col,`0${k+1}`,`${sc.w} → ${CHARS[k]}`,sc.en]).concat([[C.cream,'06','まとめて、庭。','GARDEN']]).map((r,k)=>[r[0],r[1],r[2],`${r[3]} / ${FONTS[k].label}`]).map(([c,n,w,en])=>{const p=document.createElement('p');p.className='op-beat';p.style.setProperty('--c',c);p.innerHTML=`<b>${n}</b><span>${w}</span><em>${en}</em>`;$('beats').appendChild(p);return p});
 
 // 「庭」のタイル：五つのパズルの色が集まってくる
 let NIWA=[];
@@ -258,7 +257,7 @@ function render(t){
     const bs=boardS()*2,sx=lerp(cx,chipX(k),fly),sy=lerp(cy,chipY(),fly)-Math.sin(fly*Math.PI)*S*.08,ss=lerp(bs*.98,chipSize(),fly);
     let px=lerp(sx,chipX(k)*0+cx+(k-2)*L()*.62,toWait),py=lerp(sy,waitY(),toWait),ps=lerp(ss,L()*.55,toWait);
     px=lerp(px,logoX(k),toLogo);py=lerp(py,logoY(),toLogo);ps=lerp(ps,logoSize(k),toLogo);
-    const pop=1+.12*Math.sin(seg(u,1.35,1.55)*Math.PI);drawGlyph(k,px,py,ps*pop,1-seg(t,9.05,9.35));
+    const pop=1+.12*Math.sin(seg(u,1.35,1.55)*Math.PI);drawGlyph(k,px,py,ps*pop,1-seg(t,9.05+HOLD,9.35+HOLD));
   }
 
   // 庭：五色のタイルが集まって、大きな「庭」になる
@@ -276,7 +275,7 @@ function render(t){
         triPath(cs,tl);x.clip();x.drawImage(glyph[5],tl.i*T/n,tl.j*T/n,T/n,T/n,-cs/2,-cs/2,cs,cs);x.restore();
       }
       x.restore();
-    }else drawGlyph(5,logoX(5),logoY(),logoSize(5),1-seg(t,9.05,9.35));
+    }else drawGlyph(5,logoX(5),logoY(),logoSize(5),1-seg(t,9.05+HOLD,9.35+HOLD));
     // 芯の光
     const glow=seg(t,7.55,7.9)*(1-seg(t,PING,PING+.3));if(glow>0){const g=x.createRadialGradient(cx,cy,0,cx,cy,S*.45);g.addColorStop(0,`rgba(255,244,214,${.35*glow})`);g.addColorStop(1,'rgba(255,244,214,0)');x.fillStyle=g;x.fillRect(0,0,W,H)}
   }
@@ -288,17 +287,16 @@ function render(t){
 
   // 文字のレイヤー
   const fr=seg(t,.2,.9);
-  $('frame').style.opacity=1-seg(t,8.9,9.3);root.querySelectorAll('.op-frame i').forEach(i=>i.style.transform=`scaleX(${outExpo(fr)})`);
+  $('frame').style.opacity=1-seg(t,8.9+HOLD,9.3+HOLD);root.querySelectorAll('.op-frame i').forEach(i=>i.style.transform=`scaleX(${outExpo(fr)})`);
   root.querySelectorAll('.op-cap').forEach(c=>c.style.opacity=seg(t,.4,.9));
   const sec=Math.min(t,DURATION);$('tc').textContent=`00:${String(Math.floor(sec)).padStart(2,'0')}:${String(Math.floor(sec%1*24)).padStart(2,'0')}`;
   let curB=0;BEATS.forEach(([a],k)=>{if(t>=a)curB=k+1});$('idx').textContent=`0${curB} / 06`;
-  BEATS.forEach(([a,b,f],k)=>{const el=beatEls[k],v=inoutVis(t,a,b,f),out=seg(t,b-f,b);el.style.opacity=v;el.style.transform=`translateX(${(1-seg(t,a,a+.3))*-24+out*16}px)`;el.style.filter=`blur(${(1-v)*5}px)`});
-  const sub=$('sub');sub.style.top=`${logoY()+L()*.7}px`;sub.style.opacity=1-seg(t,9.05,9.35);
+  const sub=$('sub');sub.style.top=`${logoY()+L()*.7}px`;sub.style.opacity=1-seg(t,9.05+HOLD,9.35+HOLD);
   sub.querySelector('.op-en').style.opacity=seg(t,8.35,8.85);sub.querySelector('.op-en').style.letterSpacing=`${.6+.4*(1-outExpo(seg(t,8.35,9.0)))}em`;
   sub.querySelector('.op-bar').style.transform=`scaleX(${inOut(seg(t,8.45,9.0))})`;sub.querySelector('.op-tag').style.opacity=seg(t,8.6,9.0);
 
   // 白い光が広がり、タイトル画面へ渡す
-  const ir=inOut(seg(t,9.25,10)),iy=logoY();$('iris').style.clipPath=`circle(${ir*Math.hypot(W/2,Math.max(iy,H-iy))+(ir>0?2:0)}px at 50% ${iy}px)`;
+  const ir=inOut(seg(t,9.25+HOLD,10+HOLD)),iy=logoY();$('iris').style.clipPath=`circle(${ir*Math.hypot(W/2,Math.max(iy,H-iy))+(ir>0?2:0)}px at 50% ${iy}px)`;
 }
 
 // ── 音（すべてWeb Audioで合成。外部の音源ファイルは使わない） ──
@@ -361,13 +359,14 @@ function scoreAudio(base){
   master.gain.setValueAtTime(.9,at(7.68));master.gain.exponentialRampToValueAtTime(.0001,at(7.72));master.gain.setValueAtTime(.0001,at(7.9));master.gain.linearRampToValueAtTime(.9,at(7.92));
   bell(at(PING),84);bell(at(PING),91,.07);thump(at(PING),.45);
   [96,100,103,108,103].forEach((m,i)=>pluck(at(PING+.08+i*.07),m,.045,.6));
-  pad(at(8.0),1.25,[48,55,59,62,64],.045,1400);
+  pad(at(8.0),1.25+HOLD,[48,55,59,62,64],.045,1400);
   [72,76,79,83,84,88].forEach((m,i)=>pluck(at(8.0+i*.06),m,.05,1));
   // 静まってから、白い光の「シュアーッ」
-  master.gain.setValueAtTime(.9,at(8.85));master.gain.exponentialRampToValueAtTime(.08,at(9.2));master.gain.linearRampToValueAtTime(.9,at(9.25));
-  whoosh(at(9.2),1.35,400,9000,.2,'highpass');whoosh(at(9.25),1.2,900,12000,.07,'bandpass');
-  [84,88,91,96].forEach((m,i)=>{const o=osc('sine',hz(m),at(9.3+i*.08),1.4),g=AC.createGain();g.gain.setValueAtTime(.0001,at(9.3+i*.08));g.gain.exponentialRampToValueAtTime(.0125,at(9.8));g.gain.exponentialRampToValueAtTime(.0001,at(10.7));o.connect(g);out(g,1,.8)});
-  master.gain.setValueAtTime(.9,at(10.1));master.gain.linearRampToValueAtTime(.0001,at(11.2));
+  const h=HOLD;
+  master.gain.setValueAtTime(.9,at(8.85+h));master.gain.exponentialRampToValueAtTime(.08,at(9.2+h));master.gain.linearRampToValueAtTime(.9,at(9.25+h));
+  whoosh(at(9.2+h),1.35,400,9000,.2,'highpass');whoosh(at(9.25+h),1.2,900,12000,.07,'bandpass');
+  [84,88,91,96].forEach((m,i)=>{const o=osc('sine',hz(m),at(9.3+h+i*.08),1.4),g=AC.createGain();g.gain.setValueAtTime(.0001,at(9.3+h+i*.08));g.gain.exponentialRampToValueAtTime(.0125,at(9.8+h));g.gain.exponentialRampToValueAtTime(.0001,at(10.7+h));o.connect(g);out(g,1,.8)});
+  master.gain.setValueAtTime(.9,at(10.1+h));master.gain.linearRampToValueAtTime(.0001,at(11.2+h));
 }
 function stopAudio(){if(!AC)return;const n=AC.currentTime;master.gain.cancelScheduledValues(n);master.gain.setValueAtTime(master.gain.value,n);master.gain.linearRampToValueAtTime(.0001,n+.25);const old=live;live=[];setTimeout(()=>old.forEach(o=>{try{o.stop()}catch(e){}}),400)}
 
