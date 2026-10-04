@@ -108,6 +108,20 @@ const http=require('node:http');
   await hz.locator('#slide-prev').count();
   await hz.goto(url+'#garden');await hz.locator('#slide-prev').click();assert.equal(await hz.evaluate(()=>document.documentElement.dataset.world),'kintsugi');
   await hzContext.close();
+  // 文字が背景に溶けない：ライト・ダークどちらの端末設定でも、主な文字と背景のコントラスト比が4.5以上
+  const contrastOf=(pg,sels)=>pg.evaluate(sels=>{
+    const rgb=c=>(c.match(/[\d.]+/g)||[]).slice(0,3).map(Number),lum=c=>{const v=rgb(c).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
+    const probe=document.createElement('i');probe.style.color='var(--bg)';document.body.appendChild(probe);const bg=getComputedStyle(probe).color;probe.remove();
+    return sels.map(sel=>{const e=document.querySelector(sel);const a=lum(getComputedStyle(e).color),b=lum(bg);return [sel,+((Math.max(a,b)+.05)/(Math.min(a,b)+.05)).toFixed(2)]})},sels);
+  for(const colorScheme of ['light','dark']){
+   const cc=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce',colorScheme});await cc.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
+   const cp=await cc.newPage();cp.on('pageerror',e=>errors.push(e.message));
+   await cp.goto(url+'#hoshizu');assert.equal(await cp.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()),'#0b1026',`hoshizu bg ${colorScheme}`);
+   for(const [sel,ratio] of await contrastOf(cp,['#hz-title','.hz-eyebrow','.hz-lead','.hz-level b','.hz-level span','.hz-moves','#hz-reset','.hz-help']))assert(ratio>=4.5,`${colorScheme} ${sel} ${ratio}`);
+   await cp.goto('about:blank');await cp.evaluate(()=>{});await cp.goto(url+'#garden');await cp.evaluate(()=>{localStorage.setItem('hirameki-world','hoshizu')});await cp.goto('about:blank');await cp.goto(url);
+   for(const [sel,ratio] of await contrastOf(cp,['#garden-title','.garden-copy','#hz-collection-title','[data-world="hoshizu"] .game-subtitle','[data-world="hoshizu"] .story-copy','#hz-play-label','.slide-dot[aria-current="true"]']))assert(ratio>=4.5,`${colorScheme} garden ${sel} ${ratio}`);
+   await cc.close();
+  }
   // オープニング：開いたときだけ流れ、ゲームから庭へ戻るときやゲーム画面で開いたときは流れない。
   // 外部の書体は取りに行かず、動きを減らす設定がない状態で確かめる。
   const opContext=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'no-preference'});
@@ -135,6 +149,6 @@ const http=require('node:http');
   for(const width of [320,1440]){await op.setViewportSize({width,height:800});await op.goto('about:blank');await op.goto(url);await op.locator('#op-play-mute').click();await op.clock.runFor(5000);
    assert.equal(await op.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`opening ${width}`)}
   assert.deepEqual(errors,[]);
-  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅）、実行エラーなし');
+  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、実行エラーなし');
  } finally {if(browser)await browser.close();server.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

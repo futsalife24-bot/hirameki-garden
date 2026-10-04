@@ -58,9 +58,9 @@ Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド�
 
 通信できず書体を取得できない場合は端末の明朝体を使用します。
 
-星図の世界では「しっぽり明朝 B1」（Shippori Mincho B1、SIL Open Font License 1.1）を使います。
+星図の世界では「Zen丸ゴシック」（Zen Maru Gothic、SIL Open Font License 1.1）を使います。
 
-- https://github.com/google/fonts/blob/main/ofl/shipporiminchob1/OFL.txt
+- https://github.com/google/fonts/blob/main/ofl/zenmarugothic/OFL.txt
 
 オープニングでは、一文字ずつ違う書体を使います。いずれもGoogle Fonts、SIL Open Font License 1.1。
 使う文字だけを取り寄せる（`text=` 指定）ため、通信量はわずかです。届かない場合は代わりの書体で流れます。
