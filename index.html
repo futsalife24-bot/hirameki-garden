@@ -12,11 +12,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ひらめきの庭">
 <link rel="manifest" href="./manifest.webmanifest">
+<script>
+// 表示の前に世界観を決める（ゲーム画面ならそのゲーム、庭なら前回選んだ遊び）
+(function(){var h=location.hash,w='kintsugi';try{w=h==='#hoshizu'?'hoshizu':h==='#kintsugi'?'kintsugi':(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(w!=='hoshizu')w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
+</script>
 <link rel="icon" href="./icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&family=Shippori+Mincho+B1:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#D7DAD3; --bg-2:#C3C8C0; --ink:#232B33; --muted:#56626A;
@@ -243,9 +247,11 @@ button.primary{
 }
 </style>
 <link rel="stylesheet" href="./garden.css">
+<link rel="stylesheet" href="./hoshizu.css">
 <link rel="stylesheet" href="./opening.css">
 </head>
 <body data-world="kintsugi">
+<canvas id="sky" aria-hidden="true"></canvas>
 <script src="./opening.js"></script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
@@ -263,10 +269,23 @@ button.primary{
 <section id="garden" class="garden" aria-labelledby="garden-title">
   <nav class="garden-nav" aria-label="庭の案内"><span class="garden-mark" aria-hidden="true">✳</span><span>心をほどく、小さな遊び場。</span><a href="#collection">遊びを選ぶ <span aria-hidden="true">↘</span></a></nav>
   <div class="garden-intro"><p class="eyebrow">日々に、ひとつの余白を。</p><h1 id="garden-title" tabindex="-1">ひらめきの<span>庭</span></h1><p class="garden-copy">手を動かす。ふと、つながる。<br>答えを急がないパズルを、ここに。</p><div class="garden-stem" aria-hidden="true"></div></div>
-  <article class="game-card" id="collection" aria-labelledby="collection-title" aria-roledescription="ゲームのスライド">
+  <div class="slides" id="collection" aria-roledescription="カルーセル" aria-label="遊びを選ぶ">
+  <article class="game-card" data-world="kintsugi" aria-labelledby="collection-title" aria-roledescription="スライド">
     <div class="game-art"><canvas id="ceramic-art" width="900" height="760" role="img" aria-label="青磁の器に細い金の継ぎ目が走る、金継ぎの作品"></canvas><span class="art-caption">欠けたところに、美しさを。</span></div>
     <div class="game-story"><p class="eyebrow"><span class="catalog-number">一</span> 庭の遊び帖</p><h2 id="collection-title">金継ぎ</h2><p class="game-subtitle">ひびをつなぐ、器のパズル。</p><p class="story-copy">ばらばらの欠片を、くるり。<br>朱の印から金の線がめぐり、<br>ひとつの器に還っていく。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="play-game" class="play-game" href="#kintsugi"><span id="play-label">器をつなぐ</span><span aria-hidden="true">↗</span></a><p id="resume-note" class="resume-note"></p></div>
   </article>
+  <article class="game-card" data-world="hoshizu" aria-labelledby="hz-collection-title" aria-roledescription="スライド" hidden>
+    <div class="game-art"><canvas id="hz-art" width="900" height="760" role="img" aria-label="真鍮の星図盤の上で、星が光の線で結ばれている"></canvas><span class="art-caption">結べば、星座になる。</span></div>
+    <div class="game-story"><p class="eyebrow"><span class="catalog-number">二</span> 庭の遊び帖</p><h2 id="hz-collection-title">星図</h2><p class="game-subtitle">星を結ぶ、夜のパズル。</p><p class="story-copy">数字の数だけ、光の線を。<br>交わらず、ひとつながりに。<br>夜空に、星座を描いていく。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="hz-play" class="play-game" href="#hoshizu"><span id="hz-play-label">星を結ぶ</span><span aria-hidden="true">↗</span></a><p id="hz-resume-note" class="resume-note"></p></div>
+  </article>
+  </div>
+  <div class="slide-ctl" aria-label="遊びの切り替え" role="group">
+    <button class="slide-arrow" id="slide-prev" type="button" aria-label="前の遊び">‹</button>
+    <button class="slide-dot" data-world="kintsugi" type="button"><span aria-hidden="true">一</span> 金継ぎ</button>
+    <button class="slide-dot" data-world="hoshizu" type="button"><span aria-hidden="true">二</span> 星図</button>
+    <button class="slide-arrow" id="slide-next" type="button" aria-label="次の遊び">›</button>
+    <p class="visually-hidden" id="slide-status" aria-live="polite"></p>
+  </div>
   <footer class="garden-footer"><span>ひらめきの庭</span><span>気の向くままに、ひとつずつ。</span></footer>
 </section>
 <div class="wrap" id="game" hidden>
@@ -304,8 +323,34 @@ button.primary{
     <p class="help">欠片をタップすると右に回ります。長押し（パソコンなら右クリック）で向きを固定。朱の印から、すべての欠片を一本の金の線でつなげば完成です。</p>
   </main>
 </div>
+<div class="hz" id="hoshizu" hidden>
+  <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 二</span></nav>
+  <header class="hz-head">
+    <p class="hz-eyebrow">星を、結ぶ。</p><h1 id="hz-title" tabindex="-1">星図</h1>
+    <div class="hz-tools"><button class="hz-btn" id="hz-sound" type="button" aria-pressed="true">音あり</button></div>
+    <p class="hz-lead">数字の数だけ、星から光の線を。<br>交わらず、すべてをひとつながりに。</p>
+    <div class="hz-level"><b id="hz-lv">第一夜</b><span id="hz-size"></span></div>
+  </header>
+  <main class="hz-main">
+    <div class="hz-plate"><svg id="hz-board" role="group" aria-label="星図の盤面"></svg></div>
+    <div class="hz-bar">
+      <div class="hz-moves">手数<strong id="hz-moves">0</strong></div>
+      <button class="hz-btn" id="hz-undo" type="button">一手戻す</button>
+      <button class="hz-btn" id="hz-reset" type="button">最初から</button>
+    </div>
+    <div class="hz-done" id="hz-done" aria-live="polite">
+      <div class="hz-seal" aria-hidden="true">✦</div>
+      <div><p class="hz-done-title">星図が結ばれました</p><p class="hz-done-note" id="hz-done-note"></p></div>
+      <button class="hz-btn primary" id="hz-next" type="button">次の夜へ</button>
+    </div>
+    <p class="hz-help">星をタップしてから、同じ縦か横の列の星をタップすると光の線で結ばれます（星からなぞっても結べます）。線をタップするたびに 1本→2本→なし。数字はその星から出る線の本数で、線は交差できません。すべての星をひとつながりにすれば完成。キーボードでは矢印で星を移り、Shift＋矢印で結びます。</p>
+  </main>
+</div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
+<script src="./hoshizu-levels.js"></script>
+<script src="./hoshizu.js"></script>
+<script src="./garden.js"></script>
 <script src="./ceramic.js"></script>
 <script>
 (function(){
@@ -672,11 +717,13 @@ button.primary{
   }
 
   function showPage(focus){
-    const playing=location.hash==='#kintsugi';
-    $('garden').hidden=playing;$('game').hidden=!playing;
-    document.title=playing?'金継ぎ — ひらめきの庭':'ひらめきの庭 — 日々に、ひとつの余白を。';
+    const playing=location.hash==='#kintsugi',stars=location.hash==='#hoshizu';
+    $('garden').hidden=playing||stars;$('game').hidden=!playing;$('hoshizu').hidden=!stars;
+    if(window.Garden)Garden.setWorld(playing?'kintsugi':stars?'hoshizu':Garden.selected());
+    document.title=playing?'金継ぎ — ひらめきの庭':stars?'星図 — ひらめきの庭':'ひらめきの庭 — 日々に、ひとつの余白を。';
     if(S){$('play-label').textContent=S.moves||S.level>1?'つづきの器へ':'器をつなぐ';$('resume-note').textContent=S.moves||S.level>1?`第${S.level}の器・${S.moves}手から`:'';}
-    if(focus&&location.hash!=='#collection'){window.scrollTo(0,0);$(playing?'game-title':'garden-title').focus({preventScroll:true});}
+    if(window.Hoshizu){const l=Hoshizu.label();$('hz-play-label').textContent=l.play;$('hz-resume-note').textContent=l.note}
+    if(focus&&location.hash!=='#collection'){window.scrollTo(0,0);$(playing?'game-title':stars?'hz-title':'garden-title').focus({preventScroll:true});}
   }
   window.addEventListener('hashchange',()=>showPage(true));
   const saved=load();

@@ -34,7 +34,7 @@ const http=require('node:http');
   await page.locator('#undo').click();assert.deepEqual((await state()).rots,before.rots);
   await page.locator('.tile').first().click({button:'right'});assert.equal((await state()).locks[0],1);
   const locked=await state();await page.locator('.tile').first().click();assert.deepEqual(await state(),locked);
-  await page.locator('.game-nav a').click();await page.waitForFunction(()=>location.hash==='#garden'&&!document.getElementById('garden').hidden);assert.match(await page.locator('#resume-note').innerText(),/2手/);
+  await page.locator('#game .game-nav a').click();await page.waitForFunction(()=>location.hash==='#garden'&&!document.getElementById('garden').hidden);assert.match(await page.locator('#resume-note').innerText(),/2手/);
   await page.reload();await page.locator('#play-game').click();assert.deepEqual(await state(),locked);
   // 旧版と同じ形式の保存データを使い、完成・次の器への遷移を確認。
   await page.evaluate(()=>{const s=JSON.parse(localStorage.getItem('kintsugi-save-v1'));s.rots.fill(0);s.solved=false;localStorage.setItem('kintsugi-save-v1',JSON.stringify(s))});
@@ -56,9 +56,58 @@ const http=require('node:http');
   await page.evaluate(()=>navigator.serviceWorker.ready);await page.reload();
   await page.waitForFunction(()=>navigator.serviceWorker.controller);
   await context.setOffline(true);await page.reload();assert.equal(await page.locator('.tile').count(),49);
-  await page.locator('.game-nav a').click();await page.locator('#garden').waitFor();assert(await page.locator('#garden').isVisible());
+  await page.locator('#game .game-nav a').click();await page.locator('#garden').waitFor();assert(await page.locator('#garden').isVisible());
   assert.equal(await page.evaluate(()=>typeof drawCeramic),'function');
-  assert.equal(await page.locator('.play-game').evaluate(e=>getComputedStyle(e).display),'flex');
+  assert.equal(await page.locator('#play-game').evaluate(e=>getComputedStyle(e).display),'flex');
+  // 星図：庭のスライドで選ぶと世界観ごと切り替わり、選択は次に開いたときも残る。
+  const hzContext=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});
+  await hzContext.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
+  const hz=await hzContext.newPage();hz.on('pageerror',e=>errors.push(e.message));
+  await hz.goto(url);assert.equal(await hz.evaluate(()=>document.documentElement.dataset.world),'kintsugi');
+  const kintsugiBefore=await hz.evaluate(()=>localStorage.getItem('kintsugi-save-v1'));
+  assert(await hz.locator('#hz-play').isHidden());
+  await hz.locator('#slide-next').click();
+  assert.equal(await hz.evaluate(()=>document.documentElement.dataset.world),'hoshizu');
+  assert(await hz.locator('#hz-play').isVisible());assert(await hz.locator('#play-game').isHidden());
+  await hz.reload();assert.equal(await hz.evaluate(()=>document.documentElement.dataset.world),'hoshizu');assert(await hz.locator('#hz-play').isVisible());
+  const hzFits=()=>hz.evaluate(()=>{const b=document.getElementById('hz-play').getBoundingClientRect();return document.documentElement.scrollHeight<=innerHeight+1&&b.bottom<=innerHeight&&b.top>=0});
+  assert.equal(await hzFits(),true);
+  await hz.locator('#hz-play').click();await hz.waitForFunction(()=>location.hash==='#hoshizu'&&!document.getElementById('hoshizu').hidden);
+  assert(await hz.locator('#garden').isHidden());assert(await hz.locator('#game').isHidden());
+  const hzState=()=>hz.evaluate(()=>JSON.parse(localStorage.getItem('hoshizu-save-v1')));
+  const sol=await hz.evaluate(()=>HOSHIZU_LEVELS[0].sol);
+  // タップ2回で結ぶ → 一手戻す
+  const [a0,b0]=sol[0];
+  await hz.locator(`.hz-star[data-i="${a0}"]`).click();await hz.locator(`.hz-star[data-i="${b0}"]`).click();
+  assert.equal((await hzState()).b[`${Math.min(a0,b0)}-${Math.max(a0,b0)}`],1);
+  await hz.locator('#hz-undo').click();assert.equal((await hzState()).b[`${Math.min(a0,b0)}-${Math.max(a0,b0)}`],undefined);
+  // 線をタップすると本数が進む
+  await hz.locator(`.hz-star[data-i="${a0}"]`).click();await hz.locator(`.hz-star[data-i="${b0}"]`).click();
+  await hz.locator('.hz-bridge .hz-bhit').first().click();assert.equal((await hzState()).b[`${Math.min(a0,b0)}-${Math.max(a0,b0)}`],2);
+  await hz.locator('.hz-bridge .hz-bhit').first().click();assert.equal((await hzState()).b[`${Math.min(a0,b0)}-${Math.max(a0,b0)}`],undefined);
+  // キーボード：Shift＋矢印で結ぶ
+  const dirKey=await hz.evaluate(([a,b])=>{const s=HOSHIZU_LEVELS[0].stars;return s[a][0]===s[b][0]?(s[b][1]>s[a][1]?'ArrowDown':'ArrowUp'):(s[b][0]>s[a][0]?'ArrowRight':'ArrowLeft')},[a0,b0]);
+  await hz.locator(`.hz-star[data-i="${a0}"]`).focus();await hz.keyboard.press('Shift+'+dirKey);
+  assert.equal((await hzState()).b[`${Math.min(a0,b0)}-${Math.max(a0,b0)}`],1);
+  await hz.keyboard.press('Shift+'+dirKey);await hz.keyboard.press('Shift+'+dirKey);
+  // 答えどおりに結ぶと完成し、再読込しても完成のまま
+  for(const [a,b,n] of sol)for(let k=0;k<n;k++){await hz.locator(`.hz-star[data-i="${a}"]`).click();await hz.locator(`.hz-star[data-i="${b}"]`).click()}
+  await hz.locator('#hz-done.show').waitFor();assert.equal((await hzState()).solved,true);
+  await hz.reload();await hz.locator('#hz-done.show').waitFor();
+  await hz.locator('#hz-next').click();assert.equal((await hzState()).level,2);
+  await hz.locator('.hz .game-nav a').click();await hz.waitForFunction(()=>!document.getElementById('garden').hidden);
+  assert.equal(await hz.evaluate(()=>document.documentElement.dataset.world),'hoshizu');
+  assert.match(await hz.locator('#hz-resume-note').innerText(),/第二夜/);
+  // 星図を遊んでも、金継ぎの保存データは変わらない
+  assert.equal(await hz.evaluate(()=>localStorage.getItem('kintsugi-save-v1')),kintsugiBefore);
+  for(const width of [320,390,768,1440]){await hz.setViewportSize({width,height:900});
+   await hz.goto(url+'#garden');assert.equal(await hzFits(),true,`hoshizu one screen ${width}`);
+   await hz.goto(url+'#hoshizu');assert.equal(await hz.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`hoshizu ${width}`)}
+  await hz.setViewportSize({width:320,height:780});await hz.evaluate(()=>localStorage.setItem('hoshizu-save-v1',JSON.stringify({level:30})));await hz.reload();
+  assert.equal(await hz.locator('.hz-star').count(),25);assert.equal(await hz.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+  await hz.locator('#slide-prev').count();
+  await hz.goto(url+'#garden');await hz.locator('#slide-prev').click();assert.equal(await hz.evaluate(()=>document.documentElement.dataset.world),'kintsugi');
+  await hzContext.close();
   // オープニング：開いたときだけ流れ、ゲームから庭へ戻るときやゲーム画面で開いたときは流れない。
   // 外部の書体は取りに行かず、動きを減らす設定がない状態で確かめる。
   const opContext=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'no-preference'});
@@ -75,7 +124,7 @@ const http=require('node:http');
   await op.clock.runFor(2500);await op.locator('#opening').waitFor({state:'detached'});
   assert.equal(await op.locator('#garden').evaluate(e=>e.inert),false);
   assert.equal(await op.evaluate(()=>document.activeElement.id),'garden-title');
-  await op.locator('#play-game').click();await op.locator('.game-nav a').click();
+  await op.locator('#play-game').click();await op.locator('#game .game-nav a').click();
   assert.equal(await op.locator('#opening').count(),0);
   await op.goto('about:blank');await op.goto(url+'#kintsugi');assert.equal(await op.locator('#opening').count(),0);
   // スキップはボタンでもEscキーでもできる
@@ -86,6 +135,6 @@ const http=require('node:http');
   for(const width of [320,1440]){await op.setViewportSize({width,height:800});await op.goto('about:blank');await op.goto(url);await op.locator('#op-play-mute').click();await op.clock.runFor(5000);
    assert.equal(await op.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`opening ${width}`)}
   assert.deepEqual(errors,[]);
-  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、実行エラーなし');
+  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅）、実行エラーなし');
  } finally {if(browser)await browser.close();server.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

@@ -36,7 +36,7 @@ h1,h2{font-family:'Kaisei Tokumin',serif;font-weight:400;background:none;color:v
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 /* 庭は一画面に収める。器の絵が残りの高さに合わせて伸び縮みし、文字と「器をつなぐ」は常に見える。
    極端に背の低い画面（横向きのスマホなど）だけ、従来どおりスクロールにする。 */
-.garden{height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;overflow:hidden}
+.garden{height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));display:grid;grid-template-rows:auto auto minmax(0,1fr) auto auto;overflow:hidden}
 .garden-nav{height:72px}
 .garden-intro{padding:26px 0 18px}
 .garden-intro .eyebrow{margin-bottom:12px}
@@ -84,3 +84,20 @@ h1,h2{font-family:'Kaisei Tokumin',serif;font-weight:400;background:none;color:v
 @media(max-height:760px) and (min-width:701px){.story-copy{display:none}.garden-copy{display:none}}
 @media(max-height:640px) and (max-width:700px){.garden-copy{display:none}.art-caption{display:none}}
 @media(max-height:520px){.garden{height:auto;overflow:visible;display:block}.game-art{height:auto;aspect-ratio:1.3}.story-copy,.garden-copy{display:block}}
+/* 遊びのスライド。選んだ一枚だけを見せ、下の切り替えで世界観ごと入れ替える */
+.slides{min-height:0;display:grid;scroll-margin-top:20px}
+.slides>.game-card{min-height:0;height:100%}
+.slide-ctl{display:flex;justify-content:center;align-items:center;gap:4px;padding:8px 0 4px}
+.slide-dot{font:inherit;font-size:12px;letter-spacing:.14em;color:var(--muted);background:none;border:0;border-bottom:1px solid transparent;min-height:44px;padding:0 12px;cursor:pointer;transition:color .3s,border-color .3s}
+.slide-dot span{margin-right:6px}
+.slide-dot[aria-current="true"]{color:var(--ink);border-bottom-color:currentColor}
+.slide-arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--rule);background:none;color:var(--ink);font:inherit;font-size:20px;line-height:1;cursor:pointer}
+.slide-dot:focus-visible,.slide-arrow:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.game-card.enter-next{animation:slide-in-next .5s cubic-bezier(.2,.7,.2,1)}
+.game-card.enter-prev{animation:slide-in-prev .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes slide-in-next{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes slide-in-prev{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+body{transition:background-color .6s ease,color .6s ease}
+.visually-hidden{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media(max-width:700px){.slide-ctl{padding:2px 0 6px}.slide-dot{font-size:11px;padding:0 8px}.game-card{padding-bottom:8px}}
+@media(max-height:520px){.slides{display:block}.slides>.game-card{height:auto}}

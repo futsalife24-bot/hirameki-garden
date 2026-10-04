@@ -1,5 +1,5 @@
 // 更新を配信するときは VERSION の数字を上げてください
-const VERSION = 'hirameki-v5';
+const VERSION = 'hirameki-v6';
 const SHELL = [
   './',
   './index.html',
@@ -7,6 +7,10 @@ const SHELL = [
   './ceramic.js',
   './opening.js',
   './opening.css',
+  './garden.js',
+  './hoshizu.css',
+  './hoshizu.js',
+  './hoshizu-levels.js',
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',
