@@ -24,8 +24,8 @@ const http=require('node:http');
   // 庭は一画面に収まり、スクロールしなくても遊び始めのボタンまで見える
   const fitsOneScreen=()=>page.evaluate(()=>{const b=document.getElementById('play-game').getBoundingClientRect();return document.documentElement.scrollHeight<=innerHeight+1&&b.bottom<=innerHeight&&b.top>=0});
   assert.equal(await fitsOneScreen(),true);
-  await page.locator('.garden-nav a').click();
-  await page.waitForFunction(()=>location.hash==='#collection');assert.equal(await page.evaluate(()=>scrollY),0);
+  // 庭の上部に、意味のないリンクを置かない
+  assert.equal(await page.locator('.garden-nav a').count(),0);
   await page.locator('#play-game').click();assert.equal(await page.locator('.tile').count(),16);
   const state=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('kintsugi-save-v1')));
   const before=await state();
