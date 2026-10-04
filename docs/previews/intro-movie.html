@@ -352,9 +352,10 @@ function scoreAudio(base){
   for(let s=1.0;s<4.5;s+=.31)tick(at(s),s>3.7?.07:.045);
   const scale=[72,74,76,79,81];
   for(let k=0;k<ITEMS;k++){const t0=T0(k);whoosh(at(t0),.45,400,2400,.07);thump(at(t0+.05),.28);pluck(at(t0+.25),scale[k],.16);pluck(at(t0+.5),scale[k]+12,.07,.5)}
-  // ひとつに：上昇していく
-  whoosh(at(4.3),.62,300,7000,.3);
-  {const o=osc('sawtooth',hz(48),at(4.3),.62);o.frequency.exponentialRampToValueAtTime(hz(72),at(4.9));const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.setValueAtTime(400,at(4.3));f.frequency.exponentialRampToValueAtTime(5000,at(4.9));const g=AC.createGain();g.gain.setValueAtTime(.0001,at(4.3));g.gain.exponentialRampToValueAtTime(.14,at(4.89));g.gain.linearRampToValueAtTime(.0001,at(4.92));o.connect(f);f.connect(g);out(g,1,.2)}
+  // ひとつに：音程は動かさず、息のようなノイズと低いうなりで高めていく
+  whoosh(at(4.3),.62,500,6000,.22,'lowpass');
+  {const n=AC.createBufferSource();n.buffer=NB;n.start(at(4.3));n.stop(at(4.95));live.push(n);const f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=3500;const g=AC.createGain();g.gain.setValueAtTime(.0001,at(4.3));g.gain.linearRampToValueAtTime(.07,at(4.89));g.gain.linearRampToValueAtTime(.0001,at(4.92));n.connect(f);f.connect(g);out(g,1,.15)}
+  {const o=osc('sine',hz(33),at(4.3),.62),g=AC.createGain();g.gain.setValueAtTime(.0001,at(4.3));g.gain.linearRampToValueAtTime(.22,at(4.89));g.gain.linearRampToValueAtTime(.0001,at(4.92));o.connect(g);out(g,1,0)}
   // シン…：灯る直前に一瞬すべて静まる
   master.gain.setValueAtTime(.9,at(4.89));master.gain.exponentialRampToValueAtTime(.0001,at(4.93));master.gain.setValueAtTime(.0001,at(5.13));master.gain.linearRampToValueAtTime(.9,at(5.15));
   // ひらめく：鐘と低い響き、きらめき
