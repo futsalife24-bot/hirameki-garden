@@ -37,6 +37,13 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 .ui button:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
 body.done .ui button{color:#2a2a30;border-color:#2a2a3055;background:transparent}
 #replay{display:none}body.done #replay{display:inline-block}body.done #skip{display:none}
+#start{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#0b0b10e6;text-align:center;padding:16px}
+#start p{margin:0 0 10px;font-size:12px;letter-spacing:.24em;color:var(--dim)}
+#start button{font:inherit;font-size:14px;letter-spacing:.2em;min-height:48px;min-width:220px;padding:12px 26px;border-radius:999px;cursor:pointer;border:1px solid #f4f1ea55;background:transparent;color:var(--cream)}
+#start button.primary{background:var(--cream);color:#0b0b10;border-color:var(--cream);font-weight:900}
+#start button:focus-visible,#sound:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+#start[hidden]{display:none}
+.ui{display:flex;gap:10px}
 @media(max-width:640px){.cap.tr{display:none}.beat{left:50%;translate:-50% 0;bottom:15vh;white-space:nowrap}}
 </style>
 </head>
@@ -55,7 +62,8 @@ body.done .ui button{color:#2a2a30;border-color:#2a2a3055;background:transparent
 </div>
 <div id="iris"></div>
 <p class="end" id="end">試作はここまで。<br>本編では、この光から<br>選択中のゲームの<br>タイトル画面へ切り替わります。</p>
-<div class="ui"><button id="skip" type="button">スキップ ›</button><button id="replay" type="button">もう一度見る ↺</button></div>
+<div id="start"><p>OPENING PREVIEW</p><button id="play-sound" class="primary" type="button">▶ 音ありで再生</button><button id="play-mute" type="button">音なしで再生</button></div>
+<div class="ui"><button id="sound" type="button" aria-pressed="true">♪ 音 ON</button><button id="skip" type="button">スキップ ›</button><button id="replay" type="button">もう一度見る ↺</button></div>
 
 <script>
 const DURATION=9.3;
@@ -294,19 +302,105 @@ function render(t){
   document.body.classList.toggle('done',t>=DURATION);
 }
 
+// ── 音（すべてWeb Audioで合成。外部の音源ファイルは使わない） ──
+let AC=null,master=null,verb=null,soundOn=true,live=[];
+function audioInit(){
+  if(AC)return;AC=new (window.AudioContext||window.webkitAudioContext)();
+  const comp=AC.createDynamicsCompressor();comp.threshold.value=-14;comp.ratio.value=3;comp.connect(AC.destination);
+  master=AC.createGain();master.gain.value=0;master.connect(comp);
+  // 残響：減衰するノイズで作る
+  verb=AC.createConvolver();const len=AC.sampleRate*3,ir=AC.createBuffer(2,len,AC.sampleRate);
+  for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3.2)}
+  verb.buffer=ir;const vg=AC.createGain();vg.gain.value=.55;verb.connect(vg);vg.connect(master);
+}
+const noiseBuf=()=>{const b=AC.createBuffer(1,AC.sampleRate*2,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;return b};
+let NB=null;
+const hz=m=>440*Math.pow(2,(m-69)/12);
+function out(node,dry=1,wet=.4){const g=AC.createGain();g.gain.value=dry;node.connect(g);g.connect(master);if(wet){const w=AC.createGain();w.gain.value=wet;node.connect(w);w.connect(verb)}}
+function env(g,t,a,peak,d,end=.0001){g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(peak,t+a);g.gain.exponentialRampToValueAtTime(end,t+a+d)}
+function osc(type,f,t,dur){const o=AC.createOscillator();o.type=type;o.frequency.setValueAtTime(f,t);o.start(t);o.stop(t+dur+.1);live.push(o);return o}
+// 柔らかい和音のパッド
+function pad(t,dur,notes,vol=.05,cut=900){
+  const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.setValueAtTime(cut*.5,t);f.frequency.linearRampToValueAtTime(cut,t+dur*.6);f.Q.value=.6;
+  const g=AC.createGain();g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(vol,t+Math.min(1.2,dur*.4));g.gain.setValueAtTime(vol,t+dur-.6);g.gain.linearRampToValueAtTime(.0001,t+dur);
+  for(const m of notes)for(const det of [-7,6]){const o=osc('sawtooth',hz(m),t,dur);o.detune.value=det;o.connect(f)}
+  f.connect(g);out(g,1,.5);
+}
+// はじく音
+function pluck(t,m,vol=.18,decay=.9){const o=osc('triangle',hz(m),t,decay),o2=osc('sine',hz(m+12),t,decay*.5),g=AC.createGain();env(g,t,.005,vol,decay);const g2=AC.createGain();env(g2,t,.003,vol*.35,decay*.4);o.connect(g);o2.connect(g2);g2.connect(g);out(g,1,.45)}
+// 風切り音
+function whoosh(t,dur,f0,f1,vol=.12,type='bandpass'){
+  const n=AC.createBufferSource();n.buffer=NB;n.start(t);n.stop(t+dur+.1);live.push(n);
+  const f=AC.createBiquadFilter();f.type=type;f.Q.value=type==='bandpass'?1.2:.7;f.frequency.setValueAtTime(f0,t);f.frequency.exponentialRampToValueAtTime(f1,t+dur);
+  const g=AC.createGain();g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(vol,t+dur*.6);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  n.connect(f);f.connect(g);out(g,1,.35);
+}
+function tick(t,vol=.05){const n=AC.createBufferSource();n.buffer=NB;n.start(t,Math.random());n.stop(t+.06);live.push(n);const f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=6000;const g=AC.createGain();env(g,t,.002,vol,.05);n.connect(f);f.connect(g);out(g,1,.1)}
+function thump(t,vol=.5){const o=osc('sine',110,t,.5);o.frequency.exponentialRampToValueAtTime(42,t+.35);const g=AC.createGain();env(g,t,.005,vol,.45);o.connect(g);out(g,1,.15)}
+// ひらめきの鐘
+function bell(t,m,vol=.22){for(const [r,a,d] of [[1,1,3],[2.76,.45,1.8],[5.4,.25,1.1],[8.93,.12,.6]]){const o=osc('sine',hz(m)*r,t,d),g=AC.createGain();env(g,t,.004,vol*a,d);o.connect(g);out(g,1,.6)}}
+
+function scoreAudio(base){
+  NB=NB||noiseBuf();
+  const at=s=>base+s;
+  master.gain.cancelScheduledValues(base);master.gain.setValueAtTime(.0001,base);master.gain.exponentialRampToValueAtTime(.9,base+.08);
+  // 始まりの光
+  pluck(at(.05),96,.06,1.4);
+  // パズルの章：低いパッドと刻み、登場ごとに風切り音とはじく音
+  pad(at(.5),4.1,[45,52,57,59,64],.035,700);
+  thump(at(.7),.35);
+  for(let s=1.0;s<4.5;s+=.31)tick(at(s),s>3.7?.07:.045);
+  const scale=[72,74,76,79,81];
+  for(let k=0;k<ITEMS;k++){const t0=T0(k);whoosh(at(t0),.45,400,2400,.07);thump(at(t0+.05),.28);pluck(at(t0+.25),scale[k],.16);pluck(at(t0+.5),scale[k]+12,.07,.5)}
+  // ひとつに：上昇していく
+  whoosh(at(4.3),.62,300,7000,.3);
+  {const o=osc('sawtooth',hz(48),at(4.3),.62);o.frequency.exponentialRampToValueAtTime(hz(72),at(4.9));const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.setValueAtTime(400,at(4.3));f.frequency.exponentialRampToValueAtTime(5000,at(4.9));const g=AC.createGain();g.gain.setValueAtTime(.0001,at(4.3));g.gain.exponentialRampToValueAtTime(.14,at(4.89));g.gain.linearRampToValueAtTime(.0001,at(4.92));o.connect(f);f.connect(g);out(g,1,.2)}
+  // シン…：灯る直前に一瞬すべて静まる
+  master.gain.setValueAtTime(.9,at(4.89));master.gain.exponentialRampToValueAtTime(.0001,at(4.93));master.gain.setValueAtTime(.0001,at(5.13));master.gain.linearRampToValueAtTime(.9,at(5.15));
+  // ひらめく：鐘と低い響き、きらめき
+  bell(at(5.15),84,.17);bell(at(5.15),91,.08);thump(at(5.15),.5);
+  [96,100,103,108,103].forEach((m,i)=>pluck(at(5.22+i*.07),m,.05,.6));
+  // ロゴの章：暖かい和音と、文字に合わせた音
+  pad(at(5.2),3.1,[48,55,59,62,64],.045,1400);
+  [72,76,79,83,84,88].forEach((m,i)=>pluck(at(6.45+i*.07),m,.06,1.1));
+  bell(at(7.2),96,.05);
+  // 静まってから、白い光の「シュアーッ」
+  master.gain.setValueAtTime(.9,at(8.0));master.gain.exponentialRampToValueAtTime(.08,at(8.45));master.gain.linearRampToValueAtTime(.9,at(8.5));
+  whoosh(at(8.45),1.35,400,9000,.4,'highpass');
+  whoosh(at(8.5),1.2,900,12000,.14);
+  [84,88,91,96].forEach((m,i)=>{const o=osc('sine',hz(m),at(8.6+i*.08),1.4),g=AC.createGain();g.gain.setValueAtTime(.0001,at(8.6+i*.08));g.gain.exponentialRampToValueAtTime(.025,at(9.05));g.gain.exponentialRampToValueAtTime(.0001,at(10));o.connect(g);out(g,1,.8)});
+  master.gain.setValueAtTime(.9,at(9.4));master.gain.linearRampToValueAtTime(.0001,at(10.6));
+}
+function stopAudio(){if(!AC)return;const n=AC.currentTime;master.gain.cancelScheduledValues(n);master.gain.setValueAtTime(master.gain.value,n);master.gain.linearRampToValueAtTime(.0001,n+.25);const old=live;live=[];setTimeout(()=>old.forEach(o=>{try{o.stop()}catch(e){}}),400)}
+
 let start=0,fixed=null,raf=0;
 const now=()=>fixed??(performance.now()-start)/1000;
 function loop(){const t=now();render(t);if(fixed===null&&t<DURATION+.6)raf=requestAnimationFrame(loop)}
-function play(){cancelAnimationFrame(raf);fixed=null;start=performance.now();loop()}
+function play(){
+  cancelAnimationFrame(raf);fixed=null;stopAudio();
+  if(soundOn&&AC){live=[];const base=AC.currentTime+.08;scoreAudio(base);start=performance.now()+80}else start=performance.now();
+  loop();
+}
 function seek(t){cancelAnimationFrame(raf);fixed=t;render(t)}
 addEventListener('resize',()=>{resize();render(now())});resize();
-$('skip').onclick=()=>{seek(DURATION+.6);$('replay').focus()};
+$('skip').onclick=()=>{stopAudio();seek(DURATION+.6);$('replay').focus()};
 $('replay').onclick=()=>{play();$('skip').focus()};
+$('sound').onclick=()=>{soundOn=!soundOn;$('sound').textContent=soundOn?'♪ 音 ON':'♪ 音 OFF';$('sound').setAttribute('aria-pressed',soundOn);if(!soundOn)stopAudio();else if(fixed===null){audioInit();AC.resume();play()}};
+// ブラウザは操作なしに音を鳴らせないので、最初のボタンで始める
+function begin(withSound){
+  soundOn=withSound;$('sound').textContent=soundOn?'♪ 音 ON':'♪ 音 OFF';$('sound').setAttribute('aria-pressed',soundOn);
+  $('start').hidden=true;
+  if(withSound){audioInit();AC.resume().then(play)}else play();
+  $('skip').focus();
+}
+$('play-sound').onclick=()=>begin(true);
+$('play-mute').onclick=()=>begin(false);
 const q=new URLSearchParams(location.search).get('t');
 render(0);
-if(q!==null)seek(parseFloat(q));
-else if(matchMedia('(prefers-reduced-motion: reduce)').matches)seek(8.2);
-else Promise.race([document.fonts?document.fonts.ready:Promise.resolve(),new Promise(r=>setTimeout(r,1500))]).then(play);
+const ready=Promise.race([document.fonts?document.fonts.ready:Promise.resolve(),new Promise(r=>setTimeout(r,1500))]);
+if(q!==null){$('start').hidden=true;seek(parseFloat(q))}
+else if(matchMedia('(prefers-reduced-motion: reduce)').matches){$('start').hidden=true;seek(8.2)}
+else ready.then(()=>$('play-sound').focus());
 </script>
 </body>
 </html>
