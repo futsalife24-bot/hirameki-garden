@@ -1,0 +1,35 @@
+/* オープニング：アプリを開いたときだけ流れる、作品全体の幕開け。
+   特定のゲームの世界観には寄せず、最後は選択中のゲームのタイトル画面の色へ明ける。
+   ゲーム側のクラスと衝突しないよう、すべて #opening の中で op- 接頭辞を使う。 */
+html.op-lock,html.op-lock body{overflow:hidden}
+#opening{--op-bg:#0b0b10;--op-cream:#f4f1ea;--op-dim:#f4f1ea80;--op-blue:#4a6dff;--op-coral:#ff5d4f;--op-sand:#f2c14e;--op-violet:#a084ff;--op-lime:#c9f26b;--op-end:#f6f4ef;
+  position:fixed;inset:0;z-index:1000;background:var(--op-bg);color:var(--op-cream);font-family:'Zen Kaku Gothic New',system-ui,sans-serif;overflow:hidden;transition:opacity .6s ease;color-scheme:dark}
+#opening *{box-sizing:border-box}
+#opening.op-out{opacity:0;pointer-events:none}
+#opening canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#opening .op-layer{position:absolute;inset:0;pointer-events:none}
+#opening .op-frame{inset:clamp(14px,3vmin,28px)}
+#opening .op-frame i{position:absolute;left:0;right:0;height:1px;background:#f4f1ea30;transform-origin:left}
+#opening .op-frame i:first-child{top:0}#opening .op-frame i:nth-child(2){bottom:0;transform-origin:right}
+#opening .op-cap{position:absolute;font-family:Unbounded,sans-serif;font-size:clamp(8px,1.2vmin,10px);letter-spacing:.32em;color:var(--op-dim);font-variant-numeric:tabular-nums}
+#opening .op-tl{top:14px;left:0}#opening .op-tr{top:14px;right:0}#opening .op-bl{bottom:14px;left:0}#opening .op-br{bottom:14px;right:0}
+#opening .op-beat{position:absolute;left:clamp(28px,6vw,96px);top:50%;display:flex;flex-direction:column;gap:10px;opacity:0;margin:0;translate:0 -50%}
+#opening .op-beat b{font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(34px,7vmin,76px);line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--c);letter-spacing:.02em}
+#opening .op-beat span{font-weight:900;font-size:clamp(18px,3.2vmin,30px);letter-spacing:.12em}
+#opening .op-beat em{font-style:normal;font-family:Unbounded,sans-serif;font-size:clamp(8px,1.2vmin,10px);letter-spacing:.3em;color:var(--c)}
+#opening .op-sub{position:absolute;left:0;right:0;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none}
+#opening .op-en{font-family:Unbounded,sans-serif;font-size:clamp(9px,1.5vmin,13px);letter-spacing:.6em;margin:0 0 0 .6em;opacity:0}
+#opening .op-bar{width:min(52vw,380px);height:3px;margin-top:20px;border-radius:2px;background:linear-gradient(90deg,var(--op-blue),var(--op-coral),var(--op-sand),var(--op-violet),var(--op-lime));transform:scaleX(0)}
+#opening .op-tag{font-size:clamp(11px,1.7vmin,14px);font-weight:500;letter-spacing:.3em;margin:18px 0 0 .3em;color:#f4f1eacc;opacity:0}
+#opening .op-iris{position:absolute;inset:0;background:var(--op-end);clip-path:circle(0px at 50% 50%);pointer-events:none}
+#opening .op-ui{position:absolute;right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:5;display:flex;gap:10px}
+#opening button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#opening .op-ui button{font-size:12px;letter-spacing:.18em;min-height:44px;padding:10px 18px;border-radius:999px;background:#f4f1ea14;border:1px solid #f4f1ea55;color:var(--op-cream);backdrop-filter:blur(6px)}
+#opening button:focus-visible{outline:2px solid var(--op-lime);outline-offset:3px}
+#opening .op-start{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--op-bg);text-align:center;padding:16px}
+#opening .op-start[hidden]{display:none}
+#opening .op-start p{margin:0 0 14px;font-size:12px;letter-spacing:.3em;color:var(--op-dim)}
+#opening .op-start button{font-size:14px;letter-spacing:.2em;min-height:48px;min-width:220px;padding:12px 26px;border-radius:999px;border:1px solid #f4f1ea55;background:transparent;color:var(--op-cream)}
+#opening .op-start .op-primary{background:var(--op-cream);color:var(--op-bg);border-color:var(--op-cream);font-weight:900}
+#opening .op-start .op-quiet{min-width:0;min-height:44px;border:0;font-size:12px;color:var(--op-dim);text-decoration:underline;text-underline-offset:4px}
+@media(max-width:640px){#opening .op-tr{display:none}#opening .op-beat{top:auto;bottom:16vh;translate:none;flex-direction:row;align-items:baseline;gap:14px}#opening .op-beat b{font-size:30px}}

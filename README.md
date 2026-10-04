@@ -17,6 +17,18 @@
 `#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ。
 `body[data-world="kintsugi"]` が現在の世界観を表します。
 
+## オープニング
+
+アプリを開いてタイトル画面に入るときだけ、約10秒のオープニングを流します。
+「ひ・ら・め・き・の」を一文字ずつ別のパズル（塗る・合わせる・映す・満たす・ひらく）で組み上げ、
+五色のかけらが「庭」にまとまったあと、白い光が選択中のゲームのタイトル画面の地の色へ明けます。
+
+- 流さない場面：ゲームから庭へ戻るとき、`#kintsugi` で開いたとき（再読込を含む）、動きを減らす設定のとき。
+- ブラウザは操作なしに音を鳴らせないため、最初に「音ありではじめる／音なしではじめる」を選びます。
+- いつでも「スキップ」ボタンかEscキーで飛ばせます。再生中に音のON・OFFも切り替えられます。
+- 映像はCanvas、BGMと効果音はWeb Audioでその場で合成します。画像・音声ファイルは使っていません。
+- 特定のゲームの世界観には寄せない、作品全体の幕開けです。試作は `docs/previews/intro-movie.html`。
+
 ## 金継ぎ
 
 欠片をタップして回転。長押し・右クリック、またはフォーカス中にLキーで固定。
@@ -36,6 +48,18 @@ Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド�
 
 通信できず書体を取得できない場合は端末の明朝体を使用します。
 
+オープニングでは、一文字ずつ違う書体を使います。いずれもGoogle Fonts、SIL Open Font License 1.1。
+使う文字だけを取り寄せる（`text=` 指定）ため、通信量はわずかです。届かない場合は代わりの書体で流れます。
+
+- ひ：Reggae One　https://github.com/google/fonts/blob/main/ofl/reggaeone/OFL.txt
+- ら：Hachi Maru Pop　https://github.com/google/fonts/blob/main/ofl/hachimarupop/OFL.txt
+- め：Kaisei Decol　https://github.com/google/fonts/blob/main/ofl/kaiseidecol/OFL.txt
+- き：Potta One　https://github.com/google/fonts/blob/main/ofl/pottaone/OFL.txt
+- の：Train One　https://github.com/google/fonts/blob/main/ofl/trainone/OFL.txt
+- 庭：Zen Antique Soft　https://github.com/google/fonts/blob/main/ofl/zenantiquesoft/OFL.txt
+- 見出し：Zen Kaku Gothic New　https://github.com/google/fonts/blob/main/ofl/zenkakugothicnew/OFL.txt
+- 欧文・数字：Unbounded　https://github.com/google/fonts/blob/main/ofl/unbounded/OFL.txt
+
 ## ローカル確認
 
 ```sh
@@ -51,6 +75,7 @@ npm test
 ```
 
 既存Edgeで検証する場合は環境変数 `TEST_BROWSER_CHANNEL=msedge` を指定します。
+インストール済みのChromiumを使う場合は `TEST_BROWSER_PATH=<実行ファイルのパス>` を指定します。
 テストは独立したプロファイルと一時HTTPサーバーを使い、利用者の保存データには触れません。
 
 ## 公開
@@ -64,6 +89,7 @@ HTML・CSS・JavaScriptを更新するときは `sw.js` のVERSIONを上げま�
 - `index.html`：タイトル画面、ゲーム画面、金継ぎの処理
 - `garden.css`：金継ぎの世界観で統一したタイトルと盤面のデザイン
 - `ceramic.js`：タイトルに展示する器の描画
+- `opening.js`・`opening.css`：アプリを開いたときのオープニング（映像・音・スキップ）
 - `manifest.webmanifest`・`sw.js`：ホーム画面追加とオフライン対応
 - `icons/`：初回公開時の器アイコンを継続使用
-- `test.cjs`：操作・保存互換・画面幅・オフラインの検証
+- `test.cjs`：操作・保存互換・画面幅・オフライン・オープニングの検証

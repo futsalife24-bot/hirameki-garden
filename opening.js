@@ -1,67 +1,43 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ひらめきの庭 オープニング試作</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;900&family=Unbounded:wght@400;700&family=Reggae+One&family=Hachi+Maru+Pop&family=Kaisei+Decol:wght@700&family=Potta+One&family=Train+One&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
-<style>
-/* 「ひらめきの庭」全体のオープニング試作。
-   「ひ・ら・め・き・の」を一文字ずつ別のパズルで組み上げ、最後にすべてのピースが「庭」にまとまる。
-   特定のゲームの世界観には寄せない。約10秒。 */
-:root{--bg:#0b0b10;--cream:#f4f1ea;--dim:#f4f1ea80;--blue:#4a6dff;--coral:#ff5d4f;--sand:#f2c14e;--violet:#a084ff;--lime:#c9f26b;color-scheme:dark}
-*{box-sizing:border-box}
-html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;color:var(--cream);font-family:'Zen Kaku Gothic New',system-ui,sans-serif}
-canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
-.layer{position:fixed;inset:0;pointer-events:none}
-.frame{inset:clamp(14px,3vmin,28px)}
-.frame i{position:absolute;left:0;right:0;height:1px;background:#f4f1ea30;transform-origin:left}
-.frame i:first-child{top:0}.frame i:nth-child(2){bottom:0;transform-origin:right}
-.cap{position:absolute;font-family:Unbounded,sans-serif;font-size:clamp(8px,1.2vmin,10px);letter-spacing:.32em;color:var(--dim);font-variant-numeric:tabular-nums}
-.cap.tl{top:14px;left:0}.cap.tr{top:14px;right:0}.cap.bl{bottom:14px;left:0}.cap.br{bottom:14px;right:0}
-.beat{position:absolute;left:clamp(28px,6vw,96px);top:50%;display:flex;flex-direction:column;gap:10px;opacity:0;margin:0;translate:0 -50%}
-.beat b{font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(34px,7vmin,76px);line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--c);letter-spacing:.02em}
-.beat span{font-weight:900;font-size:clamp(18px,3.2vmin,30px);letter-spacing:.12em}
-.beat em{font-style:normal;font-family:Unbounded,sans-serif;font-size:clamp(8px,1.2vmin,10px);letter-spacing:.3em;color:var(--c)}
-.sub{position:fixed;left:0;right:0;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none}
-.sub .en{font-family:Unbounded,sans-serif;font-size:clamp(9px,1.5vmin,13px);letter-spacing:.6em;margin:0 0 0 .6em;opacity:0}
-.sub .bar{width:min(52vw,380px);height:3px;margin-top:20px;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--coral),var(--sand),var(--violet),var(--lime));transform:scaleX(0)}
-.sub .tag{font-size:clamp(11px,1.7vmin,14px);font-weight:500;letter-spacing:.3em;margin:18px 0 0 .3em;color:#f4f1eacc;opacity:0}
-#iris{position:fixed;inset:0;background:#f6f4ef;clip-path:circle(0px at 50% 50%);pointer-events:none}
-.end{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#2a2a30;font-size:13px;letter-spacing:.2em;line-height:2.2;opacity:0;pointer-events:none;padding:16px}
-.ui{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:5;display:flex;gap:10px}
-.ui button{font:inherit;font-size:12px;letter-spacing:.18em;min-height:44px;padding:10px 18px;border-radius:999px;cursor:pointer;background:#f4f1ea14;border:1px solid #f4f1ea55;color:var(--cream);backdrop-filter:blur(6px)}
-.ui button:focus-visible,#start button:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
-body.done .ui button{color:#2a2a30;border-color:#2a2a3055;background:transparent}
-#replay{display:none}body.done #replay{display:inline-block}body.done #skip{display:none}
-#start{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#0b0b10e6;text-align:center;padding:16px}
-#start p{margin:0 0 10px;font-size:12px;letter-spacing:.24em;color:var(--dim)}
-#start button{font:inherit;font-size:14px;letter-spacing:.2em;min-height:48px;min-width:220px;padding:12px 26px;border-radius:999px;cursor:pointer;border:1px solid #f4f1ea55;background:transparent;color:var(--cream)}
-#start button.primary{background:var(--cream);color:#0b0b10;border-color:var(--cream);font-weight:900}
-#start[hidden]{display:none}
-@media(max-width:640px){.cap.tr{display:none}.beat{top:auto;bottom:16vh;translate:none;flex-direction:row;align-items:baseline;gap:14px}.beat b{font-size:30px}}
-</style>
-</head>
-<body>
-<canvas id="c" aria-hidden="true"></canvas>
-<div class="layer frame" id="frame" aria-hidden="true"><i></i><i></i>
-  <span class="cap tl">HIRAMEKI GARDEN</span><span class="cap tr">TITLE SEQUENCE — FIVE PUZZLES, ONE GARDEN</span>
-  <span class="cap bl" id="tc">00:00:00</span><span class="cap br" id="idx">00 / 06</span>
-</div>
-<div class="layer" id="beats" aria-hidden="true"></div>
-<div class="sub" id="sub"><p class="en">HIRAMEKI GARDEN</p><div class="bar"></div><p class="tag">ひらめきを、集める庭。</p></div>
-<div id="iris"></div>
-<p class="end" id="end">試作はここまで。<br>本編では、この光から<br>選択中のゲームの<br>タイトル画面へ切り替わります。</p>
-<div id="start"><p>OPENING PREVIEW</p><button id="play-sound" class="primary" type="button">▶ 音ありで再生</button><button id="play-mute" type="button">音なしで再生</button></div>
-<div class="ui"><button id="sound" type="button" aria-pressed="true">♪ 音 ON</button><button id="skip" type="button">スキップ ›</button><button id="replay" type="button">もう一度見る ↺</button></div>
-<h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">ひらめきの庭</h1>
+/* ひらめきの庭：オープニング
+   アプリを開いてタイトル画面に入るときだけ流す（ゲームから庭へ戻るとき、ゲーム画面で開いたとき、
+   動きを減らす設定のときは流さない）。「ひ・ら・め・き・の」を一文字ずつ別のパズルで組み上げ、
+   最後に五色のかけらが「庭」にまとまって、選択中のゲームのタイトル画面の色へ明ける。
+   映像はCanvas、音はWeb Audioでその場で合成し、画像・音声ファイルは使わない。 */
+(()=>{
+const TITLE_HASHES=['','#garden','#collection'];
+if(!TITLE_HASHES.includes(location.hash))return;
+if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 
-<script>
+// 書体：この映像で使う文字だけを取り寄せる（Google Fonts、すべてSIL Open Font License 1.1）
+const LABEL_TEXT='ひらめきの庭塗る合わせる映す満たすひらくまとめて、。→集を音ありではじめるなしスキップ›';
+const LATIN_TEXT='HIRAMEKIGARDENTITLESEQUNCFVPZOWFLAYCSTUDGNRBHJ0123456789:/—, ';
+const fontCss=Promise.all([
+  ['Reggae+One&family=Hachi+Maru+Pop&family=Kaisei+Decol:wght@700&family=Potta+One&family=Train+One&family=Zen+Antique+Soft','ひらめきの庭'],
+  ['Zen+Kaku+Gothic+New:wght@500;900',LABEL_TEXT],
+  ['Unbounded:wght@400;600;700',LATIN_TEXT],
+].map(([fam,text])=>new Promise(done=>{const l=document.createElement('link');l.rel='stylesheet';l.href=`https://fonts.googleapis.com/css2?family=${fam}&text=${encodeURIComponent(text)}&display=swap`;l.onload=l.onerror=done;document.head.appendChild(l)})));
+
+const root=document.createElement('div');
+root.id='opening';root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-label','ひらめきの庭 オープニング');
+root.innerHTML=`<canvas id="op-canvas" aria-hidden="true"></canvas>
+<div class="op-layer op-frame" id="op-frame" aria-hidden="true"><i></i><i></i>
+  <span class="op-cap op-tl">HIRAMEKI GARDEN</span><span class="op-cap op-tr">TITLE SEQUENCE — FIVE PUZZLES, ONE GARDEN</span>
+  <span class="op-cap op-bl" id="op-tc">00:00:00</span><span class="op-cap op-br" id="op-idx">00 / 06</span>
+</div>
+<div class="op-layer" id="op-beats" aria-hidden="true"></div>
+<div class="op-sub" id="op-sub" aria-hidden="true"><p class="op-en">HIRAMEKI GARDEN</p><div class="op-bar"></div><p class="op-tag">ひらめきを、集める庭。</p></div>
+<div class="op-iris" id="op-iris"></div>
+<div class="op-start" id="op-start"><p>HIRAMEKI GARDEN</p><button id="op-play-sound" class="op-primary" type="button">▶ 音ありではじめる</button><button id="op-play-mute" type="button">音なしではじめる</button><button id="op-start-skip" class="op-quiet" type="button">オープニングをスキップ</button></div>
+<div class="op-ui"><button id="op-sound" type="button" aria-pressed="true">♪ 音 ON</button><button id="op-skip" type="button">スキップ ›</button></div>`;
+document.documentElement.classList.add('op-lock');
+(document.body||document.documentElement).appendChild(root);
+// 白い光は、これから入るタイトル画面の地の色にそろえる
+const pageBg=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+if(pageBg)root.style.setProperty('--op-end',pageBg);
+
 const DURATION=10;
-const cv=document.getElementById('c'),x=cv.getContext('2d');
-const $=id=>document.getElementById(id);
+const $=id=>document.getElementById('op-'+id);
+const cv=$('canvas'),x=cv.getContext('2d');
 const C={blue:'#4a6dff',coral:'#ff5d4f',sand:'#f2c14e',violet:'#a084ff',lime:'#c9f26b',cream:'#f4f1ea'};
 
 // 補間
@@ -240,7 +216,7 @@ const logoX=i=>cx+(i-2.5)*L()-L()*.1+(i===5?L()*.2:0),logoY=()=>cy-S*.04,logoSiz
 const waitY=()=>cy-S*.34;
 
 const BEATS=SCENE.map((_,k)=>[S0(k)+.12,S0(k)+1.2,.15]).concat([[GARDEN+.05,PING-.1,.2]]);
-const beatEls=SCENE.map((sc,k)=>[sc.col,`0${k+1}`,`${sc.w} → ${CHARS[k]}`,sc.en]).concat([[C.cream,'06','まとめて、庭。','GARDEN']]).map((r,k)=>[r[0],r[1],r[2],`${r[3]} / ${FONTS[k].label}`]).map(([c,n,w,en])=>{const p=document.createElement('p');p.className='beat';p.style.setProperty('--c',c);p.innerHTML=`<b>${n}</b><span>${w}</span><em>${en}</em>`;$('beats').appendChild(p);return p});
+const beatEls=SCENE.map((sc,k)=>[sc.col,`0${k+1}`,`${sc.w} → ${CHARS[k]}`,sc.en]).concat([[C.cream,'06','まとめて、庭。','GARDEN']]).map((r,k)=>[r[0],r[1],r[2],`${r[3]} / ${FONTS[k].label}`]).map(([c,n,w,en])=>{const p=document.createElement('p');p.className='op-beat';p.style.setProperty('--c',c);p.innerHTML=`<b>${n}</b><span>${w}</span><em>${en}</em>`;$('beats').appendChild(p);return p});
 
 // 「庭」のタイル：五つのパズルの色が集まってくる
 let NIWA=[];
@@ -312,19 +288,17 @@ function render(t){
 
   // 文字のレイヤー
   const fr=seg(t,.2,.9);
-  $('frame').style.opacity=1-seg(t,8.9,9.3);document.querySelectorAll('.frame i').forEach(i=>i.style.transform=`scaleX(${outExpo(fr)})`);
-  document.querySelectorAll('.cap').forEach(c=>c.style.opacity=seg(t,.4,.9));
+  $('frame').style.opacity=1-seg(t,8.9,9.3);root.querySelectorAll('.op-frame i').forEach(i=>i.style.transform=`scaleX(${outExpo(fr)})`);
+  root.querySelectorAll('.op-cap').forEach(c=>c.style.opacity=seg(t,.4,.9));
   const sec=Math.min(t,DURATION);$('tc').textContent=`00:${String(Math.floor(sec)).padStart(2,'0')}:${String(Math.floor(sec%1*24)).padStart(2,'0')}`;
   let curB=0;BEATS.forEach(([a],k)=>{if(t>=a)curB=k+1});$('idx').textContent=`0${curB} / 06`;
   BEATS.forEach(([a,b,f],k)=>{const el=beatEls[k],v=inoutVis(t,a,b,f),out=seg(t,b-f,b);el.style.opacity=v;el.style.transform=`translateX(${(1-seg(t,a,a+.3))*-24+out*16}px)`;el.style.filter=`blur(${(1-v)*5}px)`});
   const sub=$('sub');sub.style.top=`${logoY()+L()*.7}px`;sub.style.opacity=1-seg(t,9.05,9.35);
-  sub.querySelector('.en').style.opacity=seg(t,8.35,8.85);sub.querySelector('.en').style.letterSpacing=`${.6+.4*(1-outExpo(seg(t,8.35,9.0)))}em`;
-  sub.querySelector('.bar').style.transform=`scaleX(${inOut(seg(t,8.45,9.0))})`;sub.querySelector('.tag').style.opacity=seg(t,8.6,9.0);
+  sub.querySelector('.op-en').style.opacity=seg(t,8.35,8.85);sub.querySelector('.op-en').style.letterSpacing=`${.6+.4*(1-outExpo(seg(t,8.35,9.0)))}em`;
+  sub.querySelector('.op-bar').style.transform=`scaleX(${inOut(seg(t,8.45,9.0))})`;sub.querySelector('.op-tag').style.opacity=seg(t,8.6,9.0);
 
   // 白い光が広がり、タイトル画面へ渡す
   const ir=inOut(seg(t,9.25,10)),iy=logoY();$('iris').style.clipPath=`circle(${ir*Math.hypot(W/2,Math.max(iy,H-iy))+(ir>0?2:0)}px at 50% ${iy}px)`;
-  $('end').style.opacity=seg(t,10,10.5);
-  document.body.classList.toggle('done',t>=DURATION);
 }
 
 // ── 音（すべてWeb Audioで合成。外部の音源ファイルは使わない） ──
@@ -397,34 +371,48 @@ function scoreAudio(base){
 }
 function stopAudio(){if(!AC)return;const n=AC.currentTime;master.gain.cancelScheduledValues(n);master.gain.setValueAtTime(master.gain.value,n);master.gain.linearRampToValueAtTime(.0001,n+.25);const old=live;live=[];setTimeout(()=>old.forEach(o=>{try{o.stop()}catch(e){}}),400)}
 
-let start=0,fixed=null,raf=0;
+
+function prepare(){makeGlyphs();glyphTint={};INK={'5_6':inkCells(5,6)};puzzleData();niwaTiles()}
+let start=0,fixed=null,raf=0,finished=false;
 const now=()=>fixed??(performance.now()-start)/1000;
-function loop(){const t=now();render(t);if(fixed===null&&t<DURATION+.6)raf=requestAnimationFrame(loop)}
+function loop(){const t=now();render(t);if(t>=DURATION){finish(false);return}raf=requestAnimationFrame(loop)}
 function play(){
   cancelAnimationFrame(raf);fixed=null;stopAudio();
   if(soundOn&&AC){live=[];scoreAudio(AC.currentTime+.08);start=performance.now()+80}else start=performance.now();
   loop();
 }
-function seek(t){cancelAnimationFrame(raf);fixed=t;render(t)}
-function prepare(){makeGlyphs();glyphTint={};INK={'5_6':inkCells(5,6)};puzzleData();niwaTiles()}
-addEventListener('resize',()=>{resize();render(now())});resize();prepare();
-$('skip').onclick=()=>{stopAudio();seek(DURATION+.6);$('replay').focus()};
-$('replay').onclick=()=>{play();$('skip').focus()};
-const setSound=v=>{soundOn=v;$('sound').textContent=v?'♪ 音 ON':'♪ 音 OFF';$('sound').setAttribute('aria-pressed',v)};
-$('sound').onclick=()=>{setSound(!soundOn);if(!soundOn)stopAudio();else if(fixed===null){audioInit();AC.resume();play()}};
-// ブラウザは操作なしに音を鳴らせないので、最初のボタンで始める
-function begin(withSound){setSound(withSound);$('start').hidden=true;if(withSound){audioInit();AC.resume().then(play)}else play();$('skip').focus()}
+// 終わったら（またはスキップしたら）、そっと消えてタイトル画面へ
+function finish(skipped){
+  if(finished)return;finished=true;cancelAnimationFrame(raf);
+  if(skipped)stopAudio();
+  removeEventListener('keydown',onKey,true);removeEventListener('resize',onResize);
+  root.classList.add('op-out');
+  const garden=document.getElementById('garden');if(garden)garden.inert=false;
+  document.documentElement.classList.remove('op-lock');
+  const title=document.getElementById('garden-title');if(title&&location.hash!=='#kintsugi')title.focus({preventScroll:true});
+  setTimeout(()=>root.remove(),700);
+  if(AC)setTimeout(()=>{try{AC.close()}catch(e){}},skipped?600:2200);
+}
+function onKey(e){if(e.key==='Escape'){e.preventDefault();finish(true)}}
+function onResize(){resize();render(now())}
+// オープニング中にゲームへ移ったら（ブラウザの戻る・進むなど）、すぐに終える
+addEventListener('hashchange',()=>{if(!TITLE_HASHES.includes(location.hash))finish(true)});
+addEventListener('keydown',onKey,true);
+addEventListener('resize',onResize);
+// ページを読み終えたら、庭を操作できないようにして、最初のボタンへフォーカスを置く
+document.addEventListener('DOMContentLoaded',()=>{const g=document.getElementById('garden');if(g&&!finished){g.inert=true;if(!$('start').hidden)$('play-sound').focus()}});
+
+resize();prepare();render(0);
+$('skip').onclick=()=>finish(true);
+$('start-skip').onclick=()=>finish(true);
+const setSound=v=>{soundOn=v;$('sound').textContent=v?'♪ 音 ON':'♪ 音 OFF';$('sound').setAttribute('aria-pressed',String(v))};
+$('sound').onclick=()=>{setSound(!soundOn);if(!soundOn)stopAudio();else{audioInit();AC.resume();play()}};
+// ブラウザは操作なしに音を鳴らせないので、最初のひと押しで始める
+function begin(withSound){setSound(withSound);$('start').hidden=true;if(withSound){audioInit();AC.resume().then(play,play)}else play();$('skip').focus()}
 $('play-sound').onclick=()=>begin(true);
 $('play-mute').onclick=()=>begin(false);
-const q=new URLSearchParams(location.search).get('t');
-render(0);
-// 書体がそろったら文字の型を作り直す（待ちきれずに始めた場合も、届いた時点で差し替わる）
-const fontsLoaded=document.fonts?Promise.all(FONTS.map((f,k)=>document.fonts.load(`${f.weight} 64px "${f.family}"`,CHARS[k]))).then(()=>document.fonts.ready):Promise.resolve();
-fontsLoaded.then(()=>{prepare();render(now())});
-const ready=Promise.race([fontsLoaded,new Promise(r=>setTimeout(r,3000))]).then(()=>{prepare();render(now())});
-if(q!==null){$('start').hidden=true;ready.then(()=>seek(parseFloat(q)))}
-else if(matchMedia('(prefers-reduced-motion: reduce)').matches){$('start').hidden=true;ready.then(()=>seek(8.9))}
-else ready.then(()=>$('play-sound').focus());
-</script>
-</body>
-</html>
+// 書体がそろったら文字の型を作り直す（届く前に始めた場合も、届いた時点で差し替わる）
+// 書体の指定（CSS）が届いてからでないと、ブラウザはその書体を知らないので先に待つ
+const fontsLoaded=document.fonts?fontCss.then(()=>Promise.all(FONTS.map((f,k)=>document.fonts.load(`${f.weight} 64px "${f.family}"`,CHARS[k])))).then(()=>document.fonts.ready):Promise.resolve();
+fontsLoaded.then(()=>{if(!finished){prepare();render(now())}},()=>{});
+})();
