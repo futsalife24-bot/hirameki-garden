@@ -203,6 +203,34 @@ const http=require('node:http');
      assert.equal(await jp.evaluate(()=>{const v=e=>{const r=document.querySelector(e).getBoundingClientRect();return r.width>0&&r.top>=-1&&r.bottom<=innerHeight+1};return document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1&&['#kj-grid','#kj-tray','#kj-reset','#kj-title'].every(v)}),true,`katsuji one screen ${w}x${h} ${l}`)}
     await jp.goto(url+'#garden');assert.equal(await jp.evaluate(()=>{const b=document.getElementById('kj-play').getBoundingClientRect();return document.documentElement.scrollHeight<=innerHeight+1&&b.bottom<=innerHeight}),true,`katsuji garden ${w}x${h}`)}
    await jc.close();}
+  // 帳面：五つ目のスライド。ヒントを見て答えを打ち込み、合っていればペンで書き込まれる
+  {const nc=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});await nc.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
+   const np=await nc.newPage();np.on('pageerror',e=>errors.push(e.message));
+   await np.goto(url);for(let k=0;k<4;k++)await np.locator('#slide-next').click();
+   assert.equal(await np.evaluate(()=>document.documentElement.dataset.world),'chomen');
+   await np.locator('#cm-play').click();await np.waitForFunction(()=>location.hash==='#chomen'&&!document.getElementById('chomen').hidden);
+   const nState=()=>np.evaluate(()=>JSON.parse(localStorage.getItem('chomen-save-v1')));
+   const lv=await np.evaluate(()=>CHOMEN_LEVELS[0]);assert(await np.locator('#cm-coach').isVisible());
+   const pick=async e=>{const want=(e.d==='a'?'ヨコ':'タテ')+' '+e.n;for(let k=0;k<2;k++){await np.locator(`.cm-cell[data-x="${e.x}"][data-y="${e.y}"]`).click();if(await np.locator('#cm-clue-no').innerText()===want)return}throw new Error('clue '+want)};
+   const e0=lv.entries[0];await pick(e0);
+   // 文字数が違うと、書き損じにはならず文字数を案内する
+   await np.locator('#cm-input').fill('あ');await np.locator('#cm-write').click();assert.match(await np.locator('#cm-note').innerText(),/文字で/);assert.equal((await nState()).miss,0);
+   // 違う答えは書き損じ
+   const wrong=[...e0.a].map(()=>'あ').join('');await np.locator('#cm-input').fill(wrong===e0.a?[...e0.a].map(()=>'い').join(''):wrong);await np.locator('#cm-write').click();assert.equal((await nState()).miss,1);
+   // カタカナで書いても正解になる
+   const kata=e0.a.replace(/[\u3041-\u3096]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x60));
+   await np.locator('#cm-input').fill(kata);await np.locator('#cm-write').click();assert.equal((await nState()).done[0],true);
+   for(const e of lv.entries.slice(1)){await pick(e);await np.locator('#cm-input').fill(e.a);await np.locator('#cm-write').click()}
+   await np.locator('#cm-done.show').waitFor();assert.equal((await nState()).solved,true);assert.match(await np.locator('#cm-done-note').innerText(),/書き損じ 1回/);
+   await np.reload();await np.locator('#cm-done.show').waitFor();
+   await np.locator('#cm-next').click();assert.equal((await nState()).level,2);assert.equal(await np.locator('#cm-coach').isVisible(),false);
+   await np.locator('[data-help="cm-help"]').click();assert(await np.locator('#cm-help').isVisible());await np.keyboard.press('Escape');
+   await np.locator('#chomen .game-nav a').click();await np.waitForFunction(()=>!document.getElementById('garden').hidden);assert.match(await np.locator('#cm-resume-note').innerText(),/二ページ目/);
+   for(const [w,h] of [[320,568],[390,844],[768,1024],[1280,720]]){await np.setViewportSize({width:w,height:h});
+    for(const l of [1,20]){await np.evaluate(l=>localStorage.setItem('chomen-save-v1',JSON.stringify({level:l})),l);await np.goto('about:blank');await np.goto(url+'#chomen');
+     assert.equal(await np.evaluate(()=>{const v=e=>{const r=document.querySelector(e).getBoundingClientRect();return r.width>0&&r.top>=-1&&r.bottom<=innerHeight+1};return document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1&&['#cm-grid','#cm-input','#cm-write','#cm-reset','#cm-title'].every(v)}),true,`chomen one screen ${w}x${h} ${l}`)}
+    await np.goto(url+'#garden');assert.equal(await np.evaluate(()=>{const b=document.getElementById('cm-play').getBoundingClientRect();return document.documentElement.scrollHeight<=innerHeight+1&&b.bottom<=innerHeight}),true,`chomen garden ${w}x${h}`)}
+   await nc.close();}
   // 文字が背景に溶けない：ライト・ダークどちらの端末設定でも、主な文字と背景のコントラスト比が4.5以上
   const contrastOf=(pg,sels)=>pg.evaluate(sels=>{
     const rgb=c=>(c.match(/[\d.]+/g)||[]).slice(0,3).map(Number),lum=c=>{const v=rgb(c).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
@@ -223,6 +251,11 @@ const http=require('node:http');
    for(const [sel,ratio] of await contrastOf(cp,['#kj-title','.kj-level b','.kj-level span','#kj-coach','.kj-stat','#kj-reset']))assert(ratio>=4.5,`${colorScheme} katsuji ${sel} ${ratio}`);
    await cp.goto('about:blank');await cp.goto(url);
    for(const [sel,ratio] of await contrastOf(cp,['#garden-title','.garden-copy','#kj-collection-title','[data-world="katsuji"] .game-subtitle','[data-world="katsuji"] .story-copy','.slide-dot[aria-current="true"]']))assert(ratio>=4.5,`${colorScheme} katsuji garden ${sel} ${ratio}`);
+   await cp.evaluate(()=>{localStorage.setItem('hirameki-world','chomen');localStorage.setItem('chomen-save-v1',JSON.stringify({level:1}))});await cp.goto('about:blank');await cp.goto(url+'#chomen');
+   assert.equal(await cp.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()),'#f6f8fa',`chomen bg ${colorScheme}`);
+   for(const [sel,ratio] of await contrastOf(cp,['#cm-title','.cm-level b','.cm-level span','#cm-coach','#cm-clue','.cm-stat','#cm-reset']))assert(ratio>=4.5,`${colorScheme} chomen ${sel} ${ratio}`);
+   await cp.goto('about:blank');await cp.goto(url);
+   for(const [sel,ratio] of await contrastOf(cp,['#garden-title','.garden-copy','#cm-collection-title','[data-world="chomen"] .game-subtitle','[data-world="chomen"] .story-copy','.slide-dot[aria-current="true"]']))assert(ratio>=4.5,`${colorScheme} chomen garden ${sel} ${ratio}`);
    await cp.evaluate(()=>localStorage.setItem('hirameki-world','kagee'));
    await cp.goto('about:blank');await cp.goto(url);
    for(const [sel,ratio] of await contrastOf(cp,['#garden-title','.garden-copy','#kg-collection-title','[data-world="kagee"] .game-subtitle','[data-world="kagee"] .story-copy','#kg-play-label','.slide-dot[aria-current="true"]']))assert(ratio>=4.5,`${colorScheme} kagee garden ${sel} ${ratio}`);
@@ -255,6 +288,6 @@ const http=require('node:http');
   for(const width of [320,1440]){await op.setViewportSize({width,height:800});await op.goto('about:blank');await op.goto(url);await op.locator('#op-play-mute').click();await op.clock.runFor(5000);
    assert.equal(await op.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`opening ${width}`)}
   assert.deepEqual(errors,[]);
-  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、影絵（スライド・ドラッグ・キーボード・完成・保存・次の幕・一画面・見やすさ）、活字（スライド・はめる・外す・戻す・食い違いの拒否・完成と合言葉・保存・次の版・一画面・見やすさ）、実行エラーなし');
+  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、影絵（スライド・ドラッグ・キーボード・完成・保存・次の幕・一画面・見やすさ）、活字（スライド・はめる・外す・戻す・食い違いの拒否・完成と合言葉・保存・次の版・一画面・見やすさ）、帳面（スライド・ヒント・文字数の案内・書き損じ・カタカナ入力・完成・保存・次のページ・一画面・見やすさ）、実行エラーなし');
  } finally {if(browser)await browser.close();server.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

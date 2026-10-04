@@ -1,0 +1,70 @@
+/* 帳面の世界：方眼ノートと万年筆。白い方眼紙、青い罫、赤い余白線、紺のインク、手書きの文字。
+   庭（タイトル画面）も、帳面を選んでいる間はこの世界観になる。
+   端末のダークモード用の指定より必ず優先させるため、:root を重ねて指定する。 */
+:root:root[data-world="chomen"]{--bg:#f6f8fa;--bg-2:#e9eef3;--ink:#1d2b4f;--muted:#44527a;--rule:rgba(40,70,130,.2);--focus:#d0453f;--btn:#e3e9f1;--btn-ink:#1d2b4f;--pen:#1f3a8a;--margin:#d65a55;color-scheme:light}
+html[data-world="chomen"] body{background:linear-gradient(90deg,transparent 0,transparent 46px,rgba(214,90,85,.35) 46px,rgba(214,90,85,.35) 48px,transparent 48px) fixed,repeating-linear-gradient(0deg,rgba(80,130,190,.16) 0 1px,transparent 1px 24px) fixed,repeating-linear-gradient(90deg,rgba(80,130,190,.16) 0 1px,transparent 1px 24px) fixed,var(--bg);font-family:'Klee One','Hiragino Maru Gothic ProN','Yu Gothic',sans-serif;color:var(--ink)}
+html[data-world="chomen"] body::before{opacity:0!important}
+@media(max-width:700px){html[data-world="chomen"] body{background:repeating-linear-gradient(0deg,rgba(80,130,190,.16) 0 1px,transparent 1px 22px) fixed,repeating-linear-gradient(90deg,rgba(80,130,190,.16) 0 1px,transparent 1px 22px) fixed,var(--bg)}}
+
+/* 庭のタイトル */
+html[data-world="chomen"] h1,html[data-world="chomen"] h2{font-family:'Klee One',sans-serif;font-weight:600;color:var(--ink)}
+html[data-world="chomen"] .garden-intro h1 span{color:var(--margin)}
+html[data-world="chomen"] .garden-mark{color:var(--pen)}
+html[data-world="chomen"] .eyebrow,html[data-world="chomen"] .story-copy,html[data-world="chomen"] .game-facts,html[data-world="chomen"] .resume-note{color:var(--muted)}
+html[data-world="chomen"] .game-art{background:#c9b48f;border-radius:6px}
+html[data-world="chomen"] .art-caption{color:#3b2e1a;letter-spacing:.2em}
+html[data-world="chomen"] .catalog-number{border-color:var(--margin);color:#b4352f}
+html[data-world="chomen"] .play-game{background:var(--pen);color:#fff;border-radius:999px}
+html[data-world="chomen"] .play-game:hover{background:#2b4aa3}
+html[data-world="chomen"] .slide-dot[aria-current="true"]{color:var(--pen)}
+
+/* 帳面のゲーム画面 */
+#cm-title:focus{outline:none}
+.cm-tools{display:flex;gap:8px}
+.cm-level b{font-size:21px;font-weight:600;letter-spacing:.1em;color:var(--ink)}
+.cm-level span{font-size:13px;color:var(--muted)}
+.cm-main{grid-template-rows:auto minmax(0,1fr) auto!important}
+.cm-cluebar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 8px;align-items:center;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-radius:10px;box-shadow:0 2px 0 rgba(40,70,130,.08)}
+.cm-cluebar .nav{width:40px;height:40px;border-radius:50%;border:1px solid var(--rule);background:transparent;color:var(--ink);font:inherit;font-size:18px;cursor:pointer}
+.cm-clue-text{min-width:0}
+.cm-clue-text b{display:inline-block;font-size:12px;color:#fff;background:var(--pen);border-radius:4px;padding:0 6px;margin-right:6px;letter-spacing:.06em}
+.cm-clue-text span{font-size:15px;line-height:1.5}
+.cm-clue-text em{font-style:normal;font-size:12px;color:var(--muted);margin-left:6px;white-space:nowrap}
+#cm-form{grid-column:1/-1;display:flex;gap:8px}
+#cm-input{flex:1;min-width:0;font:inherit;font-size:18px;letter-spacing:.2em;padding:6px 12px;border:0;border-bottom:2px solid var(--pen);background:repeating-linear-gradient(0deg,transparent 0 33px,rgba(80,130,190,.25) 33px 34px);color:var(--pen);border-radius:0;min-height:44px}
+#cm-input::placeholder{color:#8b97b5;letter-spacing:.3em}
+#cm-input:focus{outline:none;border-bottom-color:var(--margin)}
+#cm-input:disabled{opacity:.5}
+.cm-note{grid-column:1/-1;margin:0;min-height:1.2em;font-size:13px;color:#b4352f}
+.cm-note:empty{display:none}
+.cm-board{--pad:clamp(6px,1.6vw,12px);box-sizing:border-box;width:min(100cqw,calc((100cqh - 2 * var(--pad)) * var(--ar,1) + 2 * var(--pad)));padding:var(--pad);background:#fff;border-radius:4px;box-shadow:0 1px 0 rgba(40,70,130,.15),0 18px 30px -22px rgba(30,40,70,.5)}
+.cm-board.shake{animation:cm-shake .35s ease}
+#cm-grid{display:grid;gap:0;width:100%;border-top:1.5px solid #28406e;border-left:1.5px solid #28406e}
+.cm-block{aspect-ratio:1;background:repeating-linear-gradient(45deg,#dfe6ef 0 2px,#f6f8fa 2px 6px);border-right:1.5px solid #28406e;border-bottom:1.5px solid #28406e}
+.cm-cell{position:relative;aspect-ratio:1;container-type:inline-size;margin:0;padding:0;border:0;border-right:1.5px solid #28406e;border-bottom:1.5px solid #28406e;background:#fff;color:var(--pen);font:inherit;cursor:pointer;display:grid;place-items:center}
+.cm-cell span{font-size:60cqw;line-height:1;font-weight:600;font-family:'Klee One',sans-serif}
+.cm-cell i{position:absolute;left:5%;top:2%;font-style:normal;font-size:26cqw;line-height:1;color:#44527a}
+.cm-cell.sel{background:#fff3c4}
+.cm-cell.fresh span{animation:cm-ink .45s ease}
+.cm-cell:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;z-index:2}
+#cm-grid.solved .cm-cell{background:#f1f6ff}
+@keyframes cm-ink{from{opacity:0;filter:blur(2px);transform:translateY(-2px)}to{opacity:1;filter:none;transform:none}}
+@keyframes cm-shake{20%,60%{transform:translateX(-5px) rotate(-.4deg)}40%,80%{transform:translateX(5px) rotate(.4deg)}}
+.cm-bar{display:flex;align-items:center;gap:14px}
+.cm-stat{font-size:13px;color:var(--muted)}
+.cm-stat strong{font-size:22px;font-weight:600;color:var(--ink);margin-left:6px;font-variant-numeric:tabular-nums}
+.cm-stat+.cm-stat{margin-right:auto}
+.cm-btn{font:inherit;font-size:13px;color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:999px;min-height:44px;padding:8px 16px;cursor:pointer}
+.cm-btn:disabled{opacity:.45;cursor:default}
+.cm-btn:focus-visible,.cm-cluebar .nav:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.cm-btn.primary{background:var(--pen);color:#fff;border-color:var(--pen)}
+.cm-done{display:none;align-items:center;gap:12px;padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:10px}
+.cm-done.show{display:flex;animation:cm-rise .5s ease}
+.cm-done>div:nth-child(2){flex:1;min-width:0}
+.cm-seal{width:44px;height:44px;flex:none;display:grid;place-items:center;border:2px solid var(--margin);border-radius:50%;color:var(--margin);font-weight:600;transform:rotate(-10deg)}
+.cm-done-title{margin:0;font-size:16px;color:var(--ink)}
+.cm-done-note{margin:2px 0 0;font-size:13px;color:var(--muted)}
+@keyframes cm-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+html[data-world="chomen"] .coach{background:#fffbe8;border-color:#e8d48a;color:var(--ink)}
+html[data-world="chomen"] .howto{background:#fbfcfd}
+@media(max-width:700px){.cm-cluebar{padding:6px 8px;gap:4px 6px}.cm-cluebar .nav{width:36px;height:36px}.cm-clue-text span{font-size:14px}#cm-input{font-size:17px;min-height:40px}.cm-bar{gap:10px}.cm-stat{font-size:12px}.cm-stat strong{font-size:19px}}

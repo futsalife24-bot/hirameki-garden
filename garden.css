@@ -109,8 +109,8 @@ body{transition:background-color .6s ease,color .6s ease}
 .game-screen>.game-nav{min-height:52px!important;grid-column:1/-1}
 .game-head{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 12px;width:min(100%,620px)!important;justify-self:center;padding:0!important;position:static!important;margin:0}
 .game-head h1{grid-row:1;grid-column:1;font-size:32px!important;line-height:1.25;margin:0!important;writing-mode:horizontal-tb!important;letter-spacing:.2em}
-.game-head .tools,.game-head .hz-tools,.game-head .kg-tools,.game-head .kj-tools{grid-row:1;grid-column:2;display:flex;gap:8px;margin:0!important}
-.game-head .level,.game-head .hz-level,.game-head .kg-level,.game-head .kj-level{grid-row:2;grid-column:1/-1;margin:0!important;padding:0!important;border:0!important;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.game-head .tools,.game-head .hz-tools,.game-head .kg-tools,.game-head .kj-tools,.game-head .cm-tools{grid-row:1;grid-column:2;display:flex;gap:8px;margin:0!important}
+.game-head .level,.game-head .hz-level,.game-head .kg-level,.game-head .kj-level,.game-head .cm-level{grid-row:2;grid-column:1/-1;margin:0!important;padding:0!important;border:0!important;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
 .coach{grid-column:1/-1;margin:6px 0 0;font-size:13px;line-height:1.7;padding:8px 12px;border-radius:10px;border:1px solid var(--rule);background:color-mix(in srgb,var(--btn) 50%,transparent);color:var(--ink)}
 .coach[hidden]{display:none}
 .game-screen>main{align-self:stretch!important;display:grid!important;grid-template-rows:minmax(0,1fr) auto;align-items:stretch!important;justify-items:stretch!important;gap:10px;min-height:0;width:min(100%,620px)!important;justify-self:center;padding:0!important;margin:0}
@@ -134,10 +134,10 @@ body{transition:background-color .6s ease,color .6s ease}
 @media(min-width:900px){
   .game-screen{grid-template-columns:200px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);padding-bottom:20px!important}
   .game-head{grid-template-columns:1fr!important;width:auto!important;justify-self:end;align-self:start;align-content:start;justify-items:end;padding-top:16px!important;gap:10px}
-  .game-head h1,.game-head .tools,.game-head .hz-tools,.game-head .kg-tools,.game-head .kj-tools,.game-head .level,.game-head .hz-level,.game-head .kg-level,.game-head .kj-level,.coach{grid-row:auto;grid-column:auto}
+  .game-head h1,.game-head .tools,.game-head .hz-tools,.game-head .kg-tools,.game-head .kj-tools,.game-head .cm-tools,.game-head .level,.game-head .hz-level,.game-head .kg-level,.game-head .kj-level,.game-head .cm-level,.coach{grid-row:auto;grid-column:auto}
   /* 縦書き：1文字ずつ折り返して縦に積む（writing-mode はグリッドの中で高さが縮むため使わない） */
   .game-head h1{writing-mode:horizontal-tb!important;width:1.15em;line-height:1.18!important;word-break:break-all;text-align:center;letter-spacing:0!important;align-self:start;font-size:60px!important;margin:0 0 10px!important}
-  .game-head .level,.game-head .hz-level,.game-head .kg-level,.game-head .kj-level{flex-direction:column;align-items:flex-end;gap:2px}
+  .game-head .level,.game-head .hz-level,.game-head .kg-level,.game-head .kj-level,.game-head .cm-level{flex-direction:column;align-items:flex-end;gap:2px}
   .coach{max-width:200px;justify-self:stretch}
   .game-screen>main{width:100%!important}
 }
@@ -145,9 +145,9 @@ body{transition:background-color .6s ease,color .6s ease}
   .game-screen{padding:0 12px 10px!important;gap:6px}
   .game-screen>.game-nav{min-height:46px!important}
   .game-head h1{font-size:26px!important;letter-spacing:.14em}
-  .game-head .level b,.game-head .hz-level b,.game-head .kg-level b,.game-head .kj-level b{font-size:17px!important}
-  .game-head .level span,.game-head .hz-level span,.game-head .kg-level span,.game-head .kj-level span{font-size:11px!important}
-  .game-head .icon-btn,.game-head .hz-btn,.game-head .kg-btn,.game-head .kj-btn{padding:4px 10px!important;font-size:11px!important;min-height:36px!important}
+  .game-head .level b,.game-head .hz-level b,.game-head .kg-level b,.game-head .kj-level b,.game-head .cm-level b{font-size:17px!important}
+  .game-head .level span,.game-head .hz-level span,.game-head .kg-level span,.game-head .kj-level span,.game-head .cm-level span{font-size:11px!important}
+  .game-head .icon-btn,.game-head .hz-btn,.game-head .kg-btn,.game-head .kj-btn,.game-head .cm-btn{padding:4px 10px!important;font-size:11px!important;min-height:36px!important}
   .coach{font-size:12px;padding:6px 10px;margin-top:4px}
   .foot{min-height:52px}
 }

@@ -1,6 +1,6 @@
 # ひらめきの庭
 
-世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」「星図」「影絵」「活字」です。
+世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」「星図」「影絵」「活字」「帳面」です。
 
 - 公開先：https://futsalife24-bot.github.io/hirameki-garden/
 - GitHub：https://github.com/futsalife24-bot/hirameki-garden
@@ -8,15 +8,15 @@
 
 ## タイトル画面の方針
 
-タイトル画面も選択中のゲームの世界観を表します。下のスライド切り替え（‹ 一 金継ぎ ／ 二 星図 ／ 三 影絵 ／ 四 活字 ›、横スワイプ、左右キー）で
+タイトル画面も選択中のゲームの世界観を表します。下のスライド切り替え（‹ 一 金継ぎ ／ 二 星図 ／ 三 影絵 ／ 四 活字 ／ 五 帳面 ›、横スワイプ、左右キー）で
 遊びを選ぶと、背景・書体・配色・絵が世界観ごと切り替わります。選んだ遊びは端末に覚え、次に開いたときもその世界観から始まります。
-金継ぎは生成りの和紙・青磁の器・墨色・金の継ぎ目、星図は夜空・真鍮の星図盤・灯る星、影絵は臙脂の幕と影絵芝居の舞台、活字はインクの作業台と紙の版の「ひらめきの庭」です。
+金継ぎは生成りの和紙・青磁の器・墨色・金の継ぎ目、星図は夜空・真鍮の星図盤・灯る星、影絵は臙脂の幕と影絵芝居の舞台、活字はインクの作業台と紙の版、帳面は方眼ノートと万年筆の「ひらめきの庭」です。
 庭（タイトル後のホーム画面）はスクロールせずに一画面で見渡せます。器の絵が残りの高さに合わせて伸び縮みし、
 「器をつなぐ」ボタンは常に画面内に収まります。背の低い画面では説明文を省き、横向きのスマホなど極端に低い画面だけスクロールします。
 和風は金継ぎ固有であり、ほかのゲームに強制しません。
 
-`#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ、`#hoshizu` が星図、`#kagee` が影絵、`#katsuji` が活字。
-`<html data-world>` と `<body data-world>`（`kintsugi` / `hoshizu` / `kagee` / `katsuji`）が現在の世界観を表します。
+`#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ、`#hoshizu` が星図、`#kagee` が影絵、`#katsuji` が活字、`#chomen` が帳面。
+`<html data-world>` と `<body data-world>`（`kintsugi` / `hoshizu` / `kagee` / `katsuji` / `chomen`）が現在の世界観を表します。
 
 ## オープニング
 
@@ -69,6 +69,13 @@
 朱の二重マスの文字を①から順に読むと合言葉になります。全24版（言葉5〜18）。第一版は手ほどきで、次に選ぶ並びが光ります。
 問題は `tools/katsuji-gen.cjs` で作り、答えがひとつに決まる面だけを `katsuji-levels.js` に収録しています。保存は `katsuji-save-v1`・`katsuji-best`。
 
+## 帳面
+
+ヒント付きのシンプルなクロスワード。マスをタップするとその言葉のヒントが上に出ます（同じマスをもう一度押すとタテ・ヨコ切替、‹ › で未記入のヒントへ）。
+答えをひらがな（カタカナも可）で打ち込み「書く」を押すと、合っていればペンで書き込まれます。違う答えは「書き損じ」として数えます。
+入力欄の「○」には、交わる言葉ですでにわかっている文字が入ります。全20ページ（言葉5〜14）。一ページ目は手ほどき。
+問題は `tools/chomen-gen.cjs`（言葉とヒントは `tools/chomen-clues.cjs`）で作り、`chomen-levels.js` に収録。保存は `chomen-save-v1`・`chomen-best`。
+
 ## 書体
 
 Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド明朝」（Zen Old Mincho）。
@@ -91,6 +98,10 @@ Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド�
 活字の世界では「しっぽりアンチック B1」（Shippori Antique B1、SIL Open Font License 1.1）を使います。
 
 - https://github.com/google/fonts/blob/main/ofl/shipporiantiqueb1/OFL.txt
+
+帳面の世界では「クレー One」（Klee One、SIL Open Font License 1.1）を使います。
+
+- https://github.com/google/fonts/blob/main/ofl/kleeone/OFL.txt
 
 オープニングでは、一文字ずつ違う書体を使います。いずれもGoogle Fonts、SIL Open Font License 1.1。
 使う文字だけを取り寄せる（`text=` 指定）ため、通信量はわずかです。届かない場合は代わりの書体で流れます。
@@ -140,6 +151,8 @@ HTML・CSS・JavaScriptを更新するときは `sw.js` のVERSIONを上げま�
 - `kagee.js`・`kagee.css`：影絵のゲーム・世界観・遊び帖の絵
 - `katsuji.js`・`katsuji.css`・`katsuji-levels.js`：活字のゲーム・世界観・問題データ
 - `tools/katsuji-gen.cjs`：活字の問題を作り、答えがひとつか確かめる道具
+- `chomen.js`・`chomen.css`・`chomen-levels.js`：帳面のゲーム・世界観・問題データ
+- `tools/chomen-gen.cjs`・`tools/chomen-clues.cjs`：帳面の問題を作る道具と、言葉・ヒント
 - `manifest.webmanifest`・`sw.js`：ホーム画面追加とオフライン対応
 - `icons/`：初回公開時の器アイコンを継続使用
-- `test.cjs`：操作・保存互換・画面幅・オフライン・オープニング・星図・影絵・活字の検証
+- `test.cjs`：操作・保存互換・画面幅・オフライン・オープニング・星図・影絵・活字・帳面の検証
