@@ -20,7 +20,7 @@
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&family=Kaisei+Decol:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#D7DAD3; --bg-2:#C3C8C0; --ink:#232B33; --muted:#56626A;
@@ -288,18 +288,20 @@ button.primary{
   </div>
   <footer class="garden-footer"><span>ひらめきの庭</span><span>気の向くままに、ひとつずつ。</span></footer>
 </section>
-<div class="wrap" id="game" hidden>
+<div class="wrap game-screen" id="game" hidden>
   <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 一</span></nav>
-  <header>
-    <p class="eyebrow">器を、もう一度。</p><h1 id="game-title" tabindex="-1">金継ぎ</h1>
+  <header class="game-head">
+    <h1 id="game-title" tabindex="-1">金継ぎ</h1>
     <div class="tools">
       <button class="icon-btn" id="install" type="button" hidden>ホームに追加</button>
+      <button class="icon-btn" type="button" data-help="kin-help" aria-haspopup="dialog">遊び方</button>
       <button class="icon-btn" id="sound" type="button" aria-pressed="true">音あり</button>
     </div>
-    <p class="lead">割れた器を、金の線でつなぎ直す。<br>急がなくていいパズルです。</p>
     <div class="level"><b id="lvName">第1の器</b><span id="lvSize">4×4の欠片</span></div>
+    <p class="coach" id="kin-coach" aria-live="polite" hidden></p>
   </header>
   <main>
+    <div class="stage">
     <div class="tray" id="tray">
       <div class="board-wrap">
         <div class="board" id="board" role="grid" aria-label="パズルの盤面"></div>
@@ -307,6 +309,8 @@ button.primary{
         <div class="sheen"></div>
       </div>
     </div>
+    </div>
+    <div class="foot">
     <div class="bar">
       <div class="moves">手数<strong id="moves">0</strong></div>
       <button class="ctl" id="undo" type="button">一手戻す</button>
@@ -320,19 +324,31 @@ button.primary{
       </div>
       <button class="ctl primary" id="next" type="button">次の器へ</button>
     </div>
-    <p class="help">欠片をタップすると右に回ります。長押し（パソコンなら右クリック）で向きを固定。朱の印から、すべての欠片を一本の金の線でつなげば完成です。</p>
+    </div>
   </main>
+  <dialog class="howto" id="kin-help" aria-labelledby="kin-help-title">
+    <h2 id="kin-help-title">金継ぎの遊び方</h2>
+    <ul>
+      <li>割れた器を、金の線でつなぎ直すパズルです。</li>
+      <li>欠片をタップすると、右に回ります。</li>
+      <li>朱の印から、すべての欠片を一本の金の線でつなげば完成です。</li>
+      <li>長押し（パソコンなら右クリック、またはLキー）で向きを固定できます。</li>
+      <li>時間制限はありません。進み具合は自動で保存されます。</li>
+    </ul>
+    <button class="ctl primary" type="button" data-close>閉じる</button>
+  </dialog>
 </div>
-<div class="hz" id="hoshizu" hidden>
+<div class="hz game-screen" id="hoshizu" hidden>
   <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 二</span></nav>
-  <header class="hz-head">
-    <p class="hz-eyebrow">星を、結ぶ。</p><h1 id="hz-title" tabindex="-1">星図</h1>
-    <div class="hz-tools"><button class="hz-btn" id="hz-sound" type="button" aria-pressed="true">音あり</button></div>
-    <p class="hz-lead">数字の数だけ、星から光の線を。<br>交わらず、すべてをひとつながりに。</p>
+  <header class="hz-head game-head">
+    <h1 id="hz-title" tabindex="-1">星図</h1>
+    <div class="hz-tools"><button class="hz-btn" type="button" data-help="hz-help" aria-haspopup="dialog">遊び方</button><button class="hz-btn" id="hz-sound" type="button" aria-pressed="true">音あり</button></div>
     <div class="hz-level"><b id="hz-lv">第一夜</b><span id="hz-size"></span></div>
+    <p class="coach" id="hz-coach" aria-live="polite" hidden></p>
   </header>
   <main class="hz-main">
-    <div class="hz-plate"><svg id="hz-board" role="group" aria-label="星図の盤面"></svg></div>
+    <div class="stage"><div class="hz-plate" id="hz-plate"><svg id="hz-board" role="group" aria-label="星図の盤面"></svg></div></div>
+    <div class="foot">
     <div class="hz-bar">
       <div class="hz-moves">手数<strong id="hz-moves">0</strong></div>
       <button class="hz-btn" id="hz-undo" type="button">一手戻す</button>
@@ -343,8 +359,20 @@ button.primary{
       <div><p class="hz-done-title">星図が結ばれました</p><p class="hz-done-note" id="hz-done-note"></p></div>
       <button class="hz-btn primary" id="hz-next" type="button">次の夜へ</button>
     </div>
-    <p class="hz-help">星をタップしてから、同じ縦か横の列の星をタップすると光の線で結ばれます（星からなぞっても結べます）。線をタップするたびに 1本→2本→なし。数字はその星から出る線の本数で、線は交差できません。すべての星をひとつながりにすれば完成。キーボードでは矢印で星を移り、Shift＋矢印で結びます。</p>
+    </div>
   </main>
+  <dialog class="howto" id="hz-help" aria-labelledby="hz-help-title">
+    <h2 id="hz-help-title">星図の遊び方</h2>
+    <ul>
+      <li>星に書かれた数字は、その星から出る光の線の本数です。</li>
+      <li>星をタップしてから、同じ縦か横の列の星をタップすると結べます。星からなぞっても結べます。</li>
+      <li>線をタップするたびに 1本 → 2本 → なし と変わります。</li>
+      <li>線は縦横だけ。2本まで重ねられ、交差はできません。</li>
+      <li>すべての星をひとつながりにすれば完成です。</li>
+      <li>キーボードでは矢印で星を移り、Shift＋矢印で結びます。</li>
+    </ul>
+    <button class="hz-btn primary" type="button" data-close>閉じる</button>
+  </dialog>
 </div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
@@ -634,6 +662,7 @@ button.primary{
       S.prevBest=prev==null?null:prev;
       if(prev==null||S.moves<prev){b[S.level]=S.moves;store.set(BEST_KEY,JSON.stringify(b))}
     }
+    coach(A);
     if(S.solved){
       undoBtn.disabled=true;
       const lead=justSolved?Math.round(span*step)+520:0;
@@ -653,11 +682,28 @@ button.primary{
           goldBurst(rc.left+rc.width/2,rc.top+rc.height/2);
           if(navigator.vibrate)try{navigator.vibrate([20,40,20,40,60])}catch(e){}
         },lead+120);
-        setTimeout(()=>{done.classList.add('show');try{done.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'})}catch(e){}},lead+wave+900);
+        setTimeout(()=>{done.classList.add('show')},lead+wave+900);
       }else done.classList.add('show');
     }else{
       done.classList.remove('show');board.classList.remove('mended');tray.classList.remove('mended');
     }
+  }
+
+  // 手ほどき（第1の器）：次に回すとよい欠片を光らせる
+  function coach(A){
+    const box=$('kin-coach');tiles.forEach(t=>t.classList.remove('hint'));
+    if(!box)return;if(S.level!==1||S.solved){box.hidden=true;return}
+    const n=G.n,N=n*n,conn=A.depth.filter(d=>d>=0).length;
+    // 金の線が届いている欠片の隣で、まだ正しい向きでない欠片
+    let pick=-1;
+    for(let i=0;i<N&&pick<0;i++){if(A.depth[i]>=0||S.rots[i]%4===0)continue;const x=i%n,y=(i/n)|0;
+      for(let d=0;d<4;d++){const nx=x+DX[d],ny=y+DY[d];if(nx>=0&&ny>=0&&nx<n&&ny<n&&A.depth[ny*n+nx]>=0){pick=i;break}}}
+    if(pick<0)for(let i=0;i<N;i++)if(S.rots[i]%4!==0&&!S.locks[i]){pick=i;break}
+    if(pick>=0)tiles[pick].classList.add('hint');
+    box.textContent=S.moves===0?'はじめての器。朱の印から金の線がのびています。光っている欠片をタップして回し、線をつなぎましょう。'
+      :conn>=N-2?'あと少し。すべての欠片に金の線が届けば完成です。'
+      :'金の線がつながる向きまで、タップして回します。光っている欠片が次の手がかりです。';
+    box.hidden=false;
   }
 
   function rotate(i){
@@ -700,7 +746,7 @@ button.primary{
     S.rots=G.start.slice();S.moves=0;S.hist=[];S.solved=false;S.locks=S.locks.map(()=>0);
     render(false);save();
   });
-  $('next').addEventListener('click',()=>{startLevel(S.level+1,null);try{tray.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}});
+  $('next').addEventListener('click',()=>{startLevel(S.level+1,null)});
 
   const soundBtn=$('sound');
   const paintSound=()=>{soundBtn.textContent=soundOn?'音あり':'音なし';soundBtn.setAttribute('aria-pressed',String(soundOn))};

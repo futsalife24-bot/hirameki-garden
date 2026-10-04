@@ -2,13 +2,13 @@
    端末のダークモード用の指定（garden.css の :root:not(...)）より必ず優先させるため、:root を重ねて指定する。
    庭（タイトル画面）も、星図を選んでいる間はこの世界観になる。金継ぎの和紙・陶器は使わない。 */
 :root:root[data-world="hoshizu"]{--bg:#0b1026;--bg-2:#03050d;--ink:#f1eff8;--muted:#bcc3df;--rule:rgba(200,208,255,.16);--focus:#e9c873;--btn:#1b2450;--btn-ink:#ece9f6;--brass:#d9b56e;color-scheme:dark}
-html[data-world="hoshizu"] body{background:radial-gradient(120% 85% at 50% -5%,#1c2760 0%,var(--bg) 52%,var(--bg-2) 100%) fixed,var(--bg);font-family:'Zen Maru Gothic','Hiragino Maru Gothic ProN','Hiragino Sans',sans-serif;color:var(--ink)}
+html[data-world="hoshizu"] body{background:radial-gradient(120% 85% at 50% -5%,#1c2760 0%,var(--bg) 52%,var(--bg-2) 100%) fixed,var(--bg);font-family:'Kaisei Decol','Hiragino Mincho ProN','Yu Mincho',serif;color:var(--ink)}
 html[data-world="hoshizu"] body::before{opacity:0!important}
 #sky{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0;transition:opacity .8s ease}
 html[data-world="hoshizu"] #sky{opacity:1}
 
 /* 庭のタイトル */
-html[data-world="hoshizu"] h1,html[data-world="hoshizu"] h2{font-family:'Zen Maru Gothic',sans-serif;font-weight:700;color:#f6f0dc}
+html[data-world="hoshizu"] h1,html[data-world="hoshizu"] h2{font-family:'Kaisei Decol',serif;font-weight:700;color:#f6f0dc}
 html[data-world="hoshizu"] .garden-intro h1{letter-spacing:.2em;text-shadow:0 0 24px rgba(190,205,255,.32)}
 html[data-world="hoshizu"] .garden-intro h1 span{color:var(--brass);text-shadow:0 0 18px rgba(233,200,115,.45)}
 html[data-world="hoshizu"] .garden-mark{color:var(--brass)}
@@ -22,21 +22,14 @@ html[data-world="hoshizu"] .play-game:hover{background:rgba(217,181,110,.18)}
 html[data-world="hoshizu"] .slide-dot[aria-current="true"]{color:#f6e6b8}
 
 /* 星図のゲーム画面 */
-.hz{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:0 28px 40px;display:grid;grid-template-columns:1fr;gap:16px 64px;color:var(--ink)}
 .hz .game-nav{color:var(--ink)}
-.hz-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:6px 12px;width:min(100%,620px);justify-self:center}
-.hz-eyebrow{grid-column:1/-1;margin:8px 0 0;font-size:11px;letter-spacing:.32em;color:var(--muted)}
-#hz-title{margin:0;font-size:46px;line-height:1.2;letter-spacing:.24em;text-shadow:0 0 24px rgba(190,205,255,.32)}
+#hz-title{text-shadow:0 0 24px rgba(190,205,255,.32)}
 #hz-title:focus{outline:none}
-.hz-tools{display:flex;gap:8px}
-.hz-lead{grid-column:1/-1;margin:2px 0 0;font-size:14px;line-height:1.9;color:var(--muted);letter-spacing:.04em}
-.hz-level{grid-column:1/-1;display:flex;align-items:baseline;gap:14px;border-top:1px solid var(--rule);padding-top:12px;margin-top:6px}
 .hz-level b{font-size:21px;font-weight:700;letter-spacing:.18em;color:#f6f0dc}
 .hz-level span{font-size:12px;color:var(--muted);letter-spacing:.1em}
-.hz-main{display:grid;gap:16px;width:min(100%,620px);justify-self:center;min-width:0}
-.hz-plate{position:relative;border-radius:20px;padding:clamp(8px,2.5vw,18px);background:radial-gradient(ellipse at 45% 35%,#1b2658 0%,#0b1131 70%,#070b22 100%);border:1px solid rgba(217,181,110,.38);box-shadow:inset 0 0 0 5px rgba(5,8,26,.55),inset 0 0 0 6px rgba(217,181,110,.16),0 30px 60px -30px #000}
+.hz-plate{--pad:clamp(8px,2.2vw,16px);position:relative;box-sizing:border-box;width:min(100cqw,calc((100cqh - 2 * var(--pad)) * var(--ar,1) + 2 * var(--pad)));border-radius:20px;padding:var(--pad);background:radial-gradient(ellipse at 45% 35%,#1b2658 0%,#0b1131 70%,#070b22 100%);border:1px solid rgba(217,181,110,.38);box-shadow:inset 0 0 0 5px rgba(5,8,26,.55),inset 0 0 0 6px rgba(217,181,110,.16),0 30px 60px -30px #000}
 .hz-plate::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:repeating-radial-gradient(circle at 50% 50%,transparent 0 46px,rgba(170,185,255,.05) 46px 47px);opacity:.9}
-#hz-board{position:relative;display:block;width:100%;height:auto;max-height:min(72vh,620px);margin:auto;touch-action:none;user-select:none;-webkit-user-select:none;overflow:visible}
+#hz-board{position:relative;display:block;width:100%;height:auto;margin:auto;touch-action:none;user-select:none;-webkit-user-select:none;overflow:visible}
 .hz-grid circle{fill:#9fb0ff;opacity:.22}
 .hz-frame{fill:none;stroke:rgba(217,181,110,.22);stroke-width:.25}
 .hz-beam{pointer-events:none;stroke:#dbe5ff;stroke-width:.72;stroke-linecap:round;filter:drop-shadow(0 0 .9px rgba(160,185,255,.9));transition:stroke .4s}
@@ -46,7 +39,7 @@ html[data-world="hoshizu"] .slide-dot[aria-current="true"]{color:#f6e6b8}
 .hz-hit{fill:transparent}
 .hz-halo{opacity:.65;transition:opacity .3s}
 .hz-ring{fill:none;stroke:#8fa1e2;stroke-width:.35;opacity:.55;transition:stroke .3s,opacity .3s}
-.hz-num{font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:3.7px;fill:#121a44;pointer-events:none}
+.hz-num{font-family:'Kaisei Decol',serif;font-weight:700;font-size:3.8px;fill:#121a44;pointer-events:none}
 .hz-star.ok .hz-ring{stroke:#e9c873;stroke-width:.5;opacity:1}
 .hz-star.ok .hz-halo{opacity:1}
 .hz-star.over .hz-ring{stroke:#ff8c7c;stroke-width:.55;opacity:1}
@@ -57,10 +50,15 @@ html[data-world="hoshizu"] .slide-dot[aria-current="true"]{color:#f6e6b8}
 #hz-board.solved .hz-beam{stroke:#f3d68a;filter:drop-shadow(0 0 1.3px rgba(240,199,106,.95))}
 #hz-board.solved .hz-ring{stroke:#f3d68a;opacity:1}
 #hz-board.solved .hz-halo{animation:hz-twinkle 2.6s ease-in-out var(--d,0s) infinite}
+html[data-world="hoshizu"] .coach{border-color:rgba(217,181,110,.4);background:rgba(217,181,110,.08)}
+.hz-star.guide .hz-ring{stroke:#ffe6a0;stroke-width:.85;opacity:1;animation:hz-guide 1.3s ease-in-out infinite}
+.hz-star.guide .hz-halo{opacity:1}
+.hz-bridge.wrong .hz-beam{stroke:#ffab9c;filter:drop-shadow(0 0 1px rgba(255,140,124,.9))}
+@keyframes hz-guide{0%,100%{stroke-opacity:.45}50%{stroke-opacity:1}}
 @keyframes hz-spin{to{transform:rotate(360deg)}}
 @keyframes hz-deny{0%,100%{stroke:#8fa1e2}30%{stroke:#ff8c7c;stroke-width:.9;opacity:1}}
 @keyframes hz-twinkle{0%,100%{opacity:.7}50%{opacity:1.6}}
-.hz-bar{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--rule);padding-bottom:14px}
+.hz-bar{display:flex;align-items:center;gap:8px}
 .hz-moves{margin-right:auto;font-size:13px;color:var(--muted);letter-spacing:.1em}
 .hz-moves strong{font-size:26px;font-weight:500;color:var(--ink);margin-left:10px;font-variant-numeric:tabular-nums}
 .hz-btn{font:inherit;font-size:13px;letter-spacing:.08em;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;min-height:44px;padding:8px 16px;cursor:pointer}
@@ -71,23 +69,7 @@ html[data-world="hoshizu"] .slide-dot[aria-current="true"]{color:#f6e6b8}
 .hz-done.show{display:flex;animation:hz-rise .6s ease}
 .hz-done>div:nth-child(2){flex:1}
 .hz-seal{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--brass);color:#f3d68a;font-size:22px;text-shadow:0 0 12px rgba(240,199,106,.8)}
-.hz-done-title{margin:0;font-size:17px;letter-spacing:.14em;color:#f3ecd6}
+.hz-done-title{margin:0;font-size:17px;letter-spacing:.1em;color:#f3ecd6;white-space:nowrap}
 .hz-done-note{margin:2px 0 0;font-size:13px;color:var(--muted)}
 @keyframes hz-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.hz-help{margin:0;font-size:13px;line-height:1.9;color:var(--muted)}
-@media(min-width:900px){
-  .hz{grid-template-columns:250px minmax(0,1fr);align-items:start}
-  .hz .game-nav{grid-column:1/-1}
-  .hz-head{width:auto;justify-self:stretch;padding-top:18px;grid-template-columns:1fr}
-  #hz-title{writing-mode:vertical-rl;font-size:64px;margin:6px 0 20px auto;letter-spacing:.4em}
-  .hz-tools{grid-row:2;justify-self:start}
-  .hz-main{width:100%;padding-top:14px}
-}
-@media(max-width:700px){
-  .hz{padding:0 14px 28px;gap:12px}
-  #hz-title{font-size:38px}
-  .hz-lead{font-size:12px}
-  .hz-level{padding-top:8px}
-  .hz-btn{padding:6px 12px;font-size:11px}
-  .hz-done{padding:10px 12px}
-}
+@media(max-width:700px){.hz-done{gap:10px;padding:10px 12px}.hz-seal{width:36px;height:36px;font-size:18px}.hz-done-title{font-size:15px;letter-spacing:.04em}}

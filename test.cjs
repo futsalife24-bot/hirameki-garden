@@ -108,6 +108,30 @@ const http=require('node:http');
   await hz.locator('#slide-prev').count();
   await hz.goto(url+'#garden');await hz.locator('#slide-prev').click();assert.equal(await hz.evaluate(()=>document.documentElement.dataset.world),'kintsugi');
   await hzContext.close();
+  // ゲーム画面はどちらもスクロールせず一画面に収まり、盤面と操作ボタンが画面内にある
+  {const gc=await browser.newContext({reducedMotion:'reduce'});await gc.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());const gp=await gc.newPage();gp.on('pageerror',e=>errors.push(e.message));
+   const oneScreen=sel=>gp.evaluate(sel=>{const inView=e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&r.top>=-1&&r.bottom<=innerHeight+1&&r.left>=-1&&r.right<=innerWidth+1};
+     return document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1&&sel.every(q=>inView(document.querySelector(q)))},sel);
+   for(const [w,h] of [[320,568],[360,640],[390,844],[768,1024],[1280,720],[1440,900]]){await gp.setViewportSize({width:w,height:h});
+    for(const [save,lv] of [['kintsugi-save-v1',JSON.stringify({level:1})],['kintsugi-save-v1',JSON.stringify({level:100})]]){await gp.goto(url);await gp.evaluate(([k,v])=>localStorage.setItem(k,v),[save,lv]);await gp.goto('about:blank');await gp.goto(url+'#kintsugi');
+     assert.equal(await oneScreen(['#board','#undo','#reset','#game-title']),true,`kintsugi one screen ${w}x${h} ${lv}`)}
+    for(const lv of [1,30]){await gp.goto(url);await gp.evaluate(l=>localStorage.setItem('hoshizu-save-v1',JSON.stringify({level:l})),lv);await gp.goto('about:blank');await gp.goto(url+'#hoshizu');
+     assert.equal(await oneScreen(['#hz-board','#hz-undo','#hz-reset','#hz-title']),true,`hoshizu one screen ${w}x${h} level ${lv}`)}}
+   // 遊び方は案内に入り、画面には出ていない
+   await gp.setViewportSize({width:390,height:844});
+   assert.equal(await gp.locator('#hz-help').isVisible(),false);await gp.locator('[data-help="hz-help"]').click();assert(await gp.locator('#hz-help').isVisible());
+   await gp.locator('#hz-help [data-close]').click();assert.equal(await gp.locator('#hz-help').isVisible(),false);
+   // 手ほどきは最初の面だけ。星図は次に結ぶ星を光らせる
+   assert.equal(await gp.locator('#hz-coach').isVisible(),false);
+   await gp.evaluate(()=>localStorage.setItem('hoshizu-save-v1',JSON.stringify({level:1})));await gp.reload();
+   assert(await gp.locator('#hz-coach').isVisible());
+   const firstSol=await gp.evaluate(()=>HOSHIZU_LEVELS[0].sol[0]);
+   assert.deepEqual(await gp.evaluate(()=>[...document.querySelectorAll('.hz-star.guide')].map(e=>+e.dataset.i).sort((a,b)=>a-b)),[firstSol[0],firstSol[1]].sort((a,b)=>a-b));
+   await gp.goto('about:blank');await gp.goto(url+'#kintsugi');await gp.evaluate(()=>localStorage.setItem('kintsugi-save-v1',JSON.stringify({level:1})));await gp.reload();
+   assert(await gp.locator('#kin-coach').isVisible());assert.equal(await gp.locator('.tile.hint').count(),1);
+   await gp.locator('[data-help="kin-help"]').click();assert(await gp.locator('#kin-help').isVisible());await gp.keyboard.press('Escape');assert.equal(await gp.locator('#kin-help').isVisible(),false);
+   await gp.evaluate(()=>localStorage.setItem('kintsugi-save-v1',JSON.stringify({level:2})));await gp.reload();assert.equal(await gp.locator('#kin-coach').isVisible(),false);
+   await gc.close();}
   // 文字が背景に溶けない：ライト・ダークどちらの端末設定でも、主な文字と背景のコントラスト比が4.5以上
   const contrastOf=(pg,sels)=>pg.evaluate(sels=>{
     const rgb=c=>(c.match(/[\d.]+/g)||[]).slice(0,3).map(Number),lum=c=>{const v=rgb(c).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
@@ -117,7 +141,7 @@ const http=require('node:http');
    const cc=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce',colorScheme});await cc.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
    const cp=await cc.newPage();cp.on('pageerror',e=>errors.push(e.message));
    await cp.goto(url+'#hoshizu');assert.equal(await cp.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()),'#0b1026',`hoshizu bg ${colorScheme}`);
-   for(const [sel,ratio] of await contrastOf(cp,['#hz-title','.hz-eyebrow','.hz-lead','.hz-level b','.hz-level span','.hz-moves','#hz-reset','.hz-help']))assert(ratio>=4.5,`${colorScheme} ${sel} ${ratio}`);
+   for(const [sel,ratio] of await contrastOf(cp,['#hz-title','.hz-level b','.hz-level span','#hz-coach','.hz-moves','#hz-reset']))assert(ratio>=4.5,`${colorScheme} ${sel} ${ratio}`);
    await cp.goto('about:blank');await cp.evaluate(()=>{});await cp.goto(url+'#garden');await cp.evaluate(()=>{localStorage.setItem('hirameki-world','hoshizu')});await cp.goto('about:blank');await cp.goto(url);
    for(const [sel,ratio] of await contrastOf(cp,['#garden-title','.garden-copy','#hz-collection-title','[data-world="hoshizu"] .game-subtitle','[data-world="hoshizu"] .story-copy','#hz-play-label','.slide-dot[aria-current="true"]']))assert(ratio>=4.5,`${colorScheme} garden ${sel} ${ratio}`);
    await cc.close();
@@ -149,6 +173,6 @@ const http=require('node:http');
   for(const width of [320,1440]){await op.setViewportSize({width,height:800});await op.goto('about:blank');await op.goto(url);await op.locator('#op-play-mute').click();await op.clock.runFor(5000);
    assert.equal(await op.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`opening ${width}`)}
   assert.deepEqual(errors,[]);
-  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、実行エラーなし');
+  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、実行エラーなし');
  } finally {if(browser)await browser.close();server.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

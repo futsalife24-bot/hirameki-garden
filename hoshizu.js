@@ -53,6 +53,7 @@
     board.textContent='';const pad=4,W=L.w*C,H=L.h*C;
     board.setAttribute('viewBox',`${-pad} ${-pad} ${W+pad*2} ${H+pad*2}`);
     board.style.aspectRatio=`${W+pad*2} / ${H+pad*2}`;
+    const plate=$('hz-plate');if(plate)plate.style.setProperty('--ar',((W+pad*2)/(H+pad*2)).toFixed(4));
     const defs=el('defs',{},board);
     const rg=el('radialGradient',{id:'hz-star-fill',cx:'40%',cy:'35%',r:'70%'},defs);el('stop',{offset:'0','stop-color':'#ffffff'},rg);el('stop',{offset:'.6','stop-color':'#e9ecff'},rg);el('stop',{offset:'1','stop-color':'#b9c4f2'},rg);
     const gg=el('radialGradient',{id:'hz-glow'},defs);el('stop',{offset:'0','stop-color':'#cfd9ff','stop-opacity':'.55'},gg);el('stop',{offset:'1','stop-color':'#cfd9ff','stop-opacity':'0'},gg);
@@ -92,8 +93,31 @@
     $('hz-moves').textContent=S.moves;
     board.classList.toggle('solved',S.solved);
     $('hz-done').classList.toggle('show',S.solved);
-    if(S.solved){const b=bests()[S.level];$('hz-done-note').textContent=`${nightName(S.level)}・${S.moves}手`+(b!=null?`（いちばん少ない手数 ${b}手）`:'')}
+    if(S.solved){const b=bests()[S.level];$('hz-done-note').textContent=`${S.moves}手`+(b!=null&&b<S.moves?`・ベスト ${b}手`:'')}
     $('hz-undo').disabled=!S.hist.length||S.solved;
+    coach();
+  }
+
+  // 手ほどき（第一夜）：次に結ぶ星を光らせ、ルールを一つずつ伝える
+  function coach(){
+    const box=$('hz-coach');starEls.forEach(g=>g.classList.remove('guide'));gBridges.querySelectorAll('.wrong').forEach(b=>b.classList.remove('wrong'));
+    if(!box)return;if(S.level!==1||S.solved||!L.sol){box.hidden=true;return}
+    const need=new Map(L.sol.map(([a,b,n])=>[key(a,b),n]));
+    const wrong=Object.entries(S.b).filter(([k,n])=>!need.has(k)||n>need.get(k)).map(([k])=>k);
+    let text,guide=[];
+    if(wrong.length){
+      text='その線は答えと違うようです。線をタップすると 1本→2本→なし と変わります。赤い線を消してみましょう。';
+      wrong.forEach(k=>{const b=gBridges.querySelector(`[data-k="${k}"]`);if(b)b.classList.add('wrong')});
+    }else{
+      const next=L.sol.find(([a,b,n])=>(S.b[key(a,b)]||0)<n),left=L.sol.filter(([a,b,n])=>(S.b[key(a,b)]||0)<n).length;
+      if(next){const cur=S.b[key(next[0],next[1])]||0;guide=[next[0],next[1]];
+        text=S.moves===0?'はじめての夜。光っている2つの星を、順にタップして結びましょう。'
+          :cur===1?'同じ2つの星をもう一度結ぶと、線が2本になります。数字は、その星から出る線の本数です。'
+          :left<=2?'あと少し。すべての星がひとつながりになれば完成です。'
+          :'本数がそろった星は金色の輪になります。次の光る星を結びましょう。';}
+    }
+    guide.forEach(i=>starEls[i].classList.add('guide'));
+    box.textContent=text;box.hidden=false;
   }
 
   function connected(){const seen=new Set([0]),st=[0];while(st.length){const i=st.pop();G.nb[i].forEach(j=>{if(j>=0&&S.b[key(i,j)]&&!seen.has(j)){seen.add(j);st.push(j)}})}return seen.size===L.stars.length}

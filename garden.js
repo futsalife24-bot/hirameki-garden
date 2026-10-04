@@ -75,6 +75,12 @@
     lv.stars.forEach((s,i)=>{const [px,py]=P(i),g=x.createRadialGradient(px,py,0,px,py,cell*.55);g.addColorStop(0,'rgba(255,240,200,.55)');g.addColorStop(1,'rgba(255,240,200,0)');x.fillStyle=g;x.beginPath();x.arc(px,py,cell*.55,0,7);x.fill();x.fillStyle='#fffaf0';x.beginPath();x.arc(px,py,cell*.12,0,7);x.fill()});
   }
 
+  // 遊び方の案内：data-help のボタンで開き、閉じるボタン・Esc・外側のタップで閉じる
+  document.querySelectorAll('[data-help]').forEach(btn=>{
+    const dlg=$(btn.dataset.help);if(!dlg)return;
+    btn.addEventListener('click',()=>{if(typeof dlg.showModal==='function')dlg.showModal();else dlg.setAttribute('open','')});
+    dlg.addEventListener('click',e=>{if(e.target===dlg||e.target.closest('[data-close]')){if(dlg.close)dlg.close();else dlg.removeAttribute('open')}});
+  });
   window.Garden={selected:()=>selected,setWorld,select};
   slides.forEach(s=>{s.hidden=s.dataset.world!==selected});
   dots.forEach(d=>d.setAttribute('aria-current',d.dataset.world===selected?'true':'false'));

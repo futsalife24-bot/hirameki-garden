@@ -31,6 +31,12 @@
 - 映像はCanvas、BGMと効果音はWeb Audioでその場で合成します。画像・音声ファイルは使っていません。
 - 特定のゲームの世界観には寄せない、作品全体の幕開けです。試作は `docs/previews/intro-movie.html`（本編の `opening.js` が最新）。
 
+## ゲーム画面
+
+どのゲームもスクロールせず一画面に収まります。盤面が残りの高さと幅に合わせて伸び縮みし、
+画面には戻る・ゲーム名・面・「遊び方」・音・盤面・手数と操作だけを置きます。遊び方は「遊び方」ボタンの案内に、
+完成表示は手数と操作の場所に出ます。最初の面（金継ぎの第1の器、星図の第一夜）は手ほどきで、次に触る場所が光ります。
+
 ## 金継ぎ
 
 欠片をタップして回転。長押し・右クリック、またはフォーカス中にLキーで固定。
@@ -58,9 +64,9 @@ Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド�
 
 通信できず書体を取得できない場合は端末の明朝体を使用します。
 
-星図の世界では「Zen丸ゴシック」（Zen Maru Gothic、SIL Open Font License 1.1）を使います。
+星図の世界では「解星デコール」（Kaisei Decol、SIL Open Font License 1.1）を使います。
 
-- https://github.com/google/fonts/blob/main/ofl/zenmarugothic/OFL.txt
+- https://github.com/google/fonts/blob/main/ofl/kaiseidecol/OFL.txt
 
 オープニングでは、一文字ずつ違う書体を使います。いずれもGoogle Fonts、SIL Open Font License 1.1。
 使う文字だけを取り寄せる（`text=` 指定）ため、通信量はわずかです。届かない場合は代わりの書体で流れます。
