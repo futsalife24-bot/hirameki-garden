@@ -1,0 +1,50 @@
+/* 染め分けの世界：藍染めの染め場。藍の地に白い絞りの点、生成りの布、ガラス瓶に入った植物染料。
+   庭（タイトル画面）も、染め分けを選んでいる間はこの世界観になる。
+   端末のダークモード用の指定より必ず優先させるため、:root を重ねて指定する。 */
+:root:root[data-world="somewake"]{--bg:#233a63;--bg-2:#152645;--ink:#f4efe2;--muted:#d3dcec;--rule:rgba(244,239,226,.26);--focus:#f3c969;--btn:#2e4a7a;--btn-ink:#f4efe2;--kinari:#efe6d2;color-scheme:dark}
+html[data-world="somewake"] body{background:radial-gradient(circle at 12px 12px,rgba(255,255,255,.07) 0 3px,transparent 4px) 0 0/48px 48px,radial-gradient(circle at 36px 36px,rgba(255,255,255,.045) 0 2px,transparent 3px) 0 0/48px 48px,linear-gradient(180deg,#2a4574 0%,var(--bg) 45%,var(--bg-2) 100%) fixed,var(--bg);font-family:'Zen Kurenaido','Hiragino Maru Gothic ProN',sans-serif;color:var(--ink)}
+html[data-world="somewake"] body::before{opacity:0!important}
+html[data-world="somewake"] h1,html[data-world="somewake"] h2{font-family:'Zen Kurenaido',sans-serif;font-weight:400;color:var(--ink)}
+html[data-world="somewake"] .garden-intro h1 span{color:var(--focus)}
+html[data-world="somewake"] .garden-mark{color:var(--kinari)}
+html[data-world="somewake"] .eyebrow,html[data-world="somewake"] .story-copy,html[data-world="somewake"] .game-facts,html[data-world="somewake"] .resume-note{color:var(--muted)}
+html[data-world="somewake"] .game-art{background:#1d3157;border:1px solid rgba(239,230,210,.3);border-radius:10px}
+html[data-world="somewake"] .art-caption{color:var(--kinari);letter-spacing:.2em}
+html[data-world="somewake"] .catalog-number{border-color:var(--kinari);color:var(--kinari)}
+html[data-world="somewake"] .play-game{background:var(--kinari);color:#1d3157;border-radius:999px}
+html[data-world="somewake"] .play-game:hover{background:#fff}
+html[data-world="somewake"] .slide-dot[aria-current="true"]{color:var(--focus)}
+html[data-world="somewake"] .coach{border-color:rgba(239,230,210,.4);background:rgba(239,230,210,.1)}
+html[data-world="somewake"] .g-done{background:rgba(239,230,210,.1);border-color:rgba(239,230,210,.4)}
+html[data-world="somewake"] .g-seal{background:var(--kinari);color:#1d3157}
+html[data-world="somewake"] .g-btn.primary{background:var(--kinari);color:#1d3157;border-color:var(--kinari)}
+#sw-title:focus{outline:none}
+.sw-main{grid-template-rows:minmax(0,1fr) auto!important}
+/* 棚：一本の瓶は幅1・高さ3.6（持ち上げる余白を含む）。残りの高さと幅に合わせて伸び縮みする */
+.sw-shelf{--ar:calc(var(--cols) / (var(--rows) * 3.6));box-sizing:border-box;width:min(100cqw,100cqh * var(--ar),calc(var(--cols) * 92px))}
+#sw-rack{display:grid;grid-template-columns:repeat(var(--cols),1fr);width:100%}
+.sw-bottle{position:relative;aspect-ratio:1/3.6;padding:22% 14% 0;margin:0;border:0;background:transparent;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;container-type:inline-size}
+.sw-bottle::after{content:"";position:absolute;left:4%;right:4%;bottom:0;height:3%;border-radius:2px;background:linear-gradient(180deg,#a8774f,#6e4528);box-shadow:0 4px 8px -3px rgba(0,0,0,.6)}
+.sw-glass{position:relative;display:block;height:calc(100% / 3.6 * 3 - 4%);margin-bottom:4%;border:2px solid rgba(244,239,226,.8);border-top-width:0;border-radius:0 0 40cqw 40cqw/0 0 34cqw 34cqw;background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.14) 30%,rgba(255,255,255,.04) 60%,rgba(255,255,255,.1));overflow:hidden;transition:transform .2s cubic-bezier(.3,.9,.3,1)}
+.sw-glass::before{content:"";position:absolute;top:0;left:-9%;right:-9%;height:5%;border-radius:4px;background:rgba(244,239,226,.85);z-index:2}
+.sw-glass::after{content:"";position:absolute;left:16%;top:9%;width:10%;bottom:12%;border-radius:999px;background:rgba(255,255,255,.28);z-index:2;pointer-events:none}
+.sw-liquid{position:absolute;inset:auto 0 0;height:calc(100% * 4 / 4.25);display:flex;flex-direction:column-reverse}
+.sw-liquid i{flex:none;height:25%;min-height:0;overflow:hidden;display:grid;place-items:center;font-style:normal;font-size:34cqw;line-height:1;color:rgba(255,255,255,.88);text-shadow:0 1px 1px rgba(0,0,0,.35);box-shadow:inset 0 -1px 0 rgba(0,0,0,.12);animation:sw-fill .3s ease both}
+.sw-liquid i.sw-pale{color:rgba(30,30,40,.72);text-shadow:none}
+.sw-bottle.lift .sw-glass{transform:translateY(-14%)}
+.sw-bottle.can .sw-glass{border-color:#f3c969}
+.sw-bottle.full .sw-glass{border-color:#fff;box-shadow:0 0 12px rgba(255,255,255,.35)}
+.sw-bottle.full .sw-glass::before{background:#c8a46a}
+.sw-bottle:focus-visible{outline:none}
+.sw-bottle:focus-visible .sw-glass{box-shadow:0 0 0 3px var(--focus)}
+.sw-bottle.no .sw-glass{animation:sw-no .35s ease}
+.sw-bottle.pour .sw-glass{animation:sw-pour .4s ease}
+.sw-bottle.guide::before{content:"";position:absolute;left:2%;right:2%;top:12%;bottom:0;border-radius:12px;border:3px solid #fff3c4;box-shadow:0 0 14px rgba(255,236,170,.85);animation:sw-guide 1.2s ease-in-out infinite;pointer-events:none}
+.sw-bottle:disabled{cursor:default}
+#sw-rack.solved .sw-glass{animation:sw-glow 1.2s ease}
+@keyframes sw-fill{from{opacity:.4;filter:brightness(1.4)}to{opacity:1;filter:none}}
+@keyframes sw-no{20%,60%{transform:translateX(-5%)}40%,80%{transform:translateX(5%)}}
+@keyframes sw-pour{0%{transform:translateY(-14%) rotate(-14deg)}100%{transform:none}}
+@keyframes sw-guide{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes sw-glow{50%{box-shadow:0 0 22px rgba(255,255,255,.6)}}
+@media(prefers-reduced-motion:reduce){.sw-glass,.sw-liquid i{transition:none;animation:none!important}}

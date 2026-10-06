@@ -287,6 +287,25 @@ const http=require('node:http');
    assert.equal((await st()).moves,0);
    await pg.evaluate(()=>localStorage.setItem('himitsu-save-v1',JSON.stringify({level:2})));await pg.reload();
   }});
+  // 染め分け：注げない所は注がず、最短手順どおりに注ぐと最短手数でそろう
+  await commonChecks({id:'somewake',pre:'sw',bg:'#233a63',maxLevel:20,resume:/二の甕/,play:async pg=>{
+   await pg.locator('#sw-play').click();await pg.waitForFunction(()=>location.hash==='#somewake');
+   const st=()=>pg.evaluate(()=>JSON.parse(localStorage.getItem('somewake-save-v1')));const bot=i=>pg.locator('.sw-bottle').nth(i);
+   const lv=await pg.evaluate(()=>SOMEWAKE_LEVELS[0]);assert(await pg.locator('#sw-coach').isVisible());assert.equal(await pg.locator('.sw-bottle.guide').count(),1);
+   // いっぱいの瓶には注げない
+   await bot(0).click();assert.equal(await pg.locator('.sw-bottle.lift').count(),1);await bot(1).click();assert.equal((await st()).moves,0);assert.match(await pg.locator('#sw-live').innerText(),/いっぱい/);
+   await bot(1).click();assert.equal(await pg.locator('.sw-bottle.lift').count(),0);
+   // 一手注いで、一手戻す
+   await bot(lv.path[0][0]).click();await bot(lv.path[0][1]).click();assert.equal((await st()).moves,1);assert.notDeepEqual((await st()).b,lv.bottles);
+   await pg.locator('#sw-undo').click();assert.deepEqual((await st()).b,lv.bottles);
+   for(const [a,b] of lv.path){await bot(a).click();await bot(b).click()}
+   await pg.locator('#sw-done.show').waitFor();assert.equal((await st()).moves,lv.min);assert.match(await pg.locator('#sw-done-note').innerText(),/最短で染め分けました/);
+   await pg.reload();await pg.locator('#sw-done.show').waitFor();
+   await pg.locator('#sw-next').click();assert.equal((await st()).level,2);assert.equal(await pg.locator('#sw-coach').isVisible(),false);
+   // 壊れた保存（色の数が合わない）は最初の配置に戻す
+   await pg.evaluate(()=>localStorage.setItem('somewake-save-v1',JSON.stringify({level:2,b:['AAAA','',''],moves:5})));await pg.reload();
+   assert.equal((await st()).moves,0);assert.deepEqual((await st()).b,await pg.evaluate(()=>SOMEWAKE_LEVELS[1].bottles));
+  }});
   // 文字が背景に溶けない：ライト・ダークどちらの端末設定でも、主な文字と背景のコントラスト比が4.5以上
   const contrastOf=(pg,sels)=>pg.evaluate(sels=>{
     const rgb=c=>(c.match(/[\d.]+/g)||[]).slice(0,3).map(Number),lum=c=>{const v=rgb(c).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
@@ -344,6 +363,6 @@ const http=require('node:http');
   for(const width of [320,1440]){await op.setViewportSize({width,height:800});await op.goto('about:blank');await op.goto(url);await op.locator('#op-play-mute').click();await op.clock.runFor(5000);
    assert.equal(await op.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`opening ${width}`)}
   assert.deepEqual(errors,[]);
-  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、影絵（スライド・ドラッグ・キーボード・完成・保存・次の幕・一画面・見やすさ）、活字（スライド・はめる・外す・戻す・食い違いの拒否・完成と合言葉・保存・次の版・一画面・見やすさ）、帳面（スライド・ヒント・文字数の案内・書き損じ・カタカナ入力・完成・保存・次のページ・一画面・見やすさ）、秘密箱（ドラッグ・戻す・最短手順で完成・保存・壊れた保存・次の箱・一画面・見やすさ）、実行エラーなし');
+  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、影絵（スライド・ドラッグ・キーボード・完成・保存・次の幕・一画面・見やすさ）、活字（スライド・はめる・外す・戻す・食い違いの拒否・完成と合言葉・保存・次の版・一画面・見やすさ）、帳面（スライド・ヒント・文字数の案内・書き損じ・カタカナ入力・完成・保存・次のページ・一画面・見やすさ）、秘密箱（ドラッグ・戻す・最短手順で完成・保存・壊れた保存・次の箱・一画面・見やすさ）、染め分け（注げない瓶・注ぐ・戻す・最短手順・保存・壊れた保存・一画面・文字の見やすさ）、実行エラーなし');
  } finally {if(browser)await browser.close();server.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

@@ -175,3 +175,4 @@ body{transition:background-color .6s ease,color .6s ease}
 .slide-dots::-webkit-scrollbar{display:none}
 .slide-dot{flex:none}
 .slide-arrow{flex:none}
+.garden{grid-template-columns:minmax(0,1fr)}.slides{min-width:0;grid-template-columns:minmax(0,1fr)}

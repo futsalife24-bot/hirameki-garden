@@ -1,6 +1,6 @@
 # ひらめきの庭
 
-世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」「星図」「影絵」「活字」「帳面」「秘密箱」です。
+世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」「星図」「影絵」「活字」「帳面」「秘密箱」「染め分け」です。
 
 - 公開先：https://futsalife24-bot.github.io/hirameki-garden/
 - GitHub：https://github.com/futsalife24-bot/hirameki-garden
@@ -8,15 +8,15 @@
 
 ## タイトル画面の方針
 
-タイトル画面も選択中のゲームの世界観を表します。下のスライド切り替え（‹ 一 金継ぎ ／ 二 星図 ／ 三 影絵 ／ 四 活字 ／ 五 帳面 ／ 六 秘密箱 ›、横スワイプ、左右キー）で
+タイトル画面も選択中のゲームの世界観を表します。下のスライド切り替え（‹ 一 金継ぎ ／ 二 星図 ／ 三 影絵 ／ 四 活字 ／ 五 帳面 ／ 六 秘密箱 ／ 七 染め分け ›、横スワイプ、左右キー）で
 遊びを選ぶと、背景・書体・配色・絵が世界観ごと切り替わります。選んだ遊びは端末に覚え、次に開いたときもその世界観から始まります。
-金継ぎは生成りの和紙・青磁の器・墨色・金の継ぎ目、星図は夜空・真鍮の星図盤・灯る星、影絵は臙脂の幕と影絵芝居の舞台、活字はインクの作業台と紙の版、帳面は方眼ノートと万年筆、秘密箱は寄木細工の工房と秘密箱の「ひらめきの庭」です。
+金継ぎは生成りの和紙・青磁の器・墨色・金の継ぎ目、星図は夜空・真鍮の星図盤・灯る星、影絵は臙脂の幕と影絵芝居の舞台、活字はインクの作業台と紙の版、帳面は方眼ノートと万年筆、秘密箱は寄木細工の工房と秘密箱、染め分けは藍染めの染め場と染料の瓶の「ひらめきの庭」です。
 庭（タイトル後のホーム画面）はスクロールせずに一画面で見渡せます。器の絵が残りの高さに合わせて伸び縮みし、
 「器をつなぐ」ボタンは常に画面内に収まります。背の低い画面では説明文を省き、横向きのスマホなど極端に低い画面だけスクロールします。
 和風は金継ぎ固有であり、ほかのゲームに強制しません。
 
-`#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ、`#hoshizu` が星図、`#kagee` が影絵、`#katsuji` が活字、`#chomen` が帳面、`#himitsu` が秘密箱。
-`<html data-world>` と `<body data-world>`（`kintsugi` / `hoshizu` / `kagee` / `katsuji` / `chomen` / `himitsu`）が現在の世界観を表します。
+`#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ、`#hoshizu` が星図、`#kagee` が影絵、`#katsuji` が活字、`#chomen` が帳面、`#himitsu` が秘密箱、`#somewake` が染め分け。
+`<html data-world>` と `<body data-world>`（`kintsugi` / `hoshizu` / `kagee` / `katsuji` / `chomen` / `himitsu` / `somewake`）が現在の世界観を表します。
 
 ## オープニング
 
@@ -83,6 +83,14 @@
 全20箱（最短2〜33手、最短手数の少ない順）。完成時に最短手数と比べます。一の箱は最短手順に沿って次の木片を光らせる手ほどき。
 問題は `tools/himitsu-gen.cjs` で作り（幅優先探索で最短手数と手順を求める）、`himitsu-levels.js` に収録。保存は `himitsu-save-v1`・`himitsu-best`。
 
+## 染め分け
+
+ガラス瓶に混ざって入った植物染料を注ぎ分け、どの瓶も一色にそろえるパズル。注ぐ瓶をタップし、注ぐ先の瓶をタップします。
+注げるのは、注ぐ先が空か、いちばん上が同じ色のときだけ（同じ色が続いていれば入るだけまとめて注ぐ）。一つの瓶には四つまで。
+どの染料にも模様の印があり、色だけに頼らず見分けられます。瓶が8本以上の甕は二段の棚に並べます。
+全20甕（染料2〜12色、最短3〜36手、最短手数の少ない順）。一の甕は最短手順に沿って注ぐ瓶と注ぐ先を光らせる手ほどき。
+問題は `tools/somewake-gen.cjs` で作り（幅優先探索で最短手数と手順を求める）、`somewake-levels.js` に収録。保存は `somewake-save-v1`・`somewake-best`。
+
 ## 書体
 
 Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド明朝」（Zen Old Mincho）。
@@ -126,6 +134,10 @@ Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド�
 
 - https://github.com/google/fonts/blob/main/ofl/kiwimaru/OFL.txt
 
+染め分けの世界では「ZEN紅道」（Zen Kurenaido、SIL Open Font License 1.1）を使います。
+
+- https://github.com/google/fonts/blob/main/ofl/zenkurenaido/OFL.txt
+
 ## ローカル確認
 
 ```sh
@@ -167,4 +179,5 @@ HTML・CSS・JavaScriptを更新するときは `sw.js` のVERSIONを上げま�
 - `manifest.webmanifest`・`sw.js`：ホーム画面追加とオフライン対応
 - `icons/`：初回公開時の器アイコンを継続使用
 - `himitsu.js`・`himitsu.css`・`himitsu-levels.js`・`tools/himitsu-gen.cjs`：秘密箱のゲーム・世界観・問題データ・問題を作る道具
-- `test.cjs`：操作・保存互換・画面幅・オフライン・オープニング・星図・影絵・活字・帳面・秘密箱の検証
+- `somewake.js`・`somewake.css`・`somewake-levels.js`・`tools/somewake-gen.cjs`：染め分けのゲーム・世界観・問題データ・問題を作る道具
+- `test.cjs`：操作・保存互換・画面幅・オフライン・オープニング・星図・影絵・活字・帳面・秘密箱・染め分けの検証

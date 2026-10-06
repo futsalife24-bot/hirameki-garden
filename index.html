@@ -14,7 +14,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <script>
 // 表示の前に世界観を決める（ゲーム画面ならそのゲーム、庭なら前回選んだ遊び）
-(function(){var W=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu'],h=location.hash.slice(1),w='kintsugi';try{w=W.indexOf(h)>=0?h:(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(W.indexOf(w)<0)w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
+(function(){var W=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu','somewake'],h=location.hash.slice(1),w='kintsugi';try{w=W.indexOf(h)>=0?h:(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(W.indexOf(w)<0)w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
 </script>
 <link rel="icon" href="./icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&family=Kaisei+Decol:wght@400;500;700&family=Rampart+One&family=Shippori+Antique+B1&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -254,6 +255,7 @@ button.primary{
 <link rel="stylesheet" href="./katsuji.css">
 <link rel="stylesheet" href="./chomen.css">
 <link rel="stylesheet" href="./himitsu.css">
+<link rel="stylesheet" href="./somewake.css">
 <!--next-css-->
 <link rel="stylesheet" href="./opening.css">
 </head>
@@ -301,6 +303,10 @@ button.primary{
     <div class="game-art"><canvas id="hm-art" width="900" height="760" role="img" aria-label="寄木細工の秘密箱。ふたの上に木片が詰まり、金色の鍵の木片がある"></canvas><span class="art-caption">滑らせて、ひらく。</span></div>
     <div class="game-story"><p class="eyebrow"><span class="catalog-number">六</span> 庭の遊び帖</p><h2 id="hm-collection-title">秘密箱</h2><p class="game-subtitle">木片を滑らせる、箱のパズル。</p><p class="story-copy">詰まった木片を、少しずつずらす。<br>どかす順番を読み切れば、<br>金の鍵が出口へ抜ける。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="hm-play" class="play-game" href="#himitsu"><span id="hm-play-label">箱をあける</span><span aria-hidden="true">↗</span></a><p id="hm-resume-note" class="resume-note"></p></div>
   </article>
+  <article class="game-card" data-world="somewake" aria-labelledby="sw-collection-title" aria-roledescription="スライド" hidden>
+    <div class="game-art"><canvas id="sw-art" width="900" height="760" role="img" aria-label="藍染めの染め場。干した色とりどりの布と、棚に並ぶ染料のガラス瓶"></canvas><span class="art-caption">注いで、そろえる。</span></div>
+    <div class="game-story"><p class="eyebrow"><span class="catalog-number">七</span> 庭の遊び帖</p><h2 id="sw-collection-title">染め分け</h2><p class="game-subtitle">染料を注ぎ分ける、瓶のパズル。</p><p class="story-copy">混ざった染料を、瓶から瓶へ。<br>空いた瓶をうまく使えば、<br>どの瓶も一色に澄んでいく。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="sw-play" class="play-game" href="#somewake"><span id="sw-play-label">染めはじめる</span><span aria-hidden="true">↗</span></a><p id="sw-resume-note" class="resume-note"></p></div>
+  </article>
   </div>
   <div class="slide-ctl" aria-label="遊びの切り替え" role="group">
     <button class="slide-arrow" id="slide-prev" type="button" aria-label="前の遊び">‹</button>
@@ -311,6 +317,7 @@ button.primary{
     <button class="slide-dot" data-world="katsuji" type="button"><span aria-hidden="true">四</span> 活字</button>
     <button class="slide-dot" data-world="chomen" type="button"><span aria-hidden="true">五</span> 帳面</button>
     <button class="slide-dot" data-world="himitsu" type="button"><span aria-hidden="true">六</span> 秘密箱</button>
+    <button class="slide-dot" data-world="somewake" type="button"><span aria-hidden="true">七</span> 染め分け</button>
     </div>
     <button class="slide-arrow" id="slide-next" type="button" aria-label="次の遊び">›</button>
     <p class="visually-hidden" id="slide-status" aria-live="polite"></p>
@@ -559,6 +566,43 @@ button.primary{
     <button class="g-btn primary" type="button" data-close>閉じる</button>
   </dialog>
 </div>
+<div class="sw game-screen" id="somewake" hidden>
+  <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 七</span></nav>
+  <header class="game-head">
+    <h1 id="sw-title" tabindex="-1">染め分け</h1>
+    <div class="g-tools"><button class="g-btn" type="button" data-help="sw-help" aria-haspopup="dialog">遊び方</button><button class="g-btn" id="sw-sound" type="button" aria-pressed="true">音あり</button></div>
+    <div class="g-level"><b id="sw-lv">一の甕</b><span id="sw-size"></span></div>
+    <p class="coach" id="sw-coach" aria-live="polite" hidden></p>
+  </header>
+  <main class="sw-main">
+    <div class="stage"><div class="sw-shelf" id="sw-shelf"><div id="sw-rack" role="group" aria-label="染料の瓶。選んでから注ぐ先を選びます"></div></div></div>
+    <p class="visually-hidden" id="sw-live" aria-live="polite"></p>
+    <div class="foot">
+    <div class="g-bar">
+      <div class="g-stat">手数<strong id="sw-moves">0</strong></div>
+      <div class="g-stat">最短<strong id="sw-min">0</strong></div>
+      <button class="g-btn" id="sw-undo" type="button">一手戻す</button>
+      <button class="g-btn" id="sw-reset" type="button">最初から</button>
+    </div>
+    <div class="g-done" id="sw-done" aria-live="polite">
+      <div class="g-seal" aria-hidden="true">染</div>
+      <div><p class="g-done-title">染め分けました</p><p class="g-done-note" id="sw-done-note"></p></div>
+      <button class="g-btn primary" id="sw-next" type="button">次の甕へ</button>
+    </div>
+    </div>
+  </main>
+  <dialog class="howto" id="sw-help" aria-labelledby="sw-help-title">
+    <h2 id="sw-help-title">染め分けの遊び方</h2>
+    <ul>
+      <li>瓶に混ざって入った染料を注ぎ分け、どの瓶も一色にそろえるパズルです。</li>
+      <li>注ぐ瓶をタップして持ち上げ、注ぐ先の瓶をタップします。</li>
+      <li>注げるのは、注ぐ先が空のときか、いちばん上が同じ色のときだけ。同じ色が続いていれば、入るだけまとめて注ぎます。</li>
+      <li>一つの瓶には四つまで入ります。どの瓶も一色で満ちるか空になれば完成です。</li>
+      <li>色には模様の印もついています。「最短」は、いちばん少ない手数です。</li>
+    </ul>
+    <button class="g-btn primary" type="button" data-close>閉じる</button>
+  </dialog>
+</div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
 <script src="./hoshizu-levels.js"></script>
@@ -570,6 +614,8 @@ button.primary{
 <script src="./chomen.js"></script>
 <script src="./himitsu-levels.js"></script>
 <script src="./himitsu.js"></script>
+<script src="./somewake-levels.js"></script>
+<script src="./somewake.js"></script>
 <script src="./garden.js"></script>
 <script src="./ceramic.js"></script>
 <script>
@@ -962,6 +1008,7 @@ button.primary{
     {id:'katsuji',screen:'katsuji',title:'活字',focus:'kj-title',mod:'Katsuji',ids:['kj-play-label','kj-resume-note']},
     {id:'chomen',screen:'chomen',title:'帳面',focus:'cm-title',mod:'Chomen',ids:['cm-play-label','cm-resume-note']},
     {id:'himitsu',screen:'himitsu',title:'秘密箱',focus:'hm-title',mod:'Himitsu',ids:['hm-play-label','hm-resume-note']},
+    {id:'somewake',screen:'somewake',title:'染め分け',focus:'sw-title',mod:'Somewake',ids:['sw-play-label','sw-resume-note']},
   ];
   window.HiramekiGames=GAMES;
   function showPage(focus){
