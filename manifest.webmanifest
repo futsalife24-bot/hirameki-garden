@@ -1,8 +1,9 @@
 {
   "name": "ひらめきの庭 — 心をほどくパズル",
   "short_name": "ひらめきの庭",
-  "description": "答えを急がないパズルを、ここに。最初の遊びは、器をつなぐ金継ぎ。",
+  "description": "答えを急がないパズルを、ここに。金継ぎ・星図・影絵・活字・帳面・秘密箱・染め分け・算額の八つの遊び。",
   "lang": "ja",
+  "id": "/hirameki-garden/?app=garden",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
