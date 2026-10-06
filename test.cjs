@@ -306,6 +306,29 @@ const http=require('node:http');
    await pg.evaluate(()=>localStorage.setItem('somewake-save-v1',JSON.stringify({level:2,b:['AAAA','',''],moves:5})));await pg.reload();
    assert.equal((await st()).moves,0);assert.deepEqual((await st()).b,await pg.evaluate(()=>SOMEWAKE_LEVELS[1].bottles));
   }});
+  // 算額：同じ行の同じ数を知らせ、手ほどきの光るマスを順に埋めると解ける
+  await commonChecks({id:'sangaku',pre:'sg',bg:'#5c1a12',maxLevel:20,resume:/二の額/,play:async pg=>{
+   await pg.locator('#sg-play').click();await pg.waitForFunction(()=>location.hash==='#sangaku');
+   const st=()=>pg.evaluate(()=>JSON.parse(localStorage.getItem('sangaku-save-v1')));const cell=i=>pg.locator('.sg-cell').nth(i),key=v=>pg.locator(`.sg-key[data-v="${v}"]`);
+   const lv=await pg.evaluate(()=>SANGAKU_LEVELS[0]);assert(await pg.locator('#sg-coach').isVisible());assert.equal(await pg.locator('.sg-cell.guide').count(),1);
+   // 同じ行に同じ数を書くと朱で知らせ、一手戻すで消える
+   await cell(0).click();await key(lv.sol[0]).click();await cell(1).click();await key(lv.sol[0]).click();
+   assert.equal(await pg.locator('.sg-cell.clash').count(),2);assert.match(await pg.locator('#sg-coach').innerText(),/合わない/);
+   await pg.locator('#sg-undo').click();assert.equal(await pg.locator('.sg-cell.clash').count(),0);assert.equal((await st()).v[1],0);
+   // 書き直し：書いた数を消すと数える
+   await cell(0).click();await key(0).click();assert.equal((await st()).fix,1);
+   // キーボード：矢印で選び、数字キーで書く
+   await cell(0).focus();await pg.keyboard.press(String(lv.sol[0]));assert.equal((await st()).v[0],+lv.sol[0]);
+   for(let k=0;k<lv.n*lv.n;k++){const g=await pg.evaluate(()=>[...document.querySelectorAll('.sg-cell')].findIndex(e=>e.classList.contains('guide')));if(g<0)break;await cell(g).click();await key(lv.sol[g]).click()}
+   await pg.locator('#sg-done.show').waitFor();assert.equal((await st()).v.join(''),lv.sol);assert.match(await pg.locator('#sg-done-note').innerText(),/書き直し1回/);
+   await pg.reload();await pg.locator('#sg-done.show').waitFor();
+   await pg.locator('#sg-next').click();assert.equal((await st()).level,2);assert.equal(await pg.locator('#sg-coach').isVisible(),false);
+   await cell(0).click();await key(1).click();
+   // 壊れた保存（盤の大きさが合わない）は空の盤に戻す
+   await pg.evaluate(()=>localStorage.setItem('sangaku-save-v1',JSON.stringify({level:2,v:[1,2,3],fix:4})));await pg.reload();
+   assert.equal((await st()).fix,0);assert(( await st()).v.every(v=>v===0));
+   await pg.evaluate(()=>localStorage.setItem('sangaku-save-v1',JSON.stringify({level:2})));await pg.reload();
+  }});
   // 文字が背景に溶けない：ライト・ダークどちらの端末設定でも、主な文字と背景のコントラスト比が4.5以上
   const contrastOf=(pg,sels)=>pg.evaluate(sels=>{
     const rgb=c=>(c.match(/[\d.]+/g)||[]).slice(0,3).map(Number),lum=c=>{const v=rgb(c).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
@@ -363,6 +386,6 @@ const http=require('node:http');
   for(const width of [320,1440]){await op.setViewportSize({width,height:800});await op.goto('about:blank');await op.goto(url);await op.locator('#op-play-mute').click();await op.clock.runFor(5000);
    assert.equal(await op.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`opening ${width}`)}
   assert.deepEqual(errors,[]);
-  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、影絵（スライド・ドラッグ・キーボード・完成・保存・次の幕・一画面・見やすさ）、活字（スライド・はめる・外す・戻す・食い違いの拒否・完成と合言葉・保存・次の版・一画面・見やすさ）、帳面（スライド・ヒント・文字数の案内・書き損じ・カタカナ入力・完成・保存・次のページ・一画面・見やすさ）、秘密箱（ドラッグ・戻す・最短手順で完成・保存・壊れた保存・次の箱・一画面・見やすさ）、染め分け（注げない瓶・注ぐ・戻す・最短手順・保存・壊れた保存・一画面・文字の見やすさ）、実行エラーなし');
+  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、影絵（スライド・ドラッグ・キーボード・完成・保存・次の幕・一画面・見やすさ）、活字（スライド・はめる・外す・戻す・食い違いの拒否・完成と合言葉・保存・次の版・一画面・見やすさ）、帳面（スライド・ヒント・文字数の案内・書き損じ・カタカナ入力・完成・保存・次のページ・一画面・見やすさ）、秘密箱（ドラッグ・戻す・最短手順で完成・保存・壊れた保存・次の箱・一画面・見やすさ）、染め分け（注げない瓶・注ぐ・戻す・最短手順・保存・壊れた保存・一画面・文字の見やすさ）、算額（同じ数の知らせ・戻す・書き直し・キーボード・手ほどき・完成・保存・壊れた保存・一画面・文字の見やすさ）、実行エラーなし');
  } finally {if(browser)await browser.close();server.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});
