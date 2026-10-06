@@ -231,6 +231,62 @@ const http=require('node:http');
      assert.equal(await np.evaluate(()=>{const v=e=>{const r=document.querySelector(e).getBoundingClientRect();return r.width>0&&r.top>=-1&&r.bottom<=innerHeight+1};return document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1&&['#cm-grid','#cm-input','#cm-write','#cm-reset','#cm-title'].every(v)}),true,`chomen one screen ${w}x${h} ${l}`)}
     await np.goto(url+'#garden');assert.equal(await np.evaluate(()=>{const b=document.getElementById('cm-play').getBoundingClientRect();return document.documentElement.scrollHeight<=innerHeight+1&&b.bottom<=innerHeight}),true,`chomen garden ${w}x${h}`)}
    await nc.close();}
+  // 新しい遊びに共通の確認：スライドで選べる・遊び方・続きの案内・一画面・ライト/ダークでの文字の見やすさ
+  async function commonChecks({id,pre,bg,maxLevel,resume,play}){
+   const ctx=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});await ctx.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
+   const pg=await ctx.newPage();pg.on('pageerror',e=>errors.push(e.message));
+   await pg.goto(url);const order=await pg.evaluate(()=>[...document.querySelectorAll('.slide-dot')].map(d=>d.dataset.world));
+   for(let k=0;k<order.indexOf(id);k++)await pg.locator('#slide-next').click();
+   assert.equal(await pg.evaluate(()=>document.documentElement.dataset.world),id);assert(await pg.locator(`#${pre}-play`).isVisible());
+   assert(await pg.locator(`.slide-dot[data-world="${id}"]`).isVisible(),`${id} dot visible`);
+   await play(pg);
+   await pg.locator(`[data-help="${pre}-help"]`).click();assert(await pg.locator(`#${pre}-help`).isVisible());await pg.keyboard.press('Escape');
+   await pg.locator(`#${id} .game-nav a`).click();await pg.waitForFunction(()=>!document.getElementById('garden').hidden);
+   assert.match(await pg.locator(`#${pre}-resume-note`).innerText(),resume);
+   for(const [w,h] of [[320,568],[390,844],[768,1024],[1280,720]]){await pg.setViewportSize({width:w,height:h});
+    for(const l of [1,maxLevel]){await pg.evaluate(([k,l])=>localStorage.setItem(k,JSON.stringify({level:l})),[id+'-save-v1',l]);await pg.goto('about:blank');await pg.goto(url+'#'+id);
+     assert.equal(await pg.evaluate(()=>{const scr=document.querySelector('.game-screen:not([hidden])');const v=e=>{const r=e.getBoundingClientRect();return r.width>0&&r.top>=-1&&r.bottom<=innerHeight+1&&r.left>=-1&&r.right<=innerWidth+1};
+       return document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1&&v(scr.querySelector('h1'))&&v(scr.querySelector('.stage'))&&(()=>{const btns=[...scr.querySelectorAll('.foot .g-btn')].filter(e=>e.getClientRects().length);return btns.length>0&&btns.every(v)})()}),true,`${id} one screen ${w}x${h} ${l}`)}
+    await pg.goto(url+'#garden');assert.equal(await pg.evaluate(p=>{const b=document.getElementById(p+'-play').getBoundingClientRect();return document.documentElement.scrollHeight<=innerHeight+1&&b.bottom<=innerHeight},pre),true,`${id} garden ${w}x${h}`)}
+   await ctx.close();
+   for(const colorScheme of ['light','dark']){const cc=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce',colorScheme});await cc.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
+    const cp=await cc.newPage();await cp.goto(url);await cp.evaluate(([w,k])=>{localStorage.setItem('hirameki-world',w);localStorage.setItem(k,JSON.stringify({level:1}))},[id,id+'-save-v1']);await cp.goto('about:blank');await cp.goto(url+'#'+id);
+    assert.equal(await cp.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()),bg,`${id} bg ${colorScheme}`);
+    const ratios=await cp.evaluate(p=>{const rgb=c=>(c.match(/[\d.]+/g)||[]).slice(0,3).map(Number),lum=c=>{const v=rgb(c).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
+      const probe=document.createElement('i');probe.style.color='var(--bg)';document.body.appendChild(probe);const bg=getComputedStyle(probe).color;probe.remove();
+      const scr=document.getElementById(p.id),els=[scr.querySelector('h1'),scr.querySelector('.g-level b'),scr.querySelector('.g-level span'),scr.querySelector('.coach'),scr.querySelector('.g-stat'),scr.querySelector('.foot .g-btn')];
+      return els.map(e=>{const a=lum(getComputedStyle(e).color),b=lum(bg);return [e.className||e.tagName,+((Math.max(a,b)+.05)/(Math.min(a,b)+.05)).toFixed(2)]})},{id});
+    for(const [sel,r] of ratios)assert(r>=4.5,`${colorScheme} ${id} ${sel} ${r}`);
+    await cp.goto('about:blank');await cp.goto(url);
+    const gr=await cp.evaluate(p=>{const rgb=c=>(c.match(/[\d.]+/g)||[]).slice(0,3).map(Number),lum=c=>{const v=rgb(c).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
+      const probe=document.createElement('i');probe.style.color='var(--bg)';document.body.appendChild(probe);const bg=getComputedStyle(probe).color;probe.remove();
+      return ['#garden-title','.garden-copy',`#${p}-collection-title`,`.game-card:not([hidden]) .game-subtitle`,'.slide-dot[aria-current="true"]'].map(q=>{const e=document.querySelector(q),a=lum(getComputedStyle(e).color),b=lum(bg);return [q,+((Math.max(a,b)+.05)/(Math.min(a,b)+.05)).toFixed(2)]})},pre);
+    for(const [sel,r] of gr)assert(r>=4.5,`${colorScheme} ${id} garden ${sel} ${r}`);
+    await cc.close()}
+  }
+  // 秘密箱：最短手順どおりにキーボードで動かすと、最短手数で箱が開く
+  await commonChecks({id:'himitsu',pre:'hm',bg:'#2b1a10',maxLevel:20,resume:/二の箱/,play:async pg=>{
+   await pg.locator('#hm-play').click();await pg.waitForFunction(()=>location.hash==='#himitsu');
+   const st=()=>pg.evaluate(()=>JSON.parse(localStorage.getItem('himitsu-save-v1')));
+   const lv=await pg.evaluate(()=>HIMITSU_LEVELS[0]);assert(await pg.locator('#hm-coach').isVisible());assert.equal(await pg.locator('.hm-piece.guide').count(),1);
+   // ドラッグで一手動かして、一手戻す
+   const [gi,gx,gy]=lv.path[0],pb=await pg.locator(`.hm-piece[data-i="${gi}"]`).boundingBox(),cell=(await pg.locator('#hm-board').boundingBox()).width/lv.W;
+   const [ox,oy]=[lv.pieces[gi][0],lv.pieces[gi][1]];await pg.mouse.move(pb.x+pb.width/2,pb.y+pb.height/2);await pg.mouse.down();
+   await pg.mouse.move(pb.x+pb.width/2+(gx-ox)*cell,pb.y+pb.height/2+(gy-oy)*cell,{steps:8});await pg.mouse.up();
+   assert.deepEqual((await st()).pos[gi],[gx,gy]);assert.equal((await st()).moves,1);
+   await pg.locator('#hm-undo').click();assert.deepEqual((await st()).pos[gi],[ox,oy]);assert.equal((await st()).moves,0);
+   // ぶつかる向きには動かない
+   const pos=lv.pieces.map(p=>[p[0],p[1]]);
+   for(const [i,x,y] of lv.path){const key={[String([1,0])]:'ArrowRight',[String([-1,0])]:'ArrowLeft',[String([0,1])]:'ArrowDown',[String([0,-1])]:'ArrowUp'}[String([Math.sign(x-pos[i][0]),Math.sign(y-pos[i][1])])];
+     await pg.locator(`.hm-piece[data-i="${i}"]`).focus();for(let k=0;k<Math.abs(x-pos[i][0])+Math.abs(y-pos[i][1]);k++)await pg.keyboard.press(key);pos[i]=[x,y]}
+   await pg.locator('#hm-done.show').waitFor();assert.equal((await st()).moves,lv.min);assert.match(await pg.locator('#hm-done-note').innerText(),/最短で開けました/);
+   await pg.reload();await pg.locator('#hm-done.show').waitFor();
+   await pg.locator('#hm-next').click();assert.equal((await st()).level,2);assert.equal(await pg.locator('#hm-coach').isVisible(),false);
+   // 壊れた保存（重なる配置）は最初の配置に戻す
+   await pg.evaluate(()=>localStorage.setItem('himitsu-save-v1',JSON.stringify({level:2,pos:[[0,0],[0,0]],moves:5})));await pg.reload();
+   assert.equal((await st()).moves,0);
+   await pg.evaluate(()=>localStorage.setItem('himitsu-save-v1',JSON.stringify({level:2})));await pg.reload();
+  }});
   // 文字が背景に溶けない：ライト・ダークどちらの端末設定でも、主な文字と背景のコントラスト比が4.5以上
   const contrastOf=(pg,sels)=>pg.evaluate(sels=>{
     const rgb=c=>(c.match(/[\d.]+/g)||[]).slice(0,3).map(Number),lum=c=>{const v=rgb(c).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
@@ -288,6 +344,6 @@ const http=require('node:http');
   for(const width of [320,1440]){await op.setViewportSize({width,height:800});await op.goto('about:blank');await op.goto(url);await op.locator('#op-play-mute').click();await op.clock.runFor(5000);
    assert.equal(await op.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`opening ${width}`)}
   assert.deepEqual(errors,[]);
-  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、影絵（スライド・ドラッグ・キーボード・完成・保存・次の幕・一画面・見やすさ）、活字（スライド・はめる・外す・戻す・食い違いの拒否・完成と合言葉・保存・次の版・一画面・見やすさ）、帳面（スライド・ヒント・文字数の案内・書き損じ・カタカナ入力・完成・保存・次のページ・一画面・見やすさ）、実行エラーなし');
+  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、影絵（スライド・ドラッグ・キーボード・完成・保存・次の幕・一画面・見やすさ）、活字（スライド・はめる・外す・戻す・食い違いの拒否・完成と合言葉・保存・次の版・一画面・見やすさ）、帳面（スライド・ヒント・文字数の案内・書き損じ・カタカナ入力・完成・保存・次のページ・一画面・見やすさ）、秘密箱（ドラッグ・戻す・最短手順で完成・保存・壊れた保存・次の箱・一画面・見やすさ）、実行エラーなし');
  } finally {if(browser)await browser.close();server.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

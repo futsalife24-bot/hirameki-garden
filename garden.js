@@ -2,8 +2,8 @@
    選んだ遊びは端末に覚え、次に開いたときもその世界観のタイトル画面から始める。
    <html data-world> と <body data-world> が現在の世界観。 */
 (function(){
-  const WORLDS=['kintsugi','hoshizu','kagee','katsuji','chomen'],WKEY='hirameki-world';
-  const THEME={kintsugi:'#eee9df',hoshizu:'#0b1026',kagee:'#22080d',katsuji:'#161412',chomen:'#f6f8fa'};
+  const WORLDS=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu'],WKEY='hirameki-world';
+  const THEME={kintsugi:'#eee9df',hoshizu:'#0b1026',kagee:'#22080d',katsuji:'#161412',chomen:'#f6f8fa',himitsu:'#2b1a10'};
   const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $=id=>document.getElementById(id);
@@ -20,7 +20,7 @@
   function select(w,dir){
     if(!WORLDS.includes(w))return;const changed=w!==selected;selected=w;store.set(WKEY,w);
     slides.forEach(s=>{const on=s.dataset.world===w;s.hidden=!on;s.classList.remove('enter-next','enter-prev');if(on&&changed&&!reduce&&dir){void s.offsetWidth;s.classList.add(dir>0?'enter-next':'enter-prev')}});
-    dots.forEach(d=>{const on=d.dataset.world===w;d.setAttribute('aria-current',on?'true':'false')});
+    dots.forEach(d=>{const on=d.dataset.world===w;d.setAttribute('aria-current',on?'true':'false');if(on)d.scrollIntoView({block:'nearest',inline:'center',behavior:reduce?'auto':'smooth'})});
     const live=$('slide-status');if(live&&changed)live.textContent=`${slides.findIndex(s=>s.dataset.world===w)+1}つ目の遊び：${document.querySelector(`.game-card[data-world="${w}"] h2`).textContent}`;
     setWorld(w);
   }
@@ -83,7 +83,7 @@
   });
   window.Garden={selected:()=>selected,setWorld,select};
   slides.forEach(s=>{s.hidden=s.dataset.world!==selected});
-  dots.forEach(d=>d.setAttribute('aria-current',d.dataset.world===selected?'true':'false'));
+  dots.forEach(d=>{d.setAttribute('aria-current',d.dataset.world===selected?'true':'false');if(d.dataset.world===selected){const box=d.parentElement;box.scrollLeft=d.offsetLeft-box.clientWidth/2+d.offsetWidth/2}});
   drawArt();
   if(document.fonts)document.fonts.ready.then(drawArt);
 })();

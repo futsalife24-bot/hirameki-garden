@@ -14,13 +14,14 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <script>
 // 表示の前に世界観を決める（ゲーム画面ならそのゲーム、庭なら前回選んだ遊び）
-(function(){var h=location.hash,w='kintsugi';try{w=h==='#hoshizu'?'hoshizu':h==='#kagee'?'kagee':h==='#katsuji'?'katsuji':h==='#chomen'?'chomen':h==='#kintsugi'?'kintsugi':(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(['hoshizu','kagee','katsuji','chomen'].indexOf(w)<0)w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
+(function(){var W=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu'],h=location.hash.slice(1),w='kintsugi';try{w=W.indexOf(h)>=0?h:(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(W.indexOf(w)<0)w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
 </script>
 <link rel="icon" href="./icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Zen+Old+Mincho:wght@400;500;700&family=Kaisei+Decol:wght@400;500;700&family=Rampart+One&family=Shippori+Antique+B1&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -252,6 +253,8 @@ button.primary{
 <link rel="stylesheet" href="./kagee.css">
 <link rel="stylesheet" href="./katsuji.css">
 <link rel="stylesheet" href="./chomen.css">
+<link rel="stylesheet" href="./himitsu.css">
+<!--next-css-->
 <link rel="stylesheet" href="./opening.css">
 </head>
 <body data-world="kintsugi">
@@ -294,14 +297,21 @@ button.primary{
     <div class="game-art"><canvas id="cm-art" width="900" height="760" role="img" aria-label="机の上に方眼ノートが開かれ、クロスワードの答えが紺のインクで書かれている。横に万年筆"></canvas><span class="art-caption">ひらめいたら、書きこもう。</span></div>
     <div class="game-story"><p class="eyebrow"><span class="catalog-number">五</span> 庭の遊び帖</p><h2 id="cm-collection-title">帳面</h2><p class="game-subtitle">ヒントを解く、ノートのクロスワード。</p><p class="story-copy">ヒントを読んで、答えをペンで。<br>書いた文字が、次の答えの手がかりに。<br>一ページずつ、ノートを埋めていく。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="cm-play" class="play-game" href="#chomen"><span id="cm-play-label">ノートをひらく</span><span aria-hidden="true">↗</span></a><p id="cm-resume-note" class="resume-note"></p></div>
   </article>
+  <article class="game-card" data-world="himitsu" aria-labelledby="hm-collection-title" aria-roledescription="スライド" hidden>
+    <div class="game-art"><canvas id="hm-art" width="900" height="760" role="img" aria-label="寄木細工の秘密箱。ふたの上に木片が詰まり、金色の鍵の木片がある"></canvas><span class="art-caption">滑らせて、ひらく。</span></div>
+    <div class="game-story"><p class="eyebrow"><span class="catalog-number">六</span> 庭の遊び帖</p><h2 id="hm-collection-title">秘密箱</h2><p class="game-subtitle">木片を滑らせる、箱のパズル。</p><p class="story-copy">詰まった木片を、少しずつずらす。<br>どかす順番を読み切れば、<br>金の鍵が出口へ抜ける。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="hm-play" class="play-game" href="#himitsu"><span id="hm-play-label">箱をあける</span><span aria-hidden="true">↗</span></a><p id="hm-resume-note" class="resume-note"></p></div>
+  </article>
   </div>
   <div class="slide-ctl" aria-label="遊びの切り替え" role="group">
     <button class="slide-arrow" id="slide-prev" type="button" aria-label="前の遊び">‹</button>
+    <div class="slide-dots">
     <button class="slide-dot" data-world="kintsugi" type="button"><span aria-hidden="true">一</span> 金継ぎ</button>
     <button class="slide-dot" data-world="hoshizu" type="button"><span aria-hidden="true">二</span> 星図</button>
     <button class="slide-dot" data-world="kagee" type="button"><span aria-hidden="true">三</span> 影絵</button>
     <button class="slide-dot" data-world="katsuji" type="button"><span aria-hidden="true">四</span> 活字</button>
     <button class="slide-dot" data-world="chomen" type="button"><span aria-hidden="true">五</span> 帳面</button>
+    <button class="slide-dot" data-world="himitsu" type="button"><span aria-hidden="true">六</span> 秘密箱</button>
+    </div>
     <button class="slide-arrow" id="slide-next" type="button" aria-label="次の遊び">›</button>
     <p class="visually-hidden" id="slide-status" aria-live="polite"></p>
   </div>
@@ -512,6 +522,43 @@ button.primary{
     <button class="cm-btn primary" type="button" data-close>閉じる</button>
   </dialog>
 </div>
+<div class="hm game-screen" id="himitsu" hidden>
+  <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 六</span></nav>
+  <header class="game-head">
+    <h1 id="hm-title" tabindex="-1">秘密箱</h1>
+    <div class="g-tools"><button class="g-btn" type="button" data-help="hm-help" aria-haspopup="dialog">遊び方</button><button class="g-btn" id="hm-sound" type="button" aria-pressed="true">音あり</button></div>
+    <div class="g-level"><b id="hm-lv">一の箱</b><span id="hm-size"></span></div>
+    <p class="coach" id="hm-coach" aria-live="polite" hidden></p>
+  </header>
+  <main class="hm-main">
+    <div class="stage"><div class="hm-box" id="hm-box"><div id="hm-board" role="group" aria-label="箱の中。木片を矢印キーで動かせます"><div id="hm-exit" aria-hidden="true"></div><div id="hm-pieces"></div></div></div></div>
+    <p class="visually-hidden" id="hm-live" aria-live="polite"></p>
+    <div class="foot">
+    <div class="g-bar">
+      <div class="g-stat">手数<strong id="hm-moves">0</strong></div>
+      <div class="g-stat">最短<strong id="hm-min">0</strong></div>
+      <button class="g-btn" id="hm-undo" type="button">一手戻す</button>
+      <button class="g-btn" id="hm-reset" type="button">最初から</button>
+    </div>
+    <div class="g-done" id="hm-done" aria-live="polite">
+      <div class="g-seal" aria-hidden="true">開</div>
+      <div><p class="g-done-title">箱が開きました</p><p class="g-done-note" id="hm-done-note"></p></div>
+      <button class="g-btn primary" id="hm-next" type="button">次の箱へ</button>
+    </div>
+    </div>
+  </main>
+  <dialog class="howto" id="hm-help" aria-labelledby="hm-help-title">
+    <h2 id="hm-help-title">秘密箱の遊び方</h2>
+    <ul>
+      <li>箱の中の木片を、上下左右に滑らせるパズルです。</li>
+      <li>木片を指でなぞると、ぶつかる所まで滑ります。離した所でマスにそろいます。</li>
+      <li>金色の「鍵」の木片を、右の縁の出口の位置まで運べば箱が開きます。</li>
+      <li>ひとつの木片を一方向へ動かすと一手です。「最短」は、いちばん少ない手数です。</li>
+      <li>キーボードでは、木片を選んで矢印キーで一マスずつ動かせます。</li>
+    </ul>
+    <button class="g-btn primary" type="button" data-close>閉じる</button>
+  </dialog>
+</div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
 <script src="./hoshizu-levels.js"></script>
@@ -521,6 +568,8 @@ button.primary{
 <script src="./katsuji.js"></script>
 <script src="./chomen-levels.js"></script>
 <script src="./chomen.js"></script>
+<script src="./himitsu-levels.js"></script>
+<script src="./himitsu.js"></script>
 <script src="./garden.js"></script>
 <script src="./ceramic.js"></script>
 <script>
@@ -905,18 +954,24 @@ button.primary{
     window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{})});
   }
 
+  // 遊びの一覧：ハッシュ、画面、見出し、題名、続きの案内（金継ぎ以外は各ゲームの label() を使う）
+  const GAMES=[
+    {id:'kintsugi',screen:'game',title:'金継ぎ',focus:'game-title',label:()=>{const going=S&&(S.moves||S.level>1);return {play:going?'つづきの器へ':'器をつなぐ',note:going?`第${S.level}の器・${S.moves}手から`:''}},ids:['play-label','resume-note']},
+    {id:'hoshizu',screen:'hoshizu',title:'星図',focus:'hz-title',mod:'Hoshizu',ids:['hz-play-label','hz-resume-note']},
+    {id:'kagee',screen:'kagee',title:'影絵',focus:'kg-title',mod:'Kagee',ids:['kg-play-label','kg-resume-note']},
+    {id:'katsuji',screen:'katsuji',title:'活字',focus:'kj-title',mod:'Katsuji',ids:['kj-play-label','kj-resume-note']},
+    {id:'chomen',screen:'chomen',title:'帳面',focus:'cm-title',mod:'Chomen',ids:['cm-play-label','cm-resume-note']},
+    {id:'himitsu',screen:'himitsu',title:'秘密箱',focus:'hm-title',mod:'Himitsu',ids:['hm-play-label','hm-resume-note']},
+  ];
+  window.HiramekiGames=GAMES;
   function showPage(focus){
-    const playing=location.hash==='#kintsugi',stars=location.hash==='#hoshizu',shadow=location.hash==='#kagee',type=location.hash==='#katsuji',note=location.hash==='#chomen';
-    $('garden').hidden=playing||stars||shadow||type||note;$('chomen').hidden=!note;$('game').hidden=!playing;$('hoshizu').hidden=!stars;$('kagee').hidden=!shadow;$('katsuji').hidden=!type;
-    if(window.Garden)Garden.setWorld(playing?'kintsugi':stars?'hoshizu':shadow?'kagee':type?'katsuji':note?'chomen':Garden.selected());
-    if(shadow&&window.Kagee)Kagee.resize();
-    document.title=playing?'金継ぎ — ひらめきの庭':stars?'星図 — ひらめきの庭':shadow?'影絵 — ひらめきの庭':type?'活字 — ひらめきの庭':note?'帳面 — ひらめきの庭':'ひらめきの庭 — 日々に、ひとつの余白を。';
-    if(S){$('play-label').textContent=S.moves||S.level>1?'つづきの器へ':'器をつなぐ';$('resume-note').textContent=S.moves||S.level>1?`第${S.level}の器・${S.moves}手から`:'';}
-    if(window.Hoshizu){const l=Hoshizu.label();$('hz-play-label').textContent=l.play;$('hz-resume-note').textContent=l.note}
-    if(window.Chomen){const l=Chomen.label();$('cm-play-label').textContent=l.play;$('cm-resume-note').textContent=l.note}
-    if(window.Katsuji){const l=Katsuji.label();$('kj-play-label').textContent=l.play;$('kj-resume-note').textContent=l.note}
-    if(window.Kagee){const l=Kagee.label();$('kg-play-label').textContent=l.play;$('kg-resume-note').textContent=l.note}
-    if(focus&&location.hash!=='#collection'){window.scrollTo(0,0);$(playing?'game-title':stars?'hz-title':shadow?'kg-title':type?'kj-title':note?'cm-title':'garden-title').focus({preventScroll:true});}
+    const cur=GAMES.find(g=>location.hash==='#'+g.id);
+    $('garden').hidden=!!cur;GAMES.forEach(g=>{const el=$(g.screen);if(el)el.hidden=g!==cur});
+    if(window.Garden)Garden.setWorld(cur?cur.id:Garden.selected());
+    if(cur&&cur.mod&&window[cur.mod]&&window[cur.mod].resize)window[cur.mod].resize();
+    document.title=cur?`${cur.title} — ひらめきの庭`:'ひらめきの庭 — 日々に、ひとつの余白を。';
+    GAMES.forEach(g=>{const m=g.mod?window[g.mod]:null,l=g.label?g.label():m?m.label():null;if(!l)return;const a=$(g.ids[0]),b=$(g.ids[1]);if(a)a.textContent=l.play;if(b)b.textContent=l.note});
+    if(focus&&location.hash!=='#collection'){window.scrollTo(0,0);$(cur?cur.focus:'garden-title').focus({preventScroll:true});}
   }
   window.addEventListener('hashchange',()=>showPage(true));
   const saved=load();

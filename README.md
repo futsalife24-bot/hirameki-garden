@@ -1,6 +1,6 @@
 # ひらめきの庭
 
-世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」「星図」「影絵」「活字」「帳面」です。
+世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」「星図」「影絵」「活字」「帳面」「秘密箱」です。
 
 - 公開先：https://futsalife24-bot.github.io/hirameki-garden/
 - GitHub：https://github.com/futsalife24-bot/hirameki-garden
@@ -8,15 +8,15 @@
 
 ## タイトル画面の方針
 
-タイトル画面も選択中のゲームの世界観を表します。下のスライド切り替え（‹ 一 金継ぎ ／ 二 星図 ／ 三 影絵 ／ 四 活字 ／ 五 帳面 ›、横スワイプ、左右キー）で
+タイトル画面も選択中のゲームの世界観を表します。下のスライド切り替え（‹ 一 金継ぎ ／ 二 星図 ／ 三 影絵 ／ 四 活字 ／ 五 帳面 ／ 六 秘密箱 ›、横スワイプ、左右キー）で
 遊びを選ぶと、背景・書体・配色・絵が世界観ごと切り替わります。選んだ遊びは端末に覚え、次に開いたときもその世界観から始まります。
-金継ぎは生成りの和紙・青磁の器・墨色・金の継ぎ目、星図は夜空・真鍮の星図盤・灯る星、影絵は臙脂の幕と影絵芝居の舞台、活字はインクの作業台と紙の版、帳面は方眼ノートと万年筆の「ひらめきの庭」です。
+金継ぎは生成りの和紙・青磁の器・墨色・金の継ぎ目、星図は夜空・真鍮の星図盤・灯る星、影絵は臙脂の幕と影絵芝居の舞台、活字はインクの作業台と紙の版、帳面は方眼ノートと万年筆、秘密箱は寄木細工の工房と秘密箱の「ひらめきの庭」です。
 庭（タイトル後のホーム画面）はスクロールせずに一画面で見渡せます。器の絵が残りの高さに合わせて伸び縮みし、
 「器をつなぐ」ボタンは常に画面内に収まります。背の低い画面では説明文を省き、横向きのスマホなど極端に低い画面だけスクロールします。
 和風は金継ぎ固有であり、ほかのゲームに強制しません。
 
-`#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ、`#hoshizu` が星図、`#kagee` が影絵、`#katsuji` が活字、`#chomen` が帳面。
-`<html data-world>` と `<body data-world>`（`kintsugi` / `hoshizu` / `kagee` / `katsuji` / `chomen`）が現在の世界観を表します。
+`#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ、`#hoshizu` が星図、`#kagee` が影絵、`#katsuji` が活字、`#chomen` が帳面、`#himitsu` が秘密箱。
+`<html data-world>` と `<body data-world>`（`kintsugi` / `hoshizu` / `kagee` / `katsuji` / `chomen` / `himitsu`）が現在の世界観を表します。
 
 ## オープニング
 
@@ -76,6 +76,13 @@
 入力欄の「○」には、交わる言葉ですでにわかっている文字が入ります。全20ページ（言葉5〜14）。一ページ目は手ほどき。
 問題は `tools/chomen-gen.cjs`（言葉とヒントは `tools/chomen-clues.cjs`）で作り、`chomen-levels.js` に収録。保存は `chomen-save-v1`・`chomen-best`。
 
+## 秘密箱
+
+寄木細工の箱の中の木片を上下左右に滑らせ、金の「鍵」の木片を右の縁の出口まで運ぶスライドパズル（箱入り娘）。
+木片をなぞるとぶつかる所まで滑り、離すとマスにそろいます（キーボードは矢印で一マスずつ）。ひとつの木片を一方向へ動かすと一手。
+全20箱（最短2〜33手、最短手数の少ない順）。完成時に最短手数と比べます。一の箱は最短手順に沿って次の木片を光らせる手ほどき。
+問題は `tools/himitsu-gen.cjs` で作り（幅優先探索で最短手数と手順を求める）、`himitsu-levels.js` に収録。保存は `himitsu-save-v1`・`himitsu-best`。
+
 ## 書体
 
 Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド明朝」（Zen Old Mincho）。
@@ -114,6 +121,10 @@ Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド�
 - 庭：Zen Antique Soft　https://github.com/google/fonts/blob/main/ofl/zenantiquesoft/OFL.txt
 - 見出し：Zen Kaku Gothic New　https://github.com/google/fonts/blob/main/ofl/zenkakugothicnew/OFL.txt
 - 欧文・数字：Unbounded　https://github.com/google/fonts/blob/main/ofl/unbounded/OFL.txt
+
+秘密箱の世界では「キウイ丸」（Kiwi Maru、SIL Open Font License 1.1）を使います。
+
+- https://github.com/google/fonts/blob/main/ofl/kiwimaru/OFL.txt
 
 ## ローカル確認
 
@@ -155,4 +166,5 @@ HTML・CSS・JavaScriptを更新するときは `sw.js` のVERSIONを上げま�
 - `tools/chomen-gen.cjs`・`tools/chomen-clues.cjs`：帳面の問題を作る道具と、言葉・ヒント
 - `manifest.webmanifest`・`sw.js`：ホーム画面追加とオフライン対応
 - `icons/`：初回公開時の器アイコンを継続使用
-- `test.cjs`：操作・保存互換・画面幅・オフライン・オープニング・星図・影絵・活字・帳面の検証
+- `himitsu.js`・`himitsu.css`・`himitsu-levels.js`・`tools/himitsu-gen.cjs`：秘密箱のゲーム・世界観・問題データ・問題を作る道具
+- `test.cjs`：操作・保存互換・画面幅・オフライン・オープニング・星図・影絵・活字・帳面・秘密箱の検証
