@@ -1,0 +1,8224 @@
+{
+  "date": "2026-10-07",
+  "base": "6260027eca22336d688804d43e7075f59658737b",
+  "sample": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "hash_format": "UTF-8・LF正規化",
+  "source_hashes": {
+    "hoshizu-levels.js": "6d8cec612f357044f09eff359cf8e59cd7d99e50ff62a246febfe1fcdfd249b9",
+    "tools/hoshizu-gen.cjs": "f3e06d5d6b1c360c72a73821fc3bfd689b235ec23e2a05110aa686fa533029c0",
+    "hoshizu.js": "8dd5648e002b38454ff0ee13516c18c237c50b5560eb537448b08ebb4db47e45",
+    "katsuji-levels.js": "b1285eb94513fc6a4faec8eac35283e9bc4c5a6f3b05d6eb5c512326aa1c2975",
+    "tools/katsuji-gen.cjs": "858de02777031e98325a2a00a8d35ad65fbd087f1d5dc785dfc4eda5b6fd4ad8",
+    "katsuji.js": "80b5ff87f213e536a39530ef87ed5f74bd1e81b666742d9c286e78fc1d1ef8df"
+  },
+  "evaluator_sha256": "6f8a3c253f76c6718583b76b11b62a7c430db84223b3e1a6c354c94fbf51dfa5",
+  "limitation": "有限の局所推論規則の比較。人間の難度・最短手数・必要な仮置き回数の実測ではない。",
+  "inventory": [
+    {
+      "game": "hoshizu",
+      "page": 1,
+      "dimensions": [
+        5,
+        5
+      ],
+      "items": 7,
+      "givens": [],
+      "coach": true
+    },
+    {
+      "game": "hoshizu",
+      "page": 2,
+      "dimensions": [
+        5,
+        5
+      ],
+      "items": 7,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 3,
+      "dimensions": [
+        5,
+        5
+      ],
+      "items": 7,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 4,
+      "dimensions": [
+        5,
+        5
+      ],
+      "items": 7,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 5,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 10,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 6,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 10,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 7,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 10,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 8,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 10,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 9,
+      "dimensions": [
+        7,
+        7
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 10,
+      "dimensions": [
+        7,
+        7
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 11,
+      "dimensions": [
+        7,
+        7
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 12,
+      "dimensions": [
+        7,
+        7
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 13,
+      "dimensions": [
+        7,
+        7
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 14,
+      "dimensions": [
+        7,
+        7
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 15,
+      "dimensions": [
+        8,
+        8
+      ],
+      "items": 17,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 16,
+      "dimensions": [
+        8,
+        8
+      ],
+      "items": 17,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 17,
+      "dimensions": [
+        8,
+        8
+      ],
+      "items": 17,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 18,
+      "dimensions": [
+        8,
+        8
+      ],
+      "items": 17,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 19,
+      "dimensions": [
+        8,
+        8
+      ],
+      "items": 17,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 20,
+      "dimensions": [
+        8,
+        8
+      ],
+      "items": 17,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 21,
+      "dimensions": [
+        9,
+        9
+      ],
+      "items": 21,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 22,
+      "dimensions": [
+        9,
+        9
+      ],
+      "items": 21,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 23,
+      "dimensions": [
+        9,
+        9
+      ],
+      "items": 21,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 24,
+      "dimensions": [
+        9,
+        9
+      ],
+      "items": 21,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 25,
+      "dimensions": [
+        9,
+        9
+      ],
+      "items": 21,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 26,
+      "dimensions": [
+        9,
+        10
+      ],
+      "items": 25,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 27,
+      "dimensions": [
+        9,
+        10
+      ],
+      "items": 25,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 28,
+      "dimensions": [
+        9,
+        10
+      ],
+      "items": 25,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 29,
+      "dimensions": [
+        9,
+        10
+      ],
+      "items": 25,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "hoshizu",
+      "page": 30,
+      "dimensions": [
+        9,
+        10
+      ],
+      "items": 25,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 1,
+      "dimensions": [
+        6,
+        5
+      ],
+      "items": 5,
+      "givens": [
+        0
+      ],
+      "coach": true
+    },
+    {
+      "game": "katsuji",
+      "page": 2,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 6,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 3,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 7,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 4,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 7,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 5,
+      "dimensions": [
+        6,
+        8
+      ],
+      "items": 8,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 6,
+      "dimensions": [
+        8,
+        5
+      ],
+      "items": 8,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 7,
+      "dimensions": [
+        7,
+        9
+      ],
+      "items": 9,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 8,
+      "dimensions": [
+        8,
+        9
+      ],
+      "items": 9,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 9,
+      "dimensions": [
+        9,
+        8
+      ],
+      "items": 10,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 10,
+      "dimensions": [
+        7,
+        10
+      ],
+      "items": 10,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 11,
+      "dimensions": [
+        9,
+        9
+      ],
+      "items": 11,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 12,
+      "dimensions": [
+        8,
+        7
+      ],
+      "items": 11,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 13,
+      "dimensions": [
+        10,
+        10
+      ],
+      "items": 12,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 14,
+      "dimensions": [
+        6,
+        10
+      ],
+      "items": 12,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 15,
+      "dimensions": [
+        8,
+        11
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 16,
+      "dimensions": [
+        10,
+        11
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 17,
+      "dimensions": [
+        11,
+        11
+      ],
+      "items": 14,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 18,
+      "dimensions": [
+        11,
+        10
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 19,
+      "dimensions": [
+        10,
+        11
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 20,
+      "dimensions": [
+        10,
+        12
+      ],
+      "items": 14,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 21,
+      "dimensions": [
+        10,
+        6
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 22,
+      "dimensions": [
+        8,
+        11
+      ],
+      "items": 13,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 23,
+      "dimensions": [
+        12,
+        12
+      ],
+      "items": 16,
+      "givens": [],
+      "coach": false
+    },
+    {
+      "game": "katsuji",
+      "page": 24,
+      "dimensions": [
+        11,
+        12
+      ],
+      "items": 18,
+      "givens": [],
+      "coach": false
+    }
+  ],
+  "spotChecks": [
+    {
+      "game": "hoshizu",
+      "page": 2,
+      "found": 1,
+      "method": "既存生成器のcountSolutionsを当該1面だけ再利用"
+    }
+  ],
+  "witness": {
+    "game": "hoshizu",
+    "page": 2,
+    "star_numbering": "levelsのstars配列順＋1（画面の表示番号ではない）",
+    "stars": [
+      [
+        0,
+        2,
+        4
+      ],
+      [
+        0,
+        0,
+        2
+      ],
+      [
+        2,
+        2,
+        3
+      ],
+      [
+        2,
+        0,
+        1
+      ],
+      [
+        0,
+        4,
+        3
+      ],
+      [
+        4,
+        2,
+        2
+      ],
+      [
+        2,
+        4,
+        1
+      ]
+    ],
+    "edge_numbering": [
+      {
+        "a": 1,
+        "b": 3,
+        "cross": []
+      },
+      {
+        "a": 1,
+        "b": 5,
+        "cross": []
+      },
+      {
+        "a": 2,
+        "b": 4,
+        "cross": []
+      },
+      {
+        "a": 2,
+        "b": 1,
+        "cross": []
+      },
+      {
+        "a": 3,
+        "b": 6,
+        "cross": []
+      },
+      {
+        "a": 3,
+        "b": 7,
+        "cross": []
+      },
+      {
+        "a": 4,
+        "b": 3,
+        "cross": []
+      },
+      {
+        "a": 5,
+        "b": 7,
+        "cross": []
+      }
+    ],
+    "assignmentCount": 16,
+    "degree_and_crossing_valid": [
+      {
+        "edge_values": [
+          0,
+          2,
+          0,
+          2,
+          2,
+          0,
+          1,
+          1
+        ],
+        "degrees": [
+          4,
+          2,
+          3,
+          1,
+          3,
+          2,
+          1
+        ],
+        "components": [
+          [
+            1,
+            2,
+            5,
+            7
+          ],
+          [
+            3,
+            4,
+            6
+          ]
+        ],
+        "connected": false
+      },
+      {
+        "edge_values": [
+          1,
+          2,
+          1,
+          1,
+          2,
+          0,
+          0,
+          1
+        ],
+        "degrees": [
+          4,
+          2,
+          3,
+          1,
+          3,
+          2,
+          1
+        ],
+        "components": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        ],
+        "connected": true
+      }
+    ]
+  },
+  "results": [
+    {
+      "game": "hoshizu",
+      "page": 1,
+      "theme": null,
+      "dimensions": [
+        5,
+        5
+      ],
+      "items": 7,
+      "coach": true,
+      "basic": {
+        "total": 6,
+        "fixed": 6,
+        "unresolved": 0,
+        "minimum_positive": 6,
+        "rounds": 2,
+        "domains": [
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 1,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 7,
+            "b": 4,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星1の必要本数4・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星1の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星2の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星5の必要本数4・他辺の合計範囲2〜2"
+          }
+        ]
+      },
+      "extended": {
+        "total": 6,
+        "fixed": 6,
+        "unresolved": 0,
+        "minimum_positive": 6,
+        "rounds": 2,
+        "domains": [
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 1,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 7,
+            "b": 4,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星1の必要本数4・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星1の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星2の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星5の必要本数4・他辺の合計範囲2〜2"
+          }
+        ]
+      }
+    },
+    {
+      "game": "hoshizu",
+      "page": 2,
+      "theme": null,
+      "dimensions": [
+        5,
+        5
+      ],
+      "items": 7,
+      "coach": false,
+      "basic": {
+        "total": 8,
+        "fixed": 4,
+        "unresolved": 4,
+        "minimum_positive": 4,
+        "rounds": 3,
+        "domains": [
+          [
+            0,
+            1
+          ],
+          [
+            2
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 1,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 7,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星4の必要本数1・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星4の必要本数1・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 8,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星6の必要本数2・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0
+            ],
+            "reason": "星7の必要本数1・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 8,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星7の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数2・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲2〜3"
+          },
+          {
+            "variable": 2,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲1〜1"
+          }
+        ]
+      },
+      "extended": {
+        "total": 8,
+        "fixed": 4,
+        "unresolved": 4,
+        "minimum_positive": 4,
+        "rounds": 3,
+        "domains": [
+          [
+            0,
+            1
+          ],
+          [
+            2
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 1,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 7,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星4の必要本数1・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星4の必要本数1・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 8,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星6の必要本数2・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0
+            ],
+            "reason": "星7の必要本数1・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 8,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星7の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数2・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲2〜3"
+          },
+          {
+            "variable": 2,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲1〜1"
+          }
+        ]
+      }
+    },
+    {
+      "game": "hoshizu",
+      "page": 3,
+      "theme": null,
+      "dimensions": [
+        5,
+        5
+      ],
+      "items": 7,
+      "coach": false,
+      "basic": {
+        "total": 6,
+        "fixed": 6,
+        "unresolved": 0,
+        "minimum_positive": 6,
+        "rounds": 4,
+        "domains": [
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 5,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星3の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星5の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 4,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星7の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 5,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星5の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 1,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星3の必要本数2・他辺の合計範囲1〜1"
+          }
+        ]
+      },
+      "extended": {
+        "total": 6,
+        "fixed": 6,
+        "unresolved": 0,
+        "minimum_positive": 6,
+        "rounds": 4,
+        "domains": [
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 5,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星3の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星5の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 4,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星7の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星3の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 5,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星5の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 1,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星1の必要本数3・他辺の合計範囲1〜1"
+          }
+        ]
+      }
+    },
+    {
+      "game": "hoshizu",
+      "page": 4,
+      "theme": null,
+      "dimensions": [
+        5,
+        5
+      ],
+      "items": 7,
+      "coach": false,
+      "basic": {
+        "total": 6,
+        "fixed": 6,
+        "unresolved": 0,
+        "minimum_positive": 6,
+        "rounds": 3,
+        "domains": [
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 2,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 2,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星4の必要本数4・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星4の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星2の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 2,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲2〜2"
+          }
+        ]
+      },
+      "extended": {
+        "total": 6,
+        "fixed": 6,
+        "unresolved": 0,
+        "minimum_positive": 6,
+        "rounds": 3,
+        "domains": [
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 2,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 2,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星4の必要本数4・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星4の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 1,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜1"
+          }
+        ]
+      }
+    },
+    {
+      "game": "hoshizu",
+      "page": 5,
+      "theme": null,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 10,
+      "coach": false,
+      "basic": {
+        "total": 10,
+        "fixed": 10,
+        "unresolved": 0,
+        "minimum_positive": 9,
+        "rounds": 4,
+        "domains": [
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            0
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 1,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 3,
+            "cross": [
+              7
+            ]
+          },
+          {
+            "a": 4,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 8,
+            "cross": [
+              3
+            ]
+          },
+          {
+            "a": 8,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 8,
+            "cross": []
+          },
+          {
+            "a": 10,
+            "b": 9,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星3の必要本数2・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 10,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星10の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              0
+            ],
+            "reason": "辺3と交差するので0本"
+          },
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 9,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星9の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 4,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 8,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星7の必要本数2・他辺の合計範囲1〜1"
+          }
+        ]
+      },
+      "extended": {
+        "total": 10,
+        "fixed": 10,
+        "unresolved": 0,
+        "minimum_positive": 9,
+        "rounds": 3,
+        "domains": [
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            0
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 1,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 3,
+            "cross": [
+              7
+            ]
+          },
+          {
+            "a": 4,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 8,
+            "cross": [
+              3
+            ]
+          },
+          {
+            "a": 8,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 8,
+            "cross": []
+          },
+          {
+            "a": 10,
+            "b": 9,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星3の必要本数2・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 10,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星10の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              0
+            ],
+            "reason": "辺3と交差するので0本"
+          },
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 8,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 9,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 1,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 4,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 5,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 8,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星7の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 9,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星8の必要本数2・他辺の合計範囲1〜1"
+          }
+        ]
+      }
+    },
+    {
+      "game": "hoshizu",
+      "page": 6,
+      "theme": null,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 10,
+      "coach": false,
+      "basic": {
+        "total": 12,
+        "fixed": 12,
+        "unresolved": 0,
+        "minimum_positive": 11,
+        "rounds": 4,
+        "domains": [
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 1,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 8,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 8,
+            "cross": []
+          },
+          {
+            "a": 7,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 10,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数5・他辺の合計範囲0〜4"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数5・他辺の合計範囲1〜4"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数5・他辺の合計範囲2〜4"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星2の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数5・他辺の合計範囲2〜4"
+          },
+          {
+            "variable": 8,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数5・他辺の合計範囲3〜4"
+          },
+          {
+            "variable": 10,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星7の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 8,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星8の必要本数4・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 9,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星8の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 11,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星9の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 12,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星9の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 12,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星10の必要本数2・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星2の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 7,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星5の必要本数5・他辺の合計範囲4〜4"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星6の必要本数3・他辺の合計範囲2〜3"
+          },
+          {
+            "variable": 11,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星9の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 1,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星1の必要本数5・他辺の合計範囲2〜3"
+          },
+          {
+            "variable": 2,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星1の必要本数5・他辺の合計範囲3〜3"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星4の必要本数5・他辺の合計範囲4〜4"
+          },
+          {
+            "variable": 10,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              0
+            ],
+            "reason": "星6の必要本数3・他辺の合計範囲3〜3"
+          }
+        ]
+      },
+      "extended": {
+        "total": 12,
+        "fixed": 12,
+        "unresolved": 0,
+        "minimum_positive": 11,
+        "rounds": 4,
+        "domains": [
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 1,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 3,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 8,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 8,
+            "cross": []
+          },
+          {
+            "a": 7,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 10,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数5・他辺の合計範囲0〜4"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数5・他辺の合計範囲1〜4"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数5・他辺の合計範囲2〜4"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星2の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星3の必要本数3・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数5・他辺の合計範囲2〜4"
+          },
+          {
+            "variable": 8,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数5・他辺の合計範囲3〜4"
+          },
+          {
+            "variable": 10,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星7の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 8,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星8の必要本数4・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 9,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星8の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 11,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星9の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 12,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星9の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 12,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星10の必要本数2・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星2の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 7,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星5の必要本数5・他辺の合計範囲4〜4"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星6の必要本数3・他辺の合計範囲2〜3"
+          },
+          {
+            "variable": 11,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星9の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 1,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星1の必要本数5・他辺の合計範囲2〜3"
+          },
+          {
+            "variable": 2,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星1の必要本数5・他辺の合計範囲3〜3"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星4の必要本数5・他辺の合計範囲4〜4"
+          },
+          {
+            "variable": 10,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              0
+            ],
+            "reason": "星6の必要本数3・他辺の合計範囲3〜3"
+          }
+        ]
+      }
+    },
+    {
+      "game": "hoshizu",
+      "page": 7,
+      "theme": null,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 10,
+      "coach": false,
+      "basic": {
+        "total": 9,
+        "fixed": 9,
+        "unresolved": 0,
+        "minimum_positive": 9,
+        "rounds": 4,
+        "domains": [
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 7,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 8,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 10,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星5の必要本数4・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 8,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星5の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星7の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星7の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 7,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星8の必要本数2・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 9,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星9の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 1,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星3の必要本数2・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星7の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 2,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星3の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲1〜1"
+          }
+        ]
+      },
+      "extended": {
+        "total": 9,
+        "fixed": 9,
+        "unresolved": 0,
+        "minimum_positive": 9,
+        "rounds": 3,
+        "domains": [
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 4,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 5,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 7,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 8,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 10,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星2の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星5の必要本数4・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 8,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星5の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星7の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星7の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 7,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星8の必要本数2・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 9,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星9の必要本数3・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          },
+          {
+            "variable": 1,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星1の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 2,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星3の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 4,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星4の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 6,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星6の必要本数2・他辺の合計範囲1〜1"
+          }
+        ]
+      }
+    },
+    {
+      "game": "hoshizu",
+      "page": 8,
+      "theme": null,
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 10,
+      "coach": false,
+      "basic": {
+        "total": 10,
+        "fixed": 10,
+        "unresolved": 0,
+        "minimum_positive": 9,
+        "rounds": 6,
+        "domains": [
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 1,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 7,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 8,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 8,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 10,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星3の必要本数4・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星3の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 8,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星8の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 9,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星8の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 10,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星9の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 10,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星10の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数4・他辺の合計範囲2〜3"
+          },
+          {
+            "variable": 9,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星9の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 8,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星8の必要本数3・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 1,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星2の必要本数4・他辺の合計範囲3〜4"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星2の必要本数4・他辺の合計範囲3〜3"
+          },
+          {
+            "variable": 7,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              0
+            ],
+            "reason": "星7の必要本数2・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星1の必要本数4・他辺の合計範囲3〜3"
+          }
+        ]
+      },
+      "extended": {
+        "total": 10,
+        "fixed": 10,
+        "unresolved": 0,
+        "minimum_positive": 9,
+        "rounds": 5,
+        "domains": [
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "edges": [
+          {
+            "a": 1,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 1,
+            "b": 6,
+            "cross": []
+          },
+          {
+            "a": 2,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 4,
+            "cross": []
+          },
+          {
+            "a": 3,
+            "b": 1,
+            "cross": []
+          },
+          {
+            "a": 6,
+            "b": 7,
+            "cross": []
+          },
+          {
+            "a": 7,
+            "b": 5,
+            "cross": []
+          },
+          {
+            "a": 8,
+            "b": 2,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 8,
+            "cross": []
+          },
+          {
+            "a": 9,
+            "b": 10,
+            "cross": []
+          }
+        ],
+        "trace": [
+          {
+            "variable": 4,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星3の必要本数4・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 5,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星3の必要本数4・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 3,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 7,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星6の必要本数1・他辺の合計範囲0〜1"
+          },
+          {
+            "variable": 8,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星8の必要本数3・他辺の合計範囲0〜2"
+          },
+          {
+            "variable": 9,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星8の必要本数3・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 10,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              0,
+              1
+            ],
+            "reason": "星9の必要本数2・他辺の合計範囲1〜2"
+          },
+          {
+            "variable": 10,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星10の必要本数1・他辺の合計範囲0〜0"
+          },
+          {
+            "variable": 1,
+            "before": [
+              0,
+              1,
+              2
+            ],
+            "after": [
+              1,
+              2
+            ],
+            "reason": "星1の必要本数4・他辺の合計範囲2〜3"
+          },
+          {
+            "variable": 9,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星9の必要本数2・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 8,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星8の必要本数3・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 1,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星2の必要本数4・他辺の合計範囲3〜4"
+          },
+          {
+            "variable": 3,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              1
+            ],
+            "reason": "星2の必要本数4・他辺の合計範囲3〜3"
+          },
+          {
+            "variable": 7,
+            "before": [
+              1,
+              2
+            ],
+            "after": [
+              2
+            ],
+            "reason": "星5の必要本数3・他辺の合計範囲1〜1"
+          },
+          {
+            "variable": 6,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              0
+            ],
+            "reason": "星7の必要本数2・他辺の合計範囲2〜2"
+          },
+          {
+            "variable": 2,
+            "before": [
+              0,
+              1
+            ],
+            "after": [
+              1
+            ],
+            "reason": "この辺を消すと候補グラフが分離するため最低1本"
+          }
+        ]
+      }
+    },
+    {
+      "game": "katsuji",
+      "page": 1,
+      "theme": "くだもの",
+      "dimensions": [
+        6,
+        5
+      ],
+      "items": 5,
+      "coach": true,
+      "basic": {
+        "total": 5,
+        "givens": 1,
+        "initial_singletons": 3,
+        "initial_candidate_counts": [
+          1,
+          1,
+          2,
+          2,
+          1
+        ],
+        "fixed": 5,
+        "unresolved": 0,
+        "rounds": 2,
+        "domains": [
+          [
+            "なし"
+          ],
+          [
+            "なつみかん"
+          ],
+          [
+            "みかん"
+          ],
+          [
+            "かぼす"
+          ],
+          [
+            "きんかん"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 3,
+            "before": [
+              "みかん",
+              "かぼす"
+            ],
+            "after": [
+              "みかん"
+            ],
+            "reason": "置き場5の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "みかん",
+              "かぼす"
+            ],
+            "after": [
+              "かぼす"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          }
+        ]
+      },
+      "extended": {
+        "total": 5,
+        "givens": 1,
+        "initial_singletons": 3,
+        "initial_candidate_counts": [
+          1,
+          1,
+          2,
+          2,
+          1
+        ],
+        "fixed": 5,
+        "unresolved": 0,
+        "rounds": 2,
+        "domains": [
+          [
+            "なし"
+          ],
+          [
+            "なつみかん"
+          ],
+          [
+            "みかん"
+          ],
+          [
+            "かぼす"
+          ],
+          [
+            "きんかん"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 3,
+            "before": [
+              "みかん",
+              "かぼす"
+            ],
+            "after": [
+              "みかん"
+            ],
+            "reason": "置き場5の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "みかん",
+              "かぼす"
+            ],
+            "after": [
+              "かぼす"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          }
+        ]
+      }
+    },
+    {
+      "game": "katsuji",
+      "page": 2,
+      "theme": "どうぶつ",
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 6,
+      "coach": false,
+      "basic": {
+        "total": 6,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          2,
+          2,
+          1,
+          3,
+          3,
+          3
+        ],
+        "fixed": 6,
+        "unresolved": 0,
+        "rounds": 3,
+        "domains": [
+          [
+            "あざらし"
+          ],
+          [
+            "いのしし"
+          ],
+          [
+            "いたち"
+          ],
+          [
+            "しか"
+          ],
+          [
+            "ぶた"
+          ],
+          [
+            "かめ"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 2,
+            "before": [
+              "あざらし",
+              "いのしし"
+            ],
+            "after": [
+              "いのしし"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "しか",
+              "ぶた",
+              "かめ"
+            ],
+            "after": [
+              "しか"
+            ],
+            "reason": "置き場2の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "しか",
+              "ぶた",
+              "かめ"
+            ],
+            "after": [
+              "ぶた",
+              "かめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "ぶた",
+              "かめ"
+            ],
+            "after": [
+              "ぶた"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "しか",
+              "ぶた",
+              "かめ"
+            ],
+            "after": [
+              "ぶた",
+              "かめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "ぶた",
+              "かめ"
+            ],
+            "after": [
+              "かめ"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "あざらし",
+              "いのしし"
+            ],
+            "after": [
+              "あざらし"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          }
+        ]
+      },
+      "extended": {
+        "total": 6,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          2,
+          2,
+          1,
+          3,
+          3,
+          3
+        ],
+        "fixed": 6,
+        "unresolved": 0,
+        "rounds": 2,
+        "domains": [
+          [
+            "あざらし"
+          ],
+          [
+            "いのしし"
+          ],
+          [
+            "いたち"
+          ],
+          [
+            "しか"
+          ],
+          [
+            "ぶた"
+          ],
+          [
+            "かめ"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              "あざらし",
+              "いのしし"
+            ],
+            "after": [
+              "あざらし"
+            ],
+            "reason": "置き場2の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "あざらし",
+              "いのしし"
+            ],
+            "after": [
+              "いのしし"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "しか",
+              "ぶた",
+              "かめ"
+            ],
+            "after": [
+              "しか"
+            ],
+            "reason": "置き場2の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "しか",
+              "ぶた",
+              "かめ"
+            ],
+            "after": [
+              "ぶた",
+              "かめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "ぶた",
+              "かめ"
+            ],
+            "after": [
+              "ぶた"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "しか",
+              "ぶた",
+              "かめ"
+            ],
+            "after": [
+              "ぶた",
+              "かめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "ぶた",
+              "かめ"
+            ],
+            "after": [
+              "かめ"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          }
+        ]
+      }
+    },
+    {
+      "game": "katsuji",
+      "page": 3,
+      "theme": "たべもの",
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 7,
+      "coach": false,
+      "basic": {
+        "total": 7,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          4,
+          4,
+          4,
+          2,
+          1,
+          4,
+          2
+        ],
+        "fixed": 7,
+        "unresolved": 0,
+        "rounds": 6,
+        "domains": [
+          [
+            "だんご"
+          ],
+          [
+            "ごはん"
+          ],
+          [
+            "うどん"
+          ],
+          [
+            "うめぼし"
+          ],
+          [
+            "しお"
+          ],
+          [
+            "おかゆ"
+          ],
+          [
+            "かまぼこ"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 6,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "おかゆ"
+            ],
+            "reason": "置き場5の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "うめぼし",
+              "かまぼこ"
+            ],
+            "after": [
+              "かまぼこ"
+            ],
+            "reason": "置き場6の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "だんご",
+              "ごはん",
+              "うどん"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "だんご",
+              "ごはん",
+              "うどん"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "だんご",
+              "ごはん",
+              "うどん"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "うめぼし",
+              "かまぼこ"
+            ],
+            "after": [
+              "うめぼし"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん"
+            ],
+            "after": [
+              "うどん"
+            ],
+            "reason": "置き場4の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん"
+            ],
+            "after": [
+              "だんご",
+              "ごはん"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん"
+            ],
+            "after": [
+              "だんご",
+              "ごはん"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "だんご",
+              "ごはん"
+            ],
+            "after": [
+              "ごはん"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "だんご",
+              "ごはん"
+            ],
+            "after": [
+              "だんご"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          }
+        ]
+      },
+      "extended": {
+        "total": 7,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          4,
+          4,
+          4,
+          2,
+          1,
+          4,
+          2
+        ],
+        "fixed": 7,
+        "unresolved": 0,
+        "rounds": 2,
+        "domains": [
+          [
+            "だんご"
+          ],
+          [
+            "ごはん"
+          ],
+          [
+            "うどん"
+          ],
+          [
+            "うめぼし"
+          ],
+          [
+            "しお"
+          ],
+          [
+            "おかゆ"
+          ],
+          [
+            "かまぼこ"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "だんご"
+            ],
+            "reason": "置き場2の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "ごはん"
+            ],
+            "reason": "置き場1の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "うどん",
+              "おかゆ"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "うどん"
+            ],
+            "reason": "置き場2の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "うめぼし",
+              "かまぼこ"
+            ],
+            "after": [
+              "うめぼし"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "だんご",
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "ごはん",
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "うどん",
+              "おかゆ"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "うどん",
+              "おかゆ"
+            ],
+            "after": [
+              "おかゆ"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "うめぼし",
+              "かまぼこ"
+            ],
+            "after": [
+              "かまぼこ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          }
+        ]
+      }
+    },
+    {
+      "game": "katsuji",
+      "page": 4,
+      "theme": "しぜん",
+      "dimensions": [
+        6,
+        6
+      ],
+      "items": 7,
+      "coach": false,
+      "basic": {
+        "total": 7,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          3
+        ],
+        "fixed": 7,
+        "unresolved": 0,
+        "rounds": 4,
+        "domains": [
+          [
+            "たいよう"
+          ],
+          [
+            "うみ"
+          ],
+          [
+            "いずみ"
+          ],
+          [
+            "おか"
+          ],
+          [
+            "かみなり"
+          ],
+          [
+            "みずうみ"
+          ],
+          [
+            "きり"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              "たいよう",
+              "かみなり",
+              "みずうみ"
+            ],
+            "after": [
+              "たいよう"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "うみ",
+              "おか",
+              "きり"
+            ],
+            "after": [
+              "うみ"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "うみ",
+              "おか",
+              "きり"
+            ],
+            "after": [
+              "おか",
+              "きり"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "たいよう",
+              "かみなり",
+              "みずうみ"
+            ],
+            "after": [
+              "かみなり",
+              "みずうみ"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "たいよう",
+              "かみなり",
+              "みずうみ"
+            ],
+            "after": [
+              "かみなり",
+              "みずうみ"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "かみなり",
+              "みずうみ"
+            ],
+            "after": [
+              "みずうみ"
+            ],
+            "reason": "置き場1の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "うみ",
+              "おか",
+              "きり"
+            ],
+            "after": [
+              "おか",
+              "きり"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "かみなり",
+              "みずうみ"
+            ],
+            "after": [
+              "かみなり"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "おか",
+              "きり"
+            ],
+            "after": [
+              "きり"
+            ],
+            "reason": "置き場5の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "おか",
+              "きり"
+            ],
+            "after": [
+              "おか"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          }
+        ]
+      },
+      "extended": {
+        "total": 7,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          3,
+          3,
+          1,
+          3,
+          3,
+          3,
+          3
+        ],
+        "fixed": 7,
+        "unresolved": 0,
+        "rounds": 2,
+        "domains": [
+          [
+            "たいよう"
+          ],
+          [
+            "うみ"
+          ],
+          [
+            "いずみ"
+          ],
+          [
+            "おか"
+          ],
+          [
+            "かみなり"
+          ],
+          [
+            "みずうみ"
+          ],
+          [
+            "きり"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              "たいよう",
+              "かみなり",
+              "みずうみ"
+            ],
+            "after": [
+              "たいよう"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "うみ",
+              "おか",
+              "きり"
+            ],
+            "after": [
+              "うみ"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "うみ",
+              "おか",
+              "きり"
+            ],
+            "after": [
+              "おか",
+              "きり"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "おか",
+              "きり"
+            ],
+            "after": [
+              "おか"
+            ],
+            "reason": "置き場5の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "たいよう",
+              "かみなり",
+              "みずうみ"
+            ],
+            "after": [
+              "かみなり",
+              "みずうみ"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "かみなり",
+              "みずうみ"
+            ],
+            "after": [
+              "かみなり"
+            ],
+            "reason": "置き場4の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "たいよう",
+              "かみなり",
+              "みずうみ"
+            ],
+            "after": [
+              "かみなり",
+              "みずうみ"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "かみなり",
+              "みずうみ"
+            ],
+            "after": [
+              "みずうみ"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "うみ",
+              "おか",
+              "きり"
+            ],
+            "after": [
+              "おか",
+              "きり"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "おか",
+              "きり"
+            ],
+            "after": [
+              "きり"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          }
+        ]
+      }
+    },
+    {
+      "game": "katsuji",
+      "page": 5,
+      "theme": "いえ",
+      "dimensions": [
+        6,
+        8
+      ],
+      "items": 8,
+      "coach": false,
+      "basic": {
+        "total": 8,
+        "givens": 0,
+        "initial_singletons": 2,
+        "initial_candidate_counts": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          1,
+          6,
+          1
+        ],
+        "fixed": 8,
+        "unresolved": 0,
+        "rounds": 6,
+        "domains": [
+          [
+            "ふすま"
+          ],
+          [
+            "たんす"
+          ],
+          [
+            "たたみ"
+          ],
+          [
+            "かがみ"
+          ],
+          [
+            "かばん"
+          ],
+          [
+            "えんぴつ"
+          ],
+          [
+            "つくえ"
+          ],
+          [
+            "くつ"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 5,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "かばん"
+            ],
+            "reason": "置き場6の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "after": [
+              "つくえ"
+            ],
+            "reason": "置き場6の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ"
+            ],
+            "after": [
+              "かがみ"
+            ],
+            "reason": "置き場5の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ"
+            ],
+            "after": [
+              "たたみ"
+            ],
+            "reason": "置き場4の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "ふすま",
+              "たんす"
+            ],
+            "after": [
+              "たんす"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "ふすま",
+              "たんす"
+            ],
+            "after": [
+              "ふすま"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          }
+        ]
+      },
+      "extended": {
+        "total": 8,
+        "givens": 0,
+        "initial_singletons": 2,
+        "initial_candidate_counts": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          1,
+          6,
+          1
+        ],
+        "fixed": 8,
+        "unresolved": 0,
+        "rounds": 3,
+        "domains": [
+          [
+            "ふすま"
+          ],
+          [
+            "たんす"
+          ],
+          [
+            "たたみ"
+          ],
+          [
+            "かがみ"
+          ],
+          [
+            "かばん"
+          ],
+          [
+            "えんぴつ"
+          ],
+          [
+            "つくえ"
+          ],
+          [
+            "くつ"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす"
+            ],
+            "reason": "置き場2の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "たんす",
+              "かばん"
+            ],
+            "reason": "置き場1の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "たたみ",
+              "かがみ"
+            ],
+            "reason": "置き場2の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "たたみ",
+              "かがみ"
+            ],
+            "reason": "置き場3の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "たんす",
+              "かばん"
+            ],
+            "reason": "置き場4の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "たんす",
+              "かばん"
+            ],
+            "after": [
+              "かばん"
+            ],
+            "reason": "置き場6の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "かばん",
+              "つくえ"
+            ],
+            "after": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "ふすま",
+              "たんす",
+              "たたみ",
+              "かがみ",
+              "つくえ"
+            ],
+            "after": [
+              "つくえ"
+            ],
+            "reason": "置き場6の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "ふすま",
+              "たんす"
+            ],
+            "after": [
+              "ふすま"
+            ],
+            "reason": "語「ふすま」を置ける場所がここだけ"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "たんす",
+              "かばん"
+            ],
+            "after": [
+              "たんす"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "たたみ",
+              "かがみ"
+            ],
+            "after": [
+              "たたみ"
+            ],
+            "reason": "置き場2の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "たたみ",
+              "かがみ"
+            ],
+            "after": [
+              "かがみ"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          }
+        ]
+      }
+    },
+    {
+      "game": "katsuji",
+      "page": 6,
+      "theme": "とり",
+      "dimensions": [
+        8,
+        5
+      ],
+      "items": 8,
+      "coach": false,
+      "basic": {
+        "total": 8,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          2,
+          5,
+          1,
+          5,
+          2,
+          5,
+          5,
+          5
+        ],
+        "fixed": 8,
+        "unresolved": 0,
+        "rounds": 5,
+        "domains": [
+          [
+            "たか"
+          ],
+          [
+            "かもめ"
+          ],
+          [
+            "ふくろう"
+          ],
+          [
+            "めじろ"
+          ],
+          [
+            "かも"
+          ],
+          [
+            "からす"
+          ],
+          [
+            "うずら"
+          ],
+          [
+            "すずめ"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 4,
+            "before": [
+              "かもめ",
+              "めじろ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "めじろ"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "かもめ",
+              "めじろ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "かもめ",
+              "めじろ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "うずら"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "かもめ",
+              "めじろ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす",
+              "すずめ"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "かもめ",
+              "めじろ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす",
+              "すずめ"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "かもめ",
+              "からす",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "すずめ"
+            ],
+            "reason": "置き場4の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす",
+              "すずめ"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "かもめ",
+              "からす",
+              "すずめ"
+            ],
+            "after": [
+              "からす"
+            ],
+            "reason": "置き場7の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "かもめ",
+              "からす",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "すずめ"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "かもめ",
+              "すずめ"
+            ],
+            "after": [
+              "すずめ"
+            ],
+            "reason": "置き場6の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "かもめ",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ"
+            ],
+            "reason": "置き場8に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "たか",
+              "かも"
+            ],
+            "after": [
+              "かも"
+            ],
+            "reason": "置き場6の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "たか",
+              "かも"
+            ],
+            "after": [
+              "たか"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          }
+        ]
+      },
+      "extended": {
+        "total": 8,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          2,
+          5,
+          1,
+          5,
+          2,
+          5,
+          5,
+          5
+        ],
+        "fixed": 8,
+        "unresolved": 0,
+        "rounds": 3,
+        "domains": [
+          [
+            "たか"
+          ],
+          [
+            "かもめ"
+          ],
+          [
+            "ふくろう"
+          ],
+          [
+            "めじろ"
+          ],
+          [
+            "かも"
+          ],
+          [
+            "からす"
+          ],
+          [
+            "うずら"
+          ],
+          [
+            "すずめ"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              "たか",
+              "かも"
+            ],
+            "after": [
+              "たか"
+            ],
+            "reason": "置き場2の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "かもめ",
+              "めじろ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす"
+            ],
+            "reason": "置き場1の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "かもめ",
+              "めじろ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "めじろ",
+              "すずめ"
+            ],
+            "reason": "置き場2の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "めじろ",
+              "すずめ"
+            ],
+            "after": [
+              "めじろ"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "たか",
+              "かも"
+            ],
+            "after": [
+              "かも"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "かもめ",
+              "めじろ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす"
+            ],
+            "reason": "置き場5の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "かもめ",
+              "からす"
+            ],
+            "after": [
+              "からす"
+            ],
+            "reason": "置き場7の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "かもめ",
+              "めじろ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "うずら",
+              "すずめ"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "かもめ",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "うずら"
+            ],
+            "reason": "置き場3の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "かもめ",
+              "めじろ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "かもめ",
+              "からす",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "うずら",
+              "すずめ"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "かもめ",
+              "うずら",
+              "すずめ"
+            ],
+            "after": [
+              "かもめ",
+              "すずめ"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "かもめ",
+              "すずめ"
+            ],
+            "after": [
+              "すずめ"
+            ],
+            "reason": "置き場6の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "かもめ",
+              "からす"
+            ],
+            "after": [
+              "かもめ"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          }
+        ]
+      }
+    },
+    {
+      "game": "katsuji",
+      "page": 7,
+      "theme": "まち",
+      "dimensions": [
+        7,
+        9
+      ],
+      "items": 9,
+      "coach": false,
+      "basic": {
+        "total": 9,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          2,
+          6,
+          2,
+          6,
+          6,
+          6,
+          1,
+          6,
+          6
+        ],
+        "fixed": 9,
+        "unresolved": 0,
+        "rounds": 4,
+        "domains": [
+          [
+            "くるま"
+          ],
+          [
+            "くうこう"
+          ],
+          [
+            "ほどう"
+          ],
+          [
+            "かいだん"
+          ],
+          [
+            "でんしゃ"
+          ],
+          [
+            "とうだい"
+          ],
+          [
+            "じてんしゃ"
+          ],
+          [
+            "しんごう"
+          ],
+          [
+            "ひこうき"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 4,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "かいだん"
+            ],
+            "reason": "置き場7の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "くうこう",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "でんしゃ"
+            ],
+            "reason": "置き場7の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "くうこう",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "くうこう",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "とうだい"
+            ],
+            "reason": "置き場4の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "くうこう",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "くうこう",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "くうこう",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "しんごう"
+            ],
+            "reason": "置き場7の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "くうこう",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "くうこう",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "くうこう",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "ひこうき"
+            ],
+            "reason": "置き場8に確定した語は再使用しない"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "くうこう",
+              "ひこうき"
+            ],
+            "after": [
+              "ひこうき"
+            ],
+            "reason": "置き場8の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "くうこう",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "くうこう",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "くうこう",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう",
+              "ひこうき"
+            ],
+            "reason": "置き場8に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "くうこう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう"
+            ],
+            "reason": "置き場9に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "くるま",
+              "ほどう"
+            ],
+            "after": [
+              "ほどう"
+            ],
+            "reason": "置き場2の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "くるま",
+              "ほどう"
+            ],
+            "after": [
+              "くるま"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          }
+        ]
+      },
+      "extended": {
+        "total": 9,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          2,
+          6,
+          2,
+          6,
+          6,
+          6,
+          1,
+          6,
+          6
+        ],
+        "fixed": 9,
+        "unresolved": 0,
+        "rounds": 2,
+        "domains": [
+          [
+            "くるま"
+          ],
+          [
+            "くうこう"
+          ],
+          [
+            "ほどう"
+          ],
+          [
+            "かいだん"
+          ],
+          [
+            "でんしゃ"
+          ],
+          [
+            "とうだい"
+          ],
+          [
+            "じてんしゃ"
+          ],
+          [
+            "しんごう"
+          ],
+          [
+            "ひこうき"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              "くるま",
+              "ほどう"
+            ],
+            "after": [
+              "くるま"
+            ],
+            "reason": "置き場2の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "くうこう"
+            ],
+            "reason": "置き場1の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "くるま",
+              "ほどう"
+            ],
+            "after": [
+              "ほどう"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう"
+            ],
+            "reason": "置き場6の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう"
+            ],
+            "after": [
+              "かいだん"
+            ],
+            "reason": "置き場7の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "でんしゃ"
+            ],
+            "reason": "置き場7の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "とうだい"
+            ],
+            "reason": "置き場2の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 8,
+            "before": [
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "しんごう"
+            ],
+            "reason": "置き場7の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "くうこう",
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "かいだん",
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "でんしゃ",
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "とうだい",
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "しんごう",
+              "ひこうき"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "しんごう",
+              "ひこうき"
+            ],
+            "after": [
+              "ひこうき"
+            ],
+            "reason": "置き場8に確定した語は再使用しない"
+          }
+        ]
+      }
+    },
+    {
+      "game": "katsuji",
+      "page": 8,
+      "theme": "きせつ",
+      "dimensions": [
+        8,
+        9
+      ],
+      "items": 9,
+      "coach": false,
+      "basic": {
+        "total": 9,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          3,
+          2,
+          3,
+          3,
+          3,
+          3,
+          2,
+          1,
+          3
+        ],
+        "fixed": 9,
+        "unresolved": 0,
+        "rounds": 4,
+        "domains": [
+          [
+            "ひなまつり"
+          ],
+          [
+            "ふゆ"
+          ],
+          [
+            "ふうりん"
+          ],
+          [
+            "おまつり"
+          ],
+          [
+            "ゆきだるま"
+          ],
+          [
+            "かきごおり"
+          ],
+          [
+            "はる"
+          ],
+          [
+            "つきみ"
+          ],
+          [
+            "まめまき"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 9,
+            "before": [
+              "ふうりん",
+              "おまつり",
+              "まめまき"
+            ],
+            "after": [
+              "まめまき"
+            ],
+            "reason": "置き場8の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "ふうりん",
+              "おまつり",
+              "まめまき"
+            ],
+            "after": [
+              "ふうりん",
+              "おまつり"
+            ],
+            "reason": "置き場9に確定した語は再使用しない"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "ふうりん",
+              "おまつり",
+              "まめまき"
+            ],
+            "after": [
+              "ふうりん",
+              "おまつり"
+            ],
+            "reason": "置き場9に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "ひなまつり",
+              "ゆきだるま",
+              "かきごおり"
+            ],
+            "after": [
+              "ゆきだるま"
+            ],
+            "reason": "置き場9の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "ひなまつり",
+              "ゆきだるま",
+              "かきごおり"
+            ],
+            "after": [
+              "ひなまつり",
+              "かきごおり"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "ひなまつり",
+              "かきごおり"
+            ],
+            "after": [
+              "かきごおり"
+            ],
+            "reason": "置き場5の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "ふゆ",
+              "はる"
+            ],
+            "after": [
+              "はる"
+            ],
+            "reason": "置き場5の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "ひなまつり",
+              "ゆきだるま",
+              "かきごおり"
+            ],
+            "after": [
+              "ひなまつり",
+              "かきごおり"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 1,
+            "before": [
+              "ひなまつり",
+              "かきごおり"
+            ],
+            "after": [
+              "ひなまつり"
+            ],
+            "reason": "置き場6に確定した語は再使用しない"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "ふゆ",
+              "はる"
+            ],
+            "after": [
+              "ふゆ"
+            ],
+            "reason": "置き場7に確定した語は再使用しない"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "ふうりん",
+              "おまつり"
+            ],
+            "after": [
+              "ふうりん"
+            ],
+            "reason": "置き場2の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "ふうりん",
+              "おまつり"
+            ],
+            "after": [
+              "おまつり"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          }
+        ]
+      },
+      "extended": {
+        "total": 9,
+        "givens": 0,
+        "initial_singletons": 1,
+        "initial_candidate_counts": [
+          3,
+          2,
+          3,
+          3,
+          3,
+          3,
+          2,
+          1,
+          3
+        ],
+        "fixed": 9,
+        "unresolved": 0,
+        "rounds": 2,
+        "domains": [
+          [
+            "ひなまつり"
+          ],
+          [
+            "ふゆ"
+          ],
+          [
+            "ふうりん"
+          ],
+          [
+            "おまつり"
+          ],
+          [
+            "ゆきだるま"
+          ],
+          [
+            "かきごおり"
+          ],
+          [
+            "はる"
+          ],
+          [
+            "つきみ"
+          ],
+          [
+            "まめまき"
+          ]
+        ],
+        "trace": [
+          {
+            "variable": 1,
+            "before": [
+              "ひなまつり",
+              "ゆきだるま",
+              "かきごおり"
+            ],
+            "after": [
+              "ひなまつり"
+            ],
+            "reason": "置き場4の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 2,
+            "before": [
+              "ふゆ",
+              "はる"
+            ],
+            "after": [
+              "ふゆ"
+            ],
+            "reason": "置き場3の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 3,
+            "before": [
+              "ふうりん",
+              "おまつり",
+              "まめまき"
+            ],
+            "after": [
+              "ふうりん"
+            ],
+            "reason": "置き場2の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "ふうりん",
+              "おまつり",
+              "まめまき"
+            ],
+            "after": [
+              "おまつり",
+              "まめまき"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          },
+          {
+            "variable": 4,
+            "before": [
+              "おまつり",
+              "まめまき"
+            ],
+            "after": [
+              "おまつり"
+            ],
+            "reason": "置き場1の確定語と交差文字が合う必要"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "ひなまつり",
+              "ゆきだるま",
+              "かきごおり"
+            ],
+            "after": [
+              "ゆきだるま",
+              "かきごおり"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 5,
+            "before": [
+              "ゆきだるま",
+              "かきごおり"
+            ],
+            "after": [
+              "ゆきだるま"
+            ],
+            "reason": "置き場7の未確定候補と交差文字が合う必要"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "ひなまつり",
+              "ゆきだるま",
+              "かきごおり"
+            ],
+            "after": [
+              "ゆきだるま",
+              "かきごおり"
+            ],
+            "reason": "置き場1に確定した語は再使用しない"
+          },
+          {
+            "variable": 6,
+            "before": [
+              "ゆきだるま",
+              "かきごおり"
+            ],
+            "after": [
+              "かきごおり"
+            ],
+            "reason": "置き場5に確定した語は再使用しない"
+          },
+          {
+            "variable": 7,
+            "before": [
+              "ふゆ",
+              "はる"
+            ],
+            "after": [
+              "はる"
+            ],
+            "reason": "置き場2に確定した語は再使用しない"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "ふうりん",
+              "おまつり",
+              "まめまき"
+            ],
+            "after": [
+              "おまつり",
+              "まめまき"
+            ],
+            "reason": "置き場3に確定した語は再使用しない"
+          },
+          {
+            "variable": 9,
+            "before": [
+              "おまつり",
+              "まめまき"
+            ],
+            "after": [
+              "まめまき"
+            ],
+            "reason": "置き場4に確定した語は再使用しない"
+          }
+        ]
+      }
+    }
+  ]
+}
