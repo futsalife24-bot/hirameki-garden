@@ -1,6 +1,6 @@
 {
   "name": "hirameki-garden",
   "private": true,
-  "scripts": {"test": "node test.cjs"},
+  "scripts": {"test": "node test.cjs", "test:chomen": "node test-chomen.cjs"},
   "devDependencies": {"playwright": "1.62.1"}
 }

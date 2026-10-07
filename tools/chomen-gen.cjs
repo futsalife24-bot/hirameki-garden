@@ -3,6 +3,7 @@
 // 言葉とヒントは tools/chomen-clues.cjs。盤の組み方は活字（tools/katsuji-gen.cjs）と同じ。
 const fs=require('fs'),path=require('path');
 const CLUES=require('./chomen-clues.cjs');
+const CHALLENGE_CLUES=require('./chomen-challenge-clues.cjs');
 function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 
 const word=s=>[...s];
@@ -49,12 +50,19 @@ const cellsOf=s=>Array.from({length:s.len},(_,i)=>s.dir==='a'?[s.x+i,s.y]:[s.x,s
 const PLAN=[[5,6,6,'くだもの'],[6,6,6,'どうぶつ'],[6,7,7,'しぜん'],[7,7,7,'たべもの'],[7,7,7,'いえ'],[8,8,8,'きせつ'],[8,8,8,'まち'],
   [9,8,8,'どうぶつ'],[9,8,8,'くだもの'],[10,9,9,'しぜん'],[10,9,9,'たべもの'],[11,9,9,'いえ'],[11,9,9,'きせつ'],[12,10,10,'まち'],
   [12,10,10,'どうぶつ'],[13,10,10,'しぜん'],[13,10,10,'たべもの'],[14,11,11,'いえ'],[14,11,11,'きせつ'],[14,11,11,'どうぶつ']];
-const levels=[];let seed=31415;
-for(const [n,mw,mh,theme] of PLAN){
-  const pool=Object.keys(CLUES[theme]).filter(w=>w.length>=2);let want=n;
+// 21ページ目以降。既存のPLAN・辞書・乱数順は変えず、既存面と同じ最大11マスで語彙を難しくする。
+const CHALLENGE_PLAN=[
+  [10,10,10,'発展・言葉'],[10,10,10,'発展・科学'],[10,10,10,'発展・地理'],[10,10,10,'発展・数と論理'],
+  [12,10,10,'発展・言葉'],[12,10,10,'発展・科学'],[12,10,10,'発展・地理'],[12,10,10,'発展・数と論理']
+];
+const levels=[],usedChallenge=new Set();let seed=31415;
+for(const [page,[n,mw,mh,theme]] of [...PLAN,...CHALLENGE_PLAN].entries()){
+  const challenge=page>=PLAN.length,clues=(challenge?CHALLENGE_CLUES:CLUES)[theme];
+  const pool=Object.keys(clues).filter(w=>w.length>=2);let want=n;
   for(let attempt=1;;attempt++){
-    if(attempt%3000===0&&want>5)want--;
-    const r=rng(seed++),ws=pool.slice().map(w=>[w,r()+w.length*.12]).sort((a,b)=>b[1]-a[1]).map(a=>a[0]);
+    if(challenge&&attempt>12000)throw new Error(`発展ページを生成できません: ${page+1} ${theme}`);
+    if(!challenge&&attempt%3000===0&&want>5)want--;
+    const r=rng(seed++),ws=pool.slice().map(w=>[w,r()+w.length*.12-(challenge&&usedChallenge.has(w)?3:0)]).sort((a,b)=>b[1]-a[1]).map(a=>a[0]);
     const L=layout(ws,mw+1,mh+1,r);if(L.slots.length<want)continue;
     const keep=L.slots.slice(0,want),rows=Array.from({length:L.H},()=>Array(L.W).fill(''));
     keep.forEach(s=>cellsOf(s).forEach(([x,y],i)=>rows[y][x]=word(s.s)[i]));
@@ -62,13 +70,15 @@ for(const [n,mw,mh,theme] of PLAN){
     const R=rows.slice(ys[0],ys[ys.length-1]+1).map(r=>r.slice(xs[0],xs[xs.length-1]+1));
     const slots=slotsOf(R),words=slots.map(s=>cellsOf(s).map(([x,y])=>R[y][x]).join(''));
     if(slots.length!==want||new Set(words).size!==words.length||!words.every(w=>pool.includes(w)))continue;
+    if(challenge&&words.filter(w=>usedChallenge.has(w)).length>4)continue;
     const cells=[];R.forEach((row,y)=>row.forEach((c,x)=>{if(c)cells.push(x+','+y)}));const seen=new Set([cells[0]]),st=[cells[0]];
     while(st.length){const [x,y]=st.pop().split(',').map(Number);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const k=(x+dx)+','+(y+dy);if(cells.includes(k)&&!seen.has(k)){seen.add(k);st.push(k)}}}
     if(seen.size!==cells.length)continue;
     // 番号：左上から順に、言葉の始まるマスへ振る
     const starts=[...new Set(slots.map(s=>s.y*100+s.x))].sort((a,b)=>a-b);
-    const entries=slots.map((s,i)=>({n:starts.indexOf(s.y*100+s.x)+1,x:s.x,y:s.y,d:s.dir,a:words[i],c:CLUES[theme][words[i]]})).sort((a,b)=>(a.d===b.d?0:a.d==='a'?-1:1)||a.n-b.n);
+    const entries=slots.map((s,i)=>({n:starts.indexOf(s.y*100+s.x)+1,x:s.x,y:s.y,d:s.dir,a:words[i],c:clues[words[i]]})).sort((a,b)=>(a.d===b.d?0:a.d==='a'?-1:1)||a.n-b.n);
     levels.push({theme,rows:R.map(r=>r.map(c=>c||'.').join('')),entries});
+    if(challenge)words.forEach(w=>usedChallenge.add(w));
     process.stderr.write(`${levels.length}:${theme} ${R[0].length}x${R.length} 言葉${want} (試行${attempt})\n`);break;
   }
 }
