@@ -7,7 +7,7 @@
 - base: `c9bac0690d98f1b4991301f8468c8fbc14d93961`
 - 作業場所: `C:/Users/futsa/Documents/Codex/2026-10-06/4-pro20x-hub/hirameki-garden`
 - 旧checkout `C:/Users/futsa/Documents/Codex/2026-10-04/new-chat-4/kintsugi` は変更していない。
-- 公開状態: 実装・自己検証用ブランチ。main反映・公開は未実施、本人承認が必要。
+- 公開状態: 2026-10-07の本人承認「ひらめきの庭公開して」を受け、PR #1をmainへ統合し公開済み。
 - 実行モデルID・推論設定: 取得できず未確認。モデル切替なし。
 
 ## 追加内容
@@ -60,3 +60,25 @@
 検証結果はローカルの `test-results/chomen/report.json`、画面は `test-results/chomen/page28-320.png` と `page28-1280.png`。
 これらの再生成物は既存のignore対象。検証コードは `test-chomen.cjs` に保存。
 実機スマホ、日本語IMEが画面を覆う状態、本人によるプレイ難度の評価は未確認。
+
+## 公開確認（2026-10-07 14:15 JST）
+
+- PR: https://github.com/futsalife24-bot/hirameki-garden/pull/1
+- 実装HEAD: `5e14183994afc30af879579dc335860171826bc2`
+- 通常mergeで統合: `61664586ead9c5d8bdc542b2633e864b7846ab9b`
+- Pages処理: https://github.com/futsalife24-bot/hirameki-garden/actions/runs/37575341185 （completed / success）
+- 公開先: https://futsalife24-bot.github.io/hirameki-garden/
+
+main・PRの開始確認では他の差分、競合、必須チェックはなかった。保護やCIの設定は変えず、通常merge後にローカルmainを早送り同期。
+公開URLの `chomen-levels.js`・`sw.js`・`chomen.js` を取得し、統合コミットの内容とSHA256が完全一致した。問題数28、SWは `hirameki-v16`。
+
+| 配信ファイル | SHA256 |
+| --- | --- |
+| chomen-levels.js | `616cf078907530b8d13e96b5e320ad74292fb07444adf7cad49a7e238914b05b` |
+| sw.js | `dc35dd4c090616cbf5312352e8b17008b6d9b7f2b2414c51086f4519a5fe37a3` |
+| chomen.js | `4d26adc910de4dd3f95756df18c0184cc40459213e7543d24e9bd06bb97d91e4` |
+
+公開先を独立したヘッドレスEdgeで開き、20ページ完了保存→21、追加面の回答と再読込、旧自己ベスト保持、28ページの全12回答と完成後再読込→1、オフライン保存再開に合格。JavaScript実行エラーなし。
+公開画面の390px（21ページ途中）と1280px（28ページ完成）を目視確認した。共有Computer Useや利用者のブラウザは使用していない。
+ローカル証拠は `test-results/chomen/published-report.json`、`published-page21-390.png`、`published-page28-complete-1280.png`。
+この公開記録の同期では文書だけを更新し、検証済みの配信コードは変更しない。

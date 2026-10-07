@@ -11,7 +11,10 @@
 旧checkoutは保持し、今回の作業場所は `C:/Users/futsa/Documents/Codex/2026-10-06/4-pro20x-hub/hirameki-garden`。
 `test-chomen.cjs` 合格。旧20ページSHA256一致・再生成一致、全追加面の解答と保存、20→21と最終面遷移、SW更新、オフライン、88ヒント×4サイズの表示を確認。
 既定 `test.cjs` も1回実行して合格。既存8作品の操作・保存・画面幅・オフライン・オープニングに回帰なし。
-詳細と検証の限界は [発展ページの記録](docs/CHOMEN-CHALLENGE-20261007.md)。公開・main反映は未実施。実行モデルID・推論設定は未確認。
+詳細と検証の限界は [発展ページの記録](docs/CHOMEN-CHALLENGE-20261007.md)。実行モデルID・推論設定は未確認。
+2026-10-07の本人承認「ひらめきの庭公開して」を受け、[PR #1](https://github.com/futsalife24-bot/hirameki-garden/pull/1) を通常merge。
+統合SHA `61664586ead9c5d8bdc542b2633e864b7846ab9b`。[Pages処理](https://github.com/futsalife24-bot/hirameki-garden/actions/runs/37575341185) が成功し、公開先の問題データ・SW・操作コードのSHA256一致と全28ページを確認。
+公開先の独立ヘッドレス確認では20→21、28→1、回答・再読込・自己ベスト維持・オフラインが合格し、実行エラーなし。公開画面390/1280pxを目視確認。今回の記録更新で配信コードの変更なし。
 
 ## 2026-10-06：算額の追加
 
