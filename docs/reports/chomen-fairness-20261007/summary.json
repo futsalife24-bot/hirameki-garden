@@ -1,0 +1,568 @@
+{
+  "evaluated_on": "2026-10-07",
+  "base_commit": "6260027eca22336d688804d43e7075f59658737b",
+  "hash_format": "UTF-8 / LF正規化",
+  "source_sha256": "616cf078907530b8d13e96b5e320ad74292fb07444adf7cad49a7e238914b05b",
+  "annotations_sha256": "9dafaa39ee7422ff80434d7f141552f6821320a064ba7cbb02b946e700a48dde",
+  "evaluator_sha256": "1fe575fd3b5fd3e0b56427014b3973829216cd3ea44b29058e40166900071fd9",
+  "limits": [
+    "語義は主担当レビュー。独立監査・プレイテストではない。",
+    "別解は人が登録した候補のみ。自然言語の一意性証明ではない。",
+    "交差パターンは対象語以外をすべて解いた場合の上限で、実際の解答順を表さない。",
+    "knowledgeは内容の分類で、年齢・学年・正答率の分類ではない。"
+  ],
+  "counts": {
+    "pages": 28,
+    "entries": 275,
+    "distinct_answers": 180
+  },
+  "sections": [
+    {
+      "section": "既存1〜20面",
+      "entries": 187,
+      "distinct_answers": 103,
+      "one_crossing": 65,
+      "full_crossing": 35,
+      "word_positions": 554,
+      "crossed_word_positions": 334
+    },
+    {
+      "section": "発展21〜28面",
+      "entries": 88,
+      "distinct_answers": 77,
+      "one_crossing": 32,
+      "full_crossing": 2,
+      "word_positions": 359,
+      "crossed_word_positions": 160
+    }
+  ],
+  "unresolved_natural_alternatives": [
+    {
+      "id": "P11-a1",
+      "answer": "おにぎり",
+      "alternatives": [
+        "おむすび"
+      ]
+    },
+    {
+      "id": "P21-a1",
+      "answer": "たいぎご",
+      "alternatives": [
+        "はんいご",
+        "はんぎご"
+      ]
+    }
+  ],
+  "validation": {
+    "source_pinned": true,
+    "every_answer_reviewed": true,
+    "crossings_checked_by_two_methods": true,
+    "source_unchanged": true
+  },
+  "pages": [
+    {
+      "page": 1,
+      "theme": "くだもの",
+      "width": 5,
+      "height": 5,
+      "entries": 5,
+      "new_answers": 5,
+      "repeated_answers": 0,
+      "one_crossing": 3,
+      "full_crossing": 0,
+      "word_positions": 15,
+      "crossed_word_positions": 8,
+      "knowledge_counts": {
+        "日常語": 2,
+        "生活・文化知識": 3,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 2,
+      "theme": "どうぶつ",
+      "width": 5,
+      "height": 5,
+      "entries": 6,
+      "new_answers": 6,
+      "repeated_answers": 0,
+      "one_crossing": 2,
+      "full_crossing": 2,
+      "word_positions": 14,
+      "crossed_word_positions": 10,
+      "knowledge_counts": {
+        "日常語": 5,
+        "生活・文化知識": 1,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 3,
+      "theme": "しぜん",
+      "width": 4,
+      "height": 4,
+      "entries": 6,
+      "new_answers": 6,
+      "repeated_answers": 0,
+      "one_crossing": 4,
+      "full_crossing": 1,
+      "word_positions": 15,
+      "crossed_word_positions": 10,
+      "knowledge_counts": {
+        "日常語": 6,
+        "生活・文化知識": 0,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 4,
+      "theme": "たべもの",
+      "width": 7,
+      "height": 5,
+      "entries": 7,
+      "new_answers": 7,
+      "repeated_answers": 0,
+      "one_crossing": 2,
+      "full_crossing": 1,
+      "word_positions": 20,
+      "crossed_word_positions": 12,
+      "knowledge_counts": {
+        "日常語": 7,
+        "生活・文化知識": 0,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 5,
+      "theme": "いえ",
+      "width": 6,
+      "height": 7,
+      "entries": 7,
+      "new_answers": 7,
+      "repeated_answers": 0,
+      "one_crossing": 2,
+      "full_crossing": 1,
+      "word_positions": 19,
+      "crossed_word_positions": 12,
+      "knowledge_counts": {
+        "日常語": 7,
+        "生活・文化知識": 0,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 6,
+      "theme": "きせつ",
+      "width": 6,
+      "height": 8,
+      "entries": 8,
+      "new_answers": 8,
+      "repeated_answers": 0,
+      "one_crossing": 4,
+      "full_crossing": 0,
+      "word_positions": 31,
+      "crossed_word_positions": 14,
+      "knowledge_counts": {
+        "日常語": 3,
+        "生活・文化知識": 5,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 7,
+      "theme": "まち",
+      "width": 6,
+      "height": 9,
+      "entries": 8,
+      "new_answers": 8,
+      "repeated_answers": 0,
+      "one_crossing": 3,
+      "full_crossing": 0,
+      "word_positions": 30,
+      "crossed_word_positions": 14,
+      "knowledge_counts": {
+        "日常語": 8,
+        "生活・文化知識": 0,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 8,
+      "theme": "どうぶつ",
+      "width": 7,
+      "height": 6,
+      "entries": 9,
+      "new_answers": 4,
+      "repeated_answers": 5,
+      "one_crossing": 2,
+      "full_crossing": 3,
+      "word_positions": 24,
+      "crossed_word_positions": 16,
+      "knowledge_counts": {
+        "日常語": 7,
+        "生活・文化知識": 2,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 9,
+      "theme": "くだもの",
+      "width": 8,
+      "height": 6,
+      "entries": 9,
+      "new_answers": 4,
+      "repeated_answers": 5,
+      "one_crossing": 3,
+      "full_crossing": 1,
+      "word_positions": 26,
+      "crossed_word_positions": 16,
+      "knowledge_counts": {
+        "日常語": 5,
+        "生活・文化知識": 4,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 10,
+      "theme": "しぜん",
+      "width": 6,
+      "height": 4,
+      "entries": 8,
+      "new_answers": 5,
+      "repeated_answers": 3,
+      "one_crossing": 4,
+      "full_crossing": 4,
+      "word_positions": 18,
+      "crossed_word_positions": 14,
+      "knowledge_counts": {
+        "日常語": 8,
+        "生活・文化知識": 0,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 11,
+      "theme": "たべもの",
+      "width": 8,
+      "height": 8,
+      "entries": 10,
+      "new_answers": 6,
+      "repeated_answers": 4,
+      "one_crossing": 2,
+      "full_crossing": 1,
+      "word_positions": 31,
+      "crossed_word_positions": 18,
+      "knowledge_counts": {
+        "日常語": 7,
+        "生活・文化知識": 3,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 12,
+      "theme": "いえ",
+      "width": 7,
+      "height": 10,
+      "entries": 11,
+      "new_answers": 8,
+      "repeated_answers": 3,
+      "one_crossing": 3,
+      "full_crossing": 1,
+      "word_positions": 34,
+      "crossed_word_positions": 20,
+      "knowledge_counts": {
+        "日常語": 8,
+        "生活・文化知識": 3,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 13,
+      "theme": "きせつ",
+      "width": 9,
+      "height": 8,
+      "entries": 11,
+      "new_answers": 7,
+      "repeated_answers": 4,
+      "one_crossing": 5,
+      "full_crossing": 1,
+      "word_positions": 38,
+      "crossed_word_positions": 20,
+      "knowledge_counts": {
+        "日常語": 5,
+        "生活・文化知識": 6,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 14,
+      "theme": "まち",
+      "width": 11,
+      "height": 10,
+      "entries": 12,
+      "new_answers": 6,
+      "repeated_answers": 6,
+      "one_crossing": 4,
+      "full_crossing": 0,
+      "word_positions": 43,
+      "crossed_word_positions": 22,
+      "knowledge_counts": {
+        "日常語": 12,
+        "生活・文化知識": 0,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 15,
+      "theme": "どうぶつ",
+      "width": 7,
+      "height": 7,
+      "entries": 11,
+      "new_answers": 2,
+      "repeated_answers": 9,
+      "one_crossing": 3,
+      "full_crossing": 4,
+      "word_positions": 28,
+      "crossed_word_positions": 20,
+      "knowledge_counts": {
+        "日常語": 9,
+        "生活・文化知識": 2,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 16,
+      "theme": "しぜん",
+      "width": 4,
+      "height": 6,
+      "entries": 8,
+      "new_answers": 0,
+      "repeated_answers": 8,
+      "one_crossing": 4,
+      "full_crossing": 4,
+      "word_positions": 18,
+      "crossed_word_positions": 14,
+      "knowledge_counts": {
+        "日常語": 8,
+        "生活・文化知識": 0,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 17,
+      "theme": "たべもの",
+      "width": 11,
+      "height": 5,
+      "entries": 13,
+      "new_answers": 4,
+      "repeated_answers": 9,
+      "one_crossing": 4,
+      "full_crossing": 3,
+      "word_positions": 35,
+      "crossed_word_positions": 24,
+      "knowledge_counts": {
+        "日常語": 8,
+        "生活・文化知識": 5,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 18,
+      "theme": "いえ",
+      "width": 7,
+      "height": 11,
+      "entries": 13,
+      "new_answers": 6,
+      "repeated_answers": 7,
+      "one_crossing": 3,
+      "full_crossing": 2,
+      "word_positions": 38,
+      "crossed_word_positions": 24,
+      "knowledge_counts": {
+        "日常語": 10,
+        "生活・文化知識": 3,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 19,
+      "theme": "きせつ",
+      "width": 11,
+      "height": 10,
+      "entries": 14,
+      "new_answers": 3,
+      "repeated_answers": 11,
+      "one_crossing": 5,
+      "full_crossing": 2,
+      "word_positions": 49,
+      "crossed_word_positions": 26,
+      "knowledge_counts": {
+        "日常語": 5,
+        "生活・文化知識": 9,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 20,
+      "theme": "どうぶつ",
+      "width": 7,
+      "height": 7,
+      "entries": 11,
+      "new_answers": 1,
+      "repeated_answers": 10,
+      "one_crossing": 3,
+      "full_crossing": 4,
+      "word_positions": 28,
+      "crossed_word_positions": 20,
+      "knowledge_counts": {
+        "日常語": 8,
+        "生活・文化知識": 3,
+        "教科・用語知識": 0
+      }
+    },
+    {
+      "page": 21,
+      "theme": "発展・言葉",
+      "width": 11,
+      "height": 6,
+      "entries": 10,
+      "new_answers": 10,
+      "repeated_answers": 0,
+      "one_crossing": 3,
+      "full_crossing": 1,
+      "word_positions": 33,
+      "crossed_word_positions": 18,
+      "knowledge_counts": {
+        "日常語": 0,
+        "生活・文化知識": 2,
+        "教科・用語知識": 8
+      }
+    },
+    {
+      "page": 22,
+      "theme": "発展・科学",
+      "width": 11,
+      "height": 11,
+      "entries": 10,
+      "new_answers": 10,
+      "repeated_answers": 0,
+      "one_crossing": 4,
+      "full_crossing": 0,
+      "word_positions": 42,
+      "crossed_word_positions": 18,
+      "knowledge_counts": {
+        "日常語": 0,
+        "生活・文化知識": 0,
+        "教科・用語知識": 10
+      }
+    },
+    {
+      "page": 23,
+      "theme": "発展・地理",
+      "width": 11,
+      "height": 8,
+      "entries": 10,
+      "new_answers": 10,
+      "repeated_answers": 0,
+      "one_crossing": 5,
+      "full_crossing": 0,
+      "word_positions": 46,
+      "crossed_word_positions": 18,
+      "knowledge_counts": {
+        "日常語": 0,
+        "生活・文化知識": 0,
+        "教科・用語知識": 10
+      }
+    },
+    {
+      "page": 24,
+      "theme": "発展・数と論理",
+      "width": 10,
+      "height": 10,
+      "entries": 10,
+      "new_answers": 10,
+      "repeated_answers": 0,
+      "one_crossing": 5,
+      "full_crossing": 0,
+      "word_positions": 50,
+      "crossed_word_positions": 18,
+      "knowledge_counts": {
+        "日常語": 0,
+        "生活・文化知識": 0,
+        "教科・用語知識": 10
+      }
+    },
+    {
+      "page": 25,
+      "theme": "発展・言葉",
+      "width": 7,
+      "height": 11,
+      "entries": 12,
+      "new_answers": 8,
+      "repeated_answers": 4,
+      "one_crossing": 3,
+      "full_crossing": 1,
+      "word_positions": 43,
+      "crossed_word_positions": 22,
+      "knowledge_counts": {
+        "日常語": 0,
+        "生活・文化知識": 1,
+        "教科・用語知識": 11
+      }
+    },
+    {
+      "page": 26,
+      "theme": "発展・科学",
+      "width": 9,
+      "height": 11,
+      "entries": 12,
+      "new_answers": 9,
+      "repeated_answers": 3,
+      "one_crossing": 4,
+      "full_crossing": 0,
+      "word_positions": 48,
+      "crossed_word_positions": 22,
+      "knowledge_counts": {
+        "日常語": 0,
+        "生活・文化知識": 0,
+        "教科・用語知識": 12
+      }
+    },
+    {
+      "page": 27,
+      "theme": "発展・地理",
+      "width": 11,
+      "height": 10,
+      "entries": 12,
+      "new_answers": 11,
+      "repeated_answers": 1,
+      "one_crossing": 4,
+      "full_crossing": 0,
+      "word_positions": 48,
+      "crossed_word_positions": 22,
+      "knowledge_counts": {
+        "日常語": 0,
+        "生活・文化知識": 0,
+        "教科・用語知識": 12
+      }
+    },
+    {
+      "page": 28,
+      "theme": "発展・数と論理",
+      "width": 11,
+      "height": 11,
+      "entries": 12,
+      "new_answers": 9,
+      "repeated_answers": 3,
+      "one_crossing": 4,
+      "full_crossing": 0,
+      "word_positions": 49,
+      "crossed_word_positions": 22,
+      "knowledge_counts": {
+        "日常語": 0,
+        "生活・文化知識": 0,
+        "教科・用語知識": 12
+      }
+    }
+  ]
+}
