@@ -1,0 +1,19 @@
+{
+  "textChanges": [
+    {
+      "page": 30,
+      "answer": "どうせん",
+      "before": "電気回路の器具同士をつなぐ、金属製の線",
+      "after": "電気を「導く」ことから名付けられた、回路をつなぐ金属線"
+    },
+    {
+      "page": 31,
+      "answer": "しごせん",
+      "before": "北極と南極を結ぶ、地球上の経度の線",
+      "after": "「本初」を前に付けると経度零度の基準になる、南北方向の線"
+    }
+  ],
+  "clueViewportChecks": 8,
+  "unchangedAnswersAndBoards": true,
+  "javascriptErrors": []
+}
