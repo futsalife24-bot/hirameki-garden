@@ -4,6 +4,7 @@
 const fs=require('fs'),path=require('path');
 const CLUES=require('./chomen-clues.cjs');
 const CHALLENGE_CLUES=require('./chomen-challenge-clues.cjs');
+const CONTINUATION_CLUES=require('./chomen-continuation-clues.cjs');
 function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 
 const word=s=>[...s];
@@ -55,10 +56,13 @@ const CHALLENGE_PLAN=[
   [10,10,10,'発展・言葉'],[10,10,10,'発展・科学'],[10,10,10,'発展・地理'],[10,10,10,'発展・数と論理'],
   [12,10,10,'発展・言葉'],[12,10,10,'発展・科学'],[12,10,10,'発展・地理'],[12,10,10,'発展・数と論理']
 ];
-const levels=[],usedChallenge=new Set();let seed=31415;
-for(const [page,[n,mw,mh,theme]] of [...PLAN,...CHALLENGE_PLAN].entries()){
-  const challenge=page>=PLAN.length,clues=(challenge?CHALLENGE_CLUES:CLUES)[theme];
-  const pool=Object.keys(clues).filter(w=>w.length>=2);let want=n;
+// 29〜36ページも同じ語数と盤面上限。既存28ページの辞書・乱数順は変えない。
+const CONTINUATION_PLAN=CHALLENGE_PLAN;
+const levels=[],usedChallenge=new Set(),usedAnswers=new Set();let seed=31415;
+for(const [page,[n,mw,mh,theme]] of [...PLAN,...CHALLENGE_PLAN,...CONTINUATION_PLAN].entries()){
+  const continuation=page>=PLAN.length+CHALLENGE_PLAN.length;
+  const challenge=page>=PLAN.length,clues=(continuation?CONTINUATION_CLUES:challenge?CHALLENGE_CLUES:CLUES)[theme];
+  const pool=Object.keys(clues).filter(w=>w.length>=2&&(!continuation||!usedAnswers.has(w)));let want=n;
   for(let attempt=1;;attempt++){
     if(challenge&&attempt>12000)throw new Error(`発展ページを生成できません: ${page+1} ${theme}`);
     if(!challenge&&attempt%3000===0&&want>5)want--;
@@ -78,6 +82,7 @@ for(const [page,[n,mw,mh,theme]] of [...PLAN,...CHALLENGE_PLAN].entries()){
     const starts=[...new Set(slots.map(s=>s.y*100+s.x))].sort((a,b)=>a-b);
     const entries=slots.map((s,i)=>({n:starts.indexOf(s.y*100+s.x)+1,x:s.x,y:s.y,d:s.dir,a:words[i],c:clues[words[i]]})).sort((a,b)=>(a.d===b.d?0:a.d==='a'?-1:1)||a.n-b.n);
     levels.push({theme,rows:R.map(r=>r.map(c=>c||'.').join('')),entries});
+    words.forEach(w=>usedAnswers.add(w));
     if(challenge)words.forEach(w=>usedChallenge.add(w));
     process.stderr.write(`${levels.length}:${theme} ${R[0].length}x${R.length} 言葉${want} (試行${attempt})\n`);break;
   }

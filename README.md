@@ -4,7 +4,7 @@
 
 - 公開先：https://futsalife24-bot.github.io/hirameki-garden/
 - GitHub：https://github.com/futsalife24-bot/hirameki-garden
-- 作業場所：`C:/Users/futsa/Documents/Codex/2026-10-06/4-pro20x-hub/hirameki-garden`（2026-10-07の発展ページ用checkout。旧checkoutは保持）
+- 作業場所：`C:/Users/futsa/Documents/Codex/2026-10-13/text/hirameki-garden`（2026-10-13の追加ページ用checkout。既存checkoutと調査ブランチは保持）
 
 ## タイトル画面の方針
 
@@ -73,11 +73,12 @@
 
 ヒント付きのシンプルなクロスワード。マスをタップするとその言葉のヒントが上に出ます（同じマスをもう一度押すとタテ・ヨコ切替、‹ › で未記入のヒントへ）。
 答えをひらがな（カタカナも可）で打ち込み「書く」を押すと、合っていればペンで書き込まれます。違う答えは「書き損じ」として数えます。
-入力欄の「○」には、交わる言葉ですでにわかっている文字が入ります。全28ページ（言葉5〜14）。一ページ目は手ほどき。
+入力欄の「○」には、交わる言葉ですでにわかっている文字が入ります。全36ページ（言葉5〜14）。一ページ目は手ほどき。
 最初の20ページに続き、21〜28ページは「言葉・科学・地理・数と論理」の発展問題です。前半4ページは各10語、後半4ページは各12語。
+29〜36ページも同じ4テーマで、前半各10語・後半各12語の88問を追加。既存28ページと重ならず、追加ページ間でも同じ回答語を使いません。
 身近なものを直接説明する初級問題から、専門語や言葉の定義を手掛かりにする問題へ進みます。盤面は縦横それぞれ最大11マスで、既存面と同じ上限です。
-既存20ページの問題・順序・保存キーは変わりません。20ページ目を終えて次へ進むと、発展問題が始まります。
-問題は `tools/chomen-gen.cjs`（既存の言葉とヒントは `tools/chomen-clues.cjs`、発展用は `tools/chomen-challenge-clues.cjs`）で作り、`chomen-levels.js` に収録。保存は `chomen-save-v1`・`chomen-best`。
+既存28ページの問題・順序・保存キーは変わりません。28ページ目を終えて次へ進むと、新しい発展問題が始まります。
+問題は `tools/chomen-gen.cjs`（既存の言葉とヒントは `tools/chomen-clues.cjs`、21〜28ページ用は `tools/chomen-challenge-clues.cjs`、29〜36ページ用は `tools/chomen-continuation-clues.cjs`）で作り、`chomen-levels.js` に収録。保存は `chomen-save-v1`・`chomen-best`。
 
 ## 秘密箱
 
@@ -192,7 +193,8 @@ HTML・CSS・JavaScriptを更新するときは `sw.js` のVERSIONを上げま�
 - `chomen.js`・`chomen.css`・`chomen-levels.js`：帳面のゲーム・世界観・問題データ
 - `tools/chomen-gen.cjs`・`tools/chomen-clues.cjs`：帳面の問題を作る道具と、言葉・ヒント
 - `tools/chomen-challenge-clues.cjs`：帳面21〜28ページの発展用の言葉・ヒント
-- `test-chomen.cjs`：帳面の既存20ページ互換・発展問題・更新とオフラインの検証（`npm run test:chomen`）
+- `tools/chomen-continuation-clues.cjs`：帳面29〜36ページの追加の言葉・ヒント
+- `test-chomen.cjs`：帳面の既存28ページ互換・追加問題・タッチ操作・更新とオフラインの検証（`npm run test:chomen`）
 - `manifest.webmanifest`・`sw.js`：ホーム画面追加とオフライン対応
 - `icons/`：初回公開時の器アイコンを継続使用
 - `himitsu.js`・`himitsu.css`・`himitsu-levels.js`・`tools/himitsu-gen.cjs`：秘密箱のゲーム・世界観・問題データ・問題を作る道具
