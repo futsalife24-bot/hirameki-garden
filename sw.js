@@ -1,5 +1,5 @@
 // 更新を配信するときは VERSION の数字を上げてください
-const VERSION = 'hirameki-v17';
+const VERSION = 'hirameki-v18';
 const SHELL = [
   './',
   './index.html',
@@ -22,6 +22,9 @@ const SHELL = [
   './sangaku.css',
   './sangaku-levels.js',
   './sangaku.js',
+  './furo.css',
+  './furo-levels.js',
+  './furo.js',
   './somewake.css',
   './somewake-levels.js',
   './somewake.js',
