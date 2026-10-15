@@ -14,7 +14,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <script>
 // 表示の前に世界観を決める（ゲーム画面ならそのゲーム、庭なら前回選んだ遊び）
-(function(){var W=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu','somewake','sangaku'],h=location.hash.slice(1),w='kintsugi';try{w=W.indexOf(h)>=0?h:(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(W.indexOf(w)<0)w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
+(function(){var W=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu','somewake','sangaku','furo'],h=location.hash.slice(1),w='kintsugi';try{w=W.indexOf(h)>=0?h:(localStorage.getItem('hirameki-world')||'kintsugi')}catch(e){}if(W.indexOf(w)<0)w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
 </script>
 <link rel="icon" href="./icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
@@ -258,6 +258,7 @@ button.primary{
 <link rel="stylesheet" href="./himitsu.css">
 <link rel="stylesheet" href="./somewake.css">
 <link rel="stylesheet" href="./sangaku.css">
+<link rel="stylesheet" href="./furo.css">
 <!--next-css-->
 <link rel="stylesheet" href="./opening.css">
 </head>
@@ -313,6 +314,10 @@ button.primary{
     <div class="game-art"><canvas id="sg-art" width="900" height="760" role="img" aria-label="朱塗りの社殿にかかる算額。檜の板に太枠で区切られた数の盤が描かれている"></canvas><span class="art-caption">解いて、奉る。</span></div>
     <div class="game-story"><p class="eyebrow"><span class="catalog-number">八</span> 庭の遊び帖</p><h2 id="sg-collection-title">算額</h2><p class="game-subtitle">区画の式で数を決める、額のパズル。</p><p class="story-copy">行にも列にも、同じ数は一つだけ。<br>太枠に書かれた答えと式から、<br>一マスずつ数を決めていく。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="sg-play" class="play-game" href="#sangaku"><span id="sg-play-label">額に向かう</span><span aria-hidden="true">↗</span></a><p id="sg-resume-note" class="resume-note"></p></div>
   </article>
+  <article class="game-card" data-world="furo" aria-labelledby="fr-collection-title" aria-roledescription="スライド" hidden>
+    <div class="game-art"><div class="fr-art-scene" role="img" aria-label="紫の書斎に置かれた、赤い封蝋で閉じられた手紙"><div class="fr-envelope"><span class="fr-wax" aria-hidden="true">✧</span><span class="fr-art-marks" aria-hidden="true">月 星 花</span></div></div><span class="art-caption">手がかりは、封の向こうへ。</span></div>
+    <div class="game-story"><p class="eyebrow"><span class="catalog-number">九</span> 庭の遊び帖</p><h2 id="fr-collection-title">封蝋</h2><p class="game-subtitle">印の並びを読み解く、手紙の謎。</p><p class="story-copy">残された印と、二つの数。<br>場所も同じか、場所ちがいか。<br>推理がつながると、封がひらく。</p><div class="game-facts"><span>全20通の謎解き</span><span>時間制限なし</span></div><a id="fr-play" class="play-game" href="#furo"><span id="fr-play-label">手紙をひらく</span><span aria-hidden="true">↗</span></a><p id="fr-resume-note" class="resume-note"></p></div>
+  </article>
   </div>
   <div class="slide-ctl" aria-label="遊びの切り替え" role="group">
     <button class="slide-arrow" id="slide-prev" type="button" aria-label="前の遊び">‹</button>
@@ -325,6 +330,7 @@ button.primary{
     <button class="slide-dot" data-world="himitsu" type="button"><span aria-hidden="true">六</span> 秘密箱</button>
     <button class="slide-dot" data-world="somewake" type="button"><span aria-hidden="true">七</span> 染め分け</button>
     <button class="slide-dot" data-world="sangaku" type="button"><span aria-hidden="true">八</span> 算額</button>
+    <button class="slide-dot" data-world="furo" type="button"><span aria-hidden="true">九</span> 封蝋</button>
     </div>
     <button class="slide-arrow" id="slide-next" type="button" aria-label="次の遊び">›</button>
     <p class="visually-hidden" id="slide-status" aria-live="polite"></p>
@@ -648,6 +654,42 @@ button.primary{
     <button class="g-btn primary" type="button" data-close>閉じる</button>
   </dialog>
 </div>
+<div class="fr game-screen" id="furo" hidden>
+  <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 九</span></nav>
+  <header class="game-head">
+    <h1 id="fr-title" tabindex="-1">封蝋</h1>
+    <div class="g-tools"><button class="g-btn" type="button" data-help="fr-help" aria-haspopup="dialog">遊び方</button><button class="g-btn" id="fr-sound" type="button" aria-pressed="true">音あり</button></div>
+    <div class="g-level"><b id="fr-lv">第1通</b><span id="fr-size"></span></div>
+    <p class="coach" id="fr-coach" aria-live="polite" hidden></p>
+  </header>
+  <main class="fr-main">
+    <section class="fr-paper" aria-label="残された手がかり">
+      <div class="fr-clue-head" aria-hidden="true"><span>残された印</span><span>場所も同じ</span><span>場所ちがい</span></div>
+      <ol id="fr-clues"></ol>
+    </section>
+    <section id="fr-entry" aria-label="封印の並びを考える">
+      <div class="fr-entry-title">あなたの封印<span>同じ印は一度だけ</span></div>
+      <div id="fr-slots" role="group" aria-label="左から順に並べる封印。左右キーで選び、1から7キーで印を押せます"></div>
+      <div id="fr-pad" role="group" aria-label="印章を選ぶ"></div>
+      <p id="fr-message" role="status" aria-live="polite"></p>
+    </section>
+    <div class="foot">
+      <div class="g-bar"><div class="g-stat">試し押し<strong id="fr-attempts">0</strong></div><button class="g-btn" id="fr-undo" type="button">一手戻す</button><button class="g-btn" id="fr-reset" type="button">最初から</button><button class="g-btn primary" id="fr-check" type="button">封を解く</button></div>
+      <div class="g-done" id="fr-done" aria-live="polite"><div class="g-seal" aria-hidden="true">開</div><div><p class="g-done-title">手紙がひらきました</p><p class="g-done-note" id="fr-done-note"></p></div><button class="g-btn primary" id="fr-next" type="button">次の手紙へ</button></div>
+    </div>
+  </main>
+  <dialog class="howto" id="fr-help" aria-labelledby="fr-help-title">
+    <h2 id="fr-help-title">封蝋の遊び方</h2>
+    <ul>
+      <li>残された印と二つの数から、封印の並びを推理します。答えの中で同じ印は一度だけ使えます。</li>
+      <li>「場所も同じ」は、印と場所の両方が答えと同じ個数。「場所ちがい」は、答えにある印のうち場所だけが違う個数です。二つの数に同じ印を重ねて数えません。</li>
+      <li>例えば答えが「月・星・花」なら、「月・花・鍵」は「場所も同じ1、場所ちがい1」。月は場所も同じ、花は場所ちがい、鍵は答えにありません。</li>
+      <li>封印のマスを選び、下の印章を押します。すべて並べたら「封を解く」。どの手がかりにも合う答えは一つだけです。</li>
+      <li>左右キーでマス選択、1〜7キーで印章（左上から順）、DeleteかBackspaceで消去。やり直しは「最初から」を続けて2回押します。試し押しの回数と進み具合は自動保存されます。</li>
+    </ul>
+    <button class="g-btn primary" type="button" data-close>閉じる</button>
+  </dialog>
+</div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
 <script src="./hoshizu-levels.js"></script>
@@ -663,6 +705,8 @@ button.primary{
 <script src="./somewake.js"></script>
 <script src="./sangaku-levels.js"></script>
 <script src="./sangaku.js"></script>
+<script src="./furo-levels.js"></script>
+<script src="./furo.js"></script>
 <script src="./garden.js"></script>
 <script src="./ceramic.js"></script>
 <script>
@@ -1057,6 +1101,7 @@ button.primary{
     {id:'himitsu',screen:'himitsu',title:'秘密箱',focus:'hm-title',mod:'Himitsu',ids:['hm-play-label','hm-resume-note']},
     {id:'somewake',screen:'somewake',title:'染め分け',focus:'sw-title',mod:'Somewake',ids:['sw-play-label','sw-resume-note']},
     {id:'sangaku',screen:'sangaku',title:'算額',focus:'sg-title',mod:'Sangaku',ids:['sg-play-label','sg-resume-note']},
+    {id:'furo',screen:'furo',title:'封蝋',focus:'fr-title',mod:'Furo',ids:['fr-play-label','fr-resume-note']},
   ];
   window.HiramekiGames=GAMES;
   function showPage(focus){

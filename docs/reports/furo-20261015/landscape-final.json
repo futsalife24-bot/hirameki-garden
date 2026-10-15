@@ -1,0 +1,175 @@
+{
+  "date": "2026-10-15T13:02:52.061Z",
+  "levels": [
+    {
+      "level": 1,
+      "candidates": 24,
+      "solutions": 1,
+      "clues": 2
+    },
+    {
+      "level": 2,
+      "candidates": 60,
+      "solutions": 1,
+      "clues": 2
+    },
+    {
+      "level": 3,
+      "candidates": 60,
+      "solutions": 1,
+      "clues": 3
+    },
+    {
+      "level": 4,
+      "candidates": 60,
+      "solutions": 1,
+      "clues": 3
+    },
+    {
+      "level": 5,
+      "candidates": 120,
+      "solutions": 1,
+      "clues": 3
+    },
+    {
+      "level": 6,
+      "candidates": 120,
+      "solutions": 1,
+      "clues": 3
+    },
+    {
+      "level": 7,
+      "candidates": 120,
+      "solutions": 1,
+      "clues": 3
+    },
+    {
+      "level": 8,
+      "candidates": 120,
+      "solutions": 1,
+      "clues": 4
+    },
+    {
+      "level": 9,
+      "candidates": 120,
+      "solutions": 1,
+      "clues": 4
+    },
+    {
+      "level": 10,
+      "candidates": 120,
+      "solutions": 1,
+      "clues": 4
+    },
+    {
+      "level": 11,
+      "candidates": 360,
+      "solutions": 1,
+      "clues": 4
+    },
+    {
+      "level": 12,
+      "candidates": 360,
+      "solutions": 1,
+      "clues": 4
+    },
+    {
+      "level": 13,
+      "candidates": 360,
+      "solutions": 1,
+      "clues": 4
+    },
+    {
+      "level": 14,
+      "candidates": 360,
+      "solutions": 1,
+      "clues": 4
+    },
+    {
+      "level": 15,
+      "candidates": 840,
+      "solutions": 1,
+      "clues": 5
+    },
+    {
+      "level": 16,
+      "candidates": 840,
+      "solutions": 1,
+      "clues": 5
+    },
+    {
+      "level": 17,
+      "candidates": 840,
+      "solutions": 1,
+      "clues": 5
+    },
+    {
+      "level": 18,
+      "candidates": 840,
+      "solutions": 1,
+      "clues": 5
+    },
+    {
+      "level": 19,
+      "candidates": 840,
+      "solutions": 1,
+      "clues": 5
+    },
+    {
+      "level": 20,
+      "candidates": 840,
+      "solutions": 1,
+      "clues": 5
+    }
+  ],
+  "layouts": [
+    "568x320 第1通",
+    "568x320 第2通",
+    "568x320 第3通",
+    "568x320 第4通",
+    "568x320 第5通",
+    "568x320 第6通",
+    "568x320 第7通",
+    "568x320 第8通",
+    "568x320 第9通",
+    "568x320 第10通",
+    "568x320 第11通",
+    "568x320 第12通",
+    "568x320 第13通",
+    "568x320 第14通",
+    "568x320 第15通",
+    "568x320 第16通",
+    "568x320 第17通",
+    "568x320 第18通",
+    "568x320 第19通",
+    "568x320 第20通",
+    "844x390 第1通",
+    "844x390 第2通",
+    "844x390 第3通",
+    "844x390 第4通",
+    "844x390 第5通",
+    "844x390 第6通",
+    "844x390 第7通",
+    "844x390 第8通",
+    "844x390 第9通",
+    "844x390 第10通",
+    "844x390 第11通",
+    "844x390 第12通",
+    "844x390 第13通",
+    "844x390 第14通",
+    "844x390 第15通",
+    "844x390 第16通",
+    "844x390 第17通",
+    "844x390 第18通",
+    "844x390 第19通",
+    "844x390 第20通"
+  ],
+  "checks": [],
+  "screenshots": [
+    "game-landscape-568.png",
+    "game-landscape-844.png"
+  ],
+  "limitations": [
+    "実機スマホ・音の聴取は未確認。自動表示検査は外部フォントを遮断したフォールバック書体。"
+  ]
+}
