@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-20T13:46:27.863Z",
+  "url": "https://futsalife24-bot.github.io/hirameki-garden/",
+  "browser": "155.0.4283.62",
+  "profile": "一時Edge・合成データのみ",
+  "manifestLink": false,
+  "oldManifestStatus": 404,
+  "exportKeys": 25,
+  "exportMatchesBefore": true,
+  "readOnly": true,
+  "rawStoragePreserved": true,
+  "syntheticOtherCachePreserved": true,
+  "syntheticIndexedDBPreserved": true,
+  "registrations": [
+    {
+      "scope": "https://futsalife24-bot.github.io/hirameki-garden/",
+      "script": "https://futsalife24-bot.github.io/hirameki-garden/sw.js"
+    }
+  ],
+  "android": "未確認",
+  "oldUnupdatedOffline": "旧manifest付き画面が残る既知限界あり"
+}

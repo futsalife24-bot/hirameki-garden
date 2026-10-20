@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-20T13:38:37.515Z",
+  "origin": "https://hirameki-garden.pages.dev",
+  "results": [
+    {
+      "target": "/index.html",
+      "status": "合格",
+      "cached": [
+        {
+          "path": "./index.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        },
+        {
+          "path": "./migration.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        }
+      ],
+      "offlineAfterOnline": true
+    },
+    {
+      "target": "/migration.html",
+      "status": "合格",
+      "cached": [
+        {
+          "path": "./index.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        },
+        {
+          "path": "./migration.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        }
+      ],
+      "offlineAfterOnline": true
+    },
+    {
+      "target": "/migration",
+      "status": "合格",
+      "cached": [
+        {
+          "path": "./index.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        },
+        {
+          "path": "./migration.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        }
+      ],
+      "offlineAfterOnline": true
+    }
+  ]
+}

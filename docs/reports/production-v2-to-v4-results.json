@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-20T13:35:15.203Z",
+  "origin": "https://hirameki-garden.pages.dev",
+  "browser": "155.0.4283.62",
+  "profile": "一時Edge・合成データのみ",
+  "from": "hirameki-pages-v2",
+  "to": "hirameki-pages-v4",
+  "data25Preserved": true,
+  "rawKeysPreserved": true,
+  "oldCachePreserved": true,
+  "newCache": {
+    "redirected": false,
+    "type": "default",
+    "status": 200
+  },
+  "offlinePaths": [
+    "/index.html",
+    "/migration.html",
+    "/migration"
+  ],
+  "android": "未確認"
+}

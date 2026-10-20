@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-20T13:49:20.415879+00:00",
+  "sourceCommit": "c6fb2a4817481a14916dd8df8cf7019641c507d5",
+  "cloudflare": {
+    "deploymentId": "012f4b76-e3c1-46bd-b962-c63decbd7add",
+    "url": "https://hirameki-garden.pages.dev/",
+    "state": "公開成功"
+  },
+  "githubPages": {
+    "commit": "812c4ab71d1014dfe11d09cd893b65447fc8279f",
+    "state": "built",
+    "updatedAt": "2026-10-20T13:45:28Z"
+  },
+  "auditedFilesPreserved": 76,
+  "tests": [
+    {
+      "command": "test-production-migration.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "verify-production-v2-update.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "test-pages-redirect.cjs（PRODUCTION_REDIRECT_URL指定）",
+      "exitCode": 0
+    },
+    {
+      "command": "verify-legacy-assets.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "verify-legacy-publication.cjs",
+      "exitCode": 0
+    }
+  ],
+  "device": "Android実機未確認",
+  "userMigration": "本人データ移行は未完了",
+  "scope": "ひらめきの庭のみ。LMF・Swarm Front・他アプリの実データには操作なし。"
+}

@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-20T13:46:20.043Z",
+  "url": "https://futsalife24-bot.github.io/hirameki-garden/",
+  "oldReleaseCommit": "812c4ab71d1014dfe11d09cd893b65447fc8279f",
+  "files": [
+    {
+      "path": "chomen-levels.js",
+      "status": 200,
+      "sha256": "616cf078907530b8d13e96b5e320ad74292fb07444adf7cad49a7e238914b05b",
+      "auditedSha256": "7f41712b1b7437720e4f3020918477b4daaccca9e5244d5ade47ec666a6c0992",
+      "auditedByteEqual": false,
+      "difference": "Git管理によるCRLFからLFへの改行正規化のみ"
+    },
+    {
+      "path": "himitsu-levels.js",
+      "status": 200,
+      "sha256": "f8f5bf4de633f2a4c2f70c2d3b79eea3c9cf96f4a00f412270027df83b41fbed",
+      "auditedSha256": "fd56e96e4034f944c2f32953a9da4dd59a630f8ecae69ecbe243c039ec5237f0",
+      "auditedByteEqual": false,
+      "difference": "Git管理によるCRLFからLFへの改行正規化のみ"
+    },
+    {
+      "path": "hoshizu-levels.js",
+      "status": 200,
+      "sha256": "6d8cec612f357044f09eff359cf8e59cd7d99e50ff62a246febfe1fcdfd249b9",
+      "auditedSha256": "1526387b7ab40e1d6e94b343ded79e4236284f43bff089b9655938ae82077c8f",
+      "auditedByteEqual": false,
+      "difference": "Git管理によるCRLFからLFへの改行正規化のみ"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "sha256": "9f43ef83a0b8a29381a61071be3289e98491735d18982d2f50e2a686d2864f26",
+      "auditedSha256": "fc2553b376bda940c0eec979dd383e9d09b6427e0a97325ee1fea46c95614d19",
+      "auditedByteEqual": false,
+      "difference": "Git管理によるCRLFからLFへの改行正規化のみ"
+    },
+    {
+      "path": "katsuji-levels.js",
+      "status": 200,
+      "sha256": "b1285eb94513fc6a4faec8eac35283e9bc4c5a6f3b05d6eb5c512326aa1c2975",
+      "auditedSha256": "c080a3ef348c4b14642bd5407d008b5838f6e7be1c4fe947fe20fdde6a5b75fd",
+      "auditedByteEqual": false,
+      "difference": "Git管理によるCRLFからLFへの改行正規化のみ"
+    },
+    {
+      "path": "migration-data.js",
+      "status": 200,
+      "sha256": "667fe3f7edeb6ca7da96725b418ad7a7726e7955d285db3cbd80a3c651d65c41",
+      "auditedSha256": "341670b8dd066435203a7ebbfdbe0894eff6702f3db86f22c1ba43a9d0663a38",
+      "auditedByteEqual": false,
+      "difference": "Git管理によるCRLFからLFへの改行正規化のみ"
+    },
+    {
+      "path": "migration-ui.js",
+      "status": 200,
+      "sha256": "0d8171470601a5d795e324ceb22e4392d9d41b23c8a6e80398f550d139ad5314",
+      "auditedSha256": "0d8171470601a5d795e324ceb22e4392d9d41b23c8a6e80398f550d139ad5314",
+      "auditedByteEqual": true,
+      "difference": "なし"
+    },
+    {
+      "path": "migration.html",
+      "status": 200,
+      "sha256": "9f43ef83a0b8a29381a61071be3289e98491735d18982d2f50e2a686d2864f26",
+      "auditedSha256": "fc2553b376bda940c0eec979dd383e9d09b6427e0a97325ee1fea46c95614d19",
+      "auditedByteEqual": false,
+      "difference": "Git管理によるCRLFからLFへの改行正規化のみ"
+    },
+    {
+      "path": "sangaku-levels.js",
+      "status": 200,
+      "sha256": "6bd6e72c97f2d3f6630777869f9614ee5a1614279fe52aef8b54b79324f356da",
+      "auditedSha256": "18d2d081b5e267d982845fedd6b7615b157c6b2501ed52978c376c3f43dd964a",
+      "auditedByteEqual": false,
+      "difference": "Git管理によるCRLFからLFへの改行正規化のみ"
+    },
+    {
+      "path": "somewake-levels.js",
+      "status": 200,
+      "sha256": "228be91145d8f7cd3b270c9212252c4d1c85d0e64d9096223b52b6f40d1709fd",
+      "auditedSha256": "1dfc2272ddf758b41d539edcc4d02a53b6207bc2b161c9bf09f6ad23c238b24d",
+      "auditedByteEqual": false,
+      "difference": "Git管理によるCRLFからLFへの改行正規化のみ"
+    },
+    {
+      "path": "sw.js",
+      "status": 200,
+      "sha256": "448d454c9f6fcf2c80ecbae3a3164d1f6c3cde4b0cef38c0135fc6691ac8c2c3",
+      "auditedSha256": "448d454c9f6fcf2c80ecbae3a3164d1f6c3cde4b0cef38c0135fc6691ac8c2c3",
+      "auditedByteEqual": true,
+      "difference": "なし"
+    }
+  ],
+  "manifestStatus": 404
+}

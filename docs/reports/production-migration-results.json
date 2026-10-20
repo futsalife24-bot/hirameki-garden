@@ -1,0 +1,206 @@
+{
+  "date": "2026-10-20T13:34:28.717Z",
+  "origin": "https://hirameki-garden.pages.dev",
+  "sourceCommit": "c6fb2a4817481a14916dd8df8cf7019641c507d5",
+  "browser": "155.0.4283.62",
+  "profile": "Playwright一時プロファイル・合成データのみ",
+  "results": [
+    "本番36資材の応答と原本SHA256一致（404ページは200/404）",
+    "本番manifestのid/start_url/scopeはroot",
+    "本番の未知URLは404",
+    "本番SW制御と専用cache参照",
+    "隔離した旧版相当originから実JSONファイルを書出し",
+    "本番UIで異app拒否・確認キャンセル無変更・25項目import一致",
+    "本番import後の操作・保存・再起動",
+    "本番SWで庭と引継ぎ画面の両方向offline遷移",
+    "対象外合成cache本文保持・ページ実行エラーなし"
+  ],
+  "sw": {
+    "script": "https://hirameki-garden.pages.dev/sw.js",
+    "scope": "https://hirameki-garden.pages.dev/"
+  },
+  "hashes": [
+    {
+      "path": "404.html",
+      "status": 200,
+      "sha256": "e0809db02734e88661d379919c0a6675a0219d98b73fd61e3c5bc3063f659a5b"
+    },
+    {
+      "path": "ceramic.js",
+      "status": 200,
+      "sha256": "471d8255bb1cf45d916ab53996072db2d42b2434f5a157a10d553131f29b244c"
+    },
+    {
+      "path": "chomen-levels.js",
+      "status": 200,
+      "sha256": "7f41712b1b7437720e4f3020918477b4daaccca9e5244d5ade47ec666a6c0992"
+    },
+    {
+      "path": "chomen.css",
+      "status": 200,
+      "sha256": "612abdb5cbf360fad8cdb2cfc1d3e5dbe99334c2b557b19f9f4734311d5791f0"
+    },
+    {
+      "path": "chomen.js",
+      "status": 200,
+      "sha256": "80dd8c91863ed85b946f0a1c308b7e5fbe78eb4cb4edb05134fd28ee574ed2d2"
+    },
+    {
+      "path": "garden.css",
+      "status": 200,
+      "sha256": "cd74ff1bdd995fffcb315c9f762fc8d439cadcdc6f4e236f8ed50666044d49c9"
+    },
+    {
+      "path": "garden.js",
+      "status": 200,
+      "sha256": "e466ee9b9a8258f7c381015416ee167e632b830154e92c46b2ae088f07f96631"
+    },
+    {
+      "path": "himitsu-levels.js",
+      "status": 200,
+      "sha256": "fd56e96e4034f944c2f32953a9da4dd59a630f8ecae69ecbe243c039ec5237f0"
+    },
+    {
+      "path": "himitsu.css",
+      "status": 200,
+      "sha256": "27b5a67eafd22befb4477644bb19793d52185e86201c4b61d81641cede27fda5"
+    },
+    {
+      "path": "himitsu.js",
+      "status": 200,
+      "sha256": "7e4ed87eb95c148ac3499fde0de5343b606fcd85853d6249838f097b1b41c36a"
+    },
+    {
+      "path": "hoshizu-levels.js",
+      "status": 200,
+      "sha256": "1526387b7ab40e1d6e94b343ded79e4236284f43bff089b9655938ae82077c8f"
+    },
+    {
+      "path": "hoshizu.css",
+      "status": 200,
+      "sha256": "693056c9b0232c320c0cac6bbcad20c99d4410e3011f6f0f717e9b95001bf303"
+    },
+    {
+      "path": "hoshizu.js",
+      "status": 200,
+      "sha256": "6eca58b9c1f485680d1ce2cc60e82732228a1ce617617b45e704c8bd30504991"
+    },
+    {
+      "path": "icons/apple-touch-icon.png",
+      "status": 200,
+      "sha256": "99241e5cfd64f38d8dfcc56286f2d9e40bc9cf0f6fb8f87160487de21af3d4dc"
+    },
+    {
+      "path": "icons/icon-192.png",
+      "status": 200,
+      "sha256": "a8dc9c9128146a418036ae85dcaaff88f873afedc8381ec96b8b21cc62d76942"
+    },
+    {
+      "path": "icons/icon-512.png",
+      "status": 200,
+      "sha256": "e3de545dddffc3a0454dec4b503c0b99ebe8d21c619b01929d253185fcbb01a2"
+    },
+    {
+      "path": "icons/icon-maskable-512.png",
+      "status": 200,
+      "sha256": "77a5bab6bae2c50efac5decfc95616c55c15d14a55dbbccce201b7ca71bbf53a"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "sha256": "42dbc4e20da107005eeaa413ca0dab51741889511e0529d97d9f67f9b72b090c"
+    },
+    {
+      "path": "kagee.css",
+      "status": 200,
+      "sha256": "51c46188264a769ad0bb7700cca491a27026e4c83bc17bc4717dbf4e664a46ed"
+    },
+    {
+      "path": "kagee.js",
+      "status": 200,
+      "sha256": "454b2d6deb2e8cc83a7d69c8283991deb69edc4291324f22cbfe05efad974008"
+    },
+    {
+      "path": "katsuji-levels.js",
+      "status": 200,
+      "sha256": "c080a3ef348c4b14642bd5407d008b5838f6e7be1c4fe947fe20fdde6a5b75fd"
+    },
+    {
+      "path": "katsuji.css",
+      "status": 200,
+      "sha256": "87575bc01186026ba6543b8082e8af5ddfe3f02272039fd75e38873787b922fa"
+    },
+    {
+      "path": "katsuji.js",
+      "status": 200,
+      "sha256": "9a6d0f3cf555963a8baaeb7cc0e7448fda0d31ccc167b6102e72925f211c1d67"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "status": 200,
+      "sha256": "cf2b58275750c0aa7b71d9e013f11110a713144e9ee2d0b48c8f70361cb2bfba"
+    },
+    {
+      "path": "migration-data.js",
+      "status": 200,
+      "sha256": "341670b8dd066435203a7ebbfdbe0894eff6702f3db86f22c1ba43a9d0663a38"
+    },
+    {
+      "path": "migration-ui.js",
+      "status": 200,
+      "sha256": "0d8171470601a5d795e324ceb22e4392d9d41b23c8a6e80398f550d139ad5314"
+    },
+    {
+      "path": "migration.html",
+      "status": 200,
+      "sha256": "ce2f660ef34aa9b78dd1fc1b8651f506ec674f26bc31a61ff0c80f4df69cb48e"
+    },
+    {
+      "path": "opening.css",
+      "status": 200,
+      "sha256": "e86b39248eb952c077120810fb8421cfe2c1df567ad019d294b7cb03e0248c18"
+    },
+    {
+      "path": "opening.js",
+      "status": 200,
+      "sha256": "3a10bfbcd514bb9692b41c6b12cc1cfa6de9b18b60c845ffe008f9899d184b7d"
+    },
+    {
+      "path": "sangaku-levels.js",
+      "status": 200,
+      "sha256": "18d2d081b5e267d982845fedd6b7615b157c6b2501ed52978c376c3f43dd964a"
+    },
+    {
+      "path": "sangaku.css",
+      "status": 200,
+      "sha256": "dd97286e392483bdc87a2182422e7e69163ed044a1c04c972d78677726709590"
+    },
+    {
+      "path": "sangaku.js",
+      "status": 200,
+      "sha256": "19fff683ebf9afda67c431b6e2fd52031a1f2429ece7310b1fb0f59803abf293"
+    },
+    {
+      "path": "somewake-levels.js",
+      "status": 200,
+      "sha256": "1dfc2272ddf758b41d539edcc4d02a53b6207bc2b161c9bf09f6ad23c238b24d"
+    },
+    {
+      "path": "somewake.css",
+      "status": 200,
+      "sha256": "b64ea0cf99f5102a091dbad0ad4916870182225887eb632875423e475a7fd2ff"
+    },
+    {
+      "path": "somewake.js",
+      "status": 200,
+      "sha256": "455f9c2c4586043f8b8f5a3903c1feb7afc7b57a504a2e98176291ba1d00d75f"
+    },
+    {
+      "path": "sw.js",
+      "status": 200,
+      "sha256": "f27f6000db1cdd8d3a0b250ca0a967b3151381d1bae152000c057e8440e5579d"
+    }
+  ],
+  "android": "未確認",
+  "realUserMigration": "未実施"
+}
