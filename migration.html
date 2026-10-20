@@ -1,0 +1,14 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>データの引継ぎ — ひらめきの庭</title>
+<style>body{font:18px/1.7 system-ui;background:#eee9df;color:#282723;max-width:42em;margin:2em auto;padding:0 1em}button,input{font:inherit;margin:.5em 0;padding:.5em}pre{white-space:pre-wrap;overflow-wrap:anywhere}a{color:#174b72}label{display:block}section{border-top:1px solid #777;margin-top:2em}button:disabled{opacity:.5}</style>
+<h1>ひらめきの庭の引継ぎ</h1>
+<p id="notice">旧版から JSON を書き出し、新版で読み込んでください。元の保存内容は消しません。</p>
+<p>移行予定先：<a href="https://hirameki-garden.pages.dev/" rel="noreferrer">https://hirameki-garden.pages.dev/</a>（公開承認待ち。まだ移行しないでください）</p>
+<button id="export">JSON をファイルに保存</button>
+<p>保存したファイルを読み込み欄で検証し、内容が合っていることを確かめるまでアンインストールしないでください。</p>
+<section><h2>バックアップの確認と読み込み</h2><input id="file" type="file" accept=".json,application/json" aria-label="バックアップファイル">
+<pre id="preview">ファイルを選ぶと、保存日時・対象・進行・設定を確認できます。</pre>
+<label><input id="agree" type="checkbox" disabled>現在のひらめきの庭の全進行・自己ベスト・設定を、上の内容で置き換えます。</label>
+<button id="import" disabled>確認した内容で上書きする</button><button id="cancel">キャンセル</button></section>
+<p id="status" role="status" aria-live="polite"></p><p><a href="./">庭へ戻る</a></p>
+<script src="./hoshizu-levels.js"></script><script src="./katsuji-levels.js"></script><script src="./chomen-levels.js"></script><script src="./himitsu-levels.js"></script><script src="./somewake-levels.js"></script><script src="./sangaku-levels.js"></script>
+<script src="./migration-data.js"></script><script src="./migration-ui.js"></script></html>

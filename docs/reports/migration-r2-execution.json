@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-20T11:20:43.377230+00:00",
+  "source": "実行セッションの最終終了コードを実装者が記録",
+  "checks": [
+    {
+      "command": "node test-migration-audit.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration-unit.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration-upgrade.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tools/build-migration.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "beforeFix": "test-migration-audit.cjs は終了コード1、F1〜F4を再現",
+  "browser": "隔離headless Edge・合成データのみ",
+  "independentReaudit": "未実施",
+  "publication": "未承認・未実施"
+}

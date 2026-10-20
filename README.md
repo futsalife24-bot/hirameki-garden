@@ -199,3 +199,9 @@ HTML・CSS・JavaScriptを更新するときは `sw.js` のVERSIONを上げま�
 - `somewake.js`・`somewake.css`・`somewake-levels.js`・`tools/somewake-gen.cjs`：染め分けのゲーム・世界観・問題データ・問題を作る道具
 - `sangaku.js`・`sangaku.css`・`sangaku-levels.js`・`tools/sangaku-gen.cjs`：算額のゲーム・世界観・問題データ・問題を作る道具
 - `test.cjs`：操作・保存互換・画面幅・オフライン・オープニング・星図・影絵・活字・帳面・秘密箱・染め分け・算額の検証
+
+## PWA 移行の準備（2026-10-20・未公開）
+
+専用 branch `migration/cloudflare-hirameki-20261020` の移行差分は公開承認待ち。予定 URL は https://hirameki-garden.pages.dev/ （名前の利用可否未確認）。詳細・検証・配布・rollback は [公開待ち資料](docs/PWA-MIGRATION-20261020.md)、後続は [移行台帳](docs/PWA-MIGRATION-LEDGER.md) を参照。`node tools/build-migration.cjs` で新版 `dist/new` と旧書出し専用版 `dist/legacy` を分離生成する。今回の公開・push・project 作成は未承認・未実施。
+
+2026-10-20 監査後追記：初回独立監査は公開準備不合格。F1〜F4 を修正し、[修正対応資料](docs/PWA-MIGRATION-REMEDIATION-R2.md) を正本として独立再監査待ち。公開承認・配信は未実施。

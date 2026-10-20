@@ -4,7 +4,7 @@
    重なり（影と点線の面積の一致度）が90%を超えれば幕が上がる。 */
 (function(){
   const KEY='kagee-save-v1',BEST_KEY='kagee-best',SOUND_KEY='kagee-sound';
-  const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  const store={get(k){try{return HiramekiStorage.get(k)}catch(e){return null}},set(k,v){try{HiramekiStorage.set(k,v)}catch(e){}}};
   const $=id=>document.getElementById(id);
   const root=$('kagee');if(!root)return;
   const cv=$('kg-canvas'),x=cv.getContext('2d');

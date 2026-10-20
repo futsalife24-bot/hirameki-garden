@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-20T11:18:27.351Z",
+  "results": [
+    {
+      "name": "F3：旧配布にroot manifestを含まない",
+      "status": "合格"
+    },
+    {
+      "name": "F4：反射行列を拒否し正常回転の誤差を許容",
+      "status": "合格"
+    },
+    {
+      "name": "F2：同URLの対象外cacheを返さず変更もしない",
+      "status": "合格"
+    },
+    {
+      "name": "F1：庭の後に初回offline引継ぎ画面",
+      "status": "合格"
+    },
+    {
+      "name": "F1：引継ぎ画面の後にoffline庭とindex",
+      "status": "合格"
+    },
+    {
+      "name": "F1：404後にoffline起動が壊れない",
+      "status": "合格"
+    },
+    {
+      "name": "F4：反射backupは確認前に無変更で拒否",
+      "status": "合格"
+    },
+    {
+      "name": "F4：通常ドラッグ保存から取込後の回転を維持",
+      "status": "合格"
+    },
+    {
+      "name": "旧成果物は指定外の配置でも書出し専用",
+      "status": "合格"
+    },
+    {
+      "name": "対象外SW・cache本文・保存を保持",
+      "status": "合格"
+    }
+  ]
+}

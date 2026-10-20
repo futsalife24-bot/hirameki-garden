@@ -1,6 +1,14 @@
 {
   "name": "hirameki-garden",
   "private": true,
-  "scripts": {"test": "node test.cjs", "test:chomen": "node test-chomen.cjs"},
-  "devDependencies": {"playwright": "1.62.1"}
+  "scripts": {
+    "test": "node test.cjs",
+    "test:chomen": "node test-chomen.cjs",
+    "build": "node tools/build-migration.cjs",
+    "test:migration": "node test-migration.cjs",
+    "test:migration:audit": "node test-migration-audit.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
 }

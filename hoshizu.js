@@ -6,7 +6,7 @@
   const KEY='hoshizu-save-v1',BEST_KEY='hoshizu-best',SOUND_KEY='hoshizu-sound';
   const NS='http://www.w3.org/2000/svg',C=10,DIRS=[[0,-1],[1,0],[0,1],[-1,0]];
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  const store={get(k){try{return HiramekiStorage.get(k)}catch(e){return null}},set(k,v){try{HiramekiStorage.set(k,v)}catch(e){}}};
   const $=id=>document.getElementById(id);
   const root=$('hoshizu');if(!root||!LEVELS.length)return;
   const board=$('hz-board');

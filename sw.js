@@ -1,8 +1,11 @@
 // 更新を配信するときは VERSION の数字を上げてください
-const VERSION = 'hirameki-v16';
+const VERSION = 'hirameki-pages-v2';
 const SHELL = [
   './',
   './index.html',
+  './migration.html',
+  './migration-data.js',
+  './migration-ui.js',
   './garden.css',
   './ceramic.js',
   './opening.js',
@@ -41,9 +44,7 @@ self.addEventListener('install', e => {
 
 self.addEventListener('activate', e => {
   e.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k !== VERSION).map(k => caches.delete(k))))
-      .then(() => self.clients.claim())
+    self.clients.claim()
   );
 });
 
@@ -54,30 +55,42 @@ self.addEventListener('fetch', e => {
 
   // ページ本体：ネット優先（更新がすぐ届く）、オフライン時はキャッシュ
   if (req.mode === 'navigate') {
-    e.respondWith(
-      fetch(req).then(res => {
-        const copy = res.clone();
-        caches.open(VERSION).then(c => c.put('./index.html', copy));
+    const base = new URL('./', self.registration.scope);
+    const home = new URL('index.html', base);
+    // 庭の別名だけを統合し、引継ぎ画面や未知のパスは混同しない。
+    const key = url.pathname === base.pathname || url.pathname === home.pathname
+      ? home.href : new URL(url.pathname, base).href;
+    const response = caches.open(VERSION).then(async cache => {
+      try {
+        const res = await fetch(req);
+        if (res.ok) await cache.put(key, res.clone());
         return res;
-      }).catch(() => caches.match('./index.html'))
-    );
+      } catch (err) {
+        return await cache.match(key) || new Response('オフラインではこの画面を開けません。', {
+          status: 503, headers: {'Content-Type': 'text/plain; charset=utf-8'}
+        });
+      }
+    });
+    e.respondWith(response);
+    // キャッシュ書込みも fetch イベントの寿命内に完了させる。
+    e.waitUntil(response.then(() => {}));
     return;
   }
 
   // Google Fonts：キャッシュを返しつつ裏で更新
   if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
-    e.respondWith(
-      caches.open(VERSION + '-fonts').then(async c => {
+    const load = caches.open(VERSION + '-fonts').then(async c => {
         const hit = await c.match(req);
-        const net = fetch(req).then(res => { if (res.ok || res.type === 'opaque') c.put(req, res.clone()); return res; }).catch(() => hit);
-        return hit || net;
-      })
-    );
+        const net = fetch(req).then(async res => { if (res.ok || res.type === 'opaque') await c.put(req, res.clone()); return res; }).catch(() => hit);
+        return {hit, net};
+      });
+    e.respondWith(load.then(({hit, net}) => hit || net));
+    e.waitUntil(load.then(({net}) => net).then(() => {}));
     return;
   }
 
   // 同じサイトのファイル：キャッシュ優先
   if (url.origin === location.origin) {
-    e.respondWith(caches.match(req).then(hit => hit || fetch(req)));
+    e.respondWith(caches.open(VERSION).then(c => c.match(req)).then(hit => hit || fetch(req)));
   }
 });

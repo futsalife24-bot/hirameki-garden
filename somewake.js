@@ -5,7 +5,7 @@
 (function(){
   const LEVELS=window.SOMEWAKE_LEVELS||[];
   const KEY='somewake-save-v1',BEST_KEY='somewake-best',SOUND_KEY='somewake-sound',CAP=4;
-  const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  const store={get(k){try{return HiramekiStorage.get(k)}catch(e){return null}},set(k,v){try{HiramekiStorage.set(k,v)}catch(e){}}};
   const $=id=>document.getElementById(id);
   const root=$('somewake');if(!root||!LEVELS.length)return;
   const rack=$('sw-rack');

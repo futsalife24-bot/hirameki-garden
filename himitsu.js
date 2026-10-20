@@ -4,7 +4,7 @@
 (function(){
   const LEVELS=window.HIMITSU_LEVELS||[];
   const KEY='himitsu-save-v1',BEST_KEY='himitsu-best',SOUND_KEY='himitsu-sound';
-  const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  const store={get(k){try{return HiramekiStorage.get(k)}catch(e){return null}},set(k,v){try{HiramekiStorage.set(k,v)}catch(e){}}};
   const $=id=>document.getElementById(id);
   const root=$('himitsu');if(!root||!LEVELS.length)return;
   const boardEl=$('hm-board'),piecesEl=$('hm-pieces');

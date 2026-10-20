@@ -5,7 +5,7 @@
 (function(){
   const LEVELS=window.KATSUJI_LEVELS||[];
   const KEY='katsuji-save-v1',BEST_KEY='katsuji-best',SOUND_KEY='katsuji-sound';
-  const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  const store={get(k){try{return HiramekiStorage.get(k)}catch(e){return null}},set(k,v){try{HiramekiStorage.set(k,v)}catch(e){}}};
   const $=id=>document.getElementById(id);
   const root=$('katsuji');if(!root||!LEVELS.length)return;
   const gridEl=$('kj-grid'),trayEl=$('kj-tray');

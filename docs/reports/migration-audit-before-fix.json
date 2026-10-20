@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-20T11:13:54.005Z",
+  "results": [
+    {
+      "name": "F3：旧配布にroot manifestを含まない",
+      "status": "不合格",
+      "reason": "The expression evaluated to a falsy value:\n\n  assert(!fs.existsSync(f))\n"
+    },
+    {
+      "name": "F4：反射行列を拒否し正常回転の誤差を許容",
+      "status": "不合格",
+      "reason": "Missing expected exception."
+    },
+    {
+      "name": "F2：同URLの対象外cacheを返さず変更もしない",
+      "status": "不合格",
+      "reason": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n+   83,\n+   89,\n-   137,\n-   80,\n    78,\n+   84,\n+   72,\n+   69,\n+   84,\n+   73\n-   71,\n-   13,\n-   10,\n-   26,\n-   10\n  ]\n"
+    },
+    {
+      "name": "F1：庭の後に初回offline引継ぎ画面",
+      "status": "不合格",
+      "reason": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    },
+    {
+      "name": "F1：引継ぎ画面の後にoffline庭とindex",
+      "status": "不合格",
+      "reason": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    },
+    {
+      "name": "F1：404後にoffline起動が壊れない",
+      "status": "不合格",
+      "reason": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    },
+    {
+      "name": "F4：通常ドラッグ保存から取込後の回転を維持",
+      "status": "不合格",
+      "reason": "locator.boundingBox: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#kg-canvas')\u001b[22m\n"
+    },
+    {
+      "name": "対象外SW・cache本文・保存を保持",
+      "status": "合格"
+    }
+  ]
+}

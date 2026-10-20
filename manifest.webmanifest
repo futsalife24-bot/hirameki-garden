@@ -3,8 +3,8 @@
   "short_name": "ひらめきの庭",
   "description": "答えを急がないパズルを、ここに。最初の遊びは、器をつなぐ金継ぎ。",
   "lang": "ja",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#eee9df",
@@ -28,5 +28,6 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "id": "/"
 }

@@ -1,0 +1,13 @@
+{
+  "base": "6260027eca22336d688804d43e7075f59658737b",
+  "date": "2026-10-20T11:16:03.695Z",
+  "browser": "隔離headless Edge",
+  "originalSW": "hirameki-v16、元commitそのまま",
+  "cached": {
+    "shell": true,
+    "manifest": true
+  },
+  "online": "旧SW制御から移行HTMLを取得しmanifest linkなし、対象scopeだけ更新、export成功、元localStorageと他SW/cache保持",
+  "limitation": "移行版へ一度もオンライン更新していない旧SW制御端末は、オフラインで旧manifest付きapp shellを返す。全旧端末のinstall不可は未達。",
+  "android": "未確認"
+}

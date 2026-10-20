@@ -1,0 +1,36 @@
+/* F1〜F4 の独立監査再現を、隔離ブラウザと合成データで回帰検証する。 */
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),vm=require('node:vm'),assert=require('node:assert/strict'),{chromium}=require('playwright');
+const results=[];async function check(name,fn){try{await fn();results.push({name,status:'合格'})}catch(e){results.push({name,status:'不合格',reason:e.message})}console.log(JSON.stringify(results.at(-1)))}
+(async()=>{
+ const dir=path.join(__dirname,'dist/new');let browser;
+ await check('F3：旧配布にroot manifestを含まない',()=>{const f=path.join(__dirname,'dist/legacy/manifest.webmanifest');assert(!fs.existsSync(f));assert(!/rel=["']manifest/.test(fs.readFileSync(path.join(__dirname,'dist/legacy/index.html'),'utf8')))});
+ await check('F4：反射行列を拒否し正常回転の誤差を許容',()=>{
+  const box={};vm.createContext(box);vm.runInContext(fs.readFileSync(path.join(__dirname,'migration-data.js'),'utf8'),box);const B=box.HiramekiBackup,api=B.api({getItem:()=>null,setItem(){}}),b=api.snapshot();
+  const state=R=>JSON.stringify({level:1,R,moves:0,solved:false});b.data['kagee-save-v1']=state([[-1,0,0],[0,1,0],[0,0,1]]);assert.throws(()=>B.validate(b));
+  const a=.37,c=Math.cos(a),s=Math.sin(a);b.data['kagee-save-v1']=state([[c+1e-8,-s,0],[s,c,0],[0,0,1]]);B.validate(b);
+ });
+ const server=http.createServer((req,res)=>{const p=new URL(req.url,'http://localhost').pathname;
+  if(p==='/seed'){res.writeHead(200,{'Content-Type':'text/html'}).end('<!doctype html><title>合成保存の準備</title>');return}
+  if(p==='/other/sw.js'){res.writeHead(200,{'Content-Type':'application/javascript'}).end("self.addEventListener('install',e=>e.waitUntil(self.skipWaiting()));");return}
+  const serveDir=p.startsWith('/old/')?path.join(__dirname,'dist/legacy'):dir,rel=p.replace(/^\/old\//,'/');
+  const f=path.resolve(serveDir,'.'+rel.replace(/\/$/,'/index.html'));if(!f.startsWith(serveDir+path.sep)){res.writeHead(403).end();return}
+  fs.readFile(f,(e,b)=>{res.writeHead(e?404:200,{'Content-Type':f.endsWith('.html')?'text/html; charset=utf-8':f.endsWith('.js')?'application/javascript':'application/octet-stream'});res.end(e?'見つかりません':b)});
+ });await new Promise(r=>server.listen(0,'127.0.0.1',r));
+ try{
+  browser=await chromium.launch({headless:true,channel:'msedge'});const ctx=await browser.newContext({reducedMotion:'reduce'});await ctx.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
+  const page=await ctx.newPage(),origin='http://127.0.0.1:'+server.address().port;
+  await page.goto(origin+'/seed');await page.evaluate(async()=>{await(await caches.open('synthetic-other-app-cache')).put('/icons/icon-192.png',new Response('SYNTHETIC-OTHER-APP'));localStorage.setItem('他アプリ合成キー','保持');await navigator.serviceWorker.register('/other/sw.js',{scope:'/other/'});});
+  await page.goto(origin+'/');await page.evaluate(()=>navigator.serviceWorker.ready);await page.reload();await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
+  await check('F2：同URLの対象外cacheを返さず変更もしない',async()=>{const data=await page.evaluate(async()=>({body:Array.from(new Uint8Array(await(await fetch('/icons/icon-192.png')).arrayBuffer())).slice(0,8),foreign:await(await caches.open('synthetic-other-app-cache')).match('/icons/icon-192.png').then(r=>r.text())}));assert.deepEqual(data.body,[137,80,78,71,13,10,26,10]);assert.equal(data.foreign,'SYNTHETIC-OTHER-APP')});
+  await check('F1：庭の後に初回offline引継ぎ画面',async()=>{await page.goto(origin+'/');await ctx.setOffline(true);try{await page.goto(origin+'/migration.html');assert.equal(await page.locator('#export').count(),1);assert.equal(await page.locator('#garden').count(),0)}finally{await ctx.setOffline(false)}});
+  await check('F1：引継ぎ画面の後にoffline庭とindex',async()=>{await page.goto(origin+'/migration.html');await page.locator('#export').waitFor();await ctx.setOffline(true);try{for(const p of ['/','/index.html']){await page.goto(origin+p);assert.equal(await page.locator('#garden').count(),1);assert.equal(await page.locator('#export').count(),0)}}finally{await ctx.setOffline(false)}});
+  await check('F1：404後にoffline起動が壊れない',async()=>{assert.equal((await page.goto(origin+'/missing-404.html')).status(),404);await ctx.setOffline(true);try{await page.goto(origin+'/');assert.equal(await page.locator('#garden').count(),1);assert.equal(await page.locator('#export').count(),0)}finally{await ctx.setOffline(false)}});
+  await check('F4：反射backupは確認前に無変更で拒否',async()=>{await page.goto(origin+'/migration.html');const b=await page.evaluate(()=>HiramekiStorage.snapshot()),before=await page.evaluate(()=>({...localStorage}));b.data['kagee-save-v1']=JSON.stringify({level:1,R:[[-1,0,0],[0,1,0],[0,0,1]],moves:0,solved:false});await page.locator('#file').setInputFiles({name:'反射の合成.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(b))});await page.waitForFunction(()=>document.getElementById('status').textContent!=='');assert(await page.locator('#agree').isDisabled());assert(await page.locator('#import').isDisabled());assert.deepEqual(await page.evaluate(()=>({...localStorage})),before)});
+  await check('F4：通常ドラッグ保存から取込後の回転を維持',async()=>{await page.goto(origin+'/index.html#kagee');const el=page.locator('#kg-canvas'),rect=await el.boundingBox();await page.mouse.move(rect.x+rect.width*.45,rect.y+rect.height*.5);await page.mouse.down();await page.mouse.move(rect.x+rect.width*.55,rect.y+rect.height*.55,{steps:6});await page.mouse.up();
+   const b=await page.evaluate(()=>HiramekiStorage.snapshot()),before=JSON.parse(b.data['kagee-save-v1']);await page.evaluate(b=>HiramekiStorage.import(b),b);await page.reload();const after=await page.evaluate(()=>JSON.parse(HiramekiStorage.get('kagee-save-v1')));for(let i=0;i<3;i++)for(let j=0;j<3;j++)assert(Math.abs(before.R[i][j]-after.R[i][j])<1e-6)
+  });
+  await check('旧成果物は指定外の配置でも書出し専用',async()=>{const fixture=await page.evaluate(()=>HiramekiStorage.snapshot());await page.goto(origin+'/old/');const before=await page.evaluate(()=>({...localStorage}));await page.locator('#file').setInputFiles({name:'合成.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(fixture))});await page.waitForFunction(()=>document.getElementById('status').textContent!=='');assert(await page.locator('#agree').isDisabled());assert(await page.locator('#import').isDisabled());assert.deepEqual(await page.evaluate(()=>({...localStorage})),before)});
+  await check('対象外SW・cache本文・保存を保持',async()=>{assert.deepEqual(await page.evaluate(async()=>({other:(await navigator.serviceWorker.getRegistrations()).some(r=>r.scope===new URL('/other/',location.href).href),body:await(await caches.open('synthetic-other-app-cache')).match('/icons/icon-192.png').then(r=>r.text()),storage:localStorage.getItem('他アプリ合成キー')})),{other:true,body:'SYNTHETIC-OTHER-APP',storage:'保持'})});await ctx.close();
+ }finally{if(browser)await browser.close();server.close();fs.mkdirSync(path.join(__dirname,'docs/reports'),{recursive:true});fs.writeFileSync(path.join(__dirname,'docs/reports',process.env.AUDIT_REPORT_NAME||'migration-audit-regression.json'),JSON.stringify({date:new Date().toISOString(),results},null,2));}
+ if(results.some(r=>r.status==='不合格'))process.exitCode=1;
+})().catch(e=>{console.error(e);process.exitCode=1});
