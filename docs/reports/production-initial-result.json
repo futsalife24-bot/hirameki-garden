@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-20T12:41:08.479147+00:00",
+  "origin": "https://hirameki-garden.pages.dev/",
+  "deploymentId": "f9dcbb54-b509-477d-8148-5b4e0b432ab6",
+  "sourceCommit": "af49df24d897177cfaa02a6f8b4cd3a47ed473f6",
+  "command": "node test-production-migration.cjs",
+  "exitCode": 1,
+  "passed": [
+    "35資材HTTP200・原本SHA256一致",
+    "manifest id/start_url/scope root",
+    "本番SW制御・他合成cacheを参照しない",
+    "旧版相当別originから実ファイルexport",
+    "異app拒否・キャンセル無変更・25項目import一致",
+    "import後の操作・保存・再起動"
+  ],
+  "failed": "offline /migration.html の navigation が net::ERR_FAILED",
+  "realUserData": "使用なし",
+  "oldSite": "未変更"
+}

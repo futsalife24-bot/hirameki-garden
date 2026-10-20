@@ -1,5 +1,5 @@
 // 更新を配信するときは VERSION の数字を上げてください
-const VERSION = 'hirameki-pages-v2';
+const VERSION = 'hirameki-pages-v4';
 const SHELL = [
   './',
   './index.html',
@@ -38,8 +38,52 @@ const SHELL = [
   './icons/apple-touch-icon.png'
 ];
 
+function navigationKey(url) {
+  const base = new URL(self.registration.scope);
+  const home = new URL('index.html', base);
+  const migration = new URL('migration.html', base);
+  if (url.origin !== base.origin) return null;
+  if (url.pathname === base.pathname || url.pathname === home.pathname) return home.href;
+  if (url.pathname === migration.pathname || url.pathname === new URL('migration', base).pathname) return migration.href;
+  return null;
+}
+
+// 元のURLと応答型を、属性を失うResponse複製より前に検証する。
+function trustedAppResponse(response, requestURL) {
+  if (!response || response.type !== 'basic' || typeof requestURL !== 'string' || !response.url) return false;
+  try {
+    const base = new URL(self.registration.scope);
+    const requested = new URL(requestURL);
+    const final = new URL(response.url);
+    if ([requested, final].some(u => u.origin !== base.origin || !u.pathname.startsWith(base.pathname) || u.username || u.password || u.hash)) return false;
+    if (requested.search !== final.search) return false;
+    const requestedPage = navigationKey(requested);
+    return requestedPage ? navigationKey(final) === requestedPage : final.pathname === requested.pathname;
+  } catch (err) {
+    return false;
+  }
+}
+
+// Pagesの同一オリジン・正確な別名だけを、オフラインで返せる通常応答として保存する。
+function cacheCopy(response, requestURL) {
+  if (!trustedAppResponse(response, requestURL) || !response.ok || response.status < 200 || response.status >= 300) throw new Error('許可していないアプリ応答です。');
+  const copy = response.clone();
+  return response.redirected ? new Response(copy.body, {
+    status: copy.status, statusText: copy.statusText, headers: copy.headers
+  }) : copy;
+}
+
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil((async () => {
+    // 全取得・検証が済むまでキャッシュを書かず、異常なら既存SWを維持する。
+    const entries = await Promise.all(SHELL.map(async path => {
+      const url = new URL(path, self.registration.scope).href;
+      const response = await fetch(url, {mode: 'same-origin', redirect: 'follow', cache: 'reload'});
+      return [url, cacheCopy(response, url)];
+    }));
+    const cache = await caches.open(VERSION);
+    await Promise.all(entries.map(([url, response]) => cache.put(url, response)));
+  })().then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', e => {
@@ -55,18 +99,21 @@ self.addEventListener('fetch', e => {
 
   // ページ本体：ネット優先（更新がすぐ届く）、オフライン時はキャッシュ
   if (req.mode === 'navigate') {
-    const base = new URL('./', self.registration.scope);
-    const home = new URL('index.html', base);
-    // 庭の別名だけを統合し、引継ぎ画面や未知のパスは混同しない。
-    const key = url.pathname === base.pathname || url.pathname === home.pathname
-      ? home.href : new URL(url.pathname, base).href;
+    const key = navigationKey(url);
     const response = caches.open(VERSION).then(async cache => {
       try {
-        const res = await fetch(req);
-        if (res.ok) await cache.put(key, res.clone());
+        const res = await fetch(req, {mode: 'same-origin', redirect: 'follow'});
+        if (!trustedAppResponse(res, req.url)) throw new Error('許可していない移動先です。');
+        if (res.ok && !key) return new Response('ページが見つかりません。', {status: 404});
+        if (res.ok) {
+          const safe = cacheCopy(res, req.url);
+          await cache.put(key, safe.clone());
+          return safe;
+        }
+        if (res.redirected) return new Response('移動先から正常な応答を取得できません。', {status: 503});
         return res;
       } catch (err) {
-        return await cache.match(key) || new Response('オフラインではこの画面を開けません。', {
+        return (key && await cache.match(key)) || new Response('オフラインではこの画面を開けません。', {
           status: 503, headers: {'Content-Type': 'text/plain; charset=utf-8'}
         });
       }
@@ -91,6 +138,11 @@ self.addEventListener('fetch', e => {
 
   // 同じサイトのファイル：キャッシュ優先
   if (url.origin === location.origin) {
-    e.respondWith(caches.open(VERSION).then(c => c.match(req)).then(hit => hit || fetch(req)));
+    e.respondWith(caches.open(VERSION).then(async c => {
+      const hit = await c.match(req);
+      if (hit) return hit;
+      const response = await fetch(req, {mode: 'same-origin', redirect: 'follow'});
+      return trustedAppResponse(response, req.url) ? response : new Response('許可していない応答です。', {status: 503});
+    }).catch(() => new Response('応答を取得できません。', {status: 503})));
   }
 });

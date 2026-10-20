@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-20T13:02:05.606Z",
+  "results": [
+    {
+      "name": "VM変換前拒否：外部CORS",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM変換前拒否：外部basic",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM変換前拒否：同origin別画面",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM変換前拒否：scope外",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM変換前拒否：別資材",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM変換前拒否：空URL",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM変換前拒否：error",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM変換前拒否：opaque",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM変換前拒否：opaqueredirect",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM変換前拒否：非成功503",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM変換前拒否：query差替",
+      "status": "不合格",
+      "error": "Missing expected exception."
+    },
+    {
+      "name": "VM正常308の201/statusText/header/body保持",
+      "status": "不合格",
+      "error": "Cannot convert argument to a ByteString because the character at index 0 has a value of 20445 which is greater than 255."
+    },
+    {
+      "name": "異常install拒否と既存SW/保存/cache保持：external",
+      "status": "不合格",
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'activated'\n- 'redundant'\n"
+    },
+    {
+      "name": "異常install拒否と既存SW/保存/cache保持：page",
+      "status": "不合格",
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'activated'\n- 'redundant'\n"
+    },
+    {
+      "name": "異常install拒否と既存SW/保存/cache保持：asset",
+      "status": "不合格",
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'activated'\n- 'redundant'\n"
+    },
+    {
+      "name": "異常navigationを保存/実行せず安全cacheへ戻る：external",
+      "status": "不合格",
+      "error": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    },
+    {
+      "name": "異常navigationを保存/実行せず安全cacheへ戻る：page",
+      "status": "不合格",
+      "error": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    }
+  ]
+}

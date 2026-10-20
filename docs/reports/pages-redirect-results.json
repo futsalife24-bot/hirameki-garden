@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-20T13:09:18.367Z",
+  "origin": "http://127.0.0.1:49152",
+  "results": [
+    {
+      "target": "/index.html",
+      "status": "合格",
+      "cached": [
+        {
+          "path": "./index.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        },
+        {
+          "path": "./migration.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        }
+      ],
+      "offlineAfterOnline": true
+    },
+    {
+      "target": "/migration.html",
+      "status": "合格",
+      "cached": [
+        {
+          "path": "./index.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        },
+        {
+          "path": "./migration.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        }
+      ],
+      "offlineAfterOnline": true
+    },
+    {
+      "target": "/migration",
+      "status": "合格",
+      "cached": [
+        {
+          "path": "./index.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        },
+        {
+          "path": "./migration.html",
+          "redirected": false,
+          "url": "",
+          "status": 200
+        }
+      ],
+      "offlineAfterOnline": true
+    }
+  ]
+}

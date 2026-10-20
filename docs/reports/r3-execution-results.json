@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-20T12:41:08.479796+00:00",
+  "source": "実行セッションの最終終了コードを実装者が記録",
+  "checks": [
+    {
+      "command": "node test-pages-redirect.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration-audit.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration-unit.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration-upgrade.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tools/build-migration.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "productionBeforeFix": {
+    "command": "PRODUCTION_REDIRECT_URL=https://hirameki-garden.pages.dev node test-pages-redirect.cjs",
+    "exitCode": 1,
+    "failedCases": 3
+  },
+  "independentAudit": "未実施",
+  "r3Deployment": "未実施"
+}

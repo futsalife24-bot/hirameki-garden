@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-20T12:34:12.919Z",
+  "origin": "https://hirameki-garden.pages.dev",
+  "results": [
+    {
+      "target": "/index.html",
+      "status": "不合格",
+      "error": "page.goto: net::ERR_FAILED at https://hirameki-garden.pages.dev/index.html\nCall log:\n\u001b[2m  - navigating to \"https://hirameki-garden.pages.dev/index.html\", waiting until \"load\"\u001b[22m\n",
+      "cached": [
+        {
+          "path": "./index.html",
+          "redirected": true,
+          "url": "https://hirameki-garden.pages.dev/",
+          "status": 200
+        },
+        {
+          "path": "./migration.html",
+          "redirected": true,
+          "url": "https://hirameki-garden.pages.dev/migration",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "target": "/migration.html",
+      "status": "不合格",
+      "error": "page.goto: net::ERR_FAILED at https://hirameki-garden.pages.dev/migration.html\nCall log:\n\u001b[2m  - navigating to \"https://hirameki-garden.pages.dev/migration.html\", waiting until \"load\"\u001b[22m\n",
+      "cached": [
+        {
+          "path": "./index.html",
+          "redirected": true,
+          "url": "https://hirameki-garden.pages.dev/",
+          "status": 200
+        },
+        {
+          "path": "./migration.html",
+          "redirected": true,
+          "url": "https://hirameki-garden.pages.dev/migration",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "target": "/migration",
+      "status": "不合格",
+      "error": "Expected values to be strictly equal:\n\n0 !== 1\n",
+      "cached": [
+        {
+          "path": "./index.html",
+          "redirected": true,
+          "url": "https://hirameki-garden.pages.dev/",
+          "status": 200
+        },
+        {
+          "path": "./migration.html",
+          "redirected": true,
+          "url": "https://hirameki-garden.pages.dev/migration",
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

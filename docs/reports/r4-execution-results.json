@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-20T13:16:12.729340+00:00",
+  "source": "実行セッションの最終終了コードを実装者が記録",
+  "checks": [
+    {
+      "command": "node test-sw-response-boundary.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-sw-r2-update.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-pages-redirect.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration-audit.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration-unit.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node tools/build-migration.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check sw.js",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "boundaryCases": 19,
+  "beforeFix": "r3外部HTMLの自origin実行を合成ブラウザで再現・試験終了コード1",
+  "r4Deployment": "未実施",
+  "independentAudit": "未実施"
+}
