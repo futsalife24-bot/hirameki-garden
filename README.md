@@ -1,21 +1,22 @@
 # ひらめきの庭
 
-世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」「星図」「影絵」「活字」「帳面」「秘密箱」「染め分け」「算額」です。
+世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」「星図」「かくれ絵」「活字」「帳面」「秘密箱」「染め分け」「算額」です。
 
-- 公開先：https://futsalife24-bot.github.io/hirameki-garden/
+- 正式公開先：https://hirameki-garden.pages.dev/ （今回のかくれ絵は未公開）
+- 旧サイト：https://futsalife24-bot.github.io/hirameki-garden/ （移行案内専用）
 - GitHub：https://github.com/futsalife24-bot/hirameki-garden
 - 作業場所：`C:/Users/futsa/Documents/Codex/2026-10-06/4-pro20x-hub/hirameki-garden`（2026-10-07の発展ページ用checkout。旧checkoutは保持）
 
 ## タイトル画面の方針
 
-タイトル画面も選択中のゲームの世界観を表します。下のスライド切り替え（‹ 一 金継ぎ ／ 二 星図 ／ 三 影絵 ／ 四 活字 ／ 五 帳面 ／ 六 秘密箱 ／ 七 染め分け ／ 八 算額 ›、横スワイプ、左右キー）で
+タイトル画面も選択中のゲームの世界観を表します。下のスライド切り替え（‹ 一 金継ぎ ／ 二 星図 ／ 三 かくれ絵 ／ 四 活字 ／ 五 帳面 ／ 六 秘密箱 ／ 七 染め分け ／ 八 算額 ›、横スワイプ、左右キー）で
 遊びを選ぶと、背景・書体・配色・絵が世界観ごと切り替わります。選んだ遊びは端末に覚え、次に開いたときもその世界観から始まります。
-金継ぎは生成りの和紙・青磁の器・墨色・金の継ぎ目、星図は夜空・真鍮の星図盤・灯る星、影絵は臙脂の幕と影絵芝居の舞台、活字はインクの作業台と紙の版、帳面は方眼ノートと万年筆、秘密箱は寄木細工の工房と秘密箱、染め分けは藍染めの染め場と染料の瓶、算額は朱塗りの社殿と檜の算額の「ひらめきの庭」です。
+金継ぎは生成りの和紙・青磁の器・墨色・金の継ぎ目、星図は夜空・真鍮の星図盤・灯る星、かくれ絵は暗い展示室と白い立体のかけら、活字はインクの作業台と紙の版、帳面は方眼ノートと万年筆、秘密箱は寄木細工の工房と秘密箱、染め分けは藍染めの染め場と染料の瓶、算額は朱塗りの社殿と檜の算額の「ひらめきの庭」です。
 庭（タイトル後のホーム画面）はスクロールせずに一画面で見渡せます。器の絵が残りの高さに合わせて伸び縮みし、
 「器をつなぐ」ボタンは常に画面内に収まります。背の低い画面では説明文を省き、横向きのスマホなど極端に低い画面だけスクロールします。
 和風は金継ぎ固有であり、ほかのゲームに強制しません。
 
-`#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ、`#hoshizu` が星図、`#kagee` が影絵、`#katsuji` が活字、`#chomen` が帳面、`#himitsu` が秘密箱、`#somewake` が染め分け、`#sangaku` が算額。
+`#garden`（またはハッシュなし）がタイトル画面、`#kintsugi` が金継ぎ、`#hoshizu` が星図、`#kagee` がかくれ絵、`#katsuji` が活字、`#chomen` が帳面、`#himitsu` が秘密箱、`#somewake` が染め分け、`#sangaku` が算額。
 `<html data-world>` と `<body data-world>`（`kintsugi` / `hoshizu` / `kagee` / `katsuji` / `chomen` / `himitsu` / `somewake` / `sangaku`）が現在の世界観を表します。
 
 ## オープニング
@@ -54,12 +55,17 @@
 5×5から9×10まで全30夜。時間制限なし。進み具合と自己ベストは端末内に保存（`hoshizu-save-v1`・`hoshizu-best`、金継ぎとは別）。
 問題は `tools/hoshizu-gen.cjs` で作り、答えがひとつに決まる面だけを `hoshizu-levels.js` に収録しています（`node tools/hoshizu-gen.cjs` で再生成）。
 
-## 影絵
+## かくれ絵（旧「影絵」の枠を差し替え・未公開）
 
-積み木でできた人形を立体的に回し、幕に落ちる影を点線の形に重ねるパズル。ドラッグ（またはフォーカス中に矢印キー）で回します。
-重なり（影と点線の面積の一致度）が90%を超えると幕が上がり、影の正体（きのこ、うさぎ、さかな…）が現れます。
-人形は影の形の各マスに奥行きのばらばらな積み木を積んで作るため、真正面から光を当てた向きで必ず答えになります。
-全20幕。第一幕は左右、第二幕は上下の回転だけで解け、手ほどきの矢印が出ます。進み具合と自己ベスト（回した数）は端末内に保存（`kagee-save-v1`・`kagee-best`）。
+空間に散る白いかけらを回し、一枚の絵につながる視点を探す立体なぞなぞ。身近なものの曲線シルエットを不規則に分け、奥行きへ離しています。参考作品の画像・素材・問題は使わず、独自の12問を用意しました。
+
+ドラッグ・矢印キーで回転。Shift＋矢印キーで微調整。第1問は左右のみ、第2問から上下も使います。答えのお手本や一致率は表示せず、迷った時だけ言葉のヒントを開けます。正しい向きで絵の名前が現れ、最終問からはもう一周できます。
+
+入口 `#kagee` と作品選択値は互換維持。旧影絵の保存・記録・音設定と `kagee.js/css` は保持し、新ゲームは `kakuree-save-v1`（現在地・角度・回数・完成・ヒント・ベスト）と `kakuree-sound` に独立保存します。旧記録の変換・削除は行いません。
+
+**現在の「データの引継ぎ」は旧8作品25キーの形式を維持しており、かくれ絵の新しい記録は含みません。** 同じ端末・ブラウザでは保存されます。機種間の引継ぎ対応は未実装です。
+
+`npm run test:riddle` で全問の操作解答・保存・旧データ保持・画面サイズ・オフライン・公開版v4からのSW更新を確認します。詳細は [今回の記録](docs/SPACE-RIDDLE-20261028.md)。
 
 ## 活字
 
@@ -116,7 +122,7 @@ Google Fontsの「解星 特ミン」（Kaisei Tokumin）と「ZENオールド�
 
 - https://github.com/google/fonts/blob/main/ofl/kaiseidecol/OFL.txt
 
-影絵の世界では「ランパート ワン」（Rampart One）と「Zen角ゴシック New」（Zen Kaku Gothic New）を使います。いずれも SIL Open Font License 1.1。
+かくれ絵の世界では「Zen角ゴシック New」（SIL Open Font License 1.1）を使います。
 
 - https://github.com/google/fonts/blob/main/ofl/rampartone/OFL.txt
 - https://github.com/google/fonts/blob/main/ofl/zenkakugothicnew/OFL.txt
@@ -173,9 +179,7 @@ npm test
 
 ## 公開
 
-GitHub Pagesはmainのルートを配信します。作業ブランチで検証し、承認後にmainへ反映。
-HTML・CSS・JavaScriptを更新するときは `sw.js` のVERSIONを上げます。
-公開版が以前の画面の場合はオンラインで再読込してください。
+正式版はCloudflare Pages。旧GitHub mainは移行案内専用なのでゲーム本体をmergeしません。`node tools/build-migration.cjs` の `dist/new` が新版配布物です。公開には利用者の明示承認が必要です。[公開済み構成の正本](docs/PWA-MIGRATION-FINAL-PUBLICATION-20261020.md)と[今回の差分](docs/SPACE-RIDDLE-20261028.md)を確認してください。
 
 ## ファイル
 
@@ -186,7 +190,8 @@ HTML・CSS・JavaScriptを更新するときは `sw.js` のVERSIONを上げま�
 - `garden.js`：庭のスライドと世界観の切り替え、星図の背景の星空と遊び帖の絵
 - `hoshizu.js`・`hoshizu.css`・`hoshizu-levels.js`：星図のゲーム・世界観・問題データ
 - `tools/hoshizu-gen.cjs`：星図の問題を作り、答えがひとつか確かめる道具
-- `kagee.js`・`kagee.css`：影絵のゲーム・世界観・遊び帖の絵
+- `riddle.js`・`riddle.css`・`riddle-shapes.js`：かくれ絵のゲーム・世界観・独自12問
+- `kagee.js`・`kagee.css`：旧影絵のコード（保存・履歴保護のため保持、本編から読み込まない）
 - `katsuji.js`・`katsuji.css`・`katsuji-levels.js`：活字のゲーム・世界観・問題データ
 - `tools/katsuji-gen.cjs`：活字の問題を作り、答えがひとつか確かめる道具
 - `chomen.js`・`chomen.css`・`chomen-levels.js`：帳面のゲーム・世界観・問題データ

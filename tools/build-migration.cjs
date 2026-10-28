@@ -4,7 +4,7 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'dist');
 const games=['hoshizu','kagee','katsuji','chomen','himitsu','somewake','sangaku'];
 const levels=games.filter(w=>w!=='kagee').map(w=>w+'-levels.js');
 const shared=['migration.html','migration-data.js','migration-ui.js',...levels];
-const app=['index.html','404.html','garden.css','ceramic.js','opening.js','opening.css','garden.js','sw.js','manifest.webmanifest',...games.flatMap(w=>[w+'.js',w+'.css'])];
+const app=['index.html','404.html','garden.css','ceramic.js','opening.js','opening.css','garden.js','sw.js','manifest.webmanifest',...games.filter(w=>w!=='kagee').flatMap(w=>[w+'.js',w+'.css']),'riddle.js','riddle.css','riddle-shapes.js'];
 fs.mkdirSync(out,{recursive:true});
 if(!fs.realpathSync(out).startsWith(fs.realpathSync(root)+path.sep))throw Error('出力先が作業場所の外です。');
 for(const mode of ['new','legacy']){

@@ -1,5 +1,5 @@
 // 更新を配信するときは VERSION の数字を上げてください
-const VERSION = 'hirameki-pages-v4';
+const VERSION = 'hirameki-pages-v5';
 const SHELL = [
   './',
   './index.html',
@@ -14,8 +14,9 @@ const SHELL = [
   './hoshizu.css',
   './hoshizu.js',
   './hoshizu-levels.js',
-  './kagee.css',
-  './kagee.js',
+  './riddle.css',
+  './riddle.js',
+  './riddle-shapes.js',
   './katsuji.css',
   './katsuji.js',
   './katsuji-levels.js',

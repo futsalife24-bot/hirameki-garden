@@ -6,7 +6,8 @@
     "test:chomen": "node test-chomen.cjs",
     "build": "node tools/build-migration.cjs",
     "test:migration": "node test-migration.cjs",
-    "test:migration:audit": "node test-migration-audit.cjs"
+    "test:migration:audit": "node test-migration-audit.cjs",
+    "test:riddle": "node tools/build-migration.cjs && node test-riddle.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

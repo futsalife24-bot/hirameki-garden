@@ -132,34 +132,7 @@ const http=require('node:http');
    await gp.locator('[data-help="kin-help"]').click();assert(await gp.locator('#kin-help').isVisible());await gp.keyboard.press('Escape');assert.equal(await gp.locator('#kin-help').isVisible(),false);
    await gp.evaluate(()=>localStorage.setItem('kintsugi-save-v1',JSON.stringify({level:2})));await gp.reload();assert.equal(await gp.locator('#kin-coach').isVisible(),false);
    await gc.close();}
-  // 影絵：三つ目のスライドで選べ、立体を回して影を点線に重ねる
-  {const kc=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});await kc.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
-   const kp=await kc.newPage();kp.on('pageerror',e=>errors.push(e.message));
-   await kp.goto(url);await kp.locator('#slide-next').click();await kp.locator('#slide-next').click();
-   assert.equal(await kp.evaluate(()=>document.documentElement.dataset.world),'kagee');assert(await kp.locator('#kg-play').isVisible());
-   await kp.locator('#kg-play').click();await kp.waitForFunction(()=>location.hash==='#kagee'&&!document.getElementById('kagee').hidden);
-   const kState=()=>kp.evaluate(()=>JSON.parse(localStorage.getItem('kagee-save-v1')));
-   // 第一幕は手ほどき。ドラッグで回すと回数が増え、重なりが変わる
-   assert(await kp.locator('#kg-coach').isVisible());
-   const before=await kp.locator('#kg-match').innerText();const box=await kp.locator('#kg-canvas').boundingBox();
-   await kp.mouse.move(box.x+box.width/2,box.y+box.height*.75);await kp.mouse.down();await kp.mouse.move(box.x+box.width/2+60,box.y+box.height*.75,{steps:8});await kp.mouse.up();
-   assert.equal((await kState()).moves,1);assert.notEqual(await kp.locator('#kg-match').innerText(),before);
-   // 答えの向きから15度ずれた状態で、矢印キー一回で幕が上がる
-   const c=Math.cos(Math.PI/12),sn=Math.sin(Math.PI/12);
-   await kp.evaluate(R=>localStorage.setItem('kagee-save-v1',JSON.stringify({level:3,R,moves:2})),[[c,0,sn],[0,1,0],[-sn,0,c]]);await kp.reload();
-   assert.equal(await kp.locator('#kg-coach').isVisible(),false);
-   await kp.locator('#kg-canvas').focus();await kp.keyboard.press('ArrowLeft');
-   await kp.locator('#kg-done.show').waitFor();assert.equal((await kState()).solved,true);
-   await kp.reload();await kp.locator('#kg-done.show').waitFor();
-   await kp.locator('#kg-next').click();assert.equal((await kState()).level,4);
-   await kp.locator('[data-help="kg-help"]').click();assert(await kp.locator('#kg-help').isVisible());await kp.keyboard.press('Escape');
-   await kp.locator('#kagee .game-nav a').click();await kp.waitForFunction(()=>!document.getElementById('garden').hidden);
-   assert.equal(await kp.evaluate(()=>document.documentElement.dataset.world),'kagee');assert.match(await kp.locator('#kg-resume-note').innerText(),/第四幕/);
-   for(const [w,h] of [[320,568],[390,844],[768,1024],[1280,720]]){await kp.setViewportSize({width:w,height:h});
-    for(const l of [1,20]){await kp.evaluate(l=>localStorage.setItem('kagee-save-v1',JSON.stringify({level:l})),l);await kp.goto('about:blank');await kp.goto(url+'#kagee');
-     assert.equal(await kp.evaluate(()=>{const v=e=>{const r=document.querySelector(e).getBoundingClientRect();return r.width>0&&r.top>=-1&&r.bottom<=innerHeight+1};return document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1&&['#kg-canvas','#kg-reset','#kg-title','#kg-match'].every(v)}),true,`kagee one screen ${w}x${h} ${l}`)}
-    await kp.goto(url+'#garden');assert.equal(await kp.evaluate(()=>{const b=document.getElementById('kg-play').getBoundingClientRect();return document.documentElement.scrollHeight<=innerHeight+1&&b.bottom<=innerHeight}),true,`kagee garden ${w}x${h}`)}
-   await kc.close();}
+  // かくれ絵の詳細な操作・旧保存保持・全問・オフラインは test-riddle.cjs で検証。
   // 活字：四つ目のスライド。マスを選んで活字をはめ、食い違うものは入らない
   {const jc=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});await jc.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
    const jp=await jc.newPage();jp.on('pageerror',e=>errors.push(e.message));
@@ -333,7 +306,7 @@ const http=require('node:http');
   const contrastOf=(pg,sels)=>pg.evaluate(sels=>{
     const rgb=c=>(c.match(/[\d.]+/g)||[]).slice(0,3).map(Number),lum=c=>{const v=rgb(c).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
     const probe=document.createElement('i');probe.style.color='var(--bg)';document.body.appendChild(probe);const bg=getComputedStyle(probe).color;probe.remove();
-    return sels.map(sel=>{const e=document.querySelector(sel);const a=lum(getComputedStyle(e).color),b=lum(bg);return [sel,+((Math.max(a,b)+.05)/(Math.min(a,b)+.05)).toFixed(2)]})},sels);
+    return sels.map(sel=>{const e=document.querySelector(sel);const a=lum(getComputedStyle(e).color),b=lum(sel==='#kg-play-label'?getComputedStyle(e.closest('.play-game')).backgroundColor:bg);return [sel,+((Math.max(a,b)+.05)/(Math.min(a,b)+.05)).toFixed(2)]})},sels);
   for(const colorScheme of ['light','dark']){
    const cc=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce',colorScheme});await cc.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
    const cp=await cc.newPage();cp.on('pageerror',e=>errors.push(e.message));
@@ -342,7 +315,7 @@ const http=require('node:http');
    await cp.goto('about:blank');await cp.evaluate(()=>{});await cp.goto(url+'#garden');await cp.evaluate(()=>{localStorage.setItem('hirameki-world','hoshizu')});await cp.goto('about:blank');await cp.goto(url);
    for(const [sel,ratio] of await contrastOf(cp,['#garden-title','.garden-copy','#hz-collection-title','[data-world="hoshizu"] .game-subtitle','[data-world="hoshizu"] .story-copy','#hz-play-label','.slide-dot[aria-current="true"]']))assert(ratio>=4.5,`${colorScheme} garden ${sel} ${ratio}`);
    await cp.evaluate(()=>{localStorage.setItem('hirameki-world','kagee');localStorage.setItem('kagee-save-v1',JSON.stringify({level:1}))});await cp.goto('about:blank');await cp.goto(url+'#kagee');
-   assert.equal(await cp.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()),'#22080d',`kagee bg ${colorScheme}`);
+   assert.equal(await cp.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()),'#080b11',`kagee bg ${colorScheme}`);
    for(const [sel,ratio] of await contrastOf(cp,['#kg-title','.kg-level b','.kg-level span','#kg-coach','.kg-stat','#kg-reset']))assert(ratio>=4.5,`${colorScheme} kagee ${sel} ${ratio}`);
    await cp.evaluate(()=>{localStorage.setItem('hirameki-world','katsuji');localStorage.setItem('katsuji-save-v1',JSON.stringify({level:1}))});await cp.goto('about:blank');await cp.goto(url+'#katsuji');
    assert.equal(await cp.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()),'#161412',`katsuji bg ${colorScheme}`);
@@ -386,6 +359,6 @@ const http=require('node:http');
   for(const width of [320,1440]){await op.setViewportSize({width,height:800});await op.goto('about:blank');await op.goto(url);await op.locator('#op-play-mute').click();await op.clock.runFor(5000);
    assert.equal(await op.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`opening ${width}`)}
   assert.deepEqual(errors,[]);
-  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、影絵（スライド・ドラッグ・キーボード・完成・保存・次の幕・一画面・見やすさ）、活字（スライド・はめる・外す・戻す・食い違いの拒否・完成と合言葉・保存・次の版・一画面・見やすさ）、帳面（スライド・ヒント・文字数の案内・書き損じ・カタカナ入力・完成・保存・次のページ・一画面・見やすさ）、秘密箱（ドラッグ・戻す・最短手順で完成・保存・壊れた保存・次の箱・一画面・見やすさ）、染め分け（注げない瓶・注ぐ・戻す・最短手順・保存・壊れた保存・一画面・文字の見やすさ）、算額（同じ数の知らせ・戻す・書き直し・キーボード・手ほどき・完成・保存・壊れた保存・一画面・文字の見やすさ）、実行エラーなし');
+  console.log('合格：タイトル遷移、回転、戻す、固定、保存復元、旧形式保存、完成、次の器、初期化確認、4画面幅、最大盤面、オフライン、オープニング（開いた時だけ・スキップ・Esc・画面幅）、星図（スライド切替・世界観・結ぶ・戻す・線タップ・キーボード・完成・保存・最大盤面・画面幅・ライト/ダークでの文字の見やすさ）、ゲーム画面の一画面表示（6画面サイズ・最大盤面）、遊び方の案内、最初の面の手ほどき、かくれ絵（ライト/ダークでの文字の見やすさ）、活字（スライド・はめる・外す・戻す・食い違いの拒否・完成と合言葉・保存・次の版・一画面・見やすさ）、帳面（スライド・ヒント・文字数の案内・書き損じ・カタカナ入力・完成・保存・次のページ・一画面・見やすさ）、秘密箱（ドラッグ・戻す・最短手順で完成・保存・壊れた保存・次の箱・一画面・見やすさ）、染め分け（注げない瓶・注ぐ・戻す・最短手順・保存・壊れた保存・一画面・文字の見やすさ）、算額（同じ数の知らせ・戻す・書き直し・キーボード・手ほどき・完成・保存・壊れた保存・一画面・文字の見やすさ）、実行エラーなし');
  } finally {if(browser)await browser.close();server.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

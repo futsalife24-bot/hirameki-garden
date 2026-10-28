@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-28T11:38:46.197Z",
+  "results": [
+    {
+      "name": "VM変換前拒否：外部CORS",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：同origin表現CORS",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：URL付きdefault",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：外部basic",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：同origin別画面",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：scope外",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：別資材",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：空URL",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：error",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：opaque",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：opaqueredirect",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：非成功503",
+      "status": "合格"
+    },
+    {
+      "name": "VM変換前拒否：query差替",
+      "status": "合格"
+    },
+    {
+      "name": "VM正常308の201/statusText/header/body保持",
+      "status": "合格"
+    },
+    {
+      "name": "異常install拒否と既存SW/保存/cache保持：external",
+      "status": "合格"
+    },
+    {
+      "name": "異常install拒否と既存SW/保存/cache保持：page",
+      "status": "合格"
+    },
+    {
+      "name": "異常install拒否と既存SW/保存/cache保持：asset",
+      "status": "合格"
+    },
+    {
+      "name": "異常navigationを保存/実行せず安全cacheへ戻る：external",
+      "status": "合格"
+    },
+    {
+      "name": "異常navigationを保存/実行せず安全cacheへ戻る：page",
+      "status": "合格"
+    }
+  ]
+}

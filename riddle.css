@@ -1,0 +1,28 @@
+/* かくれ絵：暗い展示室、白い彫刻、淡い氷青。旧影絵の劇場とは分離。 */
+:root:root[data-world="kagee"]{--bg:#080b11;--bg-2:#080b11;--ink:#f0f4fa;--muted:#b5c1d1;--rule:#354355;--focus:#c5dcff;--btn:#1b2636;--btn-ink:#f0f4fa;--brass:#b9d3ef;color-scheme:dark}
+html[data-world="kagee"] body{background:radial-gradient(ellipse at 50% 25%,#1c2739 0,transparent 65%) fixed,#080b11;font-family:'Zen Kaku Gothic New','Yu Gothic',sans-serif;color:var(--ink)}
+html[data-world="kagee"] body::before{display:none}
+html[data-world="kagee"] h1,html[data-world="kagee"] h2{font-family:'Zen Kaku Gothic New','Yu Gothic',sans-serif;color:var(--ink);font-weight:400}
+html[data-world="kagee"] .garden-intro h1{letter-spacing:.2em;text-shadow:0 0 40px #b4d1f433}
+html[data-world="kagee"] .garden-intro h1 span,html[data-world="kagee"] .garden-mark{color:#c5dcff}
+html[data-world="kagee"] .eyebrow,html[data-world="kagee"] .story-copy,html[data-world="kagee"] .game-facts,html[data-world="kagee"] .resume-note{color:var(--muted)}
+html[data-world="kagee"] .game-art{background:#080b11;border:1px solid #354355;border-radius:16px;overflow:hidden}
+html[data-world="kagee"] .art-caption{color:#c5d5e7;letter-spacing:.16em}
+html[data-world="kagee"] .catalog-number{border-color:#738ca9;color:#c5dcff}
+html[data-world="kagee"] .play-game{background:#d5e3f4;color:#101927;border:1px solid #e8f0fa;box-shadow:0 10px 32px #0004}
+html[data-world="kagee"] .play-game:hover{background:#f0f5ff}
+html[data-world="kagee"] .slide-dot[aria-current="true"]{color:#c5dcff}
+#kg-title:focus{outline:none}
+.kg-tools{display:flex;gap:8px}.kg-level b{font-size:21px;font-weight:500;color:#f0f4fa}.kg-level span{font-size:12px;color:var(--muted)}
+.kg-stage{width:100%;height:100%;place-items:stretch;overflow:hidden;border:1px solid #273344;border-radius:18px}
+#kg-canvas{display:block;width:100%;height:100%;touch-action:none;outline:none;cursor:grab}
+#kg-canvas:active{cursor:grabbing}#kg-canvas:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
+.kg-bar{display:flex;align-items:center;gap:14px}.kg-stat{font-size:12px;color:var(--muted);white-space:nowrap}.kg-stat strong{font-size:22px;font-weight:500;color:var(--ink);margin-left:7px;font-variant-numeric:tabular-nums}.kg-stat+.kg-stat{margin-right:auto}
+.kg-btn{font:inherit;font-size:12px;color:var(--ink);background:#152031;border:1px solid var(--rule);border-radius:999px;min-height:44px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+.kg-btn:hover{background:#26364a}.kg-btn:disabled{opacity:.4;cursor:default}.kg-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}.kg-btn.primary{background:#d5e3f4;color:#101927;border-color:#d5e3f4}
+.kg-done{display:none;align-items:center;gap:12px;padding:10px 14px;border:1px solid #6884a4;border-radius:12px;background:#182538}.kg-done.show{display:flex}.kg-done>div:nth-child(2){flex:1;min-width:0}.kg-seal{font-size:25px;color:#c5dcff}.kg-done-title{margin:0;font-size:14px;color:#f0f4fa}.kg-done-note{margin:3px 0 0;font-size:13px;color:var(--muted)}
+html[data-world="kagee"] .coach{background:#182538;border-color:#3c516c}
+#kg-save-warning{color:#ffdbb0}
+@media(max-width:700px){.kg-bar{gap:8px}.kg-stat{font-size:10px}.kg-stat strong{font-size:18px;margin-left:4px}.kg-btn{padding:8px 10px}.kg-done{padding:8px 10px;gap:8px}.kg-done-title{font-size:12px}.kg-done-note{font-size:12px}}
+@media(max-width:360px){.kg-bar{gap:6px}.kg-bar .kg-stat:first-child{display:none}}
+@media(min-width:900px){#kagee .game-head h1{font-size:44px!important}#kagee .game-head{justify-self:stretch;justify-items:start}#kagee .kg-level{align-items:flex-start}}

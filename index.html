@@ -253,7 +253,7 @@ button.primary{
 </style>
 <link rel="stylesheet" href="./garden.css">
 <link rel="stylesheet" href="./hoshizu.css">
-<link rel="stylesheet" href="./kagee.css">
+<link rel="stylesheet" href="./riddle.css">
 <link rel="stylesheet" href="./katsuji.css">
 <link rel="stylesheet" href="./chomen.css">
 <link rel="stylesheet" href="./himitsu.css">
@@ -291,8 +291,8 @@ button.primary{
     <div class="game-story"><p class="eyebrow"><span class="catalog-number">二</span> 庭の遊び帖</p><h2 id="hz-collection-title">星図</h2><p class="game-subtitle">星を結ぶ、夜のパズル。</p><p class="story-copy">数字の数だけ、光の線を。<br>交わらず、ひとつながりに。<br>夜空に、星座を描いていく。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="hz-play" class="play-game" href="#hoshizu"><span id="hz-play-label">星を結ぶ</span><span aria-hidden="true">↗</span></a><p id="hz-resume-note" class="resume-note"></p></div>
   </article>
   <article class="game-card" data-world="kagee" aria-labelledby="kg-collection-title" aria-roledescription="スライド" hidden>
-    <div class="game-art"><canvas id="kg-art" width="900" height="760" role="img" aria-label="劇場の幕のあいだのスクリーンに、うさぎの影が映り、手前に積み木の人形が置かれている"></canvas><span class="art-caption">回せば、影が語りだす。</span></div>
-    <div class="game-story"><p class="eyebrow"><span class="catalog-number">三</span> 庭の遊び帖</p><h2 id="kg-collection-title">影絵</h2><p class="game-subtitle">立体を回す、影のパズル。</p><p class="story-copy">積み木の人形を、くるりと回す。<br>幕に落ちる影が、点線に重なったとき、<br>思いがけない形が現れる。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="kg-play" class="play-game" href="#kagee"><span id="kg-play-label">影をつくる</span><span aria-hidden="true">↗</span></a><p id="kg-resume-note" class="resume-note"></p></div>
+    <div class="game-art"><canvas id="kg-art" width="900" height="760" role="img" aria-label="暗い空間に浮かぶ白いかけら。視点を回すと一枚の絵につながる"></canvas><span class="art-caption">見つけた瞬間、世界がつながる。</span></div>
+    <div class="game-story"><p class="eyebrow"><span class="catalog-number">三</span> 庭の遊び帖</p><h2 id="kg-collection-title">かくれ絵</h2><p class="game-subtitle">視点をめぐる、立体なぞなぞ。</p><p class="story-copy">ばらばらのかけらに、隠れた一枚。<br>くるりと回して、ふと気づく。<br>「あ、これだったんだ。」</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="kg-play" class="play-game" href="#kagee"><span id="kg-play-label">絵を見つける</span><span aria-hidden="true">↗</span></a><p id="kg-resume-note" class="resume-note"></p></div>
   </article>
   <article class="game-card" data-world="katsuji" aria-labelledby="kj-collection-title" aria-roledescription="スライド" hidden>
     <div class="game-art"><canvas id="kj-art" width="900" height="760" role="img" aria-label="活版印刷の作業台に、言葉の活字が組まれた紙の版と、鉛の活字が並んでいる"></canvas><span class="art-caption">はめれば、言葉が刷り上がる。</span></div>
@@ -320,7 +320,7 @@ button.primary{
     <div class="slide-dots">
     <button class="slide-dot" data-world="kintsugi" type="button"><span aria-hidden="true">一</span> 金継ぎ</button>
     <button class="slide-dot" data-world="hoshizu" type="button"><span aria-hidden="true">二</span> 星図</button>
-    <button class="slide-dot" data-world="kagee" type="button"><span aria-hidden="true">三</span> 影絵</button>
+    <button class="slide-dot" data-world="kagee" type="button"><span aria-hidden="true">三</span> かくれ絵</button>
     <button class="slide-dot" data-world="katsuji" type="button"><span aria-hidden="true">四</span> 活字</button>
     <button class="slide-dot" data-world="chomen" type="button"><span aria-hidden="true">五</span> 帳面</button>
     <button class="slide-dot" data-world="himitsu" type="button"><span aria-hidden="true">六</span> 秘密箱</button>
@@ -421,35 +421,37 @@ button.primary{
 <div class="kg game-screen" id="kagee" hidden>
   <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 三</span></nav>
   <header class="kg-head game-head">
-    <h1 id="kg-title" tabindex="-1">影絵</h1>
+    <h1 id="kg-title" tabindex="-1">かくれ絵</h1>
     <div class="kg-tools"><button class="kg-btn" type="button" data-help="kg-help" aria-haspopup="dialog">遊び方</button><button class="kg-btn" id="kg-sound" type="button" aria-pressed="true">音あり</button></div>
-    <div class="kg-level"><b id="kg-lv">第一幕</b><span id="kg-size"></span></div>
+    <div class="kg-level"><b id="kg-lv">第1問</b><span id="kg-size"></span></div>
     <p class="coach" id="kg-coach" aria-live="polite" hidden></p>
+    <p class="coach" id="kg-save-warning" role="alert" hidden>保存できません。画面を閉じると進み具合が失われます。</p>
   </header>
   <main class="kg-main">
-    <div class="stage kg-stage"><canvas id="kg-canvas" tabindex="0" role="application" aria-label="影絵の舞台。ドラッグ、または矢印キーで人形を回し、幕の影を点線の形に重ねます。" aria-describedby="kg-live"></canvas></div>
+    <div class="stage kg-stage"><canvas id="kg-canvas" tabindex="0" role="application" aria-label="白いかけらの空間。ドラッグまたは矢印キーで回して、一枚の絵になる角度を探します。Shiftと矢印キーで細かく回せます。" aria-describedby="kg-live"></canvas></div>
     <p class="visually-hidden" id="kg-live" aria-live="polite"></p>
     <div class="foot">
     <div class="kg-bar">
-      <div class="kg-stat">重なり<strong id="kg-match">0%</strong></div>
+      <div class="kg-stat">かけら<strong id="kg-match">6</strong></div>
       <div class="kg-stat">回した数<strong id="kg-moves">0</strong></div>
+      <button class="kg-btn" id="kg-hint" type="button" aria-pressed="false">ヒント</button>
       <button class="kg-btn" id="kg-reset" type="button">最初から</button>
     </div>
     <div class="kg-done" id="kg-done" aria-live="polite">
-      <div class="kg-seal" aria-hidden="true">幕</div>
-      <div><p class="kg-done-title">幕が上がりました</p><p class="kg-done-note" id="kg-done-note"></p></div>
-      <button class="kg-btn primary" id="kg-next" type="button">次の幕へ</button>
+      <div class="kg-seal" aria-hidden="true">✦</div>
+      <div><p class="kg-done-title" id="kg-done-title">絵がつながりました</p><p class="kg-done-note" id="kg-done-note"></p></div>
+      <button class="kg-btn primary" id="kg-next" type="button">次の絵へ</button>
     </div>
     </div>
   </main>
   <dialog class="howto" id="kg-help" aria-labelledby="kg-help-title">
-    <h2 id="kg-help-title">影絵の遊び方</h2>
+    <h2 id="kg-help-title">かくれ絵の遊び方</h2>
     <ul>
-      <li>積み木でできた人形を、ドラッグして立体的に回します。</li>
-      <li>人形の影が幕に映ります。影を、幕に描かれた点線の形に重ねましょう。</li>
-      <li>重なりが90%を超えると幕が上がり、影の正体が現れます。</li>
-      <li>人形は斜めから見ています。見た目ではなく、影を見て回すのがこつです。</li>
-      <li>キーボードでは、舞台を選んで矢印キーで回します。</li>
+      <li>白いかけらをドラッグして、空間を回します。一枚の絵に見える角度を探しましょう。</li>
+      <li>かけらがつながる向きに近づくと、絵が完成して名前が現れます。お手本や時間制限はありません。</li>
+      <li>迷ったら「ヒント」で、絵にまつわるなぞなぞを読めます。</li>
+      <li>第1問は左右だけ。第2問からは上下にも回せます。</li>
+      <li>矢印キーでも操作できます。Shiftを押しながらなら細かく回せます。</li>
     </ul>
     <button class="kg-btn primary" type="button" data-close>閉じる</button>
   </dialog>
@@ -653,7 +655,8 @@ button.primary{
 
 <script src="./hoshizu-levels.js"></script>
 <script src="./hoshizu.js"></script>
-<script src="./kagee.js"></script>
+<script src="./riddle-shapes.js"></script>
+<script src="./riddle.js"></script>
 <script src="./katsuji-levels.js"></script>
 <script src="./katsuji.js"></script>
 <script src="./chomen-levels.js"></script>
@@ -1052,7 +1055,7 @@ button.primary{
   const GAMES=[
     {id:'kintsugi',screen:'game',title:'金継ぎ',focus:'game-title',label:()=>{const going=S&&(S.moves||S.level>1);return {play:going?'つづきの器へ':'器をつなぐ',note:going?`第${S.level}の器・${S.moves}手から`:''}},ids:['play-label','resume-note']},
     {id:'hoshizu',screen:'hoshizu',title:'星図',focus:'hz-title',mod:'Hoshizu',ids:['hz-play-label','hz-resume-note']},
-    {id:'kagee',screen:'kagee',title:'影絵',focus:'kg-title',mod:'Kagee',ids:['kg-play-label','kg-resume-note']},
+    {id:'kagee',screen:'kagee',title:'かくれ絵',focus:'kg-title',mod:'Kagee',ids:['kg-play-label','kg-resume-note']},
     {id:'katsuji',screen:'katsuji',title:'活字',focus:'kj-title',mod:'Katsuji',ids:['kj-play-label','kj-resume-note']},
     {id:'chomen',screen:'chomen',title:'帳面',focus:'cm-title',mod:'Chomen',ids:['cm-play-label','cm-resume-note']},
     {id:'himitsu',screen:'himitsu',title:'秘密箱',focus:'hm-title',mod:'Himitsu',ids:['hm-play-label','hm-resume-note']},
