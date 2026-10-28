@@ -254,3 +254,8 @@ base / HEAD 6260027eca22336d688804d43e7075f59658737b、branch migration/cloudfla
 ## 2026-10-28：かくれ絵の本番公開完了
 
 本人の「公開して」を受け、検証済みdist/newを既存Cloudflare Pagesへ公開。deployment `2e9f2c75-83b5-42f4-8282-eab376ef3345` / Production / source `e6f69231b9ea6447f01e40168208592a3128ce37`。正式URL https://hirameki-garden.pages.dev/#kagee 。本番37資材SHA256一致、実v4→v5更新、旧影絵3キーと他cache保持、ゲーム完成・保存再開・offline成功。旧github.io/mainは未変更。詳細 `docs/SPACE-RIDDLE-20261028.md`。前記の公開承認待ちを本記録で更新。
+
+
+## 2026-10-28：反対向きで揃う絵も正解に修正（未公開）
+
+本人の月の画像と「反対向きで揃っても正解にならない」指摘に対し、裏側も正解にする方針を選択。表裏を同じ角度許容幅で判定し、裏向き完成の絵・アニメーション・保存を保持。旧版の裏向き未完成保存も同じ手数で完成へ。v5→v6更新、12問×左右24裏側解答、境界・保存・offlineと既存全12問正面/5画面検証が成功。base dc2b6b4、詳細 `docs/SPACE-RIDDLE-REVERSE-20261028.md`。今回の差分は公開前。

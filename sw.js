@@ -1,5 +1,5 @@
 // 更新を配信するときは VERSION の数字を上げてください
-const VERSION = 'hirameki-pages-v5';
+const VERSION = 'hirameki-pages-v6';
 const SHELL = [
   './',
   './index.html',
