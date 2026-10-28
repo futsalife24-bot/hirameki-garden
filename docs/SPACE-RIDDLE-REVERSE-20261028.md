@@ -1,4 +1,4 @@
-# 反対向きの完成判定を修正（2026-10-28・未公開）
+# 反対向きの完成判定を修正（2026-10-29・公開済み）
 
 ## 判断と原因
 
@@ -25,7 +25,7 @@
 
 ## 公開境界
 
-前の12問版は公開済みだが、この修正版は未公開。プロジェクトAGENTS.mdの公開承認条件に従い、今回の修正差分を提示後に公開確認する。旧影絵・他作品の保存キーと移行形式は変更しない。Android実機は未確認。
+2026-10-29に本人が「承認」と回答し、修正版を公開済み。旧影絵・他作品の保存キーと移行形式は変更しない。Android実機は未確認。
 
 
 ## 検証結果
@@ -38,3 +38,13 @@
 - 合成保存・隔離Edgeのみ使用。実データや公開サイトは未変更。他7作品の実装・共通UIには変更がないため無関係な全体E2Eは反復していない。
 
 [新規回帰結果](reports/riddle-reverse-20261028/result.json)・[既存ゲーム検証](reports/riddle-reverse-20261028/standard-result.json)・[修正後の裏向き完成](reports/riddle-reverse-20261028/v6-back-solved.png)
+
+
+## 本番公開結果（2026-10-29）
+
+- 正式URL：https://hirameki-garden.pages.dev/#kagee
+- deployment `49e380f4-8884-4c18-aff2-b60180262e80`、Production / main、source `477ff82a602c338e083988c375ac9235d2ba0d53`。
+- 既存Wrangler 4.92.0で検証済みdist/newのみ配布。37資材中2件更新・35件再利用。旧GitHub mainと旧移行サイトは未変更。
+- `node test-riddle-reverse-production.cjs`：本番37資材SHA256一致、逆向き未完成の合成保存が4手のまま完成、左右両側の裏向き操作解答、鏡像角度保持、ベスト・旧影絵保存保持、再開・offline・次の問、実行エラー0。終了コード0。
+- 本番画像を目視し、本人提示の向きの月で完成表示を確認。Android実機は未確認。
+- [本番検証JSON](reports/riddle-reverse-20261028/production.json)・[本番の逆向き完成](reports/riddle-reverse-20261028/production-reverse.png)。
