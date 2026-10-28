@@ -1,6 +1,6 @@
-# かくれ絵への差し替え（2026-10-28・公開承認待ち）
+# かくれ絵への差し替え（2026-10-28・公開済み）
 
-ユーザーはSpaceRiddle形式のゲームを希望し、3D空間の白いかけらが視点によって一枚の絵になる参考画像3点を提示。影絵と重なるため、遊び帖三を「かくれ絵」に差し替えた。公開はまだ行っていない。
+ユーザーはSpaceRiddle形式のゲームを希望し、3D空間の白いかけらが視点によって一枚の絵になる参考画像3点を提示。影絵と重なるため、遊び帖三を「かくれ絵」に差し替えた。ユーザーの「公開して」を受け、下記の正式サイトへ公開済み。
 
 ## 対象と保護
 
@@ -41,10 +41,24 @@
 
 [スマホ開始画面](reports/space-riddle-20261028/mobile-start.png)・[PC画面](reports/space-riddle-20261028/desktop-play.png)・[庭](reports/space-riddle-20261028/mobile-garden.png)
 
-## 制約と公開前の残件
+## 制約と残件
 
 - 新ゲームの進み具合は同一ブラウザに自動保存される。既存の「データの引継ぎ」は旧8作品25キーの契約を維持しており、新ゲーム2キーは対象外。機種間引継ぎは未実装。
 - Android実機での手触り・本人の遊びやすさは未確認。ブラウザのタッチpointer経路を実機試験とは扱わない。
 - 独立監査は実施していない。単一作品の差し替えとして自己レビューと必要な回帰検証を実施。
-- 公開承認後に `dist/new` だけを正式Cloudflare Pagesへ配布し、配信資材・保存・offlineを確認する。旧github.ioへ新版を置かない。
+- 承認済みの `dist/new` だけを正式Cloudflare Pagesへ配布済み。旧github.ioは変更していない。
 - 主担当の実モデルID/推論設定は未確認。形データ担当は `gpt-6-sol` / `medium`。子による再委任なし。
+
+
+## 公開結果
+
+- 承認：この作業チャットで本人が「公開して」と明示。
+- 正式URL：https://hirameki-garden.pages.dev/#kagee
+- Deployment：`2e9f2c75-83b5-42f4-8282-eab376ef3345`、Production / main。
+- 固有URL：https://2e9f2c75.hirameki-garden.pages.dev
+- 配布元commit：`e6f69231b9ea6447f01e40168208592a3128ce37`。製品コードはレビュー済み `b4f3a7c9ec30c568939b8cd81214ec9e36c9a580` と同じで、本番検証スクリプトだけ追加。
+- 既存Wrangler 4.92.0・既存認証で配布。新規契約・権限変更・GitHub mainへのmergeは行っていない。37資材のうち8件アップロード、29件再利用。
+- CLIの未コミット警告は生成された未追跡 `.wrangler/` のみ。製品の差分はなく、CLI用一時状態を後続の記録commitでGit対象外にした。
+- `node test-riddle-production.cjs prepare` で旧本番v4を一時Edgeへ保持し、公開後の同スクリプトで更新を検証。旧影絵3キー・他cache保持、配信37資材SHA256一致、12問収録、第1問操作解答、次の問・保存・再読込・庭との往復・offline操作、実行エラー0。終了コード0。
+- [本番検証結果](reports/space-riddle-20261028/production.json)、[本番スマホ幅画像](reports/space-riddle-20261028/production-mobile.png)。画像を目視済み。Android実機試験とは区別する。
+- 新ゲーム記録の機種間引継ぎは引き続き未対応。旧影絵記録は保持。

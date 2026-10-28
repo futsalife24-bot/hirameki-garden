@@ -249,3 +249,8 @@ base / HEAD 6260027eca22336d688804d43e7075f59658737b、branch migration/cloudfla
 ## 2026-10-28：影絵をかくれ絵12問へ差し替え（未公開）
 
 ユーザー提示画像に基づき、空間のかけらを回して絵を見つける形式へ差し替え。独立cloneの `feat/space-riddle-20261028`、base `543f942ad15aaf5bfaacb656bdb95e540b6fbd30`。旧影絵のデータ・コード保持、新記録は独立保存。全12問の操作解答・5画面・保存・offline・v4→v5更新・標準他作品・移行単体・SW境界19項目が成功。新記録の機種間引継ぎとAndroid実機は未対応/未確認。正式公開は承認待ち。詳細・証拠・担当モデルは `docs/SPACE-RIDDLE-20261028.md`。
+
+
+## 2026-10-28：かくれ絵の本番公開完了
+
+本人の「公開して」を受け、検証済みdist/newを既存Cloudflare Pagesへ公開。deployment `2e9f2c75-83b5-42f4-8282-eab376ef3345` / Production / source `e6f69231b9ea6447f01e40168208592a3128ce37`。正式URL https://hirameki-garden.pages.dev/#kagee 。本番37資材SHA256一致、実v4→v5更新、旧影絵3キーと他cache保持、ゲーム完成・保存再開・offline成功。旧github.io/mainは未変更。詳細 `docs/SPACE-RIDDLE-20261028.md`。前記の公開承認待ちを本記録で更新。

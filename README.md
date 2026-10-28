@@ -2,7 +2,7 @@
 
 世界観の異なるパズルを集める遊び場。収録作品は「金継ぎ」「星図」「かくれ絵」「活字」「帳面」「秘密箱」「染め分け」「算額」です。
 
-- 正式公開先：https://hirameki-garden.pages.dev/ （今回のかくれ絵は未公開）
+- 正式公開先：https://hirameki-garden.pages.dev/ （2026-10-28 かくれ絵公開済み）
 - 旧サイト：https://futsalife24-bot.github.io/hirameki-garden/ （移行案内専用）
 - GitHub：https://github.com/futsalife24-bot/hirameki-garden
 - 作業場所：`C:/Users/futsa/Documents/Codex/2026-10-06/4-pro20x-hub/hirameki-garden`（2026-10-07の発展ページ用checkout。旧checkoutは保持）
@@ -55,7 +55,7 @@
 5×5から9×10まで全30夜。時間制限なし。進み具合と自己ベストは端末内に保存（`hoshizu-save-v1`・`hoshizu-best`、金継ぎとは別）。
 問題は `tools/hoshizu-gen.cjs` で作り、答えがひとつに決まる面だけを `hoshizu-levels.js` に収録しています（`node tools/hoshizu-gen.cjs` で再生成）。
 
-## かくれ絵（旧「影絵」の枠を差し替え・未公開）
+## かくれ絵（2026-10-28・旧「影絵」の枠を差し替え公開済み）
 
 空間に散る白いかけらを回し、一枚の絵につながる視点を探す立体なぞなぞ。身近なものの曲線シルエットを不規則に分け、奥行きへ離しています。参考作品の画像・素材・問題は使わず、独自の12問を用意しました。
 
