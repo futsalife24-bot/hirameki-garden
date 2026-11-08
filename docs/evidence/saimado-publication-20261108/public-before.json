@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-08T12:58:18.820Z",
+  "mode": "認証なし・読取りのみ・一時Edge",
+  "base": "ba4a28466f2176f57f1f4036bcad0027add252e2",
+  "files": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "baseByteEqual": true,
+      "sha256": "9edf7911aa65ff72880694e5498cd2d543848e98f411dc89efee7b97c848a08c"
+    },
+    {
+      "path": "garden.js",
+      "status": 200,
+      "baseByteEqual": true,
+      "sha256": "8f21452ffc49fc7c59870c29d7e37a1ededc94819aa1972d36160f726841d654"
+    },
+    {
+      "path": "riddle.js",
+      "status": 200,
+      "baseByteEqual": true,
+      "sha256": "d686672b772cd92f7398e79b2c884bb035849cb1ed64c8bac822b5df20a75aad"
+    },
+    {
+      "path": "sw.js",
+      "status": 200,
+      "baseByteEqual": true,
+      "sha256": "1d9dac3cf3fe652dd6371d7fae221690eb5dea97ffdc101668ebc0cbcc26ed9b",
+      "version": "hirameki-pages-v6"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "status": 200,
+      "baseByteEqual": true,
+      "sha256": "cf2b58275750c0aa7b71d9e013f11110a713144e9ee2d0b48c8f70361cb2bfba"
+    }
+  ]
+}

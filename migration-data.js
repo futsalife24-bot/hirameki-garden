@@ -3,6 +3,7 @@
   'use strict';
   const worlds=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu','somewake','sangaku'];
   const keys=['hirameki-world',...worlds.flatMap(w=>[w+'-save-v1',w+'-best',w+'-sound'])];
+  const extraKeys=['saimado-save-v1','saimado-best','saimado-sound','kakuree-save-v1','kakuree-sound'],allKeys=[...keys,...extraKeys];
   const capsule='hirameki-import-v1';
   const fail=()=>{throw Error('対応していない形式、作品、または不正な値です。保存内容は変更していません。')};
   const obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
@@ -54,27 +55,41 @@
   }
   function validate(b){
     exact(b,['app','version','createdAt','data']);
-    if(b.app!=='hirameki-garden'||b.version!==1||typeof b.createdAt!=='string'||!Number.isFinite(Date.parse(b.createdAt)))fail();
-    exact(b.data,keys);
-    for(const k of keys){const v=b.data[k];if(v===null)continue;if(typeof v!=='string'||v.length>1000000)fail();
-      if(k==='hirameki-world'){if(!worlds.includes(v))fail();continue}
+    if(b.app!=='hirameki-garden'||![1,2].includes(b.version)||typeof b.createdAt!=='string'||!Number.isFinite(Date.parse(b.createdAt)))fail();
+    const target=b.version===1?keys:allKeys;exact(b.data,target);
+    for(const k of target){const v=b.data[k];if(v===null)continue;if(typeof v!=='string'||v.length>1000000)fail();
+      if(k==='hirameki-world'){if(![...worlds,...(b.version===2?['saimado']:[])].includes(v))fail();continue}
       if(k.endsWith('-sound')){if(v!=='0'&&v!=='1')fail();continue}
+      if(extraKeys.includes(k)){extra(k,v);continue}
       const w=k.split('-')[0];let s;try{s=JSON.parse(v)}catch(e){fail()}
       if(k.endsWith('-best')){if(!obj(s))fail();const max=w==='kintsugi'?1000000:w==='kagee'?20:root[w.toUpperCase()+'_LEVELS'].length;for(const [n,x]of Object.entries(s))if(!/^[1-9]\d*$/.test(n)||!int(+n,1,max)||!int(x))fail()}
       else state(w,s);
     }
     return b;
   }
+  function extra(k,v){
+    let s;try{s=JSON.parse(v)}catch{fail()}
+    if(k==='saimado-best'){if(!obj(s))fail();for(const [n,x]of Object.entries(s))if(!/^[1-9]\d*$/.test(n)||!int(+n,1,root.SAIMADO_LEVELS.length)||!int(x))fail();return}
+    if(k==='saimado-save-v1'){
+      exact(s,['level','cuts','moves','solved','hinted']);if(!int(s.level,1,root.SAIMADO_LEVELS.length)||!int(s.moves)||typeof s.solved!=='boolean'||typeof s.hinted!=='boolean')fail();
+      const p=root.SAIMADO_LEVELS[s.level-1];if(!arr(s.cuts,root.SaimadoCore.edges(p).length,x=>x===0||x===1)||s.solved!==root.SaimadoCore.check(p,s.cuts).solved)fail();return;
+    }
+    exact(s,['level','yaw','pitch','moves','solved','hint','best']);
+    if(!int(s.level,1,12)||!Number.isFinite(s.yaw)||Math.abs(s.yaw)>Math.PI||!Number.isFinite(s.pitch)||Math.abs(s.pitch)>1.35||!int(s.moves)||typeof s.solved!=='boolean'||typeof s.hint!=='boolean'||!obj(s.best))fail();
+    for(const [n,x]of Object.entries(s.best))if(!/^[1-9]\d*$/.test(n)||!int(+n,1,12)||!int(x))fail();
+    if(s.solved&&(Math.min(Math.abs(s.yaw),Math.abs(Math.PI-Math.abs(s.yaw)))>=.075||Math.abs(s.pitch)>=.075))fail();
+  }
   function api(storage){
     let seen=storage.getItem(capsule);
     function active(){const raw=storage.getItem(capsule);return raw===null?null:JSON.parse(raw).data}
-    function get(k){if(!keys.includes(k))fail();const a=active();return a?a[k]:storage.getItem(k)}
-    function snapshot(){return validate({app:'hirameki-garden',version:1,createdAt:new Date().toISOString(),data:Object.fromEntries(keys.map(k=>[k,get(k)]))})}
-    return {get,set(k,v){if(!keys.includes(k))fail();if(storage.getItem(capsule)!==seen)throw Error('別の画面で保存が更新されました。再読込みしてください。');const a=active();if(a){const b={app:'hirameki-garden',version:1,createdAt:new Date().toISOString(),data:{...a,[k]:v}};const next=JSON.stringify(b);storage.setItem(capsule,next);seen=next}else storage.setItem(k,v)},snapshot,
-      import(b){const safe=JSON.stringify(validate(b));storage.setItem(capsule,safe);seen=safe},
+    function get(k){if(!allKeys.includes(k))fail();const a=active();return a&&Object.hasOwn(a,k)?a[k]:storage.getItem(k)}
+    function pack(data){const extended=extraKeys.some(k=>data[k]!=null)||data['hirameki-world']==='saimado';return {app:'hirameki-garden',version:extended?2:1,createdAt:new Date().toISOString(),data:Object.fromEntries((extended?allKeys:keys).map(k=>[k,data[k]??null]))}}
+    function snapshot(){return validate(pack(Object.fromEntries(allKeys.map(k=>[k,get(k)]))))}
+    return {get,set(k,v){if(!allKeys.includes(k))fail();if(storage.getItem(capsule)!==seen)throw Error('別の画面で保存が更新されました。再読込みしてください。');const a=active();if(a){const b=pack({...Object.fromEntries(allKeys.map(n=>[n,get(n)])),[k]:v});const next=JSON.stringify(b);storage.setItem(capsule,next);seen=next}else storage.setItem(k,v)},snapshot,
+      import(b){validate(b);const merged=b.version===1&&extraKeys.some(k=>get(k)!==null)?{...pack({...Object.fromEntries(extraKeys.map(k=>[k,get(k)])),...b.data}),createdAt:b.createdAt}:b;const safe=JSON.stringify(validate(merged));storage.setItem(capsule,safe);seen=safe},
       current(){return JSON.stringify(snapshot().data)}};
   }
-  root.HiramekiBackup={keys,capsule,validate,api};
+  root.HiramekiBackup={keys,extraKeys,allKeys,capsule,validate,api};
   if(typeof window!=='undefined'){
     root.HiramekiStorage=api(localStorage);
     if(!location.pathname.endsWith('migration.html'))addEventListener('storage',e=>{if(e.key===capsule)location.reload()});

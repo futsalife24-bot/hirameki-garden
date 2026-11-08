@@ -1,0 +1,83 @@
+{
+  "legacySha256": "e56e8d17575f39336c02a1c96c470ffad3fc82c628cc0fb8cd075cd88019976e",
+  "pages": 28,
+  "newPages": [
+    {
+      "page": 21,
+      "theme": "発展・言葉",
+      "width": 11,
+      "height": 6,
+      "words": 10,
+      "repeated": 0,
+      "crossings": 9
+    },
+    {
+      "page": 22,
+      "theme": "発展・科学",
+      "width": 11,
+      "height": 11,
+      "words": 10,
+      "repeated": 0,
+      "crossings": 9
+    },
+    {
+      "page": 23,
+      "theme": "発展・地理",
+      "width": 11,
+      "height": 8,
+      "words": 10,
+      "repeated": 0,
+      "crossings": 9
+    },
+    {
+      "page": 24,
+      "theme": "発展・数と論理",
+      "width": 10,
+      "height": 10,
+      "words": 10,
+      "repeated": 0,
+      "crossings": 9
+    },
+    {
+      "page": 25,
+      "theme": "発展・言葉",
+      "width": 7,
+      "height": 11,
+      "words": 12,
+      "repeated": 4,
+      "crossings": 11
+    },
+    {
+      "page": 26,
+      "theme": "発展・科学",
+      "width": 9,
+      "height": 11,
+      "words": 12,
+      "repeated": 3,
+      "crossings": 11
+    },
+    {
+      "page": 27,
+      "theme": "発展・地理",
+      "width": 11,
+      "height": 10,
+      "words": 12,
+      "repeated": 1,
+      "crossings": 11
+    },
+    {
+      "page": 28,
+      "theme": "発展・数と論理",
+      "width": 11,
+      "height": 11,
+      "words": 12,
+      "repeated": 3,
+      "crossings": 11
+    }
+  ],
+  "clueViewportChecks": 352,
+  "saveResume": true,
+  "oldServiceWorkerUpgrade": true,
+  "offline": true,
+  "javascriptErrors": []
+}

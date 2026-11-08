@@ -7,7 +7,9 @@
     "build": "node tools/build-migration.cjs",
     "test:migration": "node test-migration.cjs",
     "test:migration:audit": "node test-migration-audit.cjs",
-    "test:riddle": "node tools/build-migration.cjs && node test-riddle.cjs"
+    "test:riddle": "node tools/build-migration.cjs && node test-riddle.cjs",
+    "test:saimado:unit": "node test-saimado-unit.cjs",
+    "test:saimado": "node tools/build-migration.cjs && node test-saimado.cjs && node test-saimado-upgrade.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

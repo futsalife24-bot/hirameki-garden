@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-08",
+  "tests": [
+    {
+      "command": "node test.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-riddle.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-riddle-reverse.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-chomen.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration-audit.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-sw-response-boundary.cjs",
+      "exitCode": 0
+    }
+  ],
+  "manual": "画像を読み、入門の誤辺→未完成→Undo→1の区画を囲む2手完成を逐次選んで隔離Edgeへ操作。Android実機ではない。",
+  "public": "未公開・push/merge/deployなし",
+  "originalCheckout": "feat/space-riddle-20261028の元checkoutは変更しない"
+}

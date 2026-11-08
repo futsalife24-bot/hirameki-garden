@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-08T12:24:26.781Z",
+  "base": "ba4a28466f2176f57f1f4036bcad0027add252e2",
+  "branch": "feat/saimado-region-20261108",
+  "results": [
+    {
+      "command": "node tools/build-migration.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-saimado-unit.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-migration-unit.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-saimado.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node test-saimado-upgrade.cjs",
+      "exitCode": 0
+    }
+  ],
+  "hashes": [
+    {
+      "path": "saimado-core.js",
+      "sha256": "ed9781834df60a5ab96833044a66693f3563c4b732a25280456d85d722e45362"
+    },
+    {
+      "path": "saimado-levels.js",
+      "sha256": "049bf9809660c1b6d996bb2b295d59cea65b3e0ff09e5e6dfbf13d7d8e8c74c2"
+    },
+    {
+      "path": "saimado.js",
+      "sha256": "644faeb3168956170b7061491b4c18a0dcbfcee3fd3e7f30b07a5ed61a411fde"
+    },
+    {
+      "path": "saimado.css",
+      "sha256": "366f0ed1ed2122247f0b51ec4b1b022b7a7a87bc5f6ea13faee71fdd7a1878e0"
+    },
+    {
+      "path": "index.html",
+      "sha256": "f8da237924abb29b645c10b8d0ef6873efb67bc00debfd4e3efc96be1e928f48"
+    },
+    {
+      "path": "garden.js",
+      "sha256": "f5fad319dedee268ab524ccd1e4e9b9afadcea44eb57d4223080aa60c4febc22"
+    },
+    {
+      "path": "migration-data.js",
+      "sha256": "27a7c2e465680bdf1fd909358b0f82af28a32c10129cb58a6ec7906f125db96a"
+    },
+    {
+      "path": "migration-ui.js",
+      "sha256": "dc2a4829e3310283dd2db001556fc6075fbae9bcaace26f46d188b5cb8c7cd68"
+    },
+    {
+      "path": "migration.html",
+      "sha256": "a1668e6b285cc94a82bb15232d5319e190e05a1be2ef43795977d64aa39c3bc5"
+    },
+    {
+      "path": "riddle.js",
+      "sha256": "878042862bbf6be838f40197721a85379af791f870d22426d67390ee168e2d5a"
+    },
+    {
+      "path": "sw.js",
+      "sha256": "f3ecb96c2f3ee56572f5d1b9cd0e95da0a62809a8cc84f8eab533251403ed1e8"
+    },
+    {
+      "path": "tools/build-migration.cjs",
+      "sha256": "2c5836dfe33387616f3d81bf4840030a85a1f3a4f02d5462b76a56885169ee47"
+    }
+  ],
+  "public": "未公開・push/merge/deploy未実施",
+  "android": "未確認"
+}

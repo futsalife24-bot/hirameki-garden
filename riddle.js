@@ -12,16 +12,16 @@
   const finishYaw=y=>Math.abs(y)>Math.PI/2?(y<0?-Math.PI:Math.PI):0;
   const rng=seed=>()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296};
   let W=1,H=1,DPR=1,S,P,drag=null,frame=0,resetTimer=0,ac=null,sound=true;
-  try{sound=localStorage.getItem(SOUND)!=='0'}catch{}
+  try{sound=HiramekiStorage.get(SOUND)!=='0'}catch{}
   const announce=t=>{$('kg-live').textContent=t};
   const initial=level=>({yaw:level===1?.9:(level%2?-1:1)*(.8+(level%4)*.12),pitch:level===1?0:(level%2?-.55:.65)});
   function read(){try{
-    const s=JSON.parse(localStorage.getItem(KEY));
+    const s=JSON.parse(HiramekiStorage.get(KEY));
     if(!s||!Number.isInteger(s.level)||s.level<1||s.level>shapes.length||!Number.isFinite(s.yaw)||Math.abs(s.yaw)>Math.PI||!Number.isFinite(s.pitch)||Math.abs(s.pitch)>1.35||!Number.isInteger(s.moves)||s.moves<0||s.moves>2147483647||typeof s.solved!=='boolean')return null;
     const best={};if(s.best&&typeof s.best==='object')for(const [k,v]of Object.entries(s.best))if(/^[1-9]\d*$/.test(k)&&+k<=shapes.length&&Number.isInteger(v)&&v>=0)best[k]=v;
     return {...s,best,hint:!!s.hint,solved:s.solved&&aligned(s.yaw,s.pitch)};
   }catch{return null}}
-  function save(){let failed=false;try{localStorage.setItem(KEY,JSON.stringify(S))}catch{failed=true;announce('この端末に保存できません。画面を閉じると進み具合が失われます。')}$('kg-save-warning').hidden=!failed}
+  function save(){let failed=false;try{HiramekiStorage.set(KEY,JSON.stringify(S))}catch{failed=true;announce('この端末に保存できません。画面を閉じると進み具合が失われます。')}$('kg-save-warning').hidden=!failed}
   function clip(poly,a,b,c){const out=[];for(let i=0;i<poly.length;i++){
     const p=poly[i],q=poly[(i+1)%poly.length],dp=a*p[0]+b*p[1]-c,dq=a*q[0]+b*q[1]-c;
     if(dp<=0)out.push(p);if((dp<0)!==(dq<0)){const t=dp/(dp-dq);out.push([p[0]+t*(q[0]-p[0]),p[1]+t*(q[1]-p[1])])}
@@ -84,7 +84,7 @@
   $('kg-hint').addEventListener('click',()=>{S.hint=!S.hint;ui();resize();save()});
   $('kg-next').addEventListener('click',()=>{start(S.level%shapes.length+1);cv.focus({preventScroll:true})});
   function paintSound(){$('kg-sound').textContent=sound?'音あり':'音なし';$('kg-sound').setAttribute('aria-pressed',String(sound))}
-  $('kg-sound').addEventListener('click',()=>{sound=!sound;try{localStorage.setItem(SOUND,sound?'1':'0')}catch{announce('音の設定を保存できません。')}paintSound();tone()});paintSound();
+  $('kg-sound').addEventListener('click',()=>{sound=!sound;try{HiramekiStorage.set(SOUND,sound?'1':'0')}catch{announce('音の設定を保存できません。')}paintSound();tone()});paintSound();
   addEventListener('pagehide',()=>{if(drag?.moved)save()});addEventListener('hashchange',()=>{if(drag?.moved)save();drag=null;cancelAnimationFrame(frame)});
   if('ResizeObserver'in window)new ResizeObserver(resize).observe(cv.parentElement);else addEventListener('resize',resize);
   const saved=read();start(saved?.level||1,saved);

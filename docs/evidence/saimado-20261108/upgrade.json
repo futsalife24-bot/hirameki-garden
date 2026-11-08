@@ -1,0 +1,13 @@
+{
+  "from": "ba4a284 / hirameki-pages-v6",
+  "to": "hirameki-pages-v7-saimado",
+  "old25Preserved": true,
+  "rawKeysPreserved": true,
+  "riddlePreserved": true,
+  "oldCachesPreserved": true,
+  "otherSWCacheIndexedDBPreserved": true,
+  "offlineNewGame": true,
+  "backupVersion": 2,
+  "android": "未確認",
+  "errors": []
+}

@@ -7,8 +7,9 @@
 <p>保存したファイルを読み込み欄で検証し、内容が合っていることを確かめるまでアンインストールしないでください。</p>
 <section><h2>バックアップの確認と読み込み</h2><input id="file" type="file" accept=".json,application/json" aria-label="バックアップファイル">
 <pre id="preview">ファイルを選ぶと、保存日時・対象・進行・設定を確認できます。</pre>
-<label><input id="agree" type="checkbox" disabled>現在のひらめきの庭の全進行・自己ベスト・設定を、上の内容で置き換えます。</label>
+<label><input id="agree" type="checkbox" disabled>上に示した対象の進行・自己ベスト・設定を、確認した内容で置き換えます。</label>
 <button id="import" disabled>確認した内容で上書きする</button><button id="cancel">キャンセル</button></section>
 <p id="status" role="status" aria-live="polite"></p><p><a href="./">庭へ戻る</a></p>
 <script src="./hoshizu-levels.js"></script><script src="./katsuji-levels.js"></script><script src="./chomen-levels.js"></script><script src="./himitsu-levels.js"></script><script src="./somewake-levels.js"></script><script src="./sangaku-levels.js"></script>
+<script src="./saimado-core.js"></script><script src="./saimado-levels.js"></script>
 <script src="./migration-data.js"></script><script src="./migration-ui.js"></script></html>

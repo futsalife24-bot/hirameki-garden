@@ -1,0 +1,286 @@
+{
+  "browser": "157.0.4341.42",
+  "profile": "一時Edge・合成保存のみ",
+  "solvedByClicks": 16,
+  "fitting": [
+    {
+      "level": 1,
+      "width": 320,
+      "height": 568,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        200,
+        200
+      ]
+    },
+    {
+      "level": 1,
+      "width": 390,
+      "height": 844,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        200,
+        200
+      ]
+    },
+    {
+      "level": 1,
+      "width": 844,
+      "height": 390,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        200,
+        200
+      ]
+    },
+    {
+      "level": 1,
+      "width": 768,
+      "height": 1024,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        200,
+        200
+      ]
+    },
+    {
+      "level": 1,
+      "width": 1280,
+      "height": 720,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        200,
+        200
+      ]
+    },
+    {
+      "level": 5,
+      "width": 320,
+      "height": 568,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        276,
+        207
+      ]
+    },
+    {
+      "level": 5,
+      "width": 390,
+      "height": 844,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        344,
+        258
+      ]
+    },
+    {
+      "level": 5,
+      "width": 844,
+      "height": 390,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        316,
+        237
+      ]
+    },
+    {
+      "level": 5,
+      "width": 768,
+      "height": 1024,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        400,
+        300
+      ]
+    },
+    {
+      "level": 5,
+      "width": 1280,
+      "height": 720,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        372,
+        279
+      ]
+    },
+    {
+      "level": 9,
+      "width": 320,
+      "height": 568,
+      "fits": true,
+      "hit": 36,
+      "board": [
+        275,
+        165
+      ]
+    },
+    {
+      "level": 9,
+      "width": 390,
+      "height": 844,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        345,
+        207
+      ]
+    },
+    {
+      "level": 9,
+      "width": 844,
+      "height": 390,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        395,
+        237
+      ]
+    },
+    {
+      "level": 9,
+      "width": 768,
+      "height": 1024,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        500,
+        300
+      ]
+    },
+    {
+      "level": 9,
+      "width": 1280,
+      "height": 720,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        465,
+        279
+      ]
+    },
+    {
+      "level": 13,
+      "width": 320,
+      "height": 568,
+      "fits": true,
+      "hit": 36,
+      "board": [
+        275,
+        220
+      ]
+    },
+    {
+      "level": 13,
+      "width": 390,
+      "height": 844,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        345,
+        276
+      ]
+    },
+    {
+      "level": 13,
+      "width": 844,
+      "height": 390,
+      "fits": true,
+      "hit": 39,
+      "board": [
+        295,
+        236
+      ]
+    },
+    {
+      "level": 13,
+      "width": 768,
+      "height": 1024,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        500,
+        400
+      ]
+    },
+    {
+      "level": 13,
+      "width": 1280,
+      "height": 720,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        330,
+        264
+      ]
+    },
+    {
+      "level": 16,
+      "width": 320,
+      "height": 568,
+      "fits": true,
+      "hit": 36,
+      "board": [
+        275,
+        220
+      ]
+    },
+    {
+      "level": 16,
+      "width": 390,
+      "height": 844,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        345,
+        276
+      ]
+    },
+    {
+      "level": 16,
+      "width": 844,
+      "height": 390,
+      "fits": true,
+      "hit": 39,
+      "board": [
+        295,
+        236
+      ]
+    },
+    {
+      "level": 16,
+      "width": 768,
+      "height": 1024,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        500,
+        400
+      ]
+    },
+    {
+      "level": 16,
+      "width": 1280,
+      "height": 720,
+      "fits": true,
+      "hit": 44,
+      "board": [
+        330,
+        264
+      ]
+    }
+  ],
+  "json": "別originへ物理ファイルの書き出し・確認・キャンセル・明示import・再開",
+  "offline": true,
+  "pageErrors": [],
+  "android": "未確認"
+}

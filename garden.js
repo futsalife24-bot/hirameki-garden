@@ -2,14 +2,14 @@
    選んだ遊びは端末に覚え、次に開いたときもその世界観のタイトル画面から始める。
    <html data-world> と <body data-world> が現在の世界観。 */
 (function(){
-  const WORLDS=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu','somewake','sangaku'],WKEY='hirameki-world';
-  const THEME={kintsugi:'#eee9df',hoshizu:'#0b1026',kagee:'#080b11',katsuji:'#161412',chomen:'#f6f8fa',himitsu:'#2b1a10',somewake:'#233a63',sangaku:'#5c1a12'};
+  const WORLDS=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu','somewake','sangaku','saimado'],WKEY='hirameki-world';
+  const THEME={kintsugi:'#eee9df',hoshizu:'#0b1026',kagee:'#080b11',katsuji:'#161412',chomen:'#f6f8fa',himitsu:'#2b1a10',somewake:'#233a63',sangaku:'#5c1a12',saimado:'#102d35'};
   const store={get(k){try{return HiramekiStorage.get(k)}catch(e){return null}},set(k,v){try{HiramekiStorage.set(k,v)}catch(e){}}};
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $=id=>document.getElementById(id);
   const slides=[...document.querySelectorAll('.game-card[data-world]')];
   const dots=[...document.querySelectorAll('.slide-dot[data-world]')];
-  let selected=location.hash==='#kagee'?'kagee':WORLDS.includes(store.get(WKEY))?store.get(WKEY):'kintsugi';
+  let selected=['kagee','saimado'].includes(location.hash.slice(1))?location.hash.slice(1):WORLDS.includes(store.get(WKEY))?store.get(WKEY):'kintsugi';
 
   function setWorld(w){
     if(!WORLDS.includes(w))w='kintsugi';

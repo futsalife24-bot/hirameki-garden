@@ -5,6 +5,7 @@ const vm=require('node:vm'),http=require('node:http'),crypto=require('node:crypt
 const ROOT=__dirname,OUT=path.join(ROOT,'test-results','chomen');
 const readLevels=source=>{const context={window:{}};vm.runInNewContext(source,context);return JSON.parse(JSON.stringify(context.window.CHOMEN_LEVELS))};
 const source=fs.readFileSync(path.join(ROOT,'chomen-levels.js'),'utf8'),levels=readLevels(source);
+const currentVersion=fs.readFileSync(path.join(ROOT,'sw.js'),'utf8').match(/const VERSION = '([^']+)'/)[1],legacyVersion=currentVersion+'-20pages-fixture';
 const digest=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 // main c9bac0690d98f1b4991301f8468c8fbc14d93961 の既存20ページ。
 assert.equal(digest(levels.slice(0,20)),'e56e8d17575f39336c02a1c96c470ffad3fc82c628cc0fb8cd075cd88019976e','既存20ページの内容・順序');
@@ -45,7 +46,7 @@ const server=http.createServer((req,res)=>{
   const file=path.resolve(ROOT,'.'+rel);if(!file.startsWith(ROOT+path.sep)){res.writeHead(403).end();return}
   fs.readFile(file,(err,data)=>{
     if(!err&&legacy&&rel==='/chomen-levels.js')data='window.CHOMEN_LEVELS='+JSON.stringify(levels.slice(0,20))+';';
-    if(!err&&legacy&&rel==='/sw.js')data=data.toString().replace('hirameki-v16','hirameki-v15');
+    if(!err&&legacy&&rel==='/sw.js')data=data.toString().replace(currentVersion,legacyVersion);
     res.writeHead(err?404:200,{'Content-Type':types[path.extname(file)]||'text/plain','Cache-Control':'no-store'});res.end(err?'':data);
   });
 });
@@ -76,8 +77,8 @@ const server=http.createServer((req,res)=>{
     await page.evaluate(best=>localStorage.setItem('chomen-best',JSON.stringify(best)),best);
     await load(20,{done:oldDone,miss:2,solved:false});
     legacy=false;
-    await page.evaluate(async()=>{const old=navigator.serviceWorker.controller;const changed=new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));const registration=await navigator.serviceWorker.getRegistration();await registration.update();if(navigator.serviceWorker.controller===old)await changed});
-    await page.waitForFunction(async()=>(await caches.keys()).includes('hirameki-v16')&&!(await caches.keys()).includes('hirameki-v15'));
+    await page.evaluate(async()=>{const old=navigator.serviceWorker.controller;const changed=new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));const registration=await navigator.serviceWorker.getRegistration();await registration.update();if(navigator.serviceWorker.controller===old)await Promise.race([changed,new Promise((_,reject)=>setTimeout(()=>reject(Error('SW更新の待機期限')),30000))])});
+    await page.waitForFunction(async([current,legacy])=>{const names=await caches.keys();return names.includes(current)&&names.includes(legacy)},[currentVersion,legacyVersion]);
     await page.reload();await page.locator('#chomen:not([hidden])').waitFor();
     assert.equal(await page.evaluate(()=>CHOMEN_LEVELS.length),28);assert.deepEqual((await state()).done,oldDone);assert.equal((await state()).miss,2);
     assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('chomen-best'))),best);

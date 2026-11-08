@@ -1,0 +1,257 @@
+{
+  "results": [
+    {
+      "level": 1,
+      "name": "一枚の光",
+      "size": "2×2",
+      "solutions": 1,
+      "candidateCounts": [
+        1,
+        1
+      ],
+      "searchNodes": 3,
+      "pairEssential": false,
+      "rectangleEssential": false
+    },
+    {
+      "level": 2,
+      "name": "角の小窓",
+      "size": "3×2",
+      "solutions": 1,
+      "candidateCounts": [
+        2,
+        1,
+        1
+      ],
+      "searchNodes": 4,
+      "pairEssential": false,
+      "rectangleEssential": false
+    },
+    {
+      "level": 3,
+      "name": "曲がる境界",
+      "size": "3×3",
+      "solutions": 1,
+      "candidateCounts": [
+        2,
+        8,
+        1,
+        1
+      ],
+      "searchNodes": 5,
+      "pairEssential": false,
+      "rectangleEssential": false
+    },
+    {
+      "level": 4,
+      "name": "残りのかたち",
+      "size": "4×3",
+      "solutions": 1,
+      "candidateCounts": [
+        1,
+        9,
+        2,
+        1
+      ],
+      "searchNodes": 6,
+      "pairEssential": false,
+      "rectangleEssential": false
+    },
+    {
+      "level": 5,
+      "name": "離れた菱",
+      "size": "4×3",
+      "solutions": 1,
+      "candidateCounts": [
+        4,
+        1,
+        2,
+        2
+      ],
+      "searchNodes": 6,
+      "pairEssential": true,
+      "rectangleEssential": false
+    },
+    {
+      "level": 6,
+      "name": "ふたつの道",
+      "size": "4×3",
+      "solutions": 1,
+      "candidateCounts": [
+        3,
+        4,
+        1,
+        1
+      ],
+      "searchNodes": 6,
+      "pairEssential": true,
+      "rectangleEssential": false
+    },
+    {
+      "level": 7,
+      "name": "印をたどる",
+      "size": "4×3",
+      "solutions": 1,
+      "candidateCounts": [
+        2,
+        2,
+        2,
+        1
+      ],
+      "searchNodes": 8,
+      "pairEssential": true,
+      "rectangleEssential": false
+    },
+    {
+      "level": 8,
+      "name": "対の行き先",
+      "size": "4×3",
+      "solutions": 1,
+      "candidateCounts": [
+        2,
+        3,
+        2,
+        2
+      ],
+      "searchNodes": 8,
+      "pairEssential": true,
+      "rectangleEssential": false
+    },
+    {
+      "level": 9,
+      "name": "まっすぐな枠",
+      "size": "5×3",
+      "solutions": 1,
+      "candidateCounts": [
+        11,
+        6,
+        2,
+        8,
+        2
+      ],
+      "searchNodes": 16,
+      "pairEssential": false,
+      "rectangleEssential": true
+    },
+    {
+      "level": 10,
+      "name": "角まで届く",
+      "size": "5×3",
+      "solutions": 1,
+      "candidateCounts": [
+        7,
+        4,
+        4,
+        5,
+        1
+      ],
+      "searchNodes": 12,
+      "pairEssential": false,
+      "rectangleEssential": true
+    },
+    {
+      "level": 11,
+      "name": "四角の余白",
+      "size": "5×3",
+      "solutions": 1,
+      "candidateCounts": [
+        6,
+        4,
+        3,
+        1,
+        3
+      ],
+      "searchNodes": 9,
+      "pairEssential": false,
+      "rectangleEssential": true
+    },
+    {
+      "level": 12,
+      "name": "長辺を読む",
+      "size": "5×3",
+      "solutions": 1,
+      "candidateCounts": [
+        11,
+        2,
+        1,
+        1,
+        1
+      ],
+      "searchNodes": 6,
+      "pairEssential": false,
+      "rectangleEssential": true
+    },
+    {
+      "level": 13,
+      "name": "光の交点",
+      "size": "5×4",
+      "solutions": 1,
+      "candidateCounts": [
+        3,
+        1,
+        4,
+        5,
+        3,
+        2,
+        2
+      ],
+      "searchNodes": 8,
+      "pairEssential": true,
+      "rectangleEssential": true
+    },
+    {
+      "level": 14,
+      "name": "二つの約束",
+      "size": "5×4",
+      "solutions": 1,
+      "candidateCounts": [
+        1,
+        1,
+        5,
+        2,
+        3,
+        2,
+        7
+      ],
+      "searchNodes": 8,
+      "pairEssential": true,
+      "rectangleEssential": true
+    },
+    {
+      "level": 15,
+      "name": "窓辺の推理",
+      "size": "5×4",
+      "solutions": 1,
+      "candidateCounts": [
+        2,
+        3,
+        6,
+        1,
+        4,
+        6
+      ],
+      "searchNodes": 8,
+      "pairEssential": true,
+      "rectangleEssential": true
+    },
+    {
+      "level": 16,
+      "name": "彩りの工房",
+      "size": "5×4",
+      "solutions": 1,
+      "candidateCounts": [
+        2,
+        6,
+        3,
+        1,
+        1,
+        1,
+        3
+      ],
+      "searchNodes": 8,
+      "pairEssential": true,
+      "rectangleEssential": true
+    }
+  ],
+  "migration": "v1互換・v2全30項目・不正拒否・保存失敗時保持を確認"
+}

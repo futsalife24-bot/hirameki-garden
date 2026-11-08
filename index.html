@@ -15,7 +15,7 @@
 <script src="./migration-data.js"></script>
 <script>
 // 表示の前に世界観を決める（ゲーム画面ならそのゲーム、庭なら前回選んだ遊び）
-(function(){var W=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu','somewake','sangaku'],h=location.hash.slice(1),w='kintsugi';try{w=W.indexOf(h)>=0?h:(HiramekiStorage.get('hirameki-world')||'kintsugi')}catch(e){}if(W.indexOf(w)<0)w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
+(function(){var W=['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu','somewake','sangaku','saimado'],h=location.hash.slice(1),w='kintsugi';try{w=W.indexOf(h)>=0?h:(HiramekiStorage.get('hirameki-world')||'kintsugi')}catch(e){}if(W.indexOf(w)<0)w='kintsugi';document.documentElement.setAttribute('data-world',w)})();
 </script>
 <link rel="icon" href="./icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
@@ -259,6 +259,7 @@ button.primary{
 <link rel="stylesheet" href="./himitsu.css">
 <link rel="stylesheet" href="./somewake.css">
 <link rel="stylesheet" href="./sangaku.css">
+<link rel="stylesheet" href="./saimado.css">
 <!--next-css-->
 <link rel="stylesheet" href="./opening.css">
 </head>
@@ -314,6 +315,10 @@ button.primary{
     <div class="game-art"><canvas id="sg-art" width="900" height="760" role="img" aria-label="朱塗りの社殿にかかる算額。檜の板に太枠で区切られた数の盤が描かれている"></canvas><span class="art-caption">解いて、奉る。</span></div>
     <div class="game-story"><p class="eyebrow"><span class="catalog-number">八</span> 庭の遊び帖</p><h2 id="sg-collection-title">算額</h2><p class="game-subtitle">区画の式で数を決める、額のパズル。</p><p class="story-copy">行にも列にも、同じ数は一つだけ。<br>太枠に書かれた答えと式から、<br>一マスずつ数を決めていく。</p><div class="game-facts"><span>時間制限なし</span><span>進み具合を自動保存</span></div><a id="sg-play" class="play-game" href="#sangaku"><span id="sg-play-label">額に向かう</span><span aria-hidden="true">↗</span></a><p id="sg-resume-note" class="resume-note"></p></div>
   </article>
+  <article class="game-card" data-world="saimado" aria-labelledby="sm-collection-title" aria-roledescription="スライド" hidden>
+    <div class="game-art" aria-hidden="true"><svg class="sm-art" viewBox="0 0 300 330" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sm-light" x2=".7" y2="1"><stop stop-color="#f8df9f"/><stop offset="1" stop-color="#8cbfba"/></linearGradient></defs><path d="M40 300V115Q40 35 150 12Q260 35 260 115V300Z" fill="url(#sm-light)" stroke="#d6bd7b" stroke-width="7"/><path d="M40 115H260M40 205H260M105 38V205H180V300M180 38V115M105 205H40" fill="none" stroke="#193840" stroke-width="7"/><path d="M110 122H255V200H110Z" fill="#b7b6db" opacity=".6"/><path d="M45 210H175V295H45Z" fill="#e6b99e" opacity=".5"/><g fill="#18353b" font-family="serif" font-size="26" text-anchor="middle"><text x="70" y="165">2</text><text x="145" y="163">3</text><text x="215" y="265">4</text><text x="90" y="265">◆</text><text x="140" y="265">◆</text></g></svg></div>
+    <div class="game-story"><p class="eyebrow"><span class="catalog-number">九</span> 庭の遊び帖</p><h2 id="sm-collection-title">彩窓</h2><p class="game-subtitle">切る、つなぐ。ひとつの光に。</p><p>数字の枚数を、ひとつの区画に。<br>小さな約束を重ねて、窓を仕立てる。</p><a id="sm-play" class="play-game" href="#saimado"><span id="sm-play-label">窓を仕立てる</span><span aria-hidden="true">↗</span></a><p class="resume-note" id="sm-resume-note"></p></div>
+  </article>
   </div>
   <div class="slide-ctl" aria-label="遊びの切り替え" role="group">
     <button class="slide-arrow" id="slide-prev" type="button" aria-label="前の遊び">‹</button>
@@ -326,6 +331,7 @@ button.primary{
     <button class="slide-dot" data-world="himitsu" type="button"><span aria-hidden="true">六</span> 秘密箱</button>
     <button class="slide-dot" data-world="somewake" type="button"><span aria-hidden="true">七</span> 染め分け</button>
     <button class="slide-dot" data-world="sangaku" type="button"><span aria-hidden="true">八</span> 算額</button>
+    <button class="slide-dot" data-world="saimado" type="button"><span aria-hidden="true">九</span> 彩窓</button>
     </div>
     <button class="slide-arrow" id="slide-next" type="button" aria-label="次の遊び">›</button>
     <p class="visually-hidden" id="slide-status" aria-live="polite"></p>
@@ -653,6 +659,15 @@ button.primary{
 </div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
+<section id="saimado" class="sm game-screen" hidden aria-labelledby="sm-title">
+ <nav class="game-nav" aria-label="ゲームの案内"><a href="#garden">← 庭に戻る</a><span>ひらめきの庭 ／ 遊び帖 九</span></nav>
+ <header class="sm-head"><div><h1 id="sm-title" tabindex="-1">彩窓</h1><p id="sm-caption"></p></div><div><button type="button" data-help="sm-help">遊び方</button> <button id="sm-sound" type="button">音あり</button></div></header>
+ <div class="sm-body"><div class="sm-space" id="sm-space"><div class="sm-board" id="sm-board" role="group" aria-label="窓の境界。辺をタップして切る、もう一度でつなぐ"></div></div>
+ <footer class="sm-foot"><p class="sm-coach" id="sm-coach" role="status"></p><div class="sm-status"><span id="sm-moves">0手</span><strong id="sm-done" hidden></strong></div><div class="sm-controls"><button id="sm-undo" type="button">一手戻す</button><button id="sm-reset" type="button">やり直す</button><button id="sm-hint" type="button">ヒント</button><button id="sm-next" type="button" hidden>次の窓へ</button></div><p id="sm-save-warning" hidden>保存できません。画面を閉じずに保存先を確認してください。</p></footer></div>
+ <p id="sm-live" class="visually-hidden" aria-live="polite"></p>
+</section>
+<dialog class="sm-dialog" id="sm-help"><h2>彩窓の仕立て方</h2><p>マスの間の辺をタップして切ります。もう一度タップするとつながります。外枠は切れません。</p><ol><li>どの区画も数字をちょうど一つ含み、枚数をその数字と同じにします。区画は辺でつながります。</li><li>◆ 同士、✦ 同士は同じ区画へ。違う印が同じ区画に入ってもかまいません。</li><li>□ を含む区画は、長方形（正方形も可）にします。</li></ol><p>第1〜4窓は数字、第5〜8窓は対の印、第9〜12窓は長方形、第13〜16窓は両方の約束を使います。色は飾りなので、そろえる必要はありません。区画の内側に切れ目を残さないでください。</p><p>ヒントは、考え方 → 辺の場所 → 切る／つなぐ、の三段階です。自動では操作しません。一手戻す、やり直すも使えます。矢印キーで辺を選び、Enter／Spaceで操作できます。</p><button type="button" data-close>閉じる</button></dialog>
+
 <script src="./hoshizu-levels.js"></script>
 <script src="./hoshizu.js"></script>
 <script src="./riddle-shapes.js"></script>
@@ -667,6 +682,9 @@ button.primary{
 <script src="./somewake.js"></script>
 <script src="./sangaku-levels.js"></script>
 <script src="./sangaku.js"></script>
+<script src="./saimado-core.js"></script>
+<script src="./saimado-levels.js"></script>
+<script src="./saimado.js"></script>
 <script src="./garden.js"></script>
 <script src="./ceramic.js"></script>
 <script>
@@ -1061,6 +1079,7 @@ button.primary{
     {id:'himitsu',screen:'himitsu',title:'秘密箱',focus:'hm-title',mod:'Himitsu',ids:['hm-play-label','hm-resume-note']},
     {id:'somewake',screen:'somewake',title:'染め分け',focus:'sw-title',mod:'Somewake',ids:['sw-play-label','sw-resume-note']},
     {id:'sangaku',screen:'sangaku',title:'算額',focus:'sg-title',mod:'Sangaku',ids:['sg-play-label','sg-resume-note']},
+    {id:'saimado',screen:'saimado',title:'彩窓',focus:'sm-title',mod:'Saimado',ids:['sm-play-label','sm-resume-note']},
   ];
   window.HiramekiGames=GAMES;
   function showPage(focus){

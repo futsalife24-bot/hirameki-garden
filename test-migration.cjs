@@ -16,14 +16,14 @@ async function serve(mode){const dir=path.join(__dirname,'dist',mode),s=http.cre
  assert.equal((await page.goto(fresh.url+'/')).status(),200);await page.waitForFunction(()=>!!window.HiramekiGames);
  const fixture=await page.evaluate(()=>{
   for(const [i,w]of ['kintsugi','hoshizu','kagee','katsuji','chomen','himitsu','somewake','sangaku'].entries()){
-   const k=w+'-save-v1',s=JSON.parse(localStorage.getItem(k));
+   const k=w+'-save-v1',s=JSON.parse(localStorage.getItem(k))||(w==='kagee'?{level:1,R:[[1,0,0],[0,1,0],[0,0,1]],moves:0,solved:false}:null);
    if('moves'in s)s.moves=7;if('miss'in s)s.miss=3;if('fix'in s)s.fix=2;
    if(w==='kintsugi'){s.rots[0]++;s.locks[1]=1;s.hist=[0]}
    if(w==='chomen')s.done[0]=true;
    if(w==='sangaku')s.v[0]=1;
    localStorage.setItem(k,JSON.stringify(s));localStorage.setItem(w+'-best',JSON.stringify({'1':7}));localStorage.setItem(w+'-sound',i%2?'1':'0');
   }
-  localStorage.setItem('hirameki-world','chomen');return HiramekiStorage.snapshot()
+  localStorage.setItem('hirameki-world','chomen');const b=HiramekiStorage.snapshot();return {...b,version:1,data:Object.fromEntries(HiramekiBackup.keys.map(k=>[k,b.data[k]]))}
  });
  assert.equal(Object.keys(fixture.data).length,25);ok('公開 main 八作品の25項目を合成データとして収集');
  await page.evaluate(()=>navigator.serviceWorker.ready);await page.reload();await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
@@ -48,7 +48,7 @@ async function serve(mode){const dir=path.join(__dirname,'dist',mode),s=http.cre
  await file(exported);await page.locator('#agree').check();page.once('dialog',d=>d.dismiss());await page.locator('#import').click();assert.deepEqual(await page.evaluate(()=>({...localStorage})),before);ok('明示的上書き確認のキャンセルは無変更');
  await page.evaluate(()=>{window.originalSet=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===HiramekiBackup.capsule)throw new DOMException('合成容量不足','QuotaExceededError');return originalSet.call(this,k,v)}});
  page.once('dialog',d=>d.accept());await page.locator('#import').click();assert.match(await page.locator('#status').textContent(),/失敗/);assert.deepEqual(await page.evaluate(()=>({...localStorage})),before);await page.evaluate(()=>{Storage.prototype.setItem=originalSet});ok('容量不足による保存失敗で既存全キーを保持');
- page.once('dialog',d=>d.accept());await page.locator('#import').click();assert.match(await page.locator('#status').textContent(),/完了/);assert.deepEqual(await page.evaluate(()=>HiramekiStorage.snapshot().data),exported.data);ok('既存データありの新版へ確認後に全25項目を原子的に取り込み');
+ page.once('dialog',d=>d.accept());await page.locator('#import').click();assert.match(await page.locator('#status').textContent(),/完了/);assert.deepEqual(await page.evaluate(()=>Object.fromEntries(HiramekiBackup.keys.map(k=>[k,HiramekiStorage.get(k)]))),exported.data);ok('既存データありの新版へ確認後に旧v1の全25項目を原子的に取り込み');
  await page.goto(fresh.url+'/');await page.waitForFunction(()=>!!window.HiramekiGames);assert.equal(await page.evaluate(()=>HiramekiStorage.get('hirameki-world')),'chomen');
  await page.goto(fresh.url+'/#kintsugi');await page.locator('.tile').first().click();const moved=await page.evaluate(()=>JSON.parse(HiramekiStorage.get('kintsugi-save-v1')).moves);await page.reload();assert.equal(await page.evaluate(()=>JSON.parse(HiramekiStorage.get('kintsugi-save-v1')).moves),moved);ok('取り込み後の通常ゲーム操作・保存・再読込み');
  await legacy.locator('#file').setInputFiles({name:'合成.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(exported))});await legacy.waitForFunction(()=>document.getElementById('status').textContent!=='');assert(await legacy.locator('#agree').isDisabled());

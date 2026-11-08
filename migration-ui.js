@@ -8,9 +8,9 @@
     const f=$('file').files[0];if(!f)return;if(f.size>2000000)throw Error('ファイルが大きすぎます。');
     const text=await f.text();if(ticket!==sequence)return;
     const b=HiramekiBackup.validate(JSON.parse(text));before=api.current();pending=b;
-    const names={kintsugi:'金継ぎ',hoshizu:'星図',kagee:'影絵',katsuji:'活字',chomen:'帳面',himitsu:'秘密箱',somewake:'染め分け',sangaku:'算額'};
+    const names={kintsugi:'金継ぎ',hoshizu:'星図',kagee:'影絵',katsuji:'活字',chomen:'帳面',himitsu:'秘密箱',somewake:'染め分け',sangaku:'算額',saimado:'彩窓',kakuree:'かくれ絵'};
     const lines=Object.entries(b.data).filter(([,v])=>v!==null).map(([k,v])=>{const w=k.split('-')[0];if(k.endsWith('-save-v1')){const s=JSON.parse(v);return `${names[w]}：第${s.level}面・${s.moves??s.miss??s.fix}手／書き直し・${s.solved?'完成':'途中'}`;}return `${names[w]||'選択作品'} ${k.endsWith('-best')?'自己ベスト':k.endsWith('-sound')?'音設定':'設定'}：${v}`});
-    $('preview').textContent=`ひらめきの庭 / 形式 1\n保存日時：${b.createdAt}\n対象：25項目（未保存の項目も置換）\n${lines.join('\n')}\n現在の保存：${Object.values(JSON.parse(before)).filter(v=>v!==null).length}項目\n${legacy?'旧版では検証のみ。上書きできません。':'上書き前に現在のバックアップも保存してください。'}`;
+    $('preview').textContent=`ひらめきの庭 / 形式 ${b.version}\n保存日時：${b.createdAt}\n対象：${Object.keys(b.data).length}項目（未保存の項目も置換）\n${b.version===1?'旧形式のため、現在の彩窓とかくれ絵の記録は保持します。':'彩窓とかくれ絵の記録・設定も対象です。形式2は今回の新版で読み込んでください。'}\n${lines.join('\n')}\n現在の保存：${Object.values(JSON.parse(before)).filter(v=>v!==null).length}項目\n${legacy?'旧版では検証のみ。上書きできません。':'上書き前に現在のバックアップも保存してください。'}`;
     $('agree').disabled=legacy;$('status').textContent='バックアップの形式と値を検証しました。';
   }catch(e){if(ticket!==sequence)return;reset();$('preview').textContent='読み込みできません。';$('status').textContent=e.message}};
   $('agree').onchange=()=>{$('import').disabled=!pending||!$('agree').checked||legacy};
