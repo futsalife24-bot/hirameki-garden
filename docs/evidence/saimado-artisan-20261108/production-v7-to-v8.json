@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-08T14:00:36.438Z",
+  "origin": "https://hirameki-garden.pages.dev/",
+  "browser": "157.0.4341.42",
+  "profile": "一時Edge・合成データのみ",
+  "from": "hirameki-pages-v7-saimado",
+  "to": "hirameki-pages-v8-artisan",
+  "all30Preserved": true,
+  "oldRawKeysPreserved": true,
+  "riddlePreserved": true,
+  "oldCacheEntriesAndBodiesPreserved": 40,
+  "syntheticOtherCacheLocalStorageIndexedDBPreserved": true,
+  "scopePreserved": [
+    "https://hirameki-garden.pages.dev/"
+  ],
+  "densePuzzleResumeByTapAndUndo": true,
+  "saveResumeOffline": true,
+  "backupVersion": 2,
+  "backupKeys": 30,
+  "errors": [],
+  "android": "未確認"
+}

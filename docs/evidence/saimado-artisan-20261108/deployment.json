@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-08T14:00:36.438Z",
+  "url": "https://hirameki-garden.pages.dev/#saimado",
+  "deploymentId": "2c941769-286d-4f01-9bc8-912d14be7406",
+  "deploymentUrl": "https://2c941769.hirameki-garden.pages.dev",
+  "project": "hirameki-garden",
+  "environment": "Production",
+  "pagesBranch": "main",
+  "gitBranch": "feat/saimado-artisan-glass-20261108",
+  "runtimeCommit": "7f9a3c58eb801bbe9337bcf181e7b72d25d5b1fc",
+  "previousDeploymentId": "0da0125b-4452-4ff4-bbe3-153a2a782bb5",
+  "previousBranchUnchanged": "7b43740069495895d3b8742609032c1ec5591e06",
+  "githubMainUnchanged": "812c4ab71d1014dfe11d09cd893b65447fc8279f",
+  "upload": {
+    "files": 43,
+    "uploaded": 7,
+    "reused": 36
+  },
+  "state": "公開・本番隔離検証成功",
+  "android": "実機未確認",
+  "libraryReference": "原本情報は確認、Windowsの属性保存未対応でローカル取得未完了。説明に準拠して独自実装。"
+}

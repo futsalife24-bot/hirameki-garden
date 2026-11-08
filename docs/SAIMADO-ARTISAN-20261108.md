@@ -1,6 +1,6 @@
 # 彩窓：職人製の波ガラス
 
-2026-11-08。本人の今回の **「職人製ガラスで公開までやって」** を受けた見た目の更新。実装・公開前の全13工程が終了0。公開結果は確認後に末尾へ追記する。
+2026-11-08。本人の今回の **「職人製ガラスで公開までやって」** を受けた見た目の更新。実装・公開前の全13工程が終了0。既存正式URLへ公開し、本番の隔離確認も成功した。実Androidは未確認。
 
 ## 基点・承認範囲
 
@@ -43,3 +43,27 @@
 同じ既存Pages projectへ `dist/new` だけを配布する。GitHub mainへゲーム本体を戻さない。公開後は43資材のSHA・v8cache・SVG描画・見出し・操作と保存再開・他作品・旧移行案内を確認する。公開前の実v7を別の一時profileへ保持し、第13窓の合成記録と全30項目・旧cache本文の保持を確認する。
 
 見た目以外の保存schemaは同じなので、復旧が必要なら旧v7の元41資材と対応commitを保管して比較する。ただし実データ・cacheを削除して戻す手順にしない。本人受入・実機結果と、公開／隔離ブラウザ検証を区別する。LMF・他アプリ・カタモンには操作しない。
+
+
+## 公開完了（2026-11-08）
+
+| 項目 | 結果 |
+|---|---|
+| 正式URL | https://hirameki-garden.pages.dev/#saimado |
+| 製品commit | `7f9a3c58eb801bbe9337bcf181e7b72d25d5b1fc` |
+| Git branch | `feat/saimado-artisan-glass-20261108` |
+| deployment | `2c941769-286d-4f01-9bc8-912d14be7406` |
+| 固有URL | https://2c941769.hirameki-garden.pages.dev |
+| Pages表示 | Production / main、Source `7f9a3c5`。GitHub mainは旧案内版のまま |
+| Upload | 43資材、7件更新・36件再利用。既存Wrangler 4.92.0、終了0 |
+| SW / cache | `hirameki-pages-v8-artisan`、root scope維持 |
+
+公開前全13工程が終了0。素材・見出し、全16問の解答・判定・ヒント、保存復元・旧形式1と形式2、他作品、SW更新と応答境界を確認した。追加の更新試験も全30項目を比較して終了0。動作ロジックの不変照合と製品ハッシュ一致を確認した。
+
+`node test-saimado-production.cjs` は終了0。本番43資材がdist/newのSHA256と一致し、v8の専用cacheに素材2点を含む追加資材が入ることを確認。320×568／390×844でSVG decode、見出しの横一行・画面内表示、blur/backdropなし・アニメーション0を確認した。庭からの彩窓選択→初問1手保存再開→2手完成、他8作品表示、offline操作、30項目JSONの物理ファイルexport/importも成功。旧移行案内は11資材・manifest削除状態・25項目export・検証専用を維持した。
+
+公開前から保持した実本番v7の一時Edgeからv8へ更新し、全30項目、元キー、かくれ絵、旧cache40件の本文、対象外合成cache/localStorage/IndexedDBを保持。第13窓の9手の保存からタップ→Undo→タップ→10手で再開・offlineが成功（終了0）。helperのコンソールだけ「v7→v7」と表示したラベル誤記があったが、JSONのfrom/to・v8 cache・更新後の資材はv7→v8を確認した。
+
+本番の狭画面・初問完成・第13窓の画面を目視した。実Android・本人データ・端末実負荷は未確認。Library原図のローカル取得未完了という制約も前述のとおり残る。新規費用・資格情報・権限・サービスの追加はなく、LMF・他アプリ・旧main・前回公開branchを変更していない。本人の今回の受入完了申告は未受領。
+
+証拠：[全13工程](evidence/saimado-artisan-20261108/preflight.json)、[素材とレイアウト](evidence/saimado-artisan-20261108/appearance.json)、[全16問](evidence/saimado-artisan-20261108/browser.json)、[本番資材と操作](evidence/saimado-artisan-20261108/production.json)、[実v7→v8](evidence/saimado-artisan-20261108/production-v7-to-v8.json)、[deployment](evidence/saimado-artisan-20261108/deployment.json)、[狭画面](evidence/saimado-artisan-20261108/production-320x568.png)、[完成](evidence/saimado-artisan-20261108/production-first-solved.png)、[第13窓の再開](evidence/saimado-artisan-20261108/production-upgrade-level13.png)。公開後の資料だけを別commitに記録し、製品を再deployしない。
