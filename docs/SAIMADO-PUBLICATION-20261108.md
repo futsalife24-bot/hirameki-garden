@@ -1,6 +1,6 @@
 # 彩窓16窓の公開記録
 
-2026-11-08。現在は公開準備中。公開成功と本番検証結果は、確認後この記録へ追記する。
+2026-11-08。本人の明示承認に基づき公開し、本番の隔離検証も成功した。Android実機と本人の受入確認は未確認。
 
 ## 今回の公開承認
 
@@ -29,3 +29,30 @@ Android実機、本人データ、端末の実際のタップ感は未確認。�
 ## 復旧
 
 旧サイトの書き出しを維持し、データを消さずに状況を確認する。JSON形式2を読めるadapter/exportを残して修正する。形式2のデータを持つ端末へ、形式2を読めないv6を機械的に戻さない。SW登録解除・cache全削除・サイトデータ削除を復旧手順にしない。
+
+
+## 公開結果と正確な識別子
+
+| 項目 | 確認結果 |
+|---|---|
+| 正式URL | https://hirameki-garden.pages.dev/#saimado |
+| 製品commit | `699e7552c31912a5280eaa54f69328d9e777701a` |
+| Git branch | `feat/saimado-region-20261108`（push成功・remote一致） |
+| deployment ID | `0da0125b-4452-4ff4-bbe3-153a2a782bb5` |
+| 固有URL | https://0da0125b.hirameki-garden.pages.dev |
+| Pages表示 | Production / main、Source `699e755`。GitHub mainは変更していない |
+| Upload | 41資材、13件更新・28件再利用。公式Wrangler 4.92.0、終了0 |
+| SW / cache | `hirameki-pages-v7-saimado`、scope `https://hirameki-garden.pages.dev/` |
+| 旧GitHub main | `812c4ab71d1014dfe11d09cd893b65447fc8279f` のまま |
+
+公開前全12工程は終了0で、実行前後の承認製品ハッシュ一致を確認。公開後の `node test-saimado-production.cjs` も終了0。本番41資材のSHA256がdist/newと一致し、root manifest、未知URL404、庭で彩窓選択、初問の1手保存再開→2手完成、他8作品表示、offline新作操作、30項目の物理JSON export→別の一時contextで明示importが成功した。新作4資材がv7の専用cacheへ入ることも確認した。
+
+旧案内は11資材を既存内容と照合し、manifest linkなし・旧manifest404、旧形式1の25項目export、検証専用UI・保存無変更を確認。旧mainへのpush／mergeや旧サイトの差替えは行っていない。
+
+公開前から保持した別の一時Edgeで、実本番v6→v7を確認（終了0）。旧25項目、かくれ絵、元キー、旧v6 cacheの36件のURLと本文ハッシュ、対象外合成cache／localStorage／IndexedDB、正確なscopeを保持。更新後に彩窓を2手で完成し、保存再開・offline・形式2の30項目書き出しが成功した。実行エラー0。実ユーザーデータは使わず、LMF・他アプリ・権限・料金・公開範囲には変更しなかった。
+
+本番の庭・完成画面・旧案内と、更新後の完成画面を目視確認した。Android実機、本人データによる引継ぎ、本人受入は未確認のまま。今回の公開成功を全端末の受入完了とは扱わない。
+
+証拠：[全回帰](evidence/saimado-publication-20261108/preflight.json)、[本番資材と操作](evidence/saimado-publication-20261108/production.json)、[実v6→v7](evidence/saimado-publication-20261108/production-v6-to-v7.json)、[deployment](evidence/saimado-publication-20261108/deployment.json)、[本番完成画面](evidence/saimado-publication-20261108/production-first-solved.png)、[更新後](evidence/saimado-publication-20261108/production-upgrade-solved.png)、[旧案内](evidence/saimado-publication-20261108/production-legacy-export.png)。
+
+コードcommit後に追加した公開結果は資料だけの別commitへ保存し、製品を再deployしない。元の公開対応checkout `feat/space-riddle-20261028` は変更せず、今回の専用branchを継続する。

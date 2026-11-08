@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-08T13:06:32.167Z",
+  "url": "https://hirameki-garden.pages.dev/#saimado",
+  "project": "hirameki-garden",
+  "deploymentId": "0da0125b-4452-4ff4-bbe3-153a2a782bb5",
+  "deploymentUrl": "https://0da0125b.hirameki-garden.pages.dev",
+  "environment": "Production",
+  "pagesBranch": "main",
+  "gitBranch": "feat/saimado-region-20261108",
+  "runtimeCommit": "699e7552c31912a5280eaa54f69328d9e777701a",
+  "previousDeploymentId": "49e380f4-8884-4c18-aff2-b60180262e80",
+  "githubMainUnchanged": "812c4ab71d1014dfe11d09cd893b65447fc8279f",
+  "previousFeatureBranchUnchanged": "ba4a28466f2176f57f1f4036bcad0027add252e2",
+  "upload": {
+    "files": 41,
+    "uploaded": 13,
+    "reused": 28
+  },
+  "state": "公開・本番隔離検証成功",
+  "android": "未確認",
+  "userAcceptance": "今回の利用者受入完了申告は未受領"
+}
