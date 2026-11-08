@@ -1,0 +1,14 @@
+{
+  "from": "7b43740 / hirameki-pages-v7-saimado",
+  "to": "hirameki-pages-v8-artisan",
+  "all30Preserved": true,
+  "comparedKeys": 30,
+  "rawKeysPreserved": true,
+  "riddlePreserved": true,
+  "oldCachesPreserved": true,
+  "otherSWCacheIndexedDBPreserved": true,
+  "offlineNewGame": true,
+  "backupVersion": 2,
+  "android": "未確認",
+  "errors": []
+}

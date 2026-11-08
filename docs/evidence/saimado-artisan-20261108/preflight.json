@@ -1,0 +1,129 @@
+{
+  "date": "2026-11-08T13:55:46.419Z",
+  "base": "7b43740069495895d3b8742609032c1ec5591e06",
+  "branch": "feat/saimado-artisan-glass-20261108",
+  "approval": "今回の利用者「職人製ガラスで公開までやって」",
+  "results": [
+    {
+      "command": "node tools/build-migration.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:49:12.928Z",
+      "finished": "2026-11-08T13:49:13.056Z"
+    },
+    {
+      "command": "node test-saimado-unit.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:49:13.057Z",
+      "finished": "2026-11-08T13:49:13.224Z"
+    },
+    {
+      "command": "node test-migration-unit.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:49:13.225Z",
+      "finished": "2026-11-08T13:49:13.306Z"
+    },
+    {
+      "command": "node test-migration-audit.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:49:13.072Z",
+      "finished": "2026-11-08T13:49:23.649Z"
+    },
+    {
+      "command": "node test-artisan.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:49:13.306Z",
+      "finished": "2026-11-08T13:49:25.497Z"
+    },
+    {
+      "command": "node test-sw-response-boundary.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:49:23.650Z",
+      "finished": "2026-11-08T13:49:31.075Z"
+    },
+    {
+      "command": "node test-saimado.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:49:25.497Z",
+      "finished": "2026-11-08T13:50:04.312Z"
+    },
+    {
+      "command": "node test-artisan-upgrade.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:50:04.312Z",
+      "finished": "2026-11-08T13:50:17.741Z"
+    },
+    {
+      "command": "node test-migration.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:50:17.742Z",
+      "finished": "2026-11-08T13:50:37.047Z"
+    },
+    {
+      "command": "node test.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:49:13.065Z",
+      "finished": "2026-11-08T13:51:26.976Z"
+    },
+    {
+      "command": "node test-riddle.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:51:26.976Z",
+      "finished": "2026-11-08T13:51:51.687Z"
+    },
+    {
+      "command": "node test-riddle-reverse.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:51:51.688Z",
+      "finished": "2026-11-08T13:53:49.544Z"
+    },
+    {
+      "command": "node test-chomen.cjs",
+      "exitCode": 0,
+      "started": "2026-11-08T13:53:49.544Z",
+      "finished": "2026-11-08T13:55:46.417Z"
+    }
+  ],
+  "hashes": [
+    {
+      "path": "saimado.css",
+      "sha256": "34350ecacbe54b2e842f3c0aff9f6a16c21b4e06e633c21bb6e6e7720219980b"
+    },
+    {
+      "path": "saimado.js",
+      "sha256": "d804dda2d1529baf17e6029c3cb0d477ea83b8ec9b03541001be2c8e1bb36aee"
+    },
+    {
+      "path": "saimado-garden.svg",
+      "sha256": "612438fbc22dbd2f34589e03dd4c3375edf1a3a162a521e4a5e77662440d3d2a"
+    },
+    {
+      "path": "saimado-glass.svg",
+      "sha256": "9981dc669189ce53f6d06dda554710576e8042f39ec9e3eba315b6524e7ccc9d"
+    },
+    {
+      "path": "sw.js",
+      "sha256": "b3a4a9159d7d27c43346faa6365fead390933e60a98c31b2b09ab7707decbeea"
+    },
+    {
+      "path": "tools/build-migration.cjs",
+      "sha256": "c27059fca2638dbe7ac8cc7aace79b4e255fcc2010c49be5d3d526e40f780718"
+    }
+  ],
+  "unchangedLogicFiles": [
+    "saimado-core.js",
+    "saimado-levels.js",
+    "migration-data.js",
+    "migration-ui.js",
+    "index.html",
+    "garden.js",
+    "riddle.js",
+    "hoshizu.js",
+    "katsuji.js",
+    "chomen.js",
+    "himitsu.js",
+    "somewake.js",
+    "sangaku.js"
+  ],
+  "profile": "一時Edge・合成データのみ",
+  "android": "実機未確認"
+}

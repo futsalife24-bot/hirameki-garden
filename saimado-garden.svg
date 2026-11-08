@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 480" preserveAspectRatio="xMidYMid slice">
+ <defs>
+  <linearGradient id="day" x2=".7" y2="1"><stop stop-color="#edf1d9"/><stop offset=".45" stop-color="#c9e0cb"/><stop offset="1" stop-color="#88b6a0"/></linearGradient>
+  <radialGradient id="canopy"><stop stop-color="#648d73" stop-opacity=".58"/><stop offset=".55" stop-color="#82a383" stop-opacity=".3"/><stop offset="1" stop-color="#a2c1a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="sun"><stop stop-color="#fff7d6" stop-opacity=".9"/><stop offset="1" stop-color="#faf3ce" stop-opacity="0"/></radialGradient>
+  <linearGradient id="path" x2="0" y2="1"><stop stop-color="#ede6bd" stop-opacity=".1"/><stop offset="1" stop-color="#eee7c9" stop-opacity=".9"/></linearGradient>
+ </defs>
+ <path fill="url(#day)" d="M0 0h600v480H0z"/>
+ <ellipse cx="490" cy="150" rx="180" ry="240" fill="url(#canopy)"/>
+ <ellipse cx="28" cy="185" rx="180" ry="270" fill="url(#canopy)"/>
+ <ellipse cx="395" cy="365" rx="200" ry="135" fill="url(#canopy)"/>
+ <path d="M6 425Q105 352 192 400T365 410T600 376V480H0Z" fill="#709a81" opacity=".15"/>
+ <path d="M278 276Q315 350 235 480H425Q345 350 318 276Z" fill="url(#path)"/>
+ <ellipse cx="238" cy="62" rx="265" ry="280" fill="url(#sun)"/>
+ <path d="M72 435Q88 325 77 255M514 411Q496 290 529 211" fill="none" stroke="#5b8a70" stroke-width="5" opacity=".08"/>
+</svg>

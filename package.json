@@ -9,7 +9,8 @@
     "test:migration:audit": "node test-migration-audit.cjs",
     "test:riddle": "node tools/build-migration.cjs && node test-riddle.cjs",
     "test:saimado:unit": "node test-saimado-unit.cjs",
-    "test:saimado": "node tools/build-migration.cjs && node test-saimado.cjs && node test-saimado-upgrade.cjs"
+    "test:saimado": "node tools/build-migration.cjs && node test-saimado.cjs && node test-artisan-upgrade.cjs",
+    "test:artisan": "node tools/build-migration.cjs && node test-saimado-unit.cjs && node test-artisan.cjs && node test-saimado.cjs && node test-artisan-upgrade.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

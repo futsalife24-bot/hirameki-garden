@@ -10,12 +10,12 @@
  function save(){try{store.set(KEY,JSON.stringify(S));store.set(BEST,JSON.stringify(best));$('sm-save-warning').hidden=true}catch{$('sm-save-warning').hidden=false;say('保存できません。画面を閉じずに保存先を確認してください。')}}
  function read(){try{const s=JSON.parse(get(KEY));if(!s||!Number.isInteger(s.level)||s.level<1||s.level>L.length||!Number.isInteger(s.moves)||s.moves<0||s.moves>2147483647||typeof s.solved!=='boolean'||typeof s.hinted!=='boolean'||!Array.isArray(s.cuts)||s.cuts.length!==C.edges(L[s.level-1]).length||!s.cuts.every(x=>x===0||x===1))return null;return {...s,solved:C.check(L[s.level-1],s.cuts).solved}}catch{return null}}
  const pos=i=>`${Math.floor(i/level().w)+1}行${i%level().w+1}列`;
- function resize(){const box=$('sm-space').getBoundingClientRect();if(!box.width||!box.height)return;const p=level(),cell=Math.floor(Math.min((box.width-20)/p.w,(box.height-20)/p.h,100));$('sm-board').style.cssText=`--cell:${cell}px;--hit:${Math.min(44,Math.floor(cell*.67))}px;width:${p.w*cell}px;height:${p.h*cell}px`;}
+ function resize(){const box=$('sm-space').getBoundingClientRect();if(!box.width||!box.height)return;const p=level(),cell=Math.floor(Math.min((box.width-20)/p.w,(box.height-20)/p.h,100));$('sm-board').style.cssText=`--cell:${cell}px;--hit:${Math.min(44,Math.floor(cell*.67))}px;--cols:${p.w};--rows:${p.h};width:${p.w*cell}px;height:${p.h*cell}px`;}
  function render(focusEdge){
   const p=level(),check=C.check(p,S.cuts),owner=[];check.regions.forEach((r,n)=>r.forEach(i=>owner[i]=n));
   const board=$('sm-board');board.replaceChildren();board.setAttribute('aria-label',`窓の境界。${p.lights.map(c=>`${pos(c.at)}の数字${c.size}`).join('、')}。${p.pairs.map((r,i)=>`${['菱','星'][i]}の対は${r.map(pos).join('と')}`).join('。')}。${p.rects.map(i=>`${pos(i)}に長方形の印`).join('。')}`);
   for(let i=0;i<p.w*p.h;i++){
-   const tile=document.createElement('div');tile.className='sm-glass';tile.style.cssText=`left:calc(var(--cell)*${i%p.w});top:calc(var(--cell)*${Math.floor(i/p.w)});--tint:${owner[i]%6}`;
+   const tile=document.createElement('div');tile.className='sm-glass';tile.style.cssText=`left:calc(var(--cell)*${i%p.w});top:calc(var(--cell)*${Math.floor(i/p.w)});--col:${i%p.w};--row:${Math.floor(i/p.w)};--tint:${owner[i]%6}`;
    tile.dataset.tone=String(owner[i]%6);const light=p.lights.find(c=>c.at===i),pair=(p.pairs||[]).findIndex(a=>a.includes(i)),rect=p.rects.includes(i);
    if(light){const n=document.createElement('strong');n.textContent=String(light.size);tile.append(n)}
    if(pair>=0){const mark=document.createElement('span');mark.className='sm-mark';mark.textContent=['◆','✦'][pair];tile.append(mark)}

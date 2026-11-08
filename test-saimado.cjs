@@ -1,7 +1,7 @@
 /* 隔離Edge・合成保存だけを使用する。正解の保存注入をせず、すべて辺の操作で解く。 */
 const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http'),C=require('./saimado-core.js'),L=require('./saimado-levels.js');
-const dir=path.join(__dirname,'dist/new'),out=path.join(__dirname,'test-results/saimado');fs.mkdirSync(out,{recursive:true});
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.png':'image/png','.webmanifest':'application/manifest+json'};
+const dir=path.join(__dirname,'dist/new'),out=path.join(__dirname,'test-results/artisan');fs.mkdirSync(out,{recursive:true});
+const mime={'.svg':'image/svg+xml','.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.png':'image/png','.webmanifest':'application/manifest+json'};
 const makeServer=()=>http.createServer((req,res)=>{const p=path.resolve(dir,'.'+new URL(req.url,'http://localhost').pathname.replace(/\/$/,'/index.html'));if(!p.startsWith(dir+path.sep))return res.writeHead(403).end();fs.readFile(p,(e,b)=>{res.writeHead(e?404:200,{'Content-Type':mime[path.extname(p)]||'text/plain'});res.end(e?'':b)})});
 (async()=>{const servers=[makeServer(),makeServer()];await Promise.all(servers.map(s=>new Promise(r=>s.listen(0,'127.0.0.1',r))));let browser;
  try{browser=await chromium.launch({channel:'msedge',headless:true});const ctx=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce',acceptDownloads:true});await ctx.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());const page=await ctx.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));const url=`http://127.0.0.1:${servers[0].address().port}/`,url2=`http://127.0.0.1:${servers[1].address().port}/`;

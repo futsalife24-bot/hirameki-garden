@@ -1,5 +1,5 @@
 // 更新を配信するときは VERSION の数字を上げてください
-const VERSION = 'hirameki-pages-v7-saimado';
+const VERSION = 'hirameki-pages-v8-artisan';
 const SHELL = [
   './',
   './index.html',
@@ -13,6 +13,8 @@ const SHELL = [
   './garden.js',
   './saimado.js',
   './saimado.css',
+  './saimado-garden.svg',
+  './saimado-glass.svg',
   './saimado-core.js',
   './saimado-levels.js',
   './hoshizu.css',
