@@ -1,5 +1,5 @@
 // 更新を配信するときは VERSION の数字を上げてください
-const VERSION = 'hirameki-pages-v8-artisan';
+const VERSION = 'hirameki-pages-v9-saimado-color';
 const SHELL = [
   './',
   './index.html',
